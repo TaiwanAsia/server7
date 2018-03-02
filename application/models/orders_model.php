@@ -53,6 +53,9 @@ class Orders_model extends CI_Model {
         return $result;
     }
 
+    public function add($data) {
+        $this->db->insert('ORDERS',$data);
+    }
 }
 
 ?>

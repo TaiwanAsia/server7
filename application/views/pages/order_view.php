@@ -157,7 +157,13 @@
                         <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                         <td><?php echo ($orders[$i]['聯絡人']) ?></td>
                         <td><?php echo ($orders[$i]['聯絡地址']) ?></td>
-                        <td><?php echo ($orders[$i]['買賣']) ?></td>
+                        <td><?php
+                        if($orders[$i]['買賣']==1){
+                          echo "買";
+                        } else {
+                          echo "賣";
+                        }
+                        ?></td>
                         <td><?php echo ($orders[$i]['股票']) ?></td>
                         <td><?php echo ($orders[$i]['張數']) ?></td>
                         <td><?php echo ($orders[$i]['完稅價']) ?></td>
