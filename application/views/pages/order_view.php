@@ -149,25 +149,36 @@
               <tbody>
                 <?php for($i=0; $i<count($orders); $i++) {?>
                     <tr>
-                        <td><?php echo($orders[$i]['ID']) ?></td>
-                        <td><?php echo($orders[$i]['NAME']) ?></td>
-                        <td><?php echo($orders[$i]['COMPANY']) ?></td>
-                        <?php 
-                        if($orders[$i]['BUY']!=0) {
-                          echo "<td>買</td>";
-                        } else {
-                          echo "<td></td>";
-                        }
-                        if($orders[$i]['SELL']!=0) {
-                          echo "<td>賣</td>";
-                        } else {
-                          echo "<td></td>";
-                        }
-                        ?>
-                        <td><?php echo($orders[$i]['BUY_PRICE']) ?></td>
-                        <td><?php echo($orders[$i]['SELL_PRICE']) ?></td>
-                        <td><?php echo($orders[$i]['CELLPHONE']) ?></td>
-                        <td><?php echo($orders[$i]['ADDRESS']) ?></td>
+                        <td><?php echo ($orders[$i]['ID']) ?></td>
+                        <td><?php echo ($orders[$i]['日期']) ?></td>
+                        <td><?php echo ($orders[$i]['業務']) ?></td>
+                        <td><?php echo ($orders[$i]['客戶姓名']) ?></td>
+                        <td><?php echo ($orders[$i]['身分證字號']) ?></td>
+                        <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
+                        <td><?php echo ($orders[$i]['聯絡人']) ?></td>
+                        <td><?php echo ($orders[$i]['聯絡地址']) ?></td>
+                        <td><?php echo ($orders[$i]['買賣']) ?></td>
+                        <td><?php echo ($orders[$i]['股票']) ?></td>
+                        <td><?php echo ($orders[$i]['張數']) ?></td>
+                        <td><?php echo ($orders[$i]['完稅價']) ?></td>
+                        <td><?php echo ($orders[$i]['成交價']) ?></td>
+                        <td><?php echo ($orders[$i]['盤價']) ?></td>
+                        <td><?php echo ($orders[$i]['匯款金額']) ?></td>
+                        <td><?php echo ($orders[$i]['匯款銀行']) ?></td>
+                        <td><?php echo ($orders[$i]['匯款分行']) ?></td>
+                        <td><?php echo ($orders[$i]['匯款戶名']) ?></td>
+                        <td><?php echo ($orders[$i]['轉讓會員']) ?></td>
+                        <td><?php echo ($orders[$i]['完稅人']) ?></td>
+                        <td><?php echo ($orders[$i]['新舊']) ?></td>
+                        <td><?php echo ($orders[$i]['自行應付']) ?></td>
+                        <td><?php echo ($orders[$i]['刻印']) ?></td>
+                        <td><?php echo ($orders[$i]['過戶費']) ?></td>
+                        <td><?php echo ($orders[$i]['媒合']) ?></td>
+                        <td><?php echo ($orders[$i]['付款']) ?></td>
+                        <td><?php echo ($orders[$i]['過戶日']) ?></td>
+                        <td><?php echo ($orders[$i]['通知查帳']) ?></td>
+                        <td><?php echo ($orders[$i]['契約']) ?></td>
+                        <td><?php echo ($orders[$i]['稅單']) ?></td>
                     </tr>
                 <?php } ?>
               </tbody>
