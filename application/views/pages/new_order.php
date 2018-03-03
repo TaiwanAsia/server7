@@ -1,170 +1,227 @@
 <body>
-    <div>
-        <form method="post" name="new_order_info" action="add_order" >
-            <table>
-                <tr>
-                    <td><?php echo form_error('日期'); ?></td>
-                    <td><label for="" class="">日期</label></td>
-                    <td><input class="" type="date" name="日期" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('業務'); ?></td>
-                    <td><label for="" class="">業務</label></td>       
-                    <td><input class="" type="text" name="業務" value="" id=""></td>
-                </td>
-                <tr>
-                    <td><?php echo form_error('客戶姓名'); ?></td>
-                    <td><label for="" class="">客戶姓名</label></td>
-                    <td><input class="" type="text" name="客戶姓名" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('身分證字號'); ?></td>
-                    <td><label for="" class="">身分證字號</label></td>
-                    <td><input class="" type="text" name="身分證字號" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('聯絡電話'); ?></td>
-                    <td><label for="" class="">聯絡電話</label></td>
-                    <td><input class="" type="tel" name="聯絡電話" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('聯絡人'); ?></td>
-                    <td><label for="" class="">聯絡人</label></td>
-                    <td><input class="" type="text" name="聯絡人" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('聯絡地址'); ?></td>
-                    <td><label for="" class="">聯絡地址</label></td>
-                    <td><input class="" type="text" name="聯絡地址" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('買賣'); ?></td>
-                    <td><label for="" class="">買賣</label></td>
-                    <td>
-                        <select class="form-control" name="買賣" id="sel1">
-                            <option value="1">買</option>
-                            <option value="0">賣</option>
-                        </select>
-                    </td>
-                    <!-- <td><label class="radio-inline"><input type="radio" name="optradio" value="0">買</label></td>
-                    <td><label class="radio-inline"><input type="radio" name="optradio" value="1">賣</label></td> -->
-                    <!-- <input class="" type="text" name="買賣" value="" id=""> -->
-                </tr>
-                <tr>
-                    <td><?php echo form_error('股票'); ?></td>
-                    <td><label for="" class="">股票</label></td>
-                    <td><input class="" type="text" name="股票" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('張數'); ?></td>
-                    <td><label for="" class="">張數</label></td>
-                    <td><input class="" type="text" name="張數" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="" class="">完稅價</label></td>
-                    <td><input class="" type="text" name="完稅價" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('成交價'); ?></td>
-                    <td><label for="" class="">成交價</label></td>
-                    <td><input class="" type="text" name="成交價" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('盤價'); ?></td>
-                    <td><label for="" class="">盤價</label></td>
-                    <td><input class="" type="text" name="盤價" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('買賣'); ?></td>
-                    <td><label for="" class="">買賣</label></td>
-                    <td><input class="" type="text" name="買賣" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('匯款金額'); ?></td>
-                    <td><label for="" class="">匯款金額</label></td>
-                    <td><input class="" type="text" name="匯款金額" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('匯款銀行'); ?></td>
-                    <td><label for="" class="">匯款銀行</label></td>
-                    <td><input class="" type="text" name="匯款銀行" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="" class="">匯款分行</label></td>
-                    <td><input class="" type="text" name="匯款分行" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('匯款戶名'); ?></td>
-                    <td><label for="" class="">匯款戶名</label></td>
-                    <td><input class="" type="text" name="匯款戶名" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('轉讓會員'); ?></td>
-                    <td><label for="" class="">轉讓會員</label></td>
-                    <td><input class="" type="text" name="轉讓會員" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('完稅人'); ?></td>
-                    <td><label for="" class="">完稅人</label></td>
-                    <td><input class="" type="text" name="完稅人" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('新舊'); ?></td>
-                    <td><label for="" class="">新舊</label></td>
-                    <td><input class="" type="text" name="新舊" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="" class="">自行應付</label></td>
-                    <td><input class="" type="text" name="自行應付" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="" class="">刻印</label></td>
-                    <td><input class="" type="text" name="刻印" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><label for="" class="">過戶費</label></td>
-                    <td><input class="" type="text" name="過戶費" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('媒合'); ?></td>
-                    <td><label for="" class="">媒合</label></td>
-                    <td><input class="" type="text" name="媒合" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('付款'); ?></td>
-                    <td><label for="" class="">付款</label></td>
-                    <td><input class="" type="text" name="付款" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('過戶日'); ?></td>
-                    <td><label for="" class="">過戶日</label></td>
-                    <td><input class="" type="date" name="過戶日" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('通知查帳'); ?></td>
-                    <td><label for="" class="">通知查帳</label></td>
-                    <td><input class="" type="text" name="通知查帳" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('契約'); ?></td>
-                    <td><label for="" class="">契約</label></td>
-                    <td><input class="" type="text" name="契約" value="" id=""></td>
-                </tr>
-                <tr>
-                    <td><?php echo form_error('稅單'); ?></td>
-                    <td><label for="" class="">稅單</label></td>
-                    <td><input class="" type="text" name="稅單" value="" id=""></td>
-                </tr>
-            </table>
+    <?php if(isset($_SESSION['acc'])) echo $_SESSION['acc']; ?>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/logout">Sign out</a>
+            </li>
+        </ul>
+    </nav>
 
-                
-
-            <button type="submit">送出</button>
-        </form>  
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index">
+                            <!-- <span data-feather="home"></span> -->
+                            轉讓紀錄查詢<span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="testing">
+                            <!-- <span data-feather="file"></span> -->
+                            應收帳款
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            <!-- <span data-feather="shopping-cart"></span> -->
+                            對盤交易明細
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            <span data-feather="users"></span>
+                            客戶關係管理
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            成交單管理
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                            <span data-feather="file-text"></span>
+                            服務工單
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div>
+                <form method="post" name="new_order_info" action="add_order" >
+                    <table>
+                        <tr>
+                            <td><?php echo form_error('日期'); ?></td>
+                            <td><label for="" class="">日期</label></td>
+                            <td><input class="" type="date" name="日期" value="" id="date" required></td>
+                            <td><button type="button" onclick="gettoday()">今天</button></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('業務'); ?></td>
+                            <td><label for="" class="">業務</label></td>       
+                            <td><input class="" type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id="" readonly="True"></td>
+                        </td>
+                        <tr>
+                            <td><?php echo form_error('客戶姓名'); ?></td>
+                            <td><label for="" class="">客戶姓名</label></td>
+                            <td><input class="" type="text" name="客戶姓名" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('身分證字號'); ?></td>
+                            <td><label for="" class="">身分證字號</label></td>
+                            <td><input class="" type="text" name="身分證字號" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('聯絡電話'); ?></td>
+                            <td><label for="" class="">聯絡電話</label></td>
+                            <td><input class="" type="tel" name="聯絡電話" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('聯絡人'); ?></td>
+                            <td><label for="" class="">聯絡人</label></td>
+                            <td><input class="" type="text" name="聯絡人" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('聯絡地址'); ?></td>
+                            <td><label for="" class="">聯絡地址</label></td>
+                            <td><input class="" type="text" name="聯絡地址" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('買賣'); ?></td>
+                            <td><label for="" class="">買賣</label></td>
+                            <td>
+                                <select class="form-control" name="買賣" id="sel1" required>
+                                    <option value="1">買</option>
+                                    <option value="0">賣</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('股票'); ?></td>
+                            <td><label for="" class="">股票</label></td>
+                            <td><input class="" type="text" name="股票" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('張數'); ?></td>
+                            <td><label for="" class="">張數</label></td>
+                            <td><input class="" type="text" name="張數" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><label for="" class="">完稅價</label></td>
+                            <td><input class="" type="text" name="完稅價" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('成交價'); ?></td>
+                            <td><label for="" class="">成交價</label></td>
+                            <td><input class="" type="text" name="成交價" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('盤價'); ?></td>
+                            <td><label for="" class="">盤價</label></td>
+                            <td><input class="" type="text" name="盤價" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('匯款金額'); ?></td>
+                            <td><label for="" class="">匯款金額</label></td>
+                            <td><input class="" type="text" name="匯款金額" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('匯款銀行'); ?></td>
+                            <td><label for="" class="">匯款銀行</label></td>
+                            <td><input class="" type="text" name="匯款銀行" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><label for="" class="">匯款分行</label></td>
+                            <td><input class="" type="text" name="匯款分行" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('匯款戶名'); ?></td>
+                            <td><label for="" class="">匯款戶名</label></td>
+                            <td><input class="" type="text" name="匯款戶名" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('轉讓會員'); ?></td>
+                            <td><label for="" class="">轉讓會員</label></td>
+                            <td><input class="" type="text" name="轉讓會員" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('完稅人'); ?></td>
+                            <td><label for="" class="">完稅人</label></td>
+                            <td><input class="" type="text" name="完稅人" value="" id="" required></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('新舊'); ?></td>
+                            <td>
+                                <select class="form-control" name="新舊" id="" required>
+                                    <option value="1">新</option>
+                                    <option value="0">舊</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><label for="" class="">自行應付</label></td>
+                            <td><input class="" type="text" name="自行應付" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><label for="" class="">刻印</label></td>
+                            <td><input class="" type="text" name="刻印" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><label for="" class="">過戶費</label></td>
+                            <td><input class="" type="text" name="過戶費" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('媒合'); ?></td>
+                            <td><label for="" class="">媒合</label></td>
+                            <td><input class="" type="text" name="媒合" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('付款'); ?></td>
+                            <td><label for="" class="">付款</label></td>
+                            <td><input class="" type="text" name="付款" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('過戶日'); ?></td>
+                            <td><label for="" class="">過戶日</label></td>
+                            <td><input class="" type="date" name="過戶日" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('通知查帳'); ?></td>
+                            <td><label for="" class="">通知查帳</label></td>
+                            <td><input class="" type="text" name="通知查帳" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('契約'); ?></td>
+                            <td><label for="" class="">契約</label></td>
+                            <td><input class="" type="text" name="契約" value="" id=""></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo form_error('稅單'); ?></td>
+                            <td><label for="" class="">稅單</label></td>
+                            <td><input class="" type="text" name="稅單" value="" id=""></td>
+                        </tr>
+                    </table>
+                    <button type="submit">送出</button>
+                </form>
+            </div>
+        </div>
     </div>    
 </body>
+
+<script>
+    function gettoday() {
+        document.getElementById("date").valueAsDate = new Date()
+    }
+</script>

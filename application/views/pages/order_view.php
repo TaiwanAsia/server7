@@ -175,7 +175,9 @@
                         <td><?php echo ($orders[$i]['匯款戶名']) ?></td>
                         <td><?php echo ($orders[$i]['轉讓會員']) ?></td>
                         <td><?php echo ($orders[$i]['完稅人']) ?></td>
-                        <td><?php echo ($orders[$i]['新舊']) ?></td>
+                        <td><?php
+                        echo ($orders[$i]['新舊'])
+                        ?></td>
                         <td><?php echo ($orders[$i]['自行應付']) ?></td>
                         <td><?php echo ($orders[$i]['刻印']) ?></td>
                         <td><?php echo ($orders[$i]['過戶費']) ?></td>
