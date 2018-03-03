@@ -1,59 +1,4 @@
-<body>
-    <?php if(isset($_SESSION['acc'])) echo $_SESSION['acc']; ?>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/logout">Sign out</a>
-            </li>
-        </ul>
-    </nav>
 
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index">
-                            <!-- <span data-feather="home"></span> -->
-                            轉讓紀錄查詢<span class="sr-only">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="testing">
-                            <!-- <span data-feather="file"></span> -->
-                            應收帳款
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <!-- <span data-feather="shopping-cart"></span> -->
-                            對盤交易明細
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
-                            客戶關係管理
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            成交單管理
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            服務工單
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
             <div>
                 <form method="post" name="new_order_info" action="add_order" >
                     <table>
@@ -160,6 +105,7 @@
                         </tr>
                         <tr>
                             <td><?php echo form_error('新舊'); ?></td>
+                            <td><label for="" class="">新舊</label></td>
                             <td>
                                 <select class="form-control" name="新舊" id="" required>
                                     <option value="1">新</option>
