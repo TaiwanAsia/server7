@@ -67,7 +67,7 @@ class Orders extends CI_Controller {
 						'刻印' => $_POST['刻印'],
 						'過戶費' => $_POST['過戶費'],
 						'媒合' => $_POST['媒合'],
-						'付款' => $_POST['付款'],
+						'收付款' => $_POST['收付款'],
 						'過戶日' => $_POST['過戶日'],
 						'通知查帳' => $_POST['通知查帳'],
 						'契約' => $_POST['契約'],
@@ -76,10 +76,9 @@ class Orders extends CI_Controller {
 		$this->index();
 	}
 	
-	public function testing() {
-		// $this->load->view('templates/header');
-		$this->load->view('pages/testing');
-		// $this->load->view('templates/footer');
+	public function checkbill() {
+		$this->load->view('templates/header');
+		$this->load->view('pages/receivable_view');
 	}
 
 

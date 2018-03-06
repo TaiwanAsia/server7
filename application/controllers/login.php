@@ -64,6 +64,7 @@ class Login extends CI_Controller {
 	{
 		// $this->login_model->login_move_record($_SESSION['name'],'login','logout');
 		unset($_SESSION['ACCOUNT']);
+		unset($_SESSION['NAME']);
 		session_destroy();
 		$this->index();
 	}

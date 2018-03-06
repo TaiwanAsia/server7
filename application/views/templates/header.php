@@ -27,18 +27,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
         
   </head>
+
+  <style type="text/css">
+    th, td, form {
+      white-space: nowrap;
+    }
+
+    #upload {
+      width: 100px;
+    }
+  </style>
+
   <body>
-    <?php if(isset($_SESSION['acc'])) echo $_SESSION['acc']; ?>
+    <?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME']; ?>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        
+          <input form="search" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/logout">Sign out</a>
             </li>
         </ul>
     </nav>
-
+    <form method="get" action="search" id="search">
+    </form>
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -51,7 +65,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="testing">
+                            <a class="nav-link" href="checkbill">
                             <!-- <span data-feather="file"></span> -->
                             應收帳款
                             </a>
