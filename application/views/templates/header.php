@@ -62,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index">
+                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/index">
                             <!-- <span data-feather="home"></span> -->
                             成交單管理<span class="sr-only">(current)</span>
                             </a>
@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <?php 
-                            if ($_SESSION['LEVEL']>=2) { ?>
+                            if ($_SESSION['NAME']=='JOY') { ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
                                     <span data-feather="file-text"></span>
