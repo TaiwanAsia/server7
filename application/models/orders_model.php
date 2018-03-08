@@ -49,8 +49,12 @@ class Orders_model extends CI_Model {
             $sql = "SELECT * FROM `ORDERS`";
             $query = $this->db->query($sql);
         }
-        $result = $this->transformer($query);
-        return $result;
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
+        } else {
+            return false;
+        }
     }
 
     public function add($data) {

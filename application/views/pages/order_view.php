@@ -62,7 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php for($i=0; $i<count($orders); $i++) {?>
+                                <?php if($orders){for($i=0; $i<count($orders); $i++) {?>
                                 <tr>
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
@@ -155,7 +155,7 @@
                                         <?php } ?>
                                     </td>
                                 </tr>
-                                <?php } ?>
+                                <?php }} ?>
                             </tbody>
                         </table>
                     </div>
