@@ -37,8 +37,11 @@ class Orders extends CI_Controller {
 
 	public function new_order()
     {
+		$orders = $this->orders_model->get(null);
+		$arrayName = array('orders' => $orders,
+								);
 		$this->load->view('templates/header');
-		$this->load->view('pages/new_order');
+		$this->load->view('pages/new_order', $arrayName);
 	}   
 
 	public function add_order()
@@ -68,11 +71,9 @@ class Orders extends CI_Controller {
 						'過戶費' => $_POST['過戶費'],
 						'媒合' => $_POST['媒合'],
 						'收付款' => $_POST['收付款'],
-						'過戶日' => $_POST['過戶日'],
-						'通知查帳' => $_POST['通知查帳'],
-						'契約' => $_POST['契約'],
-						'稅單' => $_POST['稅單'],);
-		$this -> orders_model -> add($data);
+						'過戶日' => $_POST['過戶日'],);
+		$insert_id = $this -> orders_model -> add($data);
+		$this -> orders_model -> match($insert_id, $_POST['媒合']);
 		$this->index();
 	}
 	
@@ -80,6 +81,47 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('pages/receivable_view');
 	}
+
+	public function upload_contact() {
+		$id = $_POST['id'];
+		if ($_FILES["file"]["error"] > 0){
+			echo "Error: " . $_FILES["file"]["error"];
+		} else {
+			echo "編號: " . $id."<br>";
+			echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
+			echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
+			echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
+			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+			if (file_exists("upload/contact/" . $id)){
+				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
+				$this->index();
+			} else {
+				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$id);
+				$this->index();
+			}
+		}
+	}
+
+	public function upload_tax() {
+		$id = $_POST['id'];
+		if ($_FILES["file"]["error"] > 0){
+			echo "Error: " . $_FILES["file"]["error"];
+		} else {
+			echo "編號: " . $id."<br>";
+			echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
+			echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
+			echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
+			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+			if (file_exists("upload/tax/" . $id)){
+				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
+				$this->index();
+			} else {
+				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
+				$this->index();
+			}
+		}
+	}
+
 
 
 }

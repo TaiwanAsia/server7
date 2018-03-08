@@ -133,9 +133,13 @@
                                     <td><?php echo form_error('媒合'); ?></td>
                                     <td><label for="" class="">媒合</label></td>
                                     <td>
-                                        <select id="inputState" class="form-control">
-                                            <option selected>Choose...</option>
-                                            <option>...</option>
+                                        <select id="inputState" name="媒合" class="form-control">
+                                            <option selected value="0">尚無媒合</option>
+                                            <?php
+                                            for ($i=0; $i < count($orders); $i++) { 
+                                                echo "<option>".$orders[$i]['ID']."</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </td>
                                 </tr>
@@ -148,21 +152,6 @@
                                     <td><?php echo form_error('過戶日'); ?></td>
                                     <td><label for="" class="">過戶日</label></td>
                                     <td><input class="" type="date" name="過戶日" value="" id=""></td>
-                                </tr>
-                                <tr>
-                                    <td><?php echo form_error('通知查帳'); ?></td>
-                                    <td><label for="" class="">通知查帳</label></td>
-                                    <td><input class="" type="text" name="通知查帳" value="" id=""></td>
-                                </tr>
-                                <tr>
-                                    <td><?php echo form_error('契約'); ?></td>
-                                    <td><label for="" class="">契約</label></td>
-                                    <td><input type="file" name="upload_contact" class="form-control-file" id="exampleFormControlFile1"></td>
-                                </tr>
-                                <tr>
-                                    <td><?php echo form_error('稅單'); ?></td>
-                                    <td><label for="" class="">稅單</label></td>
-                                    <td><input type="file" name="upload_tax" class="form-control-file" id="exampleFormControlFile1"></td>
                                 </tr>
                                 <tr>
                                     <td></td>

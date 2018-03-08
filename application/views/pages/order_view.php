@@ -108,21 +108,33 @@
                                             <button type="submit">通知查帳</button>
                                         </form>
                                     </td>
-                                    <td>
-                                        <form method="post" action="upload_contact">
-                                            <div class="form-group">
-                                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                                <button type="submit" id="" name="" class="">上傳</button>
-                                            </div>
+                                    <td style="min-width: 200px;">
+                                        <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){ 
+                                          ?>
+                                        <a href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
+                                        <?php  } else {?>
+                                        <form method="post" action="upload_contact" enctype="multipart/form-data">
+                                          <div class="form-group">
+                                              <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                                              <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
+                                              <button type="submit" id="" name="" class="">上傳</button>
+                                          </div>
                                         </form>
+                                        <?php } ?>
                                     </td>
                                     <td>
-                                        <form method="post" action="upload_tax">
-                                            <div class="form-group">
-                                                <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                                <button type="submit" id="" name="" class="">上傳</button>
-                                            </div>
+                                        <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){ 
+                                          ?>
+                                        <a href="<?=base_url('upload/tax/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
+                                        <?php  } else {?>
+                                        <form method="post" action="upload_tax" enctype="multipart/form-data">
+                                          <div class="form-group">
+                                              <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                                              <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
+                                              <button type="submit" id="" name="" class="">上傳</button>
+                                          </div>
                                         </form>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                                 <?php } ?>

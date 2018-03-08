@@ -55,6 +55,12 @@ class Orders_model extends CI_Model {
 
     public function add($data) {
         $this->db->insert('ORDERS',$data);
+        $id = $this->db->insert_id();
+        return $id;
+    }
+
+    public function match($match_id) {
+
     }
 }
 

@@ -49,12 +49,12 @@ class Login extends CI_Controller {
 					// $this->login_model->login_move_record($_SESSION['name'],'login','login');
 					redirect('http://localhost/server7/index.php/orders/index');
 				} else {
-					$this->load->view('templates/header');
+					// $this->load->view('templates/header');
 					$this->load->view('pages/login_view',array('error_message' => $error_message));
 				}
 			} else {
 				$error_message = '尚未輸入，請輸入!';
-				$this->load->view('templates/header');
+				// $this->load->view('templates/header');
 				$this->load->view('pages/login_view',array('error_message' => $error_message));
 			}
 		// }
@@ -66,7 +66,7 @@ class Login extends CI_Controller {
 		unset($_SESSION['ACCOUNT']);
 		unset($_SESSION['NAME']);
 		session_destroy();
-		$this->index();
+		redirect('http://localhost/server7/index.php/login/index');
 	}
 
 }

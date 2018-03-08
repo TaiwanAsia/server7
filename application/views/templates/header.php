@@ -36,6 +36,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     #upload {
       width: 100px;
     }
+    /* .table td, .table th {
+        min-width: 150px;
+    } */
   </style>
 
   <body>
