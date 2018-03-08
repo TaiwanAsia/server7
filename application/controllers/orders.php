@@ -25,9 +25,9 @@ class Orders extends CI_Controller {
     public function index()
     {
 		if (!isset($_SESSION['ACCOUNT'])) {
-			redirect('http://localhost/server7/index.php/login/index');
+			redirect('index.php/login/index');
 		} else {
-			$orders = $this->orders_model->get(null);
+			$orders = $this->orders_model->get(null,$_SESSION['LEVEL'],$_SESSION['NAME']);
 			$arrayName = array('orders' => $orders,
 								);
 								
@@ -37,7 +37,7 @@ class Orders extends CI_Controller {
 
 	public function new_order()
     {
-		$orders = $this->orders_model->get(null);
+		$orders = $this->orders_model->get(null,$_SESSION['LEVEL'],$_SESSION['NAME']);
 		$arrayName = array('orders' => $orders,
 								);
 		$this->load->view('templates/header');
@@ -69,7 +69,6 @@ class Orders extends CI_Controller {
 						'自行應付' => $_POST['自行應付'],
 						'刻印' => $_POST['刻印'],
 						'過戶費' => $_POST['過戶費'],
-						'媒合' => $_POST['媒合'],
 						'收付款' => $_POST['收付款'],
 						'過戶日' => $_POST['過戶日'],);
 		$insert_id = $this -> orders_model -> add($data);

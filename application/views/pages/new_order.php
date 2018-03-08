@@ -129,7 +129,7 @@
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" value="" id=""></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td><?php echo form_error('媒合'); ?></td>
                                     <td><label for="" class="">媒合</label></td>
                                     <td>
@@ -142,7 +142,7 @@
                                             ?>
                                         </select>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td><?php echo form_error('收付款'); ?></td>
                                     <td><label for="" class="">收付款</label></td>

@@ -44,10 +44,16 @@ class Orders_model extends CI_Model {
         }
 }
 
-    public function get($keyword) {
+    public function get($keyword,$level,$name) {
         if(is_null($keyword)) {
-            $sql = "SELECT * FROM `ORDERS`";
-            $query = $this->db->query($sql);
+            if($level==2) {
+                $sql = "SELECT * FROM `ORDERS`";
+                $query = $this->db->query($sql);
+            } else {
+                $query = $this->db->get_where('ORDERS', array('業務' => $name));
+                // echo $sql;
+                // $query = $this->db->query($sql);
+            }   
         }
         if($query->num_rows()>0) {
             $result = $this->transformer($query);
