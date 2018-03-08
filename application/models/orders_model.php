@@ -59,8 +59,19 @@ class Orders_model extends CI_Model {
         return $id;
     }
 
-    public function match($match_id) {
-
+    public function match($self, $other) {
+        //先update自己的媒合
+        $data = array(
+            '媒合' => $other,
+         );
+        $this->db->where('ID', $self);
+        $this->db->update('orders', $data);
+        //再update被媒合的媒合
+        $data2 = array(
+            '媒合' => $self,
+         );
+        $this->db->where('ID', $other);
+        $this->db->update('orders', $data2); 
     }
 }
 

@@ -100,7 +100,25 @@
                                     <td><?php echo ($orders[$i]['自行應付']) ?></td>
                                     <td><?php echo ($orders[$i]['刻印']) ?></td>
                                     <td><?php echo ($orders[$i]['過戶費']) ?></td>
-                                    <td><?php echo ($orders[$i]['媒合']) ?></td>
+                                    <td style="min-width: 100px;">
+                                        <?php if($orders[$i]['媒合']==0){ ?>
+                                          <form method="post" action="match">
+                                            <select id="inputState" name="欲媒合對方ID" class="form-control">
+                                                <option selected value="0">尚無</option>
+                                                <?php
+                                                for ($j=0; $j < count($orders); $j++) { 
+                                                    echo "<option>".$orders[$j]['ID']."</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                            <input type="hidden" name="欲媒合自身ID" value="<?php echo $orders[$i]['ID']?>">
+                                            <button type="submit" id="" name="" class="">確認</button>
+                                          </form>
+                                        <?php } else { 
+                                          echo $orders[$i]['媒合'];
+                                        }
+                                        ?>
+                                    </td>
                                     <td><?php echo ($orders[$i]['收付款']) ?></td>
                                     <td><?php echo ($orders[$i]['過戶日']) ?></td>
                                     <td>

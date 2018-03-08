@@ -122,6 +122,12 @@ class Orders extends CI_Controller {
 		}
 	}
 
+	public function match() {
+		// echo $_POST['欲媒合對方ID'].", ".$_POST['欲媒合自身ID']."<br>";
+		$this -> orders_model -> match($_POST['欲媒合自身ID'], $_POST['欲媒合對方ID']);
+		$this->index();
+	}
+
 
 
 }
