@@ -146,12 +146,12 @@
                                 <tr>
                                     <td><?php echo form_error('收付款'); ?></td>
                                     <td><label for="" class="">收付款</label></td>
-                                    <td><input class="" type="text" name="收付款" value="" id=""></td>
+                                    <td><input class="" type="text" name="收付款" value="" id="" required></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('過戶日'); ?></td>
                                     <td><label for="" class="">過戶日</label></td>
-                                    <td><input class="" type="date" name="過戶日" value="" id=""></td>
+                                    <td><input class="" type="date" name="過戶日" value="" id="" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>

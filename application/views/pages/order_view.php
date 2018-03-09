@@ -33,6 +33,7 @@
                                     <th scope="col">日期</th>
                                     <th>業務</th>
                                     <th>客戶姓名</th>
+                                    <th>編輯</th>
                                     <th>身分證字號</th>
                                     <th>聯絡電話</th>
                                     <th>聯絡人</th>
@@ -49,6 +50,8 @@
                                     <th>匯款戶名</th>
                                     <th>轉讓會員</th>
                                     <th>完稅人</th>
+                                    <th>一審</th>
+                                    <th>二審</th>
                                     <th>新舊</th>
                                     <th>自行應付</th>
                                     <th>刻印</th>
@@ -68,6 +71,7 @@
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
                                     <td><?php echo ($orders[$i]['客戶姓名']) ?></td>
+                                    <td><!-- Trigger/Open The Modal --><button id="myBtn">Open Modal</button></td>
                                     <td><?php echo ($orders[$i]['身分證字號']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡人']) ?></td>
@@ -90,6 +94,14 @@
                                     <td><?php echo ($orders[$i]['匯款戶名']) ?></td>
                                     <td><?php echo ($orders[$i]['轉讓會員']) ?></td>
                                     <td><?php echo ($orders[$i]['完稅人']) ?></td>
+                                    <?php
+                                      if ($orders[$i]['一審']==0) {
+                                        echo "<td></td>";
+                                      } else {
+                                        echo "<td><?php echo ($orders[$i]['一審']) ?></td>";
+                                      }
+                                    ?>
+                                    <td><?php echo ($orders[$i]['二審']) ?></td>
                                     <td><?php
                                     if($orders[$i]['新舊']==1){
                                       echo "新";
@@ -100,7 +112,8 @@
                                     <td><?php echo ($orders[$i]['自行應付']) ?></td>
                                     <td><?php echo ($orders[$i]['刻印']) ?></td>
                                     <td><?php echo ($orders[$i]['過戶費']) ?></td>
-                                    <td style="min-width: 100px;">
+                                    <?php if ($_SESSION['LEVEL']>=2) { ?>
+                                      <td style="min-width: 100px;">
                                         <?php if($orders[$i]['媒合']==0){ ?>
                                           <form method="post" action="match">
                                             <select id="inputState" name="欲媒合對方ID" class="form-control">
@@ -118,7 +131,9 @@
                                           echo $orders[$i]['媒合'];
                                         }
                                         ?>
-                                    </td>
+                                      </td>
+                                    <?php } else { echo "<td></td>"; }?>
+                                    
                                     <td><?php echo ($orders[$i]['收付款']) ?></td>
                                     <td><?php echo ($orders[$i]['過戶日']) ?></td>
                                     <td>
@@ -126,7 +141,7 @@
                                             <button type="submit">通知查帳</button>
                                         </form>
                                     </td>
-                                    <td style="min-width: 200px;">
+                                    <td style="min-width:100px;">
                                         <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){ 
                                           ?>
                                         <a href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
@@ -163,6 +178,87 @@
             </div>
         </div>
 
+
+        
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="bg-secondary">
+                <table>
+                  <tr>
+                    <td><label>個人姓名</label></td>
+                    <td><input type="text" name="個人姓名" value=""></td>
+                    <td><label>身分證字號</label></td>
+                    <td><input type="text" name="身分證字號" value=""></td>
+                    <td><label>聯絡地址</label></td>
+                    <td><input type="text" name="聯絡地址" value=""></td>
+                    <td><label>聯絡電話</label></td>
+                    <td><input type="text" name="聯絡電話" value=""></td>
+                  </tr>
+                  <tr>
+                    <td><label>成交日期</label></td>
+                    <td><input type="text" name="成交日期" value=""></td>
+                    <td><label>過戶日期</label></td>
+                    <td><input type="text" name="過戶日期" value=""></td>
+                    <td><label>股票名稱</label></td>
+                    <td><input type="text" name="股票名稱" value=""></td>
+                    <td><label>張數</label></td>
+                    <td><input type="text" name="張數" value=""></td>
+                  </tr>
+                  <tr>
+                    <td><label>轉讓會員</label></td>
+                    <td>
+                      <select id="inputState" name="轉讓會員" class="form-control">
+                          <option selected value="0">尚無</option>
+                          <option>1</option>
+                          <?php
+                          // for ($j=0; $j < count($orders); $j++) { 
+                          //     echo "<option>".$orders[$j]['ID']."</option>";
+                          // }
+                          ?>
+                      </select>
+                    </td>
+                    <td><label>完稅價</label></td>
+                    <td><input type="text" name="完稅價" value=""></td>
+                    <td><label>成交價</label></td>
+                    <td><input type="text" name="成交價" value=""></td>
+                    <td><label>盤價</label></td>
+                    <td><input type="text" name="盤價" value=""></td>
+                  </tr>
+                  <tr>
+                    <td><label>自付額</label></td>
+                    <td><input type="text" name="自付額" value=""></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="bg-info">
+                <label>賣方需填</label>
+                <br>
+                <table>
+                  <tr>
+                    <td><label>成交日期</label></td>
+                    <td><input type="text" name="成交日期" value=""></td>
+                    <td><label>過戶日期</label></td>
+                    <td><input type="text" name="過戶日期" value=""></td>
+                    <td><label>股票名稱</label></td>
+                    <td><input type="text" name="股票名稱" value=""></td>
+                    <td><label>張數</label></td>
+                    <td><input type="text" name="張數" value=""></td>
+                  </tr>
+                </table>
+              </div>
+                
+                
+                
+                
+                <span class="close">&times;</span>
+            </div>
+
+        </div>
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -181,7 +277,31 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
         <script>
 
+          // Get the modal
+          var modal = document.getElementById('myModal');
 
+          // Get the button that opens the modal
+          var btn = document.getElementById("myBtn");
+
+          // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
+
+          // When the user clicks the button, open the modal 
+          btn.onclick = function() {
+              modal.style.display = "block";
+          }
+
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function() {
+              modal.style.display = "none";
+          }
+
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
       
         </script>
     </body>

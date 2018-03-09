@@ -72,7 +72,6 @@ class Orders extends CI_Controller {
 						'收付款' => $_POST['收付款'],
 						'過戶日' => $_POST['過戶日'],);
 		$insert_id = $this -> orders_model -> add($data);
-		$this -> orders_model -> match($insert_id, $_POST['媒合']);
 		$this->index();
 	}
 	
@@ -127,7 +126,9 @@ class Orders extends CI_Controller {
 		$this->index();
 	}
 
-
+	public function edit() {
+		$this->index();
+	}
 
 }
 
