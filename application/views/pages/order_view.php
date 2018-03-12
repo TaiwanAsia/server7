@@ -47,6 +47,7 @@
                                     <th>匯款金額</th>
                                     <th>匯款銀行</th>
                                     <th>匯款分行</th>
+                                    <th>匯款帳號</th>
                                     <th>匯款戶名</th>
                                     <th>轉讓會員</th>
                                     <th>完稅人</th>
@@ -62,6 +63,7 @@
                                     <th>通知查帳</th>
                                     <th>上傳契約-要記得選擇檔案</th>
                                     <th>上傳稅單-要記得選擇檔案</th>
+                                    <th>是否結案</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,6 +93,7 @@
                                     <td><?php echo ($orders[$i]['匯款金額']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款銀行']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款分行']) ?></td>
+                                    <td><?php echo ($orders[$i]['匯款帳號']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款戶名']) ?></td>
                                     <td><?php echo ($orders[$i]['轉讓會員']) ?></td>
                                     <td><?php echo ($orders[$i]['完稅人']) ?></td>
@@ -132,7 +135,13 @@
                                         }
                                         ?>
                                       </td>
-                                    <?php } else { echo "<td></td>"; }?>
+                                    <?php } else { 
+                                      if ($orders[$i]['媒合']==0) {
+                                        echo "<td>未媒合</td>";
+                                      } else {
+                                        echo $orders[$i]['媒合'];
+                                      }
+                                     }?>
                                     
                                     <td><?php echo ($orders[$i]['收付款']) ?></td>
                                     <td><?php echo ($orders[$i]['過戶日']) ?></td>
@@ -168,6 +177,15 @@
                                           </div>
                                         </form>
                                         <?php } ?>
+                                    </td>
+                                    <td class="text-danger">
+                                      <?php
+                                        if($orders[$i]['已結案']==1){
+                                          echo "已結";
+                                        } else {
+                                          echo "未結";
+                                        }
+                                      ?>
                                     </td>
                                 </tr>
                                 <?php }} ?>

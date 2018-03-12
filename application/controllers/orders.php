@@ -68,9 +68,7 @@ class Orders extends CI_Controller {
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],
 						'刻印' => $_POST['刻印'],
-						'過戶費' => $_POST['過戶費'],
-						'收付款' => $_POST['收付款'],
-						'過戶日' => $_POST['過戶日'],);
+						'過戶費' => $_POST['過戶費'],);
 		$insert_id = $this -> orders_model -> add($data);
 		$this->index();
 	}

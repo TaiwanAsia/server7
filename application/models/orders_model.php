@@ -22,6 +22,7 @@ class Orders_model extends CI_Model {
                         '匯款金額'=>$row-> 匯款金額,
                         '匯款銀行'=>$row-> 匯款銀行,
                         '匯款分行'=>$row-> 匯款分行,
+                        '匯款帳號'=>$row-> 匯款帳號,
                         '匯款戶名'=>$row-> 匯款戶名,
                         '轉讓會員'=>$row-> 轉讓會員,
                         '完稅人'=>$row-> 完稅人,
@@ -37,6 +38,7 @@ class Orders_model extends CI_Model {
                         '通知查帳'=>$row-> 通知查帳,
                         '契約'=>$row-> 契約,
                         '稅單'=>$row-> 稅單,
+                        '已結案'=>$row-> 已結案,
                                             );
                 }
                 return $result;
@@ -49,9 +51,10 @@ class Orders_model extends CI_Model {
     public function get($keyword,$level,$name) {
         if(is_null($keyword)) {
             if($level==2) {
-                $sql = "SELECT * FROM `ORDERS`";
+                $sql = "SELECT * FROM `ORDERS` ORDER BY ID DESC";
                 $query = $this->db->query($sql);
             } else {
+                $this->db->order_by("ID", "desc"); 
                 $query = $this->db->get_where('ORDERS', array('業務' => $name));
                 // echo $sql;
                 // $query = $this->db->query($sql);
@@ -63,6 +66,7 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
+        print_r($result);
     }
 
     public function add($data) {
