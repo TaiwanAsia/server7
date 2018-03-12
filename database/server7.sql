@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: localhost
--- 產生時間： 2018 年 03 月 12 日 05:01
+-- 產生時間： 2018 年 03 月 12 日 08:05
 -- 伺服器版本: 10.1.25-MariaDB
 -- PHP 版本： 5.6.31
 
@@ -44,8 +44,7 @@ INSERT INTO `EMPLOYEE` (`ID`, `NAME`, `ACCOUNT`, `PASSWORD`, `LEVEL`) VALUES
 (1, 'JOY', 'PLD', 'qaz', 2),
 (2, '小祿', 'zzz', 'aaa', 2),
 (3, '業務A', 'qq', 'qq', 1),
-(5, 'sister', 'high', 'ka', 1),
-(7, 'hi', 'hhh', 'ddd', 2);
+(8, '月珍', 'qwer', 'qwer', 1);
 
 -- --------------------------------------------------------
 
@@ -71,6 +70,7 @@ CREATE TABLE `ORDERS` (
   `匯款金額` int(11) NOT NULL,
   `匯款銀行` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `匯款分行` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `匯款帳號` varchar(30) NOT NULL,
   `匯款戶名` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `轉讓會員` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `完稅人` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
@@ -81,21 +81,23 @@ CREATE TABLE `ORDERS` (
   `刻印` tinyint(1) DEFAULT NULL,
   `過戶費` int(10) DEFAULT NULL,
   `媒合` tinyint(1) NOT NULL,
-  `收付款` varchar(10) NOT NULL,
-  `過戶日` date NOT NULL,
+  `收付款` varchar(10) DEFAULT NULL,
+  `過戶日` date DEFAULT NULL,
   `通知查帳` varchar(10) NOT NULL,
   `契約` varchar(10) NOT NULL,
-  `稅單` varchar(10) NOT NULL
+  `稅單` varchar(10) NOT NULL,
+  `已結案` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- 資料表的匯出資料 `ORDERS`
 --
 
-INSERT INTO `ORDERS` (`ID`, `日期`, `業務`, `客戶姓名`, `身分證字號`, `聯絡電話`, `聯絡人`, `聯絡地址`, `買賣`, `股票`, `張數`, `完稅價`, `成交價`, `盤價`, `匯款金額`, `匯款銀行`, `匯款分行`, `匯款戶名`, `轉讓會員`, `完稅人`, `一審`, `二審`, `新舊`, `自行應付`, `刻印`, `過戶費`, `媒合`, `收付款`, `過戶日`, `通知查帳`, `契約`, `稅單`) VALUES
-(29, '2018-03-08', '小祿', '9', '9', '9', '9', '9', '1', '9', 9, 9, 9, 9, 9, '9', '9', '9', '9', '9', NULL, NULL, 1, 9, 9, 9, 0, '9', '2018-03-07', '', '', ''),
-(30, '2018-03-08', '業務A', '王小明', 'A123345678', '29039946', '王小明', '中山路二段17號2樓', '1', '非凡新聞', 10.5, 21, 19, 20, 50000, '元大銀行', '', '王小明', '轉先生', '完先生', NULL, NULL, 1, 0, 0, 0, 0, '', '0000-00-00', '', '', ''),
-(31, '2018-03-08', '小祿', '9', '99', '9', '9', '9', '1', '9', 9, 9, 9, 9, 9, '9', '9', '9', '9', '9', NULL, NULL, 1, 0, 0, 0, 0, '9', '2018-03-15', '', '', '');
+INSERT INTO `ORDERS` (`ID`, `日期`, `業務`, `客戶姓名`, `身分證字號`, `聯絡電話`, `聯絡人`, `聯絡地址`, `買賣`, `股票`, `張數`, `完稅價`, `成交價`, `盤價`, `匯款金額`, `匯款銀行`, `匯款分行`, `匯款帳號`, `匯款戶名`, `轉讓會員`, `完稅人`, `一審`, `二審`, `新舊`, `自行應付`, `刻印`, `過戶費`, `媒合`, `收付款`, `過戶日`, `通知查帳`, `契約`, `稅單`, `已結案`) VALUES
+(29, '2018-03-08', '小祿', '9', '9', '9', '9', '9', '1', '9', 9, 9, 9, 9, 9, '9', '9', '', '9', '9', '9', NULL, NULL, 1, 9, 9, 9, 0, '9', '2018-03-07', '', '', '', 0),
+(30, '2018-03-08', '業務A', '王小明', 'A123345678', '29039946', '王小明', '中山路二段17號2樓', '1', '非凡新聞', 10.5, 21, 19, 20, 50000, '元大銀行', '', '', '王小明', '轉先生', '完先生', NULL, NULL, 1, 0, 0, 0, 0, '', '0000-00-00', '', '', '', 0),
+(31, '2018-03-08', '小祿', '9', '99', '9', '9', '9', '1', '9', 9, 9, 9, 9, 9, '9', '9', '', '9', '9', '9', NULL, NULL, 1, 0, 0, 0, 0, '9', '2018-03-15', '', '', '', 0),
+(32, '2018-03-12', '業務A', '9', '9', '9', '9', '99', '1', '9', 9, 9, 9, 9, 9, '9', '9', '', '9', '9', '99', NULL, NULL, 1, 9, 9, 9, 0, NULL, NULL, '', '', '', 0);
 
 --
 -- 已匯出資料表的索引
@@ -121,12 +123,12 @@ ALTER TABLE `ORDERS`
 -- 使用資料表 AUTO_INCREMENT `EMPLOYEE`
 --
 ALTER TABLE `EMPLOYEE`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- 使用資料表 AUTO_INCREMENT `ORDERS`
 --
 ALTER TABLE `ORDERS`
-  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;COMMIT;
+  MODIFY `ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
