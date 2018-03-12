@@ -104,15 +104,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             成交單管理<span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="checkbill">
-                            <!-- <span data-feather="file"></span> -->
                             應收帳款
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                            <!-- <span data-feather="shopping-cart"></span> -->
                             對盤交易明細
                             </a>
                         </li>
@@ -133,12 +131,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span data-feather="file-text"></span>
                             服務工單
                             </a>
-                        </li>
+                        </li> -->
                         <?php 
                             if ($_SESSION['NAME']=='JOY') { ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
-                                    <span data-feather="file-text"></span>
+                                    <!-- <span data-feather="file-text"></span> -->
                                     帳號管理
                                     </a>
                                 </li>
