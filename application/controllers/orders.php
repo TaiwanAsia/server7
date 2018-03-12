@@ -28,8 +28,9 @@ class Orders extends CI_Controller {
 			redirect('index.php/login/index');
 		} else {
 			$orders = $this->orders_model->get(null,$_SESSION['LEVEL'],$_SESSION['NAME']);
+			$employees = $this->orders_model->get_employee();
 			$arrayName = array('orders' => $orders,
-								);
+								'employees' => $employees,);
 								
 			$this->show($arrayName);
 		}
@@ -63,7 +64,6 @@ class Orders extends CI_Controller {
 						'匯款銀行' => $_POST['匯款銀行'],
 						'匯款分行' => $_POST['匯款分行'],
 						'匯款戶名' => $_POST['匯款戶名'],
-						'轉讓會員' => $_POST['轉讓會員'],
 						'完稅人' => $_POST['完稅人'],
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],

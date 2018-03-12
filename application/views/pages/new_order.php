@@ -94,11 +94,11 @@
                                     <td><label for="" class="">匯款戶名</label></td>
                                     <td><input class="" type="text" name="匯款戶名" value="" id="" required></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td><?php echo form_error('轉讓會員'); ?></td>
                                     <td><label for="" class="">轉讓會員</label></td>
                                     <td><input class="" type="text" name="轉讓會員" value="" id="" required></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td><?php echo form_error('完稅人'); ?></td>
                                     <td><label for="" class="">完稅人</label></td>
