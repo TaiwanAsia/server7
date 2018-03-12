@@ -71,7 +71,7 @@
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
                                     <td><?php echo ($orders[$i]['客戶姓名']) ?></td>
-                                    <td><!-- Trigger/Open The Modal --><button id="myBtn">Open Modal</button></td>
+                                    <td><!-- Trigger/Open The Modal --><button id="myBtn">編輯</button></td>
                                     <td><?php echo ($orders[$i]['身分證字號']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡人']) ?></td>
@@ -181,12 +181,15 @@
 
         
 
-        <!-- The Modal -->
+        <!-- The Modal 按下編輯後跳出的畫面 -->
         <div id="myModal" class="modal">
 
             <!-- Modal content -->
             <div class="modal-content">
-              <div class="bg-secondary">
+              <div class="modal-header">
+                <h2>編輯成交單</h2>
+              </div>
+              <div class="">
                 <table>
                   <tr>
                     <td><label>個人姓名</label></td>
@@ -234,8 +237,8 @@
                   </tr>
                 </table>
               </div>
-              <div class="bg-info">
-                <label>賣方需填</label>
+              <div class="">
+                <label><h3>賣方需填</h3></label>
                 <br>
                 <table>
                   <tr>
