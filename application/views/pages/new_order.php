@@ -43,10 +43,8 @@
                                     <td><?php echo form_error('買賣'); ?></td>
                                     <td><label for="" class="">買賣</label></td>
                                     <td>
-                                        <select class="form-control" name="買賣" id="sel1" required>
-                                            <option value="1">買</option>
-                                            <option value="0">賣</option>
-                                        </select>
+                                        <input type="radio" name="買賣" value="1" checked><label class="text-danger">買</label>
+                                        <input type="radio" name="買賣" value="0"><label class="text-success">賣</label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -94,6 +92,11 @@
                                     <td><label for="" class="">匯款戶名</label></td>
                                     <td><input class="" type="text" name="匯款戶名" value="" id="" required></td>
                                 </tr>
+                                <tr>
+                                    <td><?php echo form_error('匯款帳號'); ?></td>
+                                    <td><label for="" class="">匯款帳號</label></td>
+                                    <td><input class="" type="text" name="匯款帳號" value="" id="" required></td>
+                                </tr>
                                 <!-- <tr>
                                     <td><?php echo form_error('轉讓會員'); ?></td>
                                     <td><label for="" class="">轉讓會員</label></td>
@@ -108,10 +111,8 @@
                                     <td><?php echo form_error('新舊'); ?></td>
                                     <td><label for="" class="">新舊</label></td>
                                     <td>
-                                        <select class="form-control" name="新舊" id="" required>
-                                            <option value="1">新</option>
-                                            <option value="0">舊</option>
-                                        </select>
+                                        <input type="radio" name="新舊" value="1" checked><label class="text-danger">新</label>
+                                        <input type="radio" name="新舊" value="0"><label class="text-success">舊</label>
                                     </td>
                                 </tr>
                                 <tr>

@@ -47,8 +47,8 @@
                                     <th>匯款金額</th>
                                     <th>匯款銀行</th>
                                     <th>匯款分行</th>
-                                    <th>匯款帳號</th>
                                     <th>匯款戶名</th>
+                                    <th>匯款帳號</th>
                                     <th>轉讓會員</th>
                                     <th>完稅人</th>
                                     <th>一審</th>
@@ -67,13 +67,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if($orders){for($i=0; $i<count($orders); $i++) {?>
+                                <?php if($orders) {
+                                    for($i=0; $i<count($orders); $i++) { ?>
                                 <tr>
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
                                     <td><?php echo ($orders[$i]['客戶姓名']) ?></td>
-                                    <td><!-- Trigger/Open The Modal --><button id="myBtn">編輯</button></td>
+                                    <td>
+                                      <button id="myBtn" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)">
+                                        <span>編輯</span>
+                                      </button>
+                                    </td>
+                                    <!-- <td><button id="myBtn">編輯</button></td> -->
                                     <td><?php echo ($orders[$i]['身分證字號']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡人']) ?></td>
@@ -93,8 +99,8 @@
                                     <td><?php echo ($orders[$i]['匯款金額']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款銀行']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款分行']) ?></td>
-                                    <td><?php echo ($orders[$i]['匯款帳號']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款戶名']) ?></td>
+                                    <td><?php echo ($orders[$i]['匯款帳號']) ?></td>
                                     <td><?php echo ($orders[$i]['轉讓會員']) ?></td>
                                     <td><?php echo ($orders[$i]['完稅人']) ?></td>
                                     <?php
@@ -154,7 +160,7 @@
                                         <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){ 
                                           ?>
                                         <a href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
-                                        <?php  } else {?>
+                                        <?php } else {?>
                                         <form method="post" action="upload_contact" enctype="multipart/form-data">
                                           <div class="form-group">
                                               <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
@@ -198,11 +204,7 @@
 
 
         
-
-        <!-- The Modal 按下編輯後跳出的畫面 -->
         <div id="myModal" class="modal">
-
-            <!-- Modal content -->
             <div class="modal-content">
               <div class="modal-header">
                 <h3>編輯成交單</h3>
@@ -230,8 +232,8 @@
                       <td><label>股票名稱</label></td>
                       <td><input type="text" name="股票名稱" value=""></td>
                       <td>
-                        <input type="radio" name="買賣" value="買" checked>買
-                        <input type="radio" name="買賣" value="賣">賣
+                        <input type="radio" name="買賣" value="1" checked>買
+                        <input type="radio" name="買賣" value="0">賣
                       </td>
                       <td></td>
                       <td><label>張數</label></td>
@@ -336,13 +338,8 @@
                   </table>
                 </div>
               </form>
-                
-                
-                
-                
                 <span class="close">&times;</span>
             </div>
-
         </div>
 
         <!-- Bootstrap core JavaScript
