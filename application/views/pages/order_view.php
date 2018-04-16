@@ -84,7 +84,7 @@
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
                                     <!-- Trigger/Open The Modal -->
-                                    <td><button data-popup-open="popup-1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
+                                    <td><button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
                                     <td><?php echo ($orders[$i]['身分證字號']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡人']) ?></td>
