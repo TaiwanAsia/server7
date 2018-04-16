@@ -22,8 +22,8 @@ class Orders_model extends CI_Model {
                         '匯款金額'=>$row-> 匯款金額,
                         '匯款銀行'=>$row-> 匯款銀行,
                         '匯款分行'=>$row-> 匯款分行,
-                        '匯款帳號'=>$row-> 匯款帳號,
                         '匯款戶名'=>$row-> 匯款戶名,
+                        '匯款帳號'=>$row-> 匯款帳號,
                         '轉讓會員'=>$row-> 轉讓會員,
                         '完稅人'=>$row-> 完稅人,
                         '一審'=>$row-> 一審,
@@ -79,6 +79,13 @@ class Orders_model extends CI_Model {
 
     public function add($data) {
         $this->db->insert('ORDERS',$data);
+        $id = $this->db->insert_id();
+        return $id;
+    }
+
+    public function edit($data) {
+        $this->db->where('id', $id);
+        $this->db->update('mytable', $data); 
         $id = $this->db->insert_id();
         return $id;
     }
