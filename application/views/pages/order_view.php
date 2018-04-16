@@ -29,11 +29,12 @@
                         <table class="table table-md table-hover table-responsive">
                             <thead class="thead-light">
                                 <tr>
+                                    <th>編輯</th>
                                     <th>編號</th>
                                     <th scope="col">日期</th>
                                     <th>業務</th>
                                     <th>客戶姓名</th>
-                                    <th>編輯</th>
+                                    <th>細項編輯</th>
                                     <th>身分證字號</th>
                                     <th>聯絡電話</th>
                                     <th>聯絡人</th>
@@ -69,22 +70,31 @@
                             <tbody>
                                 <?php if($orders){for($i=0; $i<count($orders); $i++) {?>
                                 <tr>
+                                    <td>
+                                      <form method="GET" action="edit">
+                                        <button type="submit">編輯</button>
+                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+                                      </form>
+                                    </td>
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
-                                    <td><?php echo ($orders[$i]['客戶姓名']) ?></td>
-                                    <td><!-- Trigger/Open The Modal --><button id="myBtn">編輯</button></td>
+                                    <td><?php echo ($orders[$i]['客戶姓名']) ?>
+                                      <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
+                                    </td>
+                                    <!-- Trigger/Open The Modal -->
+                                    <td><button data-target="#myBtn" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
                                     <td><?php echo ($orders[$i]['身分證字號']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡人']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡地址']) ?></td>
                                     <td><?php
                                     if($orders[$i]['買賣']==1){
-                                      echo "買";
+                                      echo '<p class="text-primary">買';
                                     } else {
-                                      echo "賣";
+                                      echo '<p class="text-danger">賣';
                                     }
-                                    ?></td>
+                                    ?></p></td>
                                     <td><?php echo ($orders[$i]['股票']) ?></td>
                                     <td><?php echo ($orders[$i]['張數']) ?></td>
                                     <td><?php echo ($orders[$i]['完稅價']) ?></td>
@@ -211,8 +221,10 @@
                 <div class="">
                   <table>
                     <tr>
+                      <td><label>成交單編號</label></td>
+                      <td><input type="text" name="成交單編號" value="" id="edit_id"></td>
                       <td><label>個人姓名</label></td>
-                      <td><input type="text" name="個人姓名" value=""></td>
+                      <td><input type="text" name="個人姓名" value="" id="edit_name"></td>
                       <td><label>身分證字號</label></td>
                       <td><input type="text" name="身分證字號" value=""></td>
                       <td><label>聯絡地址</label></td>
@@ -350,8 +362,8 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-        <script src="../../../../assets/js/vendor/popper.min.js"></script>
-        <script src="../../../../dist/js/bootstrap.min.js"></script>
+        <!-- <script src="../../../../assets/js/vendor/popper.min.js"></script> -->
+        <!-- <script src="../../../../dist/js/bootstrap.min.js"></script> -->
 
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -362,6 +374,19 @@
         <!-- Graphs -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
         <script>
+
+          //編輯資料
+          function Edit(i){
+            var id = i;
+            document.getElementById('edit_id').value = id;
+            document.getElementById('edit_name').value = document.getElementById('name'+id).value;
+            document.getElementById('edit_source').value = document.getElementById('show_source'+id).value;
+            document.getElementById('edit_price').value = document.getElementById('show_price'+id).value;
+            document.getElementById('edit_cost').value = document.getElementById('show_cost'+id).value;
+            document.getElementById('edit_amount').value = document.getElementById('show_amount'+id).value;
+            document.getElementById('edit_total_cost').value = document.getElementById('show_total_cost'+id).value;
+            document.getElementById('edit_date').value = document.getElementById('show_date'+id).value;
+          }
 
           // Get the modal
           var modal = document.getElementById('myModal');

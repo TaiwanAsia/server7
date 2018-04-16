@@ -133,7 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li> -->
                         <?php 
-                            if ($_SESSION['NAME']=='JOY') { ?>
+                            if ($_SESSION['NAME']=='JOY'&&$_SESSION['LEVEL']=='2') { ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
                                     <!-- <span data-feather="file-text"></span> -->

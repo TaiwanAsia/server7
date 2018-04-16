@@ -59,7 +59,10 @@ class Orders_model extends CI_Model {
                 // echo $sql;
                 // $query = $this->db->query($sql);
             }   
+        } else {
+            $query = $this->db->get_where('ORDERS', array('id' => $keyword));
         }
+
         if($query->num_rows()>0) {
             $result = $this->transformer($query);
             return $result;
@@ -67,6 +70,11 @@ class Orders_model extends CI_Model {
             return false;
         }
         print_r($result);
+    }
+
+    public function edit($data) {
+        $this->db->where('id', $data['ID']);
+        $this->db->update('orders', $data);
     }
 
     public function add($data) {

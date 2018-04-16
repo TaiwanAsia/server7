@@ -125,9 +125,45 @@ class Orders extends CI_Controller {
 	}
 
 	public function edit() {
-		$this->index();
+		$result = $this -> orders_model -> get($_GET['id'],null,null);
+		$old_date_timestamp = strtotime($result[0]['日期']);
+		$new_date = date('Y/m/d', $old_date_timestamp);
+		$result[0]['日期'] = $new_date;
+		// foreach ($result[0] as $key => $value) {
+		// 	echo $key.": ".$value."<br>";
+		// };  
+		$this->load->view('templates/header');
+		$this->load->view('pages/edit_order_view',array('result' => $result,));
 	}
 
+	public function edit_order() {
+		$data = array('日期' => $_POST['日期'],
+						'ID' => $_POST['ID'],
+						'業務' => $_POST['業務'],
+						'業務' => $_POST['業務'],
+						'客戶姓名' => $_POST['客戶姓名'],
+						'身分證字號' => $_POST['身分證字號'],
+						'聯絡電話' => $_POST['聯絡電話'],
+						'聯絡人' => $_POST['聯絡人'],
+						'聯絡地址' => $_POST['聯絡地址'],
+						'買賣' => $_POST['買賣'],
+						'股票' => $_POST['股票'],
+						'張數' => $_POST['張數'],
+						'完稅價' => $_POST['完稅價'],
+						'成交價' => $_POST['成交價'],
+						'盤價' => $_POST['盤價'],
+						'匯款金額' => $_POST['匯款金額'],
+						'匯款銀行' => $_POST['匯款銀行'],
+						'匯款分行' => $_POST['匯款分行'],
+						'匯款戶名' => $_POST['匯款戶名'],
+						'完稅人' => $_POST['完稅人'],
+						'新舊' => $_POST['新舊'],
+						'自行應付' => $_POST['自行應付'],
+						'刻印' => $_POST['刻印'],
+						'過戶費' => $_POST['過戶費'],);
+		$this -> orders_model -> edit($data);
+		$this->index();
+	}
 }
 
 
