@@ -80,21 +80,11 @@
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
-<<<<<<< HEAD
                                     <td><?php echo ($orders[$i]['客戶姓名']) ?>
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
                                     <!-- Trigger/Open The Modal -->
                                     <td><button data-target="#myBtn" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
-=======
-                                    <td><?php echo ($orders[$i]['客戶姓名']) ?></td>
-                                    <td>
-                                      <button id="myBtn" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)">
-                                        <span>編輯</span>
-                                      </button>
-                                    </td>
-                                    <!-- <td><button id="myBtn">編輯</button></td> -->
->>>>>>> 649045c712a7ea1c420848d2724c586b6910122f
                                     <td><?php echo ($orders[$i]['身分證字號']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡人']) ?></td>

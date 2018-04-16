@@ -136,6 +136,7 @@ class Orders extends CI_Controller {
 		// };  
 		$this->load->view('templates/header');
 		$this->load->view('pages/edit_order_view',array('result' => $result,));
+	}
 
 	public function edit_order() {
 		$data = array('個人姓名' => $_POST['個人姓名'],
