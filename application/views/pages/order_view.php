@@ -219,8 +219,6 @@
                 <div class="">
                   <table>
                     <tr>
-                      <td><label>成交單編號</label></td>
-                      <td><input type="text" name="成交單編號" value="" id="edit_id"></td>
                       <td><label>個人姓名</label></td>
                       <td><input type="text" name="個人姓名" value="" id="edit_name"></td>
                       <td><label>身分證字號</label></td>
