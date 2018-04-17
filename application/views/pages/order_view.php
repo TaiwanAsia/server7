@@ -84,7 +84,7 @@
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
                                     <!-- Trigger/Open The Modal -->
-                                    <td><button data-target="#myBtn" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
+                                    <td><button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
                                     <td><?php echo ($orders[$i]['身分證字號']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
                                     <td><?php echo ($orders[$i]['聯絡人']) ?></td>
@@ -133,7 +133,7 @@
                                             <select id="inputState" name="欲媒合對方ID" class="form-control">
                                                 <option selected value="0">尚無</option>
                                                 <?php
-                                                for ($j=0; $j < count($orders); $j++) { 
+                                                for ($j=0; $j < count($orders); $j++) {
                                                     echo "<option>".$orders[$j]['ID']."</option>";
                                                 }
                                                 ?>
@@ -141,19 +141,19 @@
                                             <input type="hidden" name="欲媒合自身ID" value="<?php echo $orders[$i]['ID']?>">
                                             <button type="submit" id="" name="" class="">確認</button>
                                           </form>
-                                        <?php } else { 
+                                        <?php } else {
                                           echo $orders[$i]['媒合'];
                                         }
                                         ?>
                                       </td>
-                                    <?php } else { 
+                                    <?php } else {
                                       if ($orders[$i]['媒合']==0) {
                                         echo "<td>未媒合</td>";
                                       } else {
                                         echo $orders[$i]['媒合'];
                                       }
                                      }?>
-                                    
+
                                     <td><?php echo ($orders[$i]['收付款']) ?></td>
                                     <td><?php echo ($orders[$i]['過戶日']) ?></td>
                                     <td>
@@ -162,7 +162,7 @@
                                         </form>
                                     </td>
                                     <td style="min-width:100px;">
-                                        <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){ 
+                                        <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){
                                           ?>
                                         <a href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
                                         <?php } else {?>
@@ -176,7 +176,7 @@
                                         <?php } ?>
                                     </td>
                                     <td>
-                                        <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){ 
+                                        <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){
                                           ?>
                                         <a href="<?=base_url('upload/tax/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
                                         <?php  } else {?>
@@ -208,8 +208,8 @@
         </div>
 
 
-        
-        <div id="myModal" class="modal">
+
+        <div class="modal" data-popup="popup-1">
             <div class="modal-content">
               <div class="modal-header">
                 <h3>編輯成交單</h3>
@@ -252,7 +252,7 @@
                       <td>
                         <select id="inputState" name="轉讓會員" class="form-control">
                             <?php
-                            for ($j=0; $j < count($employees); $j++) { 
+                            for ($j=0; $j < count($employees); $j++) {
                                 echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
                             }
                             ?>
@@ -346,26 +346,17 @@
                   </table>
                 </div>
               </form>
-                <span class="close">&times;</span>
+                <span class="close" data-popup-close="popup-1">&times;</span>
             </div>
         </div>
 
-        <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-        <!-- <script src="../../../../assets/js/vendor/popper.min.js"></script> -->
-        <!-- <script src="../../../../dist/js/bootstrap.min.js"></script> -->
+<!-- modal function -> assets/js/action.js -->
 
-        <!-- Icons -->
-        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-        <script>
-          feather.replace()
-        </script>
 
-        <!-- Graphs -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+
+
+
         <script>
 
           //編輯資料
@@ -381,32 +372,8 @@
             document.getElementById('edit_date').value = document.getElementById('show_date'+id).value;
           }
 
-          // Get the modal
-          var modal = document.getElementById('myModal');
+          feather.replace()
 
-          // Get the button that opens the modal
-          var btn = document.getElementById("myBtn");
-
-          // Get the <span> element that closes the modal
-          var span = document.getElementsByClassName("close")[0];
-
-          // When the user clicks the button, open the modal 
-          btn.onclick = function() {
-              modal.style.display = "block";
-          }
-
-          // When the user clicks on <span> (x), close the modal
-          span.onclick = function() {
-              modal.style.display = "none";
-          }
-
-          // When the user clicks anywhere outside of the modal, close it
-          window.onclick = function(event) {
-              if (event.target == modal) {
-                  modal.style.display = "none";
-              }
-          }
-      
         </script>
     </body>
 </html>
