@@ -138,7 +138,8 @@ class Orders extends CI_Controller {
 		$this->load->view('pages/edit_order_view',array('result' => $result,));
 	}
 
-	public function edit_order() {
+	//改成交單狀態
+	public function edit_order_1() {
 		$data = array('個人姓名' => $_POST['個人姓名'],
 			'身分證字號' => $_POST['身分證字號'],
 			'聯絡地址' => $_POST['聯絡地址'],
@@ -170,10 +171,10 @@ class Orders extends CI_Controller {
 
 	}
 
-	public function edit_order_1() {
+	//單純修改成交單內容
+	public function edit_order() {
 		$data = array('日期' => $_POST['日期'],
 						'ID' => $_POST['ID'],
-						'業務' => $_POST['業務'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
 						'身分證字號' => $_POST['身分證字號'],

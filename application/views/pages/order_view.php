@@ -214,7 +214,8 @@
               <div class="modal-header">
                 <h3>編輯成交單</h3>
               </div>
-              <form method="post" name="edit_order_info" action="edit_order" >
+              <form method="post" name="edit_order_info" action="edit_order_1" >
+                <!-- 為修改成交單狀態,與edit_order不同 -->
                 <div class="">
                   <table>
                     <tr>
