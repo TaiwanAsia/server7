@@ -39,7 +39,7 @@
                       <td>
                         <select id="inputState" name="轉讓會員" class="form-control">
                             <?php
-                            for ($j=0; $j < count($employees); $j++) { 
+                            for ($j=0; $j < count($employees); $j++) {
                                 echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
                             }
                             ?>

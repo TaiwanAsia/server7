@@ -256,7 +256,7 @@
 
 
 
-        <div class="modal" data-popup="popup-1">
+        <div class="s-modal" data-popup="popup-1">
             <div class="modal-content">
               <div class="modal-header">
                 <h3>編輯成交單</h3>
@@ -390,7 +390,7 @@
                   </table>
                 </div>
               </form>
-                <span class="close" data-popup-close="popup-1">&times;</span>
+                <span class="s-close" data-popup-close="popup-1">&times;</span>
             </div>
         </div>
 

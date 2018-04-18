@@ -1,8 +1,56 @@
-.edit_btn1 {
-  cursor: pointer;
-  color: #353535; }
+th, td, form {
+  white-space: nowrap; }
 
-.close {
-  position: absolute;
-  top: 1em;
-  right: 1em; }
+#upload {
+  width: 100px; }
+
+.s-modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 100px;
+  z-index: 1050;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+  /* Modal Content */
+  /* The Close Button */ }
+  .s-modal .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; }
+  .s-modal .s-close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: #dc3545;
+    float: right;
+    font-size: 28px;
+    font-weight: bold; }
+    .s-modal .s-close:hover {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer; }
+    .s-modal .s-close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer; }
+  .s-modal .edit_btn1 {
+    cursor: pointer;
+    color: #353535; }
