@@ -78,7 +78,8 @@ class Orders_model extends CI_Model {
     }
 
     public function add($data) {
-        $this->db->insert('orders',$data);
+        $this->db->where('ID', $data['ID']);
+        $this->db->update('orders',$data);
         $id = $this->db->insert_id();
         return $id;
     }

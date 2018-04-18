@@ -20,7 +20,7 @@
                                     <td><input class="" type="text" name="客戶姓名" value="" id="" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('身分證字號'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">身分證字號</label></td>
                                     <td><input class="" type="text" name="身分證字號" value="" id=""></td>
                                 </tr>
