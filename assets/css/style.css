@@ -1,3 +1,8 @@
 .edit_btn1 {
   cursor: pointer;
   color: #353535; }
+
+.close {
+  position: absolute;
+  top: 1em;
+  right: 1em; }
