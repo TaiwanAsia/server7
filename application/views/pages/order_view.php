@@ -80,15 +80,27 @@
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
-                                    <td><?php echo ($orders[$i]['客戶姓名']) ?>
+                                    <td>
+                                      <?php echo ($orders[$i]['客戶姓名']) ?>
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
                                     <!-- Trigger/Open The Modal -->
                                     <td><button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
-                                    <td><?php echo ($orders[$i]['身分證字號']) ?></td>
-                                    <td><?php echo ($orders[$i]['聯絡電話']) ?></td>
-                                    <td><?php echo ($orders[$i]['聯絡人']) ?></td>
-                                    <td><?php echo ($orders[$i]['聯絡地址']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['身分證字號']) ?>
+                                      <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['聯絡電話']) ?>
+                                      <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['聯絡人']) ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['聯絡地址']) ?>
+                                      <input type="hidden" id="address<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡地址']; ?>">
+                                    </td>
                                     <td><?php
                                     if($orders[$i]['買賣']==1){
                                       echo '<p class="text-primary">買';
@@ -96,11 +108,26 @@
                                       echo '<p class="text-danger">賣';
                                     }
                                     ?></p></td>
-                                    <td><?php echo ($orders[$i]['股票']) ?></td>
-                                    <td><?php echo ($orders[$i]['張數']) ?></td>
-                                    <td><?php echo ($orders[$i]['完稅價']) ?></td>
-                                    <td><?php echo ($orders[$i]['成交價']) ?></td>
-                                    <td><?php echo ($orders[$i]['盤價']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['股票']) ?>
+                                      <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['張數']) ?>
+                                      <input type="hidden" id="amount<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['張數']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['完稅價']) ?>
+                                      <input type="hidden" id="完稅價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅價']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['成交價']) ?>
+                                      <input type="hidden" id="成交價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交價']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['盤價']) ?>
+                                      <input type="hidden" id="盤價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['盤價']; ?>">
+                                    </td>
                                     <td><?php echo ($orders[$i]['匯款金額']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款銀行']) ?></td>
                                     <td><?php echo ($orders[$i]['匯款分行']) ?></td>
@@ -219,14 +246,18 @@
                 <div class="">
                   <table>
                     <tr>
+                      <td><label>成交單編號</label></td>
+                      <td><input readonly type="text" name="成交單編號" value="" id="edit_id"></td>
+                    </tr>
+                    <tr>
                       <td><label>個人姓名</label></td>
                       <td><input type="text" name="個人姓名" value="" id="edit_name"></td>
                       <td><label>身分證字號</label></td>
-                      <td><input type="text" name="身分證字號" value=""></td>
+                      <td><input type="text" name="身分證字號" value="" id="edit_F"></td>
                       <td><label>聯絡地址</label></td>
-                      <td><input type="text" name="聯絡地址" value=""></td>
+                      <td><input type="text" name="聯絡地址" value="" id="edit_address"></td>
                       <td><label>聯絡電話</label></td>
-                      <td><input type="text" name="聯絡電話" value=""></td>
+                      <td><input type="text" name="聯絡電話" value="" id="edit_phone"></td>
                     </tr>
                     <tr>
                       <td><label>成交日期</label></td>
@@ -236,14 +267,14 @@
                     </tr>
                     <tr>
                       <td><label>股票名稱</label></td>
-                      <td><input type="text" name="股票名稱" value=""></td>
+                      <td><input type="text" name="股票名稱" value="" id="edit_company"></td>
                       <td>
                         <input type="radio" name="買賣" value="1" checked>買
                         <input type="radio" name="買賣" value="0">賣
                       </td>
                       <td></td>
                       <td><label>張數</label></td>
-                      <td><input type="text" name="張數" value=""></td>
+                      <td><input type="text" name="張數" value="" id="edit_amount"></td>
                     </tr>
                     <tr>
                       <td><label>轉讓會員</label></td>
@@ -257,11 +288,11 @@
                         </select>
                       </td>
                       <td><label>完稅價</label></td>
-                      <td><input type="text" name="完稅價" value=""></td>
+                      <td><input type="text" name="完稅價" value="" id="edit_完稅價"></td>
                       <td><label>成交價</label></td>
-                      <td><input type="text" name="成交價" value=""></td>
+                      <td><input type="text" name="成交價" value="" id="edit_成交價"></td>
                       <td><label>盤價</label></td>
-                      <td><input type="text" name="盤價" value=""></td>
+                      <td><input type="text" name="盤價" value="" id="edit_盤價"></td>
                     </tr>
                     <tr>
                       <td><label>自付額</label></td>
@@ -361,13 +392,18 @@
           function Edit(i){
             var id = i;
             document.getElementById('edit_id').value = id;
+            ['name', 'F'].forEach(function(field) {
+              document.getElementById('edit_' + field).value = document.getElementById(field+id).value;
+            });
             document.getElementById('edit_name').value = document.getElementById('name'+id).value;
-            document.getElementById('edit_source').value = document.getElementById('show_source'+id).value;
-            document.getElementById('edit_price').value = document.getElementById('show_price'+id).value;
-            document.getElementById('edit_cost').value = document.getElementById('show_cost'+id).value;
-            document.getElementById('edit_amount').value = document.getElementById('show_amount'+id).value;
-            document.getElementById('edit_total_cost').value = document.getElementById('show_total_cost'+id).value;
-            document.getElementById('edit_date').value = document.getElementById('show_date'+id).value;
+            document.getElementById('edit_F').value = document.getElementById('F'+id).value;
+            document.getElementById('edit_phone').value = document.getElementById('phone'+id).value;
+            document.getElementById('edit_address').value = document.getElementById('address'+id).value;
+            document.getElementById('edit_company').value = document.getElementById('company'+id).value;
+            document.getElementById('edit_amount').value = document.getElementById('amount'+id).value;
+            document.getElementById('edit_完稅價').value = document.getElementById('完稅價'+id).value;
+            document.getElementById('edit_成交價').value = document.getElementById('成交價'+id).value;
+            document.getElementById('edit_盤價').value = document.getElementById('盤價'+id).value;
           }
 
           feather.replace()
