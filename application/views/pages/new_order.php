@@ -22,12 +22,12 @@
                                 <tr>
                                     <td><?php echo form_error('身分證字號'); ?></td>
                                     <td><label for="" class="">身分證字號</label></td>
-                                    <td><input class="" type="text" name="身分證字號" value="" id="" required></td>
+                                    <td><input class="" type="text" name="身分證字號" value="" id=""></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('聯絡電話'); ?></td>
                                     <td><label for="" class="">聯絡電話</label></td>
-                                    <td><input class="" type="tel" name="聯絡電話" value="" id="" required></td>
+                                    <td><input class="" type="tel" name="聯絡電話" value="" id=""></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('聯絡人'); ?></td>
@@ -37,7 +37,7 @@
                                 <tr>
                                     <td><?php echo form_error('聯絡地址'); ?></td>
                                     <td><label for="" class="">聯絡地址</label></td>
-                                    <td><input class="" type="text" name="聯絡地址" value="" id="" required></td>
+                                    <td><input class="" type="text" name="聯絡地址" value="" id=""></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('買賣'); ?></td>
@@ -75,12 +75,12 @@
                                 <tr>
                                     <td><?php echo form_error('匯款金額'); ?></td>
                                     <td><label for="" class="">匯款金額</label></td>
-                                    <td><input class="" type="text" name="匯款金額" value="" id="" required></td>
+                                    <td><input class="" type="text" name="匯款金額" value="" id=""></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('匯款銀行'); ?></td>
                                     <td><label for="" class="">匯款銀行</label></td>
-                                    <td><input class="" type="text" name="匯款銀行" value="" id="" required></td>
+                                    <td><input class="" type="text" name="匯款銀行" value="" id=""></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -90,12 +90,12 @@
                                 <tr>
                                     <td><?php echo form_error('匯款戶名'); ?></td>
                                     <td><label for="" class="">匯款戶名</label></td>
-                                    <td><input class="" type="text" name="匯款戶名" value="" id="" required></td>
+                                    <td><input class="" type="text" name="匯款戶名" value="" id=""></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('匯款帳號'); ?></td>
                                     <td><label for="" class="">匯款帳號</label></td>
-                                    <td><input class="" type="text" name="匯款帳號" value="" id="" required></td>
+                                    <td><input class="" type="text" name="匯款帳號" value="" id=""></td>
                                 </tr>
                                 <!-- <tr>
                                     <td><?php echo form_error('轉讓會員'); ?></td>

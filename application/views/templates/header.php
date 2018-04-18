@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../../../favicon.ico">
-        <title>Server 7</title>
+        <title>成交單</title>
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -78,23 +78,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             cursor: pointer;
         }
     </style>
-
-    <script>
-
-    function Edit(i){
-        var id = i;
-        document.getElementById('edit_id').value = id;
-        document.getElementById('edit_product').value = document.getElementById('show_product'+id).value;
-        document.getElementById('edit_source').value = document.getElementById('show_source'+id).value;
-        document.getElementById('edit_price').value = document.getElementById('show_price'+id).value;
-        document.getElementById('edit_cost').value = document.getElementById('show_cost'+id).value;
-        document.getElementById('edit_amount').value = document.getElementById('show_amount'+id).value;
-        document.getElementById('edit_total_cost').value = document.getElementById('show_total_cost'+id).value;
-        document.getElementById('edit_date').value = document.getElementById('show_date'+id).value;
-    }
-
-    </script>
-
 
 
   <body>
