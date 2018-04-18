@@ -24,17 +24,16 @@
 
                 <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
 
-                    <h2>成交單清冊</h2>
                     <div class="">
                         <table class="table table-md table-hover table-responsive">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>編輯</th>
+                                    
                                     <th>編號</th>
                                     <th scope="col">日期</th>
                                     <th>業務</th>
                                     <th>客戶姓名</th>
-                                    <th>細項編輯</th>
+                                    
                                     <th>身分證字號</th>
                                     <th>聯絡電話</th>
                                     <th>聯絡人</th>
@@ -65,18 +64,14 @@
                                     <th>上傳契約-要記得選擇檔案</th>
                                     <th>上傳稅單-要記得選擇檔案</th>
                                     <th>是否結案</th>
+                                    <th>編輯</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if($orders) {
                                     for($i=0; $i<count($orders); $i++) { ?>
                                 <tr>
-                                    <td>
-                                      <form method="GET" action="edit">
-                                        <button type="submit">編輯</button>
-                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
-                                      </form>
-                                    </td>
+                                    
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
                                     <td><?php echo ($orders[$i]['日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
@@ -84,8 +79,6 @@
                                       <?php echo ($orders[$i]['客戶姓名']) ?>
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
-                                    <!-- Trigger/Open The Modal -->
-                                    <td><button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button></td>
                                     <td>
                                       <?php echo ($orders[$i]['身分證字號']) ?>
                                       <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
@@ -157,7 +150,12 @@
                                     </td>
                                     <?php
                                       if ($orders[$i]['一審']==0) {
-                                        echo "<td></td>";
+                                    ?>
+                                    <!-- Trigger/Open The Modal -->
+                                    <td>
+                                      <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button>
+                                    </td>
+                                    <?php
                                       } else {
                                         echo "<td><?php echo ($orders[$i]['一審']) ?></td>";
                                       }
@@ -245,6 +243,12 @@
                                         }
                                       ?>
                                     </td>
+                                    <td>
+                                      <form method="GET" action="edit">
+                                        <button type="submit">編輯</button>
+                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+                                      </form>
+                                    </td>
                                 </tr>
                                 <?php }} ?>
                             </tbody>
@@ -270,8 +274,8 @@
                       <td><input readonly type="text" name="成交單編號" value="" id="edit_id"></td>
                     </tr>
                     <tr>
-                      <td><label>個人姓名</label></td>
-                      <td><input type="text" name="個人姓名" value="" id="edit_name"></td>
+                      <td><label>客戶姓名</label></td>
+                      <td><input type="text" name="客戶姓名" value="" id="edit_name"></td>
                       <td><label>身分證字號</label></td>
                       <td><input type="text" name="身分證字號" value="" id="edit_F"></td>
                       <td><label>聯絡地址</label></td>
@@ -287,12 +291,14 @@
                     </tr>
                     <tr>
                       <td><label>股票名稱</label></td>
-                      <td><input type="text" name="股票名稱" value="" id="edit_company"></td>
+                      <td><input type="text" name="股票" value="" id="edit_company"></td>
                       <td>
                         <input type="radio" name="買賣" value="1" checked>買
                         <input type="radio" name="買賣" value="0">賣
                       </td>
-                      <td></td>
+                      <td>
+                        <font color="red">**需重新勾選**</font>
+                      </td>
                       <td><label>張數</label></td>
                       <td><input type="text" name="張數" value="" id="edit_amount"></td>
                     </tr>
@@ -369,6 +375,9 @@
                         <input type="radio" name="成交單狀態" value="審核中"><label class="text-success">審核中</label>
                         <input type="radio" name="成交單狀態" value="審核不通過"><label class="text-danger">審核不通過</label>
                       </td>
+                      <td>
+                        <font color="red">**需重新勾選**</font>
+                      </td>
                     </tr>
                     <tr>
                       <td><label>現金或匯款</label></td>
@@ -376,6 +385,9 @@
                         <input type="radio" name="現金或匯款" value="未付款" checked><label class="">未付款</label>
                         <input type="radio" name="現金或匯款" value="現金"><label class="">現金</label>
                         <input type="radio" name="現金或匯款" value="匯款"><label class="">匯款</label>
+                      </td>
+                      <td>
+                        <font color="red">**需重新勾選**</font>
                       </td>
                     </tr>
                     <tr>
@@ -411,10 +423,6 @@
             ['name', 'F', 'phone','address','company','amount','完稅價','成交價','盤價','匯款銀行','匯款分行','匯款戶名','匯款帳號','完稅人'].forEach(function(field) {
               document.getElementById('edit_' + field).value = document.getElementById(field+id).value;
             });
-            alert(document.getElementById('買賣'+id).value);
-            if (document.getElementById('買賣'+id).value == 1) {
-              alert('hi');
-            }
           }
 
           feather.replace()
