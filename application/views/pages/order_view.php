@@ -103,9 +103,11 @@
                                     </td>
                                     <td><?php
                                     if($orders[$i]['買賣']==1){
-                                      echo '<p class="text-primary">買';
+                                      echo '<p class="text-danger"><b>買</b>';
+                                      echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'; ?>" name="" value="1">';
                                     } else {
-                                      echo '<p class="text-danger">賣';
+                                      echo '<p class="text-primary"><b>賣</b>';
+                                      echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'; ?>" name="" value="0">';
                                     }
                                     ?></p></td>
                                     <td>
@@ -128,13 +130,31 @@
                                       <?php echo ($orders[$i]['盤價']) ?>
                                       <input type="hidden" id="盤價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['盤價']; ?>">
                                     </td>
-                                    <td><?php echo ($orders[$i]['匯款金額']) ?></td>
-                                    <td><?php echo ($orders[$i]['匯款銀行']) ?></td>
-                                    <td><?php echo ($orders[$i]['匯款分行']) ?></td>
-                                    <td><?php echo ($orders[$i]['匯款戶名']) ?></td>
-                                    <td><?php echo ($orders[$i]['匯款帳號']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['匯款金額']) ?>
+                                      <input type="hidden" id="匯款金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['匯款銀行']) ?>
+                                      <input type="hidden" id="匯款銀行<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款銀行']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['匯款分行']) ?>
+                                      <input type="hidden" id="匯款分行<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款分行']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['匯款戶名']) ?>
+                                      <input type="hidden" id="匯款戶名<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款戶名']; ?>">
+                                    </td>
+                                    <td>
+                                      <?php echo ($orders[$i]['匯款帳號']) ?>
+                                      <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
+                                    </td>
                                     <td><?php echo ($orders[$i]['轉讓會員']) ?></td>
-                                    <td><?php echo ($orders[$i]['完稅人']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['完稅人']) ?>
+                                      <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
+                                    </td>
                                     <?php
                                       if ($orders[$i]['一審']==0) {
                                         echo "<td></td>";
@@ -306,21 +326,22 @@
                   <table>
                     <tr>
                       <td><label>匯款銀行</label></td>
-                      <td><input type="text" name="匯款銀行" value=""></td>
+                      <td><input type="text" name="匯款銀行" value="" id="edit_匯款銀行"></td>
                       <td><label>匯款分行</label></td>
-                      <td><input type="text" name="匯款分行" value=""></td>
+                      <td><input type="text" name="匯款分行" value="" id="edit_匯款分行"></td>
                       <td><label>匯款戶名</label></td>
-                      <td><input type="text" name="匯款戶名" value=""></td>
+                      <td><input type="text" name="匯款戶名" value="" id="edit_匯款戶名"></td>
                       <td><label>匯款帳號</label></td>
-                      <td><input type="text" name="匯款帳號" value=""></td>
+                      <td><input type="text" name="匯款帳號" value="" id="edit_匯款帳號"></td>
                     </tr>
                     <tr>
                       <td class="text-danger"><label><b>匯款金額<b/></label></td>
-                      <td><input type="text" name="匯款金額" value=""></td>
+                      <td><input type="text" name="匯款金額" value="" id="edit_匯款金額"></td>
+                      <td><button type="button" onclick="calculate()">計算</button></td>
                     </tr>
                     <tr>
-                      <td><label>完稅人頭</label></td>
-                      <td><input type="text" name="完稅人頭" value=""></td>
+                      <td><label>完稅人</label></td>
+                      <td><input type="text" name="完稅人" value="" id="edit_完稅人"></td>
                       <td><label>過戶費</label></td>
                       <td>
                         <select id="inputState" name="過戶費" class="form-control">
@@ -334,16 +355,10 @@
                       <td>
                         <select id="inputState" name="刻印收送" class="form-control">
                             <?php
-                              for($j=1; $j<=10; $j++) {
+                              for($j=0; $j<=10; $j++) {
                                 echo "<option value=".$j.">".$j."</option>";
                               }
                             ?>
-                        </select>
-                      </td>
-                      <td><label>客戶來源</label></td>
-                      <td>
-                        <select id="inputState" name="客戶來源" class="form-control">
-                          <option value="開發的">開發的</option>
                         </select>
                       </td>
                     </tr>
@@ -382,28 +397,24 @@
 <!-- modal function -> assets/js/action.js -->
 
 
-
-
-
-
         <script>
+
+          //計算匯款金額與自付額
+          function calculate() {
+            document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997;
+          }
 
           //編輯資料
           function Edit(i){
             var id = i;
             document.getElementById('edit_id').value = id;
-            ['name', 'F'].forEach(function(field) {
+            ['name', 'F', 'phone','address','company','amount','完稅價','成交價','盤價','匯款銀行','匯款分行','匯款戶名','匯款帳號','完稅人'].forEach(function(field) {
               document.getElementById('edit_' + field).value = document.getElementById(field+id).value;
             });
-            document.getElementById('edit_name').value = document.getElementById('name'+id).value;
-            document.getElementById('edit_F').value = document.getElementById('F'+id).value;
-            document.getElementById('edit_phone').value = document.getElementById('phone'+id).value;
-            document.getElementById('edit_address').value = document.getElementById('address'+id).value;
-            document.getElementById('edit_company').value = document.getElementById('company'+id).value;
-            document.getElementById('edit_amount').value = document.getElementById('amount'+id).value;
-            document.getElementById('edit_完稅價').value = document.getElementById('完稅價'+id).value;
-            document.getElementById('edit_成交價').value = document.getElementById('成交價'+id).value;
-            document.getElementById('edit_盤價').value = document.getElementById('盤價'+id).value;
+            alert(document.getElementById('買賣'+id).value);
+            if (document.getElementById('買賣'+id).value == 1) {
+              alert('hi');
+            }
           }
 
           feather.replace()

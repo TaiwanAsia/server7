@@ -79,23 +79,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
     </style>
 
-    <script>
-
-    function Edit(i){
-        var id = i;
-        document.getElementById('edit_id').value = id;
-        document.getElementById('edit_product').value = document.getElementById('show_product'+id).value;
-        document.getElementById('edit_source').value = document.getElementById('show_source'+id).value;
-        document.getElementById('edit_price').value = document.getElementById('show_price'+id).value;
-        document.getElementById('edit_cost').value = document.getElementById('show_cost'+id).value;
-        document.getElementById('edit_amount').value = document.getElementById('show_amount'+id).value;
-        document.getElementById('edit_total_cost').value = document.getElementById('show_total_cost'+id).value;
-        document.getElementById('edit_date').value = document.getElementById('show_date'+id).value;
-    }
-
-    </script>
-
-
 
   <body>
     <?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['LEVEL']; ?>
