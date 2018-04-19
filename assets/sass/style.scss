@@ -6,6 +6,7 @@
 width: 100px;
 }
 
+
 .s-modal {
 display: none; /* Hidden by default */
 position: fixed; /* Stay in place */
@@ -58,4 +59,52 @@ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 		cursor: pointer;
 		color: #353535;
 	}
+}
+
+
+
+.pn-Advancer {
+    /* Reset the button */
+    appearance: none;
+    background: transparent;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+
+    &:focus {
+        outline: 0;
+    }
+
+}
+
+.pn-Advancer_Left {
+		position: fixed;
+		top: 50%;
+		left:17%;
+    transform: translateY(-50%);
+
+}
+
+.pn-Advancer_Right {
+		position: fixed;
+		top: 50%;
+		right: 10px;
+    transform: translateY(-50%);
+
+}
+
+.pn-Advancer_Icon {
+    width: 20px;
+    height: 44px;
+    fill: #bbb;
+}
+
+
+.pn-ProductNav_Contents {
+    float: left;
+    transition: transform .2s ease-in-out;
+}
+
+.pn-ProductNav_Contents-no-transition {
+    transition: none;
 }
