@@ -15,4 +15,21 @@ $(document).ready(function() {
 		});
 		});
 
-	});
+
+$('#pnAdvancerRight').click(function() {
+  event.preventDefault();
+  $('#eoTable').animate({
+    scrollLeft: "+=300px"
+  }, "slow");
+});
+
+ $('#pnAdvancerLeft').click(function() {
+  event.preventDefault();
+  $('#eoTable').animate({
+    scrollLeft: "-=300px"
+  }, "slow");
+});
+
+});
+
+

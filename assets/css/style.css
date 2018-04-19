@@ -54,3 +54,36 @@ th, td, form {
   .s-modal .edit_btn1 {
     cursor: pointer;
     color: #353535; }
+
+.pn-Advancer {
+  /* Reset the button */
+  appearance: none;
+  background: transparent;
+  padding: 0;
+  border: 0; }
+  .pn-Advancer:focus {
+    outline: 0; }
+
+.pn-Advancer_Left {
+  position: fixed;
+  top: 50%;
+  left: 17%;
+  transform: translateY(-50%); }
+
+.pn-Advancer_Right {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%); }
+
+.pn-Advancer_Icon {
+  width: 20px;
+  height: 44px;
+  fill: #bbb; }
+
+.pn-ProductNav_Contents {
+  float: left;
+  transition: transform .2s ease-in-out; }
+
+.pn-ProductNav_Contents-no-transition {
+  transition: none; }
