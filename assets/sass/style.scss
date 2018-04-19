@@ -69,6 +69,8 @@ background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     background: transparent;
     padding: 0;
     border: 0;
+    cursor: pointer;
+
     &:focus {
         outline: 0;
     }

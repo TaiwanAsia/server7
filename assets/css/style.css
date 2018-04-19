@@ -60,7 +60,8 @@ th, td, form {
   appearance: none;
   background: transparent;
   padding: 0;
-  border: 0; }
+  border: 0;
+  cursor: pointer; }
   .pn-Advancer:focus {
     outline: 0; }
 
