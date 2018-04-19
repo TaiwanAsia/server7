@@ -47,7 +47,8 @@ class Orders extends CI_Controller {
 
 	public function add_order()
 	{	
-		$data = array('日期' => $_POST['日期'],
+		$data = array(
+						'成交日期' => $_POST['成交日期'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
 						'身分證字號' => $_POST['身分證字號'],
@@ -57,7 +58,6 @@ class Orders extends CI_Controller {
 						'買賣' => $_POST['買賣'],
 						'股票' => $_POST['股票'],
 						'張數' => $_POST['張數'],
-						'完稅價' => $_POST['完稅價'],
 						'成交價' => $_POST['成交價'],
 						'盤價' => $_POST['盤價'],
 						'匯款金額' => $_POST['匯款金額'],
@@ -65,6 +65,7 @@ class Orders extends CI_Controller {
 						'匯款分行' => $_POST['匯款分行'],
 						'匯款戶名' => $_POST['匯款戶名'],
 						'匯款帳號' => $_POST['匯款帳號'],
+						'轉讓會員' => $_POST['轉讓會員'],
 						'完稅人' => $_POST['完稅人'],
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],
@@ -128,7 +129,7 @@ class Orders extends CI_Controller {
 
 	public function edit() {
 		$result = $this -> orders_model -> get($_GET['id'],null,null);
-		$old_date_timestamp = strtotime($result[0]['日期']);
+		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
 		// foreach ($result[0] as $key => $value) {
@@ -139,9 +140,9 @@ class Orders extends CI_Controller {
 	}
 
 	//改成交單狀態
-	public function edit_order_1() {
+	public function edit_order_status() {
 		$data = array(
-			'ID' => $_POST['成交單編號'],
+			'ID' => $_POST['ID'],
 			'客戶姓名' => $_POST['客戶姓名'],
 			'身分證字號' => $_POST['身分證字號'],
 			'聯絡地址' => $_POST['聯絡地址'],
@@ -151,8 +152,6 @@ class Orders extends CI_Controller {
 			'股票' => $_POST['股票'],
 			'買賣' => $_POST['買賣'],
 			'張數' => $_POST['張數'],
-			'轉讓會員' => $_POST['轉讓會員'],
-			'完稅價' => $_POST['完稅價'],
 			'成交價' => $_POST['成交價'],
 			'盤價' => $_POST['盤價'],
 			'自行應付' => $_POST['自付額'],
@@ -160,6 +159,7 @@ class Orders extends CI_Controller {
 			'匯款分行' => $_POST['匯款分行'],
 			'匯款戶名' => $_POST['匯款戶名'],
 			'匯款帳號' => $_POST['匯款帳號'],
+			'轉讓會員' => $_POST['轉讓會員'],
 			'匯款金額' => $_POST['匯款金額'],
 			'完稅人' => $_POST['完稅人'],
 			'過戶費' => $_POST['過戶費'],
@@ -167,14 +167,14 @@ class Orders extends CI_Controller {
 			'成交單狀態' => $_POST['成交單狀態'],
 			'現金或匯款' => $_POST['現金或匯款'],
 			'匯款日期' => $_POST['匯款日期'],);
-		$this -> orders_model -> add($data);
+		$this -> orders_model -> edit($data);
 		$this->index();
 
 	}
 
 	//單純修改成交單內容
 	public function edit_order() {
-		$data = array('日期' => $_POST['日期'],
+		$data = array('成交日期' => $_POST['成交日期'],
 						'ID' => $_POST['ID'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
@@ -185,12 +185,12 @@ class Orders extends CI_Controller {
 						'買賣' => $_POST['買賣'],
 						'股票' => $_POST['股票'],
 						'張數' => $_POST['張數'],
-						'完稅價' => $_POST['完稅價'],
 						'成交價' => $_POST['成交價'],
 						'盤價' => $_POST['盤價'],
 						'匯款金額' => $_POST['匯款金額'],
 						'匯款銀行' => $_POST['匯款銀行'],
 						'匯款分行' => $_POST['匯款分行'],
+						'匯款帳號' => $_POST['匯款帳號'],
 						'匯款戶名' => $_POST['匯款戶名'],
 						'完稅人' => $_POST['完稅人'],
 						'新舊' => $_POST['新舊'],

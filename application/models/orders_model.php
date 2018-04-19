@@ -6,7 +6,7 @@ class Orders_model extends CI_Model {
         if ($query->num_rows() > 0) {
                 foreach ($query->result() as $row) {
                         $result[] = array('ID'=>$row-> ID,
-                        '日期'=>$row-> 日期,
+                        '成交日期'=>$row-> 成交日期,
                         '業務'=>$row-> 業務,
                         '客戶姓名'=>$row->客戶姓名,
                         '身分證字號'=>$row-> 身分證字號,
@@ -16,7 +16,6 @@ class Orders_model extends CI_Model {
                         '買賣'=>$row-> 買賣,
                         '股票'=>$row-> 股票,
                         '張數'=>$row-> 張數,
-                        '完稅價'=>$row-> 完稅價,
                         '成交價'=>$row-> 成交價,
                         '盤價'=>$row-> 盤價,
                         '匯款金額'=>$row-> 匯款金額,
@@ -34,7 +33,7 @@ class Orders_model extends CI_Model {
                         '過戶費'=>$row-> 過戶費,
                         '媒合'=>$row-> 媒合,
                         '收付款'=>$row-> 收付款,
-                        '過戶日'=>$row-> 過戶日,
+                        '過戶日期'=>$row-> 過戶日期,
                         '通知查帳'=>$row-> 通知查帳,
                         '契約'=>$row-> 契約,
                         '稅單'=>$row-> 稅單,
@@ -78,8 +77,7 @@ class Orders_model extends CI_Model {
     }
 
     public function add($data) {
-        $this->db->where('ID', $data['ID']);
-        $this->db->update('orders',$data);
+        $this->db->insert('orders',$data);
         $id = $this->db->insert_id();
         return $id;
     }

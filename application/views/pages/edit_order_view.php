@@ -9,10 +9,10 @@
                                     <td><input readonly type="text" name="ID" value="<?php echo $result[0]['ID'] ?>" id=""></td>
                                 </td>
                                 <tr>
-                                    <td><?php echo form_error('日期'); ?></td>
-                                    <td><label for="" class="">日期</label></td>
-                                    <td><input class="" type="date" name="日期" value="" id="date" value="<?php echo $result[0]['日期']; ?>" required></td>
-                                    <td>原為<?php echo $result[0]['日期']; ?></td>
+                                    <td></td>
+                                    <td><label for="" class="">成交日期</label></td>
+                                    <td><input class="" type="date" name="成交日期" value="" id="date" value="<?php echo $result[0]['成交日期']; ?>" required></td>
+                                    <td>原為<?php echo $result[0]['成交日期']; ?></td>
                                     <td><button type="button" onclick="gettoday()">今天</button></td>
                                 </tr>
                                 <tr>
@@ -51,9 +51,11 @@
                                     <td>
                                         <select class="form-control" name="買賣" id="sel1" equired>
                                         <?php if ($result[0]['買賣']==1) { ?>
-                                            <option value="1">買</option>
-                                        <?php } else { ?>
+                                            <option value="1" selected="selected">買</option>
                                             <option value="0">賣</option>
+                                        <?php } else { ?>
+                                            <option value="1">買</option>
+                                            <option value="0" selected="selected">賣</option>
                                         <?php }?>
                                         </select>
                                     </td>
@@ -103,11 +105,11 @@
                                     <td><label for="" class="">匯款戶名</label></td>
                                     <td><input class="" type="text" name="匯款戶名" id="" value="<?php echo $result[0]['匯款戶名']; ?>"></td>
                                 </tr>
-                                <!-- <tr>
+                                <tr>
                                     <td><?php echo form_error('轉讓會員'); ?></td>
                                     <td><label for="" class="">轉讓會員</label></td>
                                     <td><input class="" type="text" name="轉讓會員" id="" required></td>
-                                </tr> -->
+                                </tr>
                                 <tr>
                                     <td><?php echo form_error('完稅人'); ?></td>
                                     <td><label for="" class="">完稅人</label></td>
@@ -117,17 +119,15 @@
                                     <td><?php echo form_error('新舊'); ?></td>
                                     <td><label for="" class="">新舊</label></td>
                                     <td>
-                                        <select class="form-control" name="新舊" id="" required>
-                                            <option value="1">新</option>
+                                        <select class="form-control" name="新舊" id="new1" equired>
+                                        <?php if ($result[0]['新舊']==1) { ?>
+                                            <option value="1" selected="selected">新</option>
                                             <option value="0">舊</option>
+                                        <?php } else { ?>
+                                            <option value="1">新</option>
+                                            <option value="0" selected="selected">舊</option>
+                                        <?php }?>
                                         </select>
-                                    </td>
-                                    <td>
-                                        <?php if ($result[0]['新舊']==1) {
-                                            echo "原為新";
-                                        } else {
-                                            echo "原為舊";
-                                        }?>
                                     </td>
                                 </tr>
                                 <tr>

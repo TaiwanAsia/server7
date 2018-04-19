@@ -4,19 +4,19 @@
                         <div class="offset-md-1">
                             <table>
                                 <tr>
-                                    <td><?php echo form_error('日期'); ?></td>
-                                    <td><label for="" class="">日期</label></td>
-                                    <td><input class="" type="date" name="日期" value="" id="date" required></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">成交日期</label></td>
+                                    <td><input class="" type="date" name="成交日期" value="" id="date" required></td>
                                     <td><button type="button" onclick="gettoday()">今天</button></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('業務'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">業務</label></td>       
                                     <td><input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id=""></td>
                                 </td>
                                 <tr>
-                                    <td><?php echo form_error('客戶姓名'); ?></td>
-                                    <td><label for="" class="">客戶姓名</label></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">客戶姓名</label></td>
                                     <td><input class="" type="text" name="客戶姓名" value="" id="" required></td>
                                 </tr>
                                 <tr>
@@ -25,60 +25,55 @@
                                     <td><input class="" type="text" name="身分證字號" value="" id=""></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('聯絡電話'); ?></td>
-                                    <td><label for="" class="">聯絡電話</label></td>
-                                    <td><input class="" type="tel" name="聯絡電話" value="" id=""></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">聯絡電話</label></td>
+                                    <td><input class="" type="tel" name="聯絡電話" value="" id="" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('聯絡人'); ?></td>
-                                    <td><label for="" class="">聯絡人</label></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">聯絡人</label></td>
                                     <td><input class="" type="text" name="聯絡人" value="" id="" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('聯絡地址'); ?></td>
-                                    <td><label for="" class="">聯絡地址</label></td>
-                                    <td><input class="" type="text" name="聯絡地址" value="" id=""></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">聯絡地址</label></td>
+                                    <td><input class="" type="text" name="聯絡地址" value="" id="" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('買賣'); ?></td>
-                                    <td><label for="" class="">買賣</label></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">買賣</label></td>
                                     <td>
-                                        <input type="radio" name="買賣" value="1" checked><label class="text-danger">買</label>
-                                        <input type="radio" name="買賣" value="0"><label class="text-success">賣</label>
+                                        <input type="radio" name="買賣" value="1" checked><label class="text-danger"><b>買</b></label>
+                                        <input type="radio" name="買賣" value="0"><label class="text-primary"><b>賣</b></label>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('股票'); ?></td>
-                                    <td><label for="" class="">股票</label></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">股票</label></td>
                                     <td><input class="" type="text" name="股票" value="" id="" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('張數'); ?></td>
-                                    <td><label for="" class="">張數</label></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">張數</label></td>
                                     <td><input class="" type="text" name="張數" value="" id="" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="">完稅價</label></td>
-                                    <td><input class="" type="text" name="完稅價" value="" id=""></td>
-                                </tr>
-                                <tr>
-                                    <td><?php echo form_error('成交價'); ?></td>
-                                    <td><label for="" class="">成交價</label></td>
+                                    <td><label for="" class="text-danger">成交價</label></td>
                                     <td><input class="" type="text" name="成交價" value="" id="" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('盤價'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">盤價</label></td>
-                                    <td><input class="" type="text" name="盤價" value="" id="" required></td>
+                                    <td><input class="" type="text" name="盤價" value="" id=""></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('匯款金額'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">匯款金額</label></td>
                                     <td><input class="" type="text" name="匯款金額" value="" id=""></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('匯款銀行'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">匯款銀行</label></td>
                                     <td><input class="" type="text" name="匯款銀行" value="" id=""></td>
                                 </tr>
@@ -88,31 +83,31 @@
                                     <td><input class="" type="text" name="匯款分行" value="" id=""></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('匯款戶名'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">匯款戶名</label></td>
                                     <td><input class="" type="text" name="匯款戶名" value="" id=""></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('匯款帳號'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">匯款帳號</label></td>
                                     <td><input class="" type="text" name="匯款帳號" value="" id=""></td>
                                 </tr>
-                                <!-- <tr>
-                                    <td><?php echo form_error('轉讓會員'); ?></td>
-                                    <td><label for="" class="">轉讓會員</label></td>
-                                    <td><input class="" type="text" name="轉讓會員" value="" id="" required></td>
-                                </tr> -->
                                 <tr>
-                                    <td><?php echo form_error('完稅人'); ?></td>
-                                    <td><label for="" class="">完稅人</label></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">轉讓會員</label></td>
+                                    <td><input class="" type="text" name="轉讓會員" value="" id="" required></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">完稅人</label></td>
                                     <td><input class="" type="text" name="完稅人" value="" id="" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('新舊'); ?></td>
-                                    <td><label for="" class="">新舊</label></td>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">新舊</label></td>
                                     <td>
-                                        <input type="radio" name="新舊" value="1" checked><label class="text-danger">新</label>
-                                        <input type="radio" name="新舊" value="0"><label class="text-success">舊</label>
+                                        <input type="radio" name="新舊" value="1" checked><label class="text-danger"><b>新</b></label>
+                                        <input type="radio" name="新舊" value="0"><label class="text-success"><b>舊</b></label>
                                     </td>
                                 </tr>
                                 <tr>

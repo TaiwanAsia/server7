@@ -28,12 +28,11 @@
                         <table class="table table-md table-hover table-responsive">
                             <thead class="thead-light">
                                 <tr>
-                                    
+                                    <th></th>
                                     <th>編號</th>
-                                    <th scope="col">日期</th>
+                                    <th scope="col">成交日期</th>
                                     <th>業務</th>
                                     <th>客戶姓名</th>
-                                    
                                     <th>身分證字號</th>
                                     <th>聯絡電話</th>
                                     <th>聯絡人</th>
@@ -41,7 +40,6 @@
                                     <th>買賣</th>
                                     <th>股票</th>
                                     <th>張數</th>
-                                    <th>完稅價</th>
                                     <th>成交價</th>
                                     <th>盤價</th>
                                     <th>匯款金額</th>
@@ -59,21 +57,25 @@
                                     <th>過戶費</th>
                                     <th>媒合</th>
                                     <th>收付款</th>
-                                    <th>過戶日</th>
+                                    <th>過戶日期</th>
                                     <th>通知查帳</th>
                                     <th>上傳契約-要記得選擇檔案</th>
                                     <th>上傳稅單-要記得選擇檔案</th>
                                     <th>是否結案</th>
-                                    <th>編輯</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if($orders) {
                                     for($i=0; $i<count($orders); $i++) { ?>
                                 <tr>
-                                    
+                                    <td>
+                                      <form method="GET" action="edit">
+                                        <button type="submit">編輯</button>
+                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+                                      </form>
+                                    </td>
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
-                                    <td><?php echo ($orders[$i]['日期']) ?></td>
+                                    <td><?php echo ($orders[$i]['成交日期']) ?></td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
                                     <td>
                                       <?php echo ($orders[$i]['客戶姓名']) ?>
@@ -110,10 +112,6 @@
                                     <td>
                                       <?php echo ($orders[$i]['張數']) ?>
                                       <input type="hidden" id="amount<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['張數']; ?>">
-                                    </td>
-                                    <td>
-                                      <?php echo ($orders[$i]['完稅價']) ?>
-                                      <input type="hidden" id="完稅價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅價']; ?>">
                                     </td>
                                     <td>
                                       <?php echo ($orders[$i]['成交價']) ?>
@@ -200,7 +198,7 @@
                                      }?>
 
                                     <td><?php echo ($orders[$i]['收付款']) ?></td>
-                                    <td><?php echo ($orders[$i]['過戶日']) ?></td>
+                                    <td><?php echo ($orders[$i]['過戶日期']) ?></td>
                                     <td>
                                         <form method="post" action="checkbill">
                                             <button type="submit">通知查帳</button>
@@ -243,12 +241,6 @@
                                         }
                                       ?>
                                     </td>
-                                    <td>
-                                      <form method="GET" action="edit">
-                                        <button type="submit">編輯</button>
-                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
-                                      </form>
-                                    </td>
                                 </tr>
                                 <?php }} ?>
                             </tbody>
@@ -265,13 +257,13 @@
               <div class="modal-header">
                 <h3>編輯成交單</h3>
               </div>
-              <form method="post" name="edit_order_info" action="edit_order_1" >
+              <form method="post" name="edit_order_info" action="edit_order_status" >
                 <!-- 為修改成交單狀態,與edit_order不同 -->
                 <div class="">
                   <table>
                     <tr>
                       <td><label>成交單編號</label></td>
-                      <td><input readonly type="text" name="成交單編號" value="" id="edit_id"></td>
+                      <td><input readonly type="text" name="ID" value="" id="edit_id"></td>
                     </tr>
                     <tr>
                       <td><label>客戶姓名</label></td>
@@ -313,8 +305,6 @@
                             ?>
                         </select>
                       </td>
-                      <td><label>完稅價</label></td>
-                      <td><input type="text" name="完稅價" value="" id="edit_完稅價"></td>
                       <td><label>成交價</label></td>
                       <td><input type="text" name="成交價" value="" id="edit_成交價"></td>
                       <td><label>盤價</label></td>
@@ -420,7 +410,7 @@
           function Edit(i){
             var id = i;
             document.getElementById('edit_id').value = id;
-            ['name', 'F', 'phone','address','company','amount','完稅價','成交價','盤價','匯款銀行','匯款分行','匯款戶名','匯款帳號','完稅人'].forEach(function(field) {
+            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款分行','匯款戶名','匯款帳號','完稅人'].forEach(function(field) {
               document.getElementById('edit_' + field).value = document.getElementById(field+id).value;
             });
           }
