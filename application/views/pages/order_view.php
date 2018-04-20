@@ -25,26 +25,20 @@
                     </div>
 
                 <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
-<<<<<<< HEAD
 
-                    <div class="">
-                        <table class="table table-md table-hover table-responsive">
-=======
-                    <div class="t-form-t">
+                  <div class="t-form-t">
                     <button id="pnAdvancerLeft" class="pn-Advancer pn-Advancer_Left" type="button">
-                    <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
+                      <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
                     </button>
                     <button id="pnAdvancerRight" class="pn-Advancer pn-Advancer_Right" type="button">
-                    <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
+                      <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
                     </button>
                     <h2>成交單清冊</h2>
-                    </div>
                   </div>
+
+                  
                     <div class="t-form">
-
-
                         <table id="eoTable" class="table table-md table-hover table-responsive">
->>>>>>> 0d5239f0ee588264be5f12b32b905d2f2d65fcbb
                             <thead class="thead-light">
                                 <tr>
                                     <th></th>
