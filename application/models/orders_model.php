@@ -38,6 +38,7 @@ class Orders_model extends CI_Model {
                         '契約'=>$row-> 契約,
                         '稅單'=>$row-> 稅單,
                         '已結案'=>$row-> 已結案,
+                        '最後動作時間'=>$row-> 最後動作時間,
                                             );
                 }
                 return $result;

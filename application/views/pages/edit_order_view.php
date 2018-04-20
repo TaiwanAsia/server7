@@ -108,7 +108,7 @@
                                 <tr>
                                     <td><?php echo form_error('轉讓會員'); ?></td>
                                     <td><label for="" class="">轉讓會員</label></td>
-                                    <td><input class="" type="text" name="轉讓會員" id="" required></td>
+                                    <td><input class="" type="text" name="轉讓會員" id="" value="<?php echo $result[0]['轉讓會員']; ?>" required></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('完稅人'); ?></td>

@@ -127,7 +127,7 @@ class Orders extends CI_Controller {
 	}
 
 
-	public function edit() {
+	public function go_edit() {
 		$result = $this -> orders_model -> get($_GET['id'],null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
@@ -192,11 +192,13 @@ class Orders extends CI_Controller {
 						'匯款分行' => $_POST['匯款分行'],
 						'匯款帳號' => $_POST['匯款帳號'],
 						'匯款戶名' => $_POST['匯款戶名'],
+						'轉讓會員' => $_POST['轉讓會員'],
 						'完稅人' => $_POST['完稅人'],
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],
 						'刻印' => $_POST['刻印'],
-						'過戶費' => $_POST['過戶費'],);
+						'過戶費' => $_POST['過戶費'],
+						'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
 		$this->index();
 	}

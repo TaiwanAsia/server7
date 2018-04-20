@@ -36,7 +36,7 @@
                     <h2>成交單清冊</h2>
                   </div>
 
-                  
+
                     <div class="t-form">
                         <table id="eoTable" class="table table-md table-hover table-responsive">
                             <thead class="thead-light">
@@ -82,7 +82,7 @@
                                     for($i=0; $i<count($orders); $i++) { ?>
                                 <tr>
                                     <td>
-                                      <form method="GET" action="edit">
+                                      <form method="GET" action="go_edit">
                                         <button type="submit">編輯</button>
                                         <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
                                       </form>
@@ -112,10 +112,10 @@
                                     <td><?php
                                     if($orders[$i]['買賣']==1){
                                       echo '<p class="text-danger"><b>買</b>';
-                                      echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'; ?>" name="" value="1">';
+                                      echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'" name="" value="1">';
                                     } else {
                                       echo '<p class="text-primary"><b>賣</b>';
-                                      echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'; ?>" name="" value="0">';
+                                      echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'" name="" value="0">';
                                     }
                                     ?></p></td>
                                     <td>
@@ -154,7 +154,9 @@
                                       <?php echo ($orders[$i]['匯款帳號']) ?>
                                       <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
                                     </td>
-                                    <td><?php echo ($orders[$i]['轉讓會員']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['轉讓會員']) ?></td>
+                                      <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
                                     <td>
                                       <?php echo ($orders[$i]['完稅人']) ?>
                                       <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
@@ -325,7 +327,7 @@
                     </tr>
                     <tr>
                       <td><label>自付額</label></td>
-                      <td><input type="text" name="自付額" value=""></td>
+                      <td><input type="text" name="自付額" value="" id="edit_自付額"></td>
                     </tr>
                   </table>
                 </div>
@@ -345,7 +347,7 @@
                     </tr>
                     <tr>
                       <td class="text-danger"><label><b>匯款金額<b/></label></td>
-                      <td><input type="text" name="匯款金額" value="" id="edit_匯款金額"></td>
+                      <td><input type="text" name="匯款金額" class="autochange" value="" id="edit_匯款金額"></td>
                       <td><button type="button" onclick="calculate()">計算</button></td>
                     </tr>
                     <tr>
@@ -417,16 +419,27 @@
           //計算匯款金額與自付額
           function calculate() {
             document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997;
+            document.getElementById('edit_自付額').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
           }
 
           //編輯資料
           function Edit(i){
             var id = i;
             document.getElementById('edit_id').value = id;
-            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款分行','匯款戶名','匯款帳號','完稅人'].forEach(function(field) {
+            document.getElementById("edit_匯款金額").value = 0;
+            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人'].forEach(function(field) {
               document.getElementById('edit_' + field).value = document.getElementById(field+id).value;
             });
           }
+
+          //自付額變動=匯款金額-股票金額
+          $(document).ready(function(){
+            $(".autochange").change(function(){
+              // $("#add_total_cost").css("background-color","#FFFFCC");
+              document.getElementById('edit_自付額').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+            });
+          });
+
 
           feather.replace()
 
