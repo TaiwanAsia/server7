@@ -24,21 +24,22 @@ class Orders extends CI_Controller {
 
     public function index()
     {
+    	echo "<br>1:".$_SESSION['權限名稱'];
 		if (!isset($_SESSION['ACCOUNT'])) {
 			redirect('index.php/login/index');
 		} else {
-			$orders = $this->orders_model->get(null,$_SESSION['LEVEL'],$_SESSION['NAME']);
+			$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 			$employees = $this->orders_model->get_employee();
 			$arrayName = array('orders' => $orders,
 								'employees' => $employees,);
-								
+			echo "<br>2:".$_SESSION['權限名稱'];
 			$this->show($arrayName);
 		}
 	}
 
 	public function new_order()
     {
-		$orders = $this->orders_model->get(null,$_SESSION['LEVEL'],$_SESSION['NAME']);
+		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$arrayName = array('orders' => $orders,
 								);
 		$this->load->view('templates/header');

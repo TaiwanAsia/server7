@@ -48,16 +48,14 @@ class Orders_model extends CI_Model {
         }
 }
 
-    public function get($keyword,$level,$name) {
+    public function get($keyword,$權限名稱,$name) {
         if(is_null($keyword)) {
-            if($level==2) {
+            if($權限名稱=='最高權限') {
                 $sql = "SELECT * FROM `ORDERS` ORDER BY ID DESC";
                 $query = $this->db->query($sql);
-            } else {
+            } elseif ($權限名稱=='業務') {
                 $this->db->order_by("ID", "desc"); 
                 $query = $this->db->get_where('ORDERS', array('業務' => $name));
-                // echo $sql;
-                // $query = $this->db->query($sql);
             }   
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
@@ -106,7 +104,7 @@ class Orders_model extends CI_Model {
                                 'ACCOUNT'=>$row-> ACCOUNT,
                                 'PASSWORD'=>$row-> PASSWORD,
                                 'NAME'=>$row-> NAME,
-                                'LEVEL'=>$row-> LEVEL,);
+                                '權限名稱'=>$row-> 權限名稱,);
             }
             return  $result;
         } else {

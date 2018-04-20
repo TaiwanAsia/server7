@@ -12,6 +12,7 @@
 					<th nowrap="nowrap">密碼</th>
 					<th nowrap="nowrap">等級</th>
 					<th nowrap="nowrap"></th>
+					<th nowrap="nowrap"></th>
 				</tr>
 				<?php 
 				if (isset($data)) {
@@ -21,7 +22,7 @@
 						echo "<td>".$data[$i]['NAME']."</td>";
 						echo "<td>".$data[$i]['ACCOUNT']."</td>";
 						echo '<td nowrap="nowrap">'.$data[$i]['PASSWORD']."</td>";
-						echo "<td>".$data[$i]['LEVEL']."</td>";
+						echo "<td>".$data[$i]['權限名稱']."</td>";
 						echo '<td>
 							<form action="delete_account" method="POST" name="" style= "display:inline">
 							<input type="hidden" name="account_id" value="'.$data[$i]['ID'].'">

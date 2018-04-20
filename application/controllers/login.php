@@ -45,7 +45,7 @@ class Login extends CI_Controller {
 				$flag = $this->login_model->login($_POST['acct'], $_POST['pswd']);
 				if ($flag==True) {
 					$_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
-					$_SESSION['LEVEL'] = $flag['LEVEL'];
+					$_SESSION['權限名稱'] = $flag['權限名稱'];
 					$_SESSION['NAME'] = $flag['NAME'];
 					// $this->login_model->login_move_record($_SESSION['name'],'login','login');
 					redirect('index.php/orders/index');
@@ -87,7 +87,7 @@ class Login extends CI_Controller {
 			$data = array('NAME' => $_POST['name'],
 							'ACCOUNT' => $_POST['account'],
 							'PASSWORD' => $_POST['password'],
-							'LEVEL' => $_POST['level'],);
+							'權限名稱' => $_POST['權限名稱'],);
 			$this->login_model->add_account($data);
 			$this->account();
 		}
@@ -107,7 +107,7 @@ class Login extends CI_Controller {
 							'NAME' => $_POST['name'],
 							'ACCOUNT' => $_POST['account'],
 							'PASSWORD' => $_POST['password'],
-							'LEVEL' => $_POST['level'],);
+							'權限名稱' => $_POST['權限名稱'],);
 			$this->login_model->edit_account($data);
 			$this->account();
 		}
@@ -116,7 +116,7 @@ class Login extends CI_Controller {
 	{
 		// $this->login_model->login_move_record($_SESSION['name'],'login','logout');
 		unset($_SESSION['ACCOUNT']);
-		unset($_SESSION['LEVEL']);
+		unset($_SESSION['權限名稱']);
 		unset($_SESSION['NAME']);
 		session_destroy();
 		redirect('index.php/login/index');

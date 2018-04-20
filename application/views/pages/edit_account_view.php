@@ -12,7 +12,7 @@
 						<th nowrap="nowrap">名稱</th>
 						<th nowrap="nowrap">帳號</th>
 						<th nowrap="nowrap">密碼</th>
-						<th nowrap="nowrap">等級</th>
+						<th nowrap="nowrap">權限</th>
 					</tr>
 					<tr>
 						<td>
@@ -29,27 +29,21 @@
 							<input type="text" name="password" value="<?php echo($data[0]['PASSWORD']); ?>">
 						</td>
 						<td>
-							<select name="level">
-								<?php
-								if ($data[0]['LEVEL'] == 1) {
-									echo '
-									<option value="1" selected >1</option>
-									<option value="2">2</option>';
-								} else {
-									echo '
-									<option value="1">1</option>
-									<option value="2" selected >2</option>';
-								}
-								?>
+							<select name="權限名稱">
+								<option value=""></option>';
+								<option value="最高權限">最高權限</option>';
+								<option value="次高權限">次高權限</option>';
+								<option value="會計">會計</option>';
+								<option value="行政">行政</option>';
+								<option value="業務">業務</option>';
+								<option value="工讀">工讀</option>';
 							</select>
+						</td>
+						<td>
+							<input type="submit" name="" value="確認">
 						</td>
 					</tr>
 				</table>
-			</div>
-			<div>		
-				<div class="button" style="line-height:100px;">
-					<input type="submit" name="" value="確認">
-				</div>
 			</div>
 		</form>
 

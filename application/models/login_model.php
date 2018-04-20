@@ -10,11 +10,12 @@ class Login_model extends CI_Model {
 
         if ($query->num_rows() == 1) {
             foreach ($query->result() as $row) {
-                $result = array('ACCOUNT'=>$row-> ACCOUNT,
-                                    'PASSWORD'=>$row-> PASSWORD,
-                                    'NAME'=>$row-> NAME,
-                                    'ID'=>$row-> ID,
-                                    'LEVEL'=>$row-> LEVEL,);
+                $result = array(
+                                'ID'=>$row-> ID,
+                                'NAME'=>$row-> NAME,
+                                'ACCOUNT'=>$row-> ACCOUNT,
+                                'PASSWORD'=>$row-> PASSWORD,
+                                '權限名稱'=>$row-> 權限名稱,);
             }
             return $result;
         }
@@ -36,7 +37,7 @@ class Login_model extends CI_Model {
                                     'ACCOUNT'=>$row-> ACCOUNT,
                                     'PASSWORD'=>$row-> PASSWORD,
                                     'NAME'=>$row-> NAME,
-                                    'LEVEL'=>$row-> LEVEL,);
+                                    '權限名稱'=>$row-> 權限名稱,);
                 }
                 return  $result;
             }

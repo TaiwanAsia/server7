@@ -88,7 +88,11 @@
                                       </form>
                                     </td>
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
-                                    <td><?php echo ($orders[$i]['成交日期']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['成交日期']) ?>
+                                      <input type="hidden" id="成交日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交日期']; ?>">
+                                    </td>
+                                    </td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
                                     <td>
                                       <?php echo ($orders[$i]['客戶姓名']) ?>
@@ -184,7 +188,7 @@
                                     <td><?php echo ($orders[$i]['自行應付']) ?></td>
                                     <td><?php echo ($orders[$i]['刻印']) ?></td>
                                     <td><?php echo ($orders[$i]['過戶費']) ?></td>
-                                    <?php if ($_SESSION['LEVEL']>=2) { ?>
+                                    <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                       <td style="min-width: 100px;">
                                         <?php if($orders[$i]['媒合']==0){ ?>
                                           <form method="post" action="match">
@@ -292,9 +296,9 @@
                     </tr>
                     <tr>
                       <td><label>成交日期</label></td>
-                      <td><input class="" type="date" name="成交日期" value="" id=""></td>
+                      <td><input class="" type="date" name="成交日期" value="" id="edit_成交日期" required=""></td>
                       <td><label>過戶日期</label></td>
-                      <td><input class="" type="date" name="過戶日期" value="" id=""></td>
+                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期" required=""></td>
                     </tr>
                     <tr>
                       <td><label>股票名稱</label></td>
@@ -312,7 +316,8 @@
                     <tr>
                       <td><label>轉讓會員</label></td>
                       <td>
-                        <select id="inputState" name="轉讓會員" class="form-control">
+                        <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
+                          <!-- option></option -->
                             <?php
                             for ($j=0; $j < count($employees); $j++) {
                                 echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
@@ -352,7 +357,7 @@
                     </tr>
                     <tr>
                       <td><label>完稅人</label></td>
-                      <td><input type="text" name="完稅人" value="" id="edit_完稅人"></td>
+                      <td><input type="text" name="完稅人" value="" id="edit_完稅人" required=""></td>
                       <td><label>過戶費</label></td>
                       <td>
                         <select id="inputState" name="過戶費" class="form-control">
@@ -397,7 +402,8 @@
                     </tr>
                     <tr>
                       <td><label>匯款日期</label></td>
-                      <td><input class="" type="date" name="匯款日期" value="" id=""></td>
+                      <td><input class="" type="date" name="匯款日期" value="" id="date"></td>
+                      <td><button type="button" onclick="gettoday()">今天</button></td>
                     </tr>
                     <tr>
                       <td></td>
@@ -425,10 +431,28 @@
           //編輯資料
           function Edit(i){
             var id = i;
+            
             document.getElementById('edit_id').value = id;
             document.getElementById("edit_匯款金額").value = 0;
-            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人'].forEach(function(field) {
-              document.getElementById('edit_' + field).value = document.getElementById(field+id).value;
+            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行',
+                '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期',
+              ].forEach(function(field) {
+              var source = document.getElementById(field+id);
+              if (!source) {
+                console.log('source not exist:' + field + id);
+                return;
+              }
+              var edit = document.getElementById('edit_' + field);
+              if (!edit) {
+                console.log('not exist: edit_' + field);
+                return;
+              }
+              edit.value = source.value;  
+            });
+
+            var form = document.querySelector('form[name="edit_order_info"]');
+            ['買賣'].forEach(function(field) {
+              form.elements[field].value = document.getElementById(field+id).value; 
             });
           }
 
