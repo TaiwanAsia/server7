@@ -19,14 +19,14 @@ $(document).ready(function() {
 $('#pnAdvancerRight').click(function() {
   event.preventDefault();
   $('#eoTable').animate({
-    scrollLeft: "+=300px"
+    scrollLeft: "+=700px"
   }, "slow");
 });
 
  $('#pnAdvancerLeft').click(function() {
   event.preventDefault();
   $('#eoTable').animate({
-    scrollLeft: "-=300px"
+    scrollLeft: "-=700px"
   }, "slow");
 });
 
