@@ -55,7 +55,7 @@ class Orders_model extends CI_Model {
     public function get($keyword,$權限名稱,$name) {
         if(is_null($keyword)) {
             if($權限名稱=='最高權限') {
-                $sql = "SELECT * FROM `ORDERS` ORDER BY ID DESC";
+                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
                 $query = $this->db->query($sql);
             } elseif ($權限名稱=='業務') {
                 $this->db->order_by("ID", "desc"); 

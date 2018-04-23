@@ -323,7 +323,7 @@
                       <td><label>成交日期</label></td>
                       <td><input class="" type="date" name="成交日期" value="" id="edit_成交日期" required=""></td>
                       <td><label>過戶日期</label></td>
-                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期" required=""></td>
+                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期" required=""><label class="text-danger"><b>(自動)</b></label></td>
                     </tr>
                     <tr>
                       <td><label>股票名稱</label></td>
@@ -355,7 +355,12 @@
                     </tr>
                     <tr>
                       <td><label>自行應付</label></td>
-                      <td><input type="text" name="自行應付" value="" id="edit_自行應付"></td>
+                      <td>
+                        <input type="text" name="自行應付" value="" id="edit_自行應付">
+                      </td>
+                      <td colspan="3">
+                        <label class="text-danger"><b>(預設為賣　匯款金額 - 盤價x張數x0.997)</b></label>
+                      </td>
                     </tr>
                   </table>
                 </div>
@@ -375,8 +380,12 @@
                     </tr>
                     <tr>
                       <td class="text-danger"><label><b>匯款金額<b/></label></td>
-                      <td><input type="text" name="匯款金額" class="autochange" value="" id="edit_匯款金額"></td>
-                      <td><button type="button" onclick="calculate()">計算</button></td>
+                      <td>
+                        <input type="text" name="匯款金額" class="autochange" value="" id="edit_匯款金額">
+                        <button type="button" onclick="calculate_sell()">賣</button>
+                        <button type="button" onclick="calculate_buy()">買</button>
+                      </td>
+                      <!-- <td></td> -->
                     </tr>
                     <tr>
                       <td><label>完稅人</label></td>
@@ -419,10 +428,14 @@
                     </tr>
                     <tr>
                       <td><label>匯款日期</label></td>
-                      <td><input class="" type="date" name="匯款日期" value="" id="edit_匯款日期"></td>
-                      <td><button type="button" onclick="gettoday()">今天</button></td>
+                      <td>
+                        <input class="paydate" type="date" min='1899-01-01' max="2100-12-31" name="匯款日期" value="" id="edit_匯款日期">
+                        <button type="button" onclick="getdealdate()">同成交日期</button>
+                      </td>
+                      <!-- <td></td> -->
                     </tr>
                     <tr>
+                      <td></td>
                       <td></td>
                       <td></td>
                       <td><input class="" type="submit" name="修改完成" value="修改完成" id=""></td>
@@ -438,12 +451,6 @@
 
 
         <script>
-
-          //計算匯款金額與自行應付
-          function calculate() {
-            document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997;
-            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
-          }
 
           //編輯資料
           function Edit(i){
@@ -473,11 +480,49 @@
             });
           }
 
+          //計算匯款金額與自行應付
+          function calculate_sell() {
+            document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997;
+            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+          }
+          function calculate_buy() {
+            document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000;
+            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000);
+          }
+
           //自行應付變動=匯款金額-股票金額
           $(document).ready(function(){
             $(".autochange").change(function(){
-              // $("#add_total_cost").css("background-color","#FFFFCC");
               document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+            });
+          });
+
+          //匯款日期抓成交日期
+          function getdealdate() {
+            document.getElementById("edit_匯款日期").value = document.getElementById("edit_成交日期").value;
+            var pay = document.getElementById("edit_匯款日期").value;
+            var paydate = new Date(pay);
+            month = '' + (paydate.getMonth()+1),
+            day = '' + (paydate.getDate()+3),
+            year = paydate.getFullYear();
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            result = [year, month, day].join('-');
+            document.getElementById('edit_過戶日期').value = result;
+          }
+
+          //過戶日期=匯款日期+3
+          $(document).ready(function(){
+            $(".paydate").change(function(){
+              var pay = document.getElementById("edit_匯款日期").value;
+              var paydate = new Date(pay);
+              month = '' + (paydate.getMonth()+1),
+              day = '' + (paydate.getDate()+3),
+              year = paydate.getFullYear();
+              if (month.length < 2) month = '0' + month;
+              if (day.length < 2) day = '0' + day;
+              result = [year, month, day].join('-');
+              document.getElementById('edit_過戶日期').value = result;
             });
           });
 

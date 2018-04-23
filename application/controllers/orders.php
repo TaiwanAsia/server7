@@ -81,6 +81,7 @@ class Orders extends CI_Controller {
 						'稅單' => $_POST['稅單'],
 						'成交單狀態' => $_POST['成交單狀態'],
 						'已結案' => $_POST['已結案'],
+						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
 		$this->index();
@@ -177,7 +178,8 @@ class Orders extends CI_Controller {
 			'刻印收送' => $_POST['刻印收送'],
 			'成交單狀態' => $_POST['成交單狀態'],
 			'現金或匯款' => $_POST['現金或匯款'],
-			'匯款日期' => $_POST['匯款日期'],);
+			'匯款日期' => $_POST['匯款日期'],
+			'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
 		$this->index();
 
