@@ -27,12 +27,12 @@
                 <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
 
                   <div class="t-form-t">
-                    <button id="pnAdvancerLeft" class="pn-Advancer pn-Advancer_Left" type="button">
+                    <!-- <button id="pnAdvancerLeft" class="pn-Advancer pn-Advancer_Left" type="button">
                       <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
                     </button>
                     <button id="pnAdvancerRight" class="pn-Advancer pn-Advancer_Right" type="button">
                       <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
-                    </button>
+                    </button> -->
                     <h2>成交單清冊</h2>
                   </div>
 
@@ -64,6 +64,7 @@
                                     <th>完稅人</th>
                                     <th>一審</th>
                                     <th>二審</th>
+                                    <th>成交單狀態</th>
                                     <th>新舊</th>
                                     <th>自行應付</th>
                                     <th>刻印</th>
@@ -170,7 +171,7 @@
                                     ?>
                                     <!-- Trigger/Open The Modal -->
                                     <td>
-                                      <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >編輯</button>
+                                      <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
                                     </td>
                                     <?php
                                       } else {
@@ -178,6 +179,18 @@
                                       }
                                     ?>
                                     <td><?php echo ($orders[$i]['二審']) ?></td>
+                                    <td><?php
+                                    if($orders[$i]['成交單狀態']=='審核完成'){
+                                      echo '<p class="text-primary"><b>審核完成</b>';
+                                      echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核完成">';
+                                    } elseif ($orders[$i]['成交單狀態']=='審核中') {
+                                      echo '<p class="text-success"><b>審核中</b>';
+                                      echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核中">';
+                                    } else {
+                                      echo '<p class="text-danger"><b>審核不通過</b>';
+                                      echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核不通過">';
+                                    }
+                                    ?></p></td>
                                     <td><?php
                                     if($orders[$i]['新舊']==1){
                                       echo "新";
@@ -217,7 +230,10 @@
                                      }?>
 
                                     <td><?php echo ($orders[$i]['收付款']) ?></td>
-                                    <td><?php echo ($orders[$i]['過戶日期']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['過戶日期']) ?>
+                                      <input type="hidden" id="過戶日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶日期']; ?>">
+                                    </td>
                                     <td>
                                         <form method="post" action="checkbill">
                                             <button type="submit">通知查帳</button>
@@ -304,8 +320,8 @@
                       <td><label>股票名稱</label></td>
                       <td><input type="text" name="股票" value="" id="edit_company"></td>
                       <td>
-                        <input type="radio" name="買賣" value="1" checked>買
-                        <input type="radio" name="買賣" value="0">賣
+                        <input type="radio" name="買賣" value="1" checked><label class="text-danger"><b>買</b></label>
+                        <input type="radio" name="買賣" value="0"><label class="text-primary"><b>賣</b></label>
                       </td>
                       <td>
                         <font color="red">**需重新勾選**</font>
@@ -435,7 +451,7 @@
             document.getElementById('edit_id').value = id;
             document.getElementById("edit_匯款金額").value = 0;
             ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行',
-                '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期',
+                '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期','過戶日期',
               ].forEach(function(field) {
               var source = document.getElementById(field+id);
               if (!source) {
