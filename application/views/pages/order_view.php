@@ -33,7 +33,7 @@
                     <button id="pnAdvancerRight" class="pn-Advancer pn-Advancer_Right" type="button">
                       <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
                     </button> -->
-                    <h2>成交單清冊</h2>
+                    <!-- <h2>成交單清冊</h2> -->
                   </div>
 
 
@@ -276,6 +276,15 @@
                                         }
                                       ?>
                                     </td>
+
+                                    <!-- 沒顯示出來的欄位 -->
+                                    <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
+                                    <input type="hidden" id="匯款金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額']; ?>">
+                                    <input type="hidden" id="過戶費<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶費']; ?>">
+                                    <input type="hidden" id="刻印收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印收送']; ?>">
+                                    <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>">
+                                    <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
+
                                 </tr>
                                 <?php }} ?>
                             </tbody>
@@ -299,10 +308,10 @@
                     <tr>
                       <td><label>成交單編號</label></td>
                       <td><input readonly type="text" name="ID" value="" id="edit_id"></td>
-                    </tr>
-                    <tr>
                       <td><label>客戶姓名</label></td>
                       <td><input type="text" name="客戶姓名" value="" id="edit_name"></td>
+                    </tr>
+                    <tr>
                       <td><label>身分證字號</label></td>
                       <td><input type="text" name="身分證字號" value="" id="edit_F"></td>
                       <td><label>聯絡地址</label></td>
@@ -319,12 +328,9 @@
                     <tr>
                       <td><label>股票名稱</label></td>
                       <td><input type="text" name="股票" value="" id="edit_company"></td>
-                      <td>
+                      <td width="200px">
                         <input type="radio" name="買賣" value="1" checked><label class="text-danger"><b>買</b></label>
                         <input type="radio" name="買賣" value="0"><label class="text-primary"><b>賣</b></label>
-                      </td>
-                      <td>
-                        <font color="red">**需重新勾選**</font>
                       </td>
                       <td><label>張數</label></td>
                       <td><input type="text" name="張數" value="" id="edit_amount"></td>
@@ -341,14 +347,15 @@
                             ?>
                         </select>
                       </td>
+                      <td></td>
                       <td><label>成交價</label></td>
                       <td><input type="text" name="成交價" value="" id="edit_成交價"></td>
                       <td><label>盤價</label></td>
                       <td><input type="text" name="盤價" value="" id="edit_盤價"></td>
                     </tr>
                     <tr>
-                      <td><label>自付額</label></td>
-                      <td><input type="text" name="自付額" value="" id="edit_自付額"></td>
+                      <td><label>自行應付</label></td>
+                      <td><input type="text" name="自行應付" value="" id="edit_自行應付"></td>
                     </tr>
                   </table>
                 </div>
@@ -376,7 +383,7 @@
                       <td><input type="text" name="完稅人" value="" id="edit_完稅人" required=""></td>
                       <td><label>過戶費</label></td>
                       <td>
-                        <select id="inputState" name="過戶費" class="form-control">
+                        <select id="edit_過戶費" name="過戶費" class="form-control">
                           <option value="500">500</option>
                           <option value="1000">1000</option>
                           <option value="1500">1500</option>
@@ -385,7 +392,7 @@
                       </td>
                       <td><label>刻印收送</label></td>
                       <td>
-                        <select id="inputState" name="刻印收送" class="form-control">
+                        <select id="edit_刻印收送" name="刻印收送" class="form-control">
                             <?php
                               for($j=0; $j<=10; $j++) {
                                 echo "<option value=".$j.">".$j."</option>";
@@ -401,9 +408,6 @@
                         <input type="radio" name="成交單狀態" value="審核中"><label class="text-success">審核中</label>
                         <input type="radio" name="成交單狀態" value="審核不通過"><label class="text-danger">審核不通過</label>
                       </td>
-                      <td>
-                        <font color="red">**需重新勾選**</font>
-                      </td>
                     </tr>
                     <tr>
                       <td><label>現金或匯款</label></td>
@@ -412,13 +416,10 @@
                         <input type="radio" name="現金或匯款" value="現金"><label class="">現金</label>
                         <input type="radio" name="現金或匯款" value="匯款"><label class="">匯款</label>
                       </td>
-                      <td>
-                        <font color="red">**需重新勾選**</font>
-                      </td>
                     </tr>
                     <tr>
                       <td><label>匯款日期</label></td>
-                      <td><input class="" type="date" name="匯款日期" value="" id="date"></td>
+                      <td><input class="" type="date" name="匯款日期" value="" id="edit_匯款日期"></td>
                       <td><button type="button" onclick="gettoday()">今天</button></td>
                     </tr>
                     <tr>
@@ -438,10 +439,10 @@
 
         <script>
 
-          //計算匯款金額與自付額
+          //計算匯款金額與自行應付
           function calculate() {
             document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997;
-            document.getElementById('edit_自付額').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
           }
 
           //編輯資料
@@ -450,8 +451,8 @@
             
             document.getElementById('edit_id').value = id;
             document.getElementById("edit_匯款金額").value = 0;
-            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行',
-                '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期','過戶日期',
+            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額','過戶費','匯款日期',
+                '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期','過戶日期','自行應付','刻印收送'
               ].forEach(function(field) {
               var source = document.getElementById(field+id);
               if (!source) {
@@ -467,16 +468,16 @@
             });
 
             var form = document.querySelector('form[name="edit_order_info"]');
-            ['買賣'].forEach(function(field) {
+            ['買賣','成交單狀態','現金或匯款'].forEach(function(field) {
               form.elements[field].value = document.getElementById(field+id).value; 
             });
           }
 
-          //自付額變動=匯款金額-股票金額
+          //自行應付變動=匯款金額-股票金額
           $(document).ready(function(){
             $(".autochange").change(function(){
               // $("#add_total_cost").css("background-color","#FFFFCC");
-              document.getElementById('edit_自付額').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+              document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
             });
           });
 
