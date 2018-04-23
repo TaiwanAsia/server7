@@ -24,7 +24,6 @@ class Orders extends CI_Controller {
 
     public function index()
     {
-    	echo "<br>1:".$_SESSION['權限名稱'];
 		if (!isset($_SESSION['ACCOUNT'])) {
 			redirect('index.php/login/index');
 		} else {
@@ -32,7 +31,6 @@ class Orders extends CI_Controller {
 			$employees = $this->orders_model->get_employee();
 			$arrayName = array('orders' => $orders,
 								'employees' => $employees,);
-			echo "<br>2:".$_SESSION['權限名稱'];
 			$this->show($arrayName);
 		}
 	}

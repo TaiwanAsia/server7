@@ -52,11 +52,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <form method="get" action="search" id="search">
     </form>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" style="flex-wrap: initial">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
-                        
+
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/index">
                             <span data-feather="home"></span>
