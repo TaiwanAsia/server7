@@ -120,7 +120,8 @@
                                       echo '<p class="text-primary"><b>賣</b>';
                                       echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'" name="" value="0">';
                                     }
-                                    ?></p></td>
+                                    ?></p>
+                                   </td>
                                     <td>
                                       <?php echo ($orders[$i]['股票']) ?>
                                       <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
