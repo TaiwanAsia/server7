@@ -38,8 +38,10 @@ class Orders extends CI_Controller {
 	public function new_order()
     {
 		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
-								);
+							'employees' => $employees,	);
+
 		$this->load->view('templates/header');
 		$this->load->view('pages/new_order', $arrayName);
 	}   
@@ -69,18 +71,15 @@ class Orders extends CI_Controller {
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],
 						'刻印' => $_POST['刻印'],
-						'刻印收送' => $_POST['刻印收送'],
-						'過戶日期' => $_POST['過戶日期'],
+						// '刻印收送' => $_POST['刻印收送'],
+						// '過戶日期' => $_POST['過戶日期'],
 						'過戶費' => $_POST['過戶費'],
-						'媒合' => $_POST['媒合'],
-						'收付款' => $_POST['收付款'],
-						'現金或匯款' => $_POST['現金或匯款'],
-						'匯款日期' => $_POST['匯款日期'],
-						'通知查帳' => $_POST['通知查帳'],
-						'契約' => $_POST['契約'],
-						'稅單' => $_POST['稅單'],
-						'成交單狀態' => $_POST['成交單狀態'],
-						'已結案' => $_POST['已結案'],
+						// '媒合' => $_POST['媒合'],
+						// '收付款' => $_POST['收付款'],
+						// '現金或匯款' => $_POST['現金或匯款'],
+						// '匯款日期' => $_POST['匯款日期'],
+						// '成交單狀態' => $_POST['成交單狀態'],
+						// '已結案' => $_POST['已結案'],
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
@@ -144,11 +143,12 @@ class Orders extends CI_Controller {
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
+		$employees = $this->orders_model->get_employee();
 		// foreach ($result[0] as $key => $value) {
 		// 	echo $key.": ".$value."<br>";
 		// };  
 		$this->load->view('templates/header');
-		$this->load->view('pages/edit_order_view',array('result' => $result,));
+		$this->load->view('pages/edit_order_view',array('result' => $result,'employees' => $employees,));
 	}
 
 	//改成交單狀態(一審)
@@ -250,6 +250,15 @@ class Orders extends CI_Controller {
 						'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
 		$this->index();
+	}
+
+	//進入庫存頁面
+	public function go_inventory() {
+		$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$employees = $this->orders_model->get_employee();
+		$arrayName = array('orders' => $orders,
+							'employees' => $employees,);
+		$this->show($arrayName);
 	}
 }
 

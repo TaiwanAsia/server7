@@ -95,7 +95,15 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">轉讓會員</label></td>
-                                    <td><input class="" type="text" name="轉讓會員" value="" id="" required></td>
+                                    <td>
+                                        <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
+                                            <?php
+                                            for ($j=0; $j < count($employees); $j++) {
+                                                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>

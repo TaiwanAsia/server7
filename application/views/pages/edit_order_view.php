@@ -108,7 +108,16 @@
                                 <tr>
                                     <td><?php echo form_error('轉讓會員'); ?></td>
                                     <td><label for="" class="">轉讓會員</label></td>
-                                    <td><input class="" type="text" name="轉讓會員" id="" value="<?php echo $result[0]['轉讓會員']; ?>" required></td>
+                                    <td>
+                                        <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
+                                            <option value="<?php echo $result[0]['轉讓會員'] ?>"><?php echo $result[0]['轉讓會員'] ?></option>
+                                            <?php
+                                            for ($j=0; $j < count($employees); $j++) {
+                                                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('完稅人'); ?></td>
