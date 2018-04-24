@@ -7,7 +7,8 @@
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
                               <!-- <button class="btn btn-sm btn-outline-secondary" id="new_order">新增成交單</button> -->
-                              <button class="btn btn-sm btn-outline-secondary">所有</button>
+                              <!-- <button class="btn btn-sm btn-outline-secondary">所有</button> -->
+                              <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/index'" value="所有"></input>
                               <button class="btn btn-sm btn-outline-secondary">未審核</button>
                               <button class="btn btn-sm btn-outline-secondary">審核完</button>
                               <form action="go_inventory" method="post">
