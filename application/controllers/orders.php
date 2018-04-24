@@ -251,6 +251,15 @@ class Orders extends CI_Controller {
 		$this -> orders_model -> edit($data);
 		$this->index();
 	}
+
+	//進入庫存頁面
+	public function go_inventory() {
+		$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$employees = $this->orders_model->get_employee();
+		$arrayName = array('orders' => $orders,
+							'employees' => $employees,);
+		$this->show($arrayName);
+	}
 }
 
 
