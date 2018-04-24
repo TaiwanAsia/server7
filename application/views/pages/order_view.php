@@ -10,7 +10,7 @@
                               <button class="btn btn-sm btn-outline-secondary">所有</button>
                               <button class="btn btn-sm btn-outline-secondary">未審核</button>
                               <button class="btn btn-sm btn-outline-secondary">審核完</button>
-                              <button class="btn btn-sm btn-outline-secondary">庫存</button>
+                              <button id="inventory" class="btn btn-sm btn-outline-secondary">庫存</button>
                               <input class="btn btn-sm btn-outline-secondary" type="button" onclick="location.href='new_order';" value="新增成交單" />
                               <button class="btn btn-sm btn-outline-secondary">匯出</button>
                               <!-- <button class="btn btn-primary">匯出</button> -->
@@ -557,6 +557,11 @@
               error:function(xhr, ajaxOptions, thrownError){
               }
             });
+          })
+
+          //庫存檢視
+          $('#inventory').click(function() {
+            alert('庫存');
           })
             
           

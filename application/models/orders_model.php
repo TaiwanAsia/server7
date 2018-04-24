@@ -53,6 +53,7 @@ class Orders_model extends CI_Model {
 }
 
     public function get($keyword,$權限名稱,$name) {
+        $query = null;
         if(is_null($keyword)) {
             if($權限名稱=='最高權限') {
                 $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
@@ -60,7 +61,10 @@ class Orders_model extends CI_Model {
             } elseif ($權限名稱=='業務') {
                 $this->db->order_by("ID", "desc"); 
                 $query = $this->db->get_where('ORDERS', array('業務' => $name));
-            }   
+            } else {
+                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } 
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
         }
@@ -71,7 +75,6 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
-        // print_r($result);
     }
 
     //
