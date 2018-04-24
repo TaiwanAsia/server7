@@ -69,7 +69,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="">匯款金額</label></td>
+                                    <td><label for="" class="">匯款/應收金額</label></td>
                                     <td><input class="" type="text" name="匯款金額" value="" id=""></td>
                                 </tr>
                                 <tr>

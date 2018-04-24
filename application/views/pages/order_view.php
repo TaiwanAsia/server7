@@ -10,18 +10,16 @@
                               <button class="btn btn-sm btn-outline-secondary">所有</button>
                               <button class="btn btn-sm btn-outline-secondary">未審核</button>
                               <button class="btn btn-sm btn-outline-secondary">審核完</button>
-                              <button class="btn btn-sm btn-outline-secondary">審核不過</button>
                               <button class="btn btn-sm btn-outline-secondary">庫存</button>
-                              <button class="btn btn-sm btn-outline-secondary">公司自營</button>
                               <input class="btn btn-sm btn-outline-secondary" type="button" onclick="location.href='new_order';" value="新增成交單" />
                               <button class="btn btn-sm btn-outline-secondary">匯出</button>
                               <!-- <button class="btn btn-primary">匯出</button> -->
                             </div>
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                            <!-- <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
                               <span data-feather="calendar"></span>
                               This week
                             </button>
-                        </div>
+ -->                        </div>
                     </div>
 
                 <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
@@ -55,7 +53,7 @@
                                     <th>張數</th>
                                     <th>成交價</th>
                                     <th>盤價</th>
-                                    <th>匯款金額</th>
+                                    <th>匯款/應收金額</th>
                                     <th>匯款銀行</th>
                                     <th>匯款分行</th>
                                     <th>匯款戶名</th>
@@ -64,7 +62,7 @@
                                     <th>完稅人</th>
                                     <th>一審</th>
                                     <th>二審</th>
-                                    <th>成交單狀態</th>
+                                    <!-- <th>成交單狀態</th> -->
                                     <th>新舊</th>
                                     <th>自行應付</th>
                                     <th>刻印</th>
@@ -167,7 +165,7 @@
                                       <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
                                     </td>
                                     <?php
-                                      if ($orders[$i]['一審']==0) {
+                                      if ($orders[$i]['成交單狀態']!='審核完成') {
                                     ?>
                                     <!-- Trigger/Open The Modal -->
                                     <td>
@@ -175,22 +173,27 @@
                                     </td>
                                     <?php
                                       } else {
-                                        echo "<td><?php echo ($orders[$i]['一審']) ?></td>";
+                                        echo "<td><p class='text-primary'><b>審完</b></td>";
                                       }
                                     ?>
-                                    <td><?php echo ($orders[$i]['二審']) ?></td>
-                                    <td><?php
+                                    <td>
+                                      <form method="POST" action="go_edit2">
+                                        <button type="submit">二審</button>
+                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+                                      </form>
+                                    </td>
+                                    <?php
                                     if($orders[$i]['成交單狀態']=='審核完成'){
-                                      echo '<p class="text-primary"><b>審核完成</b>';
+                                      // echo '<p class="text-primary"><b>審完</b>';
                                       echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核完成">';
                                     } elseif ($orders[$i]['成交單狀態']=='審核中') {
-                                      echo '<p class="text-success"><b>審核中</b>';
+                                      // echo '<p class="text-success"><b>審核中</b>';
                                       echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核中">';
                                     } else {
-                                      echo '<p class="text-danger"><b>審核不通過</b>';
+                                      // echo '<p class="text-danger"><b>審核不通過</b>';
                                       echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核不通過">';
                                     }
-                                    ?></p></td>
+                                    ?>
                                     <td><?php
                                     if($orders[$i]['新舊']==1){
                                       echo "新";
@@ -199,7 +202,10 @@
                                     }
                                     ?></td>
                                     <td><?php echo ($orders[$i]['自行應付']) ?></td>
-                                    <td><?php echo ($orders[$i]['刻印']) ?></td>
+                                    <td>
+                                      <?php echo ($orders[$i]['刻印']) ?>
+                                      <input type="hidden" id="刻印<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印']; ?>">
+                                    </td>
                                     <td><?php echo ($orders[$i]['過戶費']) ?></td>
                                     <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                       <td style="min-width: 100px;">
@@ -229,7 +235,7 @@
                                       }
                                      }?>
 
-                                    <td><?php echo ($orders[$i]['收付款']) ?></td>
+                                    <td><?php echo ($orders[$i]['匯款日期']) ?></td>
                                     <td>
                                       <?php echo ($orders[$i]['過戶日期']) ?>
                                       <input type="hidden" id="過戶日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶日期']; ?>">
@@ -310,6 +316,9 @@
                       <td><input readonly type="text" name="ID" value="" id="edit_id"></td>
                       <td><label>客戶姓名</label></td>
                       <td><input type="text" name="客戶姓名" value="" id="edit_name"></td>
+                      <!-- <td>
+                        <button id="autofill" type="button">自動填入</button>
+                      </td> -->
                     </tr>
                     <tr>
                       <td><label>身分證字號</label></td>
@@ -379,7 +388,7 @@
                       <td><input type="text" name="匯款帳號" value="" id="edit_匯款帳號"></td>
                     </tr>
                     <tr>
-                      <td class="text-danger"><label><b>匯款金額<b/></label></td>
+                      <td class="text-danger"><label><b>匯款/應收金額<b/></label></td>
                       <td>
                         <input type="text" name="匯款金額" class="autochange" value="" id="edit_匯款金額">
                         <button type="button" onclick="calculate_sell()">賣</button>
@@ -393,21 +402,26 @@
                       <td><label>過戶費</label></td>
                       <td>
                         <select id="edit_過戶費" name="過戶費" class="form-control">
+                          <option value="0">0</option>
                           <option value="500">500</option>
                           <option value="1000">1000</option>
                           <option value="1500">1500</option>
                           <option value="2000">2000</option>
                         </select>
                       </td>
-                      <td><label>刻印收送</label></td>
+                      <td><label>刻印</label></td>
                       <td>
-                        <select id="edit_刻印收送" name="刻印收送" class="form-control">
+                        <select id="edit_刻印" name="刻印" class="form-control">
                             <?php
                               for($j=0; $j<=10; $j++) {
                                 echo "<option value=".$j.">".$j."</option>";
                               }
                             ?>
                         </select>
+                      </td>
+                      <td><label>收送</label></td>
+                      <td>
+                        <input type="text" name="刻印收送" value="" id="edit_刻印收送">
                       </td>
                     </tr>
                     <tr>
@@ -458,7 +472,7 @@
             
             document.getElementById('edit_id').value = id;
             document.getElementById("edit_匯款金額").value = 0;
-            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額','過戶費','匯款日期',
+            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額','過戶費','匯款日期','刻印',
                 '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期','過戶日期','自行應付','刻印收送'
               ].forEach(function(field) {
               var source = document.getElementById(field+id);
@@ -525,6 +539,27 @@
               document.getElementById('edit_過戶日期').value = result;
             });
           });
+
+          //自動填入客戶資訊
+          $("#autofill").click(function() {
+            var name = document.getElementById('edit_name').value;
+            url = "<?=base_url()?>index.php/orders/autofill";
+            // go = "<?=base_url()?>orders/index";
+            $.ajax({
+              url: url,
+              type: 'post',
+              data: {name:name},
+              // dataType:'json',
+              success: function(data){
+                console.log(data);
+                  // window.location.replace(go);
+              },
+              error:function(xhr, ajaxOptions, thrownError){
+              }
+            });
+          })
+            
+          
 
 
           feather.replace()

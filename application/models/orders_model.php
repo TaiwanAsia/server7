@@ -25,8 +25,8 @@ class Orders_model extends CI_Model {
                         '匯款帳號'=>$row-> 匯款帳號,
                         '轉讓會員'=>$row-> 轉讓會員,
                         '完稅人'=>$row-> 完稅人,
-                        '一審'=>$row-> 一審,
-                        '二審'=>$row-> 二審,
+                        // '一審'=>$row-> 一審,
+                        // '二審'=>$row-> 二審,
                         '新舊'=>$row-> 新舊,
                         '自行應付'=>$row-> 自行應付,
                         '刻印'=>$row-> 刻印,
@@ -34,13 +34,13 @@ class Orders_model extends CI_Model {
                         '過戶日期'=>$row-> 過戶日期,
                         '過戶費'=>$row-> 過戶費,
                         '媒合'=>$row-> 媒合,
-                        '收付款'=>$row-> 收付款,
+                        // '收付款'=>$row-> 收付款,
                         '現金或匯款'=>$row-> 現金或匯款,
                         '匯款日期'=>$row-> 匯款日期,
-                        '通知查帳'=>$row-> 通知查帳,
+                        // '通知查帳'=>$row-> 通知查帳,
                         '成交單狀態'=>$row-> 成交單狀態,
-                        '契約'=>$row-> 契約,
-                        '稅單'=>$row-> 稅單,
+                        // '契約'=>$row-> 契約,
+                        // '稅單'=>$row-> 稅單,
                         '已結案'=>$row-> 已結案,
                         '最後動作時間'=>$row-> 最後動作時間,
                                             );
@@ -71,12 +71,17 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
-        print_r($result);
+        // print_r($result);
     }
 
+    //
     public function edit($data) {
         $this->db->where('id', $data['ID']);
         $this->db->update('orders', $data);
+    }
+
+    public function edit2($data) {
+        $sql = '';
     }
 
     public function add($data) {
@@ -109,6 +114,22 @@ class Orders_model extends CI_Model {
                                 'PASSWORD'=>$row-> PASSWORD,
                                 'NAME'=>$row-> NAME,
                                 '權限名稱'=>$row-> 權限名稱,);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_cus_info($name) {
+        $sql = "SELECT * FROM `orders` WHERE `客戶姓名` = '".$name."' LIMIT 1";
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array('客戶姓名'=>$row-> 客戶姓名,
+                                '身分證字號'=>$row-> 身分證字號,
+                                '聯絡電話'=>$row-> 聯絡電話,
+                                '聯絡人'=>$row-> 聯絡人,
+                                '聯絡地址'=>$row-> 聯絡地址,);
             }
             return  $result;
         } else {

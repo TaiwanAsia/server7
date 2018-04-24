@@ -151,7 +151,7 @@ class Orders extends CI_Controller {
 		$this->load->view('pages/edit_order_view',array('result' => $result,));
 	}
 
-	//改成交單狀態
+	//改成交單狀態(一審)
 	public function edit_order_status() {
 		$data = array(
 			'ID' => $_POST['ID'],
@@ -175,6 +175,7 @@ class Orders extends CI_Controller {
 			'匯款金額' => $_POST['匯款金額'],
 			'完稅人' => $_POST['完稅人'],
 			'過戶費' => $_POST['過戶費'],
+			'刻印' => $_POST['刻印'],
 			'刻印收送' => $_POST['刻印收送'],
 			'成交單狀態' => $_POST['成交單狀態'],
 			'現金或匯款' => $_POST['現金或匯款'],
@@ -211,6 +212,41 @@ class Orders extends CI_Controller {
 						'自行應付' => $_POST['自行應付'],
 						'刻印' => $_POST['刻印'],
 						'過戶費' => $_POST['過戶費'],
+						'最後動作時間' => date('Y-m-d H:i:s'),);
+		$this -> orders_model -> edit($data);
+		$this->index();
+	}
+
+	//自動填入客戶資料
+	public function autofill() {
+		$cus_info = $this -> orders_model -> get_cus_info($_POST['name']);
+		return json_encode($cus_info);
+	}
+
+	//二審表格
+	public function go_edit2() {
+		$result = $this -> orders_model -> get($_POST['id'],null,null);
+		$old_date_timestamp = strtotime($result[0]['成交日期']);
+		$new_date = date('Y/m/d', $old_date_timestamp);
+		$result[0]['日期'] = $new_date;
+		$employees = $this->orders_model->get_employee();
+		$this->load->view('templates/header');
+		$this->load->view('pages/edit2_order_view',array('result' => $result,'employees' => $employees));
+	}
+
+	//二審update
+	public function edit2_order() {
+		$data = array(
+						'ID' => $_POST['ID'],
+						'客戶姓名' => $_POST['客戶姓名'],
+						'成交價' => $_POST['成交價'],
+						'盤價' => $_POST['盤價'],
+						'張數' => $_POST['張數'],
+						'自行應付' => $_POST['自行應付'],
+						'過戶費' => $_POST['過戶費'],
+						'刻印' => $_POST['刻印'],
+						'轉讓會員' => $_POST['轉讓會員'],
+						'過戶日期' => $_POST['過戶日期'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
 		$this->index();
