@@ -36,44 +36,44 @@
 
 
                     <div class="t-form">
-                        <table id="eoTable" class="table table-md table-hover table-responsive">
+                        <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
                             <thead class="thead-light">
                                 <tr>
-                                    <th></th>
-                                    <th>編號</th>
-                                    <th scope="col">成交日期</th>
-                                    <th>業務</th>
-                                    <th>客戶姓名</th>
-                                    <th>身分證字號</th>
-                                    <th>聯絡電話</th>
-                                    <th>聯絡人</th>
-                                    <th>聯絡住址</th>
-                                    <th>買賣</th>
-                                    <th>股票</th>
-                                    <th>張數</th>
-                                    <th>成交價</th>
-                                    <th>盤價</th>
-                                    <th>匯款/應收金額</th>
-                                    <th>匯款銀行</th>
-                                    <th>匯款分行</th>
-                                    <th>匯款戶名</th>
-                                    <th>匯款帳號</th>
-                                    <th>轉讓會員</th>
-                                    <th>完稅人</th>
-                                    <th>一審</th>
-                                    <th>二審</th>
+                                    <th data-tablesaw-priority="persist"></th>
+                                    <th data-tablesaw-priority="2">編號</th>
+                                    <th data-tablesaw-priority="2" scope="col">成交日期</th>
+                                    <th data-tablesaw-priority="2">業務</th>
+                                    <th data-tablesaw-priority="2">客戶姓名</th>
+                                    <th data-tablesaw-priority="2">身分證字號</th>
+                                    <th data-tablesaw-priority="2">聯絡電話</th>
+                                    <th data-tablesaw-priority="2">聯絡人</th>
+                                    <th data-tablesaw-priority="2">聯絡住址</th>
+                                    <th data-tablesaw-priority="2">買賣</th>
+                                    <th data-tablesaw-priority="2">股票</th>
+                                    <th data-tablesaw-priority="2">張數</th>
+                                    <th data-tablesaw-priority="2">成交價</th>
+                                    <th data-tablesaw-priority="2">盤價</th>
+                                    <th data-tablesaw-priority="2">匯款/應收金額</th>
+                                    <th data-tablesaw-priority="2">匯款銀行</th>
+                                    <th data-tablesaw-priority="2">匯款分行</th>
+                                    <th data-tablesaw-priority="2">匯款戶名</th>
+                                    <th data-tablesaw-priority="2">匯款帳號</th>
+                                    <th data-tablesaw-priority="2">轉讓會員</th>
+                                    <th data-tablesaw-priority="2">完稅人</th>
+                                    <th data-tablesaw-priority="2">一審</th>
+                                    <th data-tablesaw-priority="2">二審</th>
                                     <!-- <th>成交單狀態</th> -->
-                                    <th>新舊</th>
-                                    <th>自行應付</th>
-                                    <th>刻印</th>
-                                    <th>過戶費</th>
-                                    <th>媒合</th>
-                                    <th>收付款</th>
-                                    <th>過戶日期</th>
-                                    <th>通知查帳</th>
-                                    <th>上傳契約-要記得選擇檔案</th>
-                                    <th>上傳稅單-要記得選擇檔案</th>
-                                    <th>是否結案</th>
+                                    <th data-tablesaw-priority="2">新舊</th>
+                                    <th data-tablesaw-priority="2">自行應付</th>
+                                    <th data-tablesaw-priority="2">刻印</th>
+                                    <th data-tablesaw-priority="2">過戶費</th>
+                                    <th data-tablesaw-priority="2">媒合</th>
+                                    <th data-tablesaw-priority="2">收付款</th>
+                                    <th data-tablesaw-priority="2">過戶日期</th>
+                                    <th data-tablesaw-priority="2">通知查帳</th>
+                                    <th data-tablesaw-priority="2">上傳契約-要記得選擇檔案</th>
+                                    <th data-tablesaw-priority="2">上傳稅單-要記得選擇檔案</th>
+                                    <th data-tablesaw-priority="2">是否結案</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -466,10 +466,11 @@
 
         <script>
 
+
           //編輯資料
           function Edit(i){
             var id = i;
-            
+
             document.getElementById('edit_id').value = id;
             document.getElementById("edit_匯款金額").value = 0;
             ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額','過戶費','匯款日期','刻印',
@@ -485,12 +486,12 @@
                 console.log('not exist: edit_' + field);
                 return;
               }
-              edit.value = source.value;  
+              edit.value = source.value;
             });
 
             var form = document.querySelector('form[name="edit_order_info"]');
             ['買賣','成交單狀態','現金或匯款'].forEach(function(field) {
-              form.elements[field].value = document.getElementById(field+id).value; 
+              form.elements[field].value = document.getElementById(field+id).value;
             });
           }
 
@@ -558,8 +559,8 @@
               }
             });
           })
-            
-          
+
+
 
 
           feather.replace()

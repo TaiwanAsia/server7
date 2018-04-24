@@ -13,10 +13,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <link rel="icon" href="../../../../favicon.ico">
         <title>成交單</title>
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/tablesaw.css">
+
+
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="<?php echo base_url(); ?>assets/js/jquery-min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/action.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/tablesaw.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/tablesaw-init.js"></script>
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <!-- Graphs -->
