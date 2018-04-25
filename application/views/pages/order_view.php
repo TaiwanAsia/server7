@@ -43,24 +43,24 @@
                                 <tr>
                                     <th data-tablesaw-priority="persist"></th>
                                     <th data-tablesaw-priority="2">編號</th>
-                                    <th data-tablesaw-priority="2" scope="col">成交日期</th>
-                                    <th data-tablesaw-priority="2">業務</th>
-                                    <th data-tablesaw-priority="2">客戶姓名</th>
+                                    <th data-tablesaw-priority="persist" scope="col">成交日期</th>
+                                    <th data-tablesaw-priority="persist">業務</th>
+                                    <th data-tablesaw-priority="persist">客戶姓名</th>
                                     <th data-tablesaw-priority="2">身分證字號</th>
                                     <th data-tablesaw-priority="2">聯絡電話</th>
                                     <th data-tablesaw-priority="2">聯絡人</th>
                                     <th data-tablesaw-priority="2">聯絡住址</th>
-                                    <th data-tablesaw-priority="2">買賣</th>
-                                    <th data-tablesaw-priority="2">股票</th>
-                                    <th data-tablesaw-priority="2">張數</th>
-                                    <th data-tablesaw-priority="2">成交價</th>
+                                    <th data-tablesaw-priority="persist">買賣</th>
+                                    <th data-tablesaw-priority="persist">股票</th>
+                                    <th data-tablesaw-priority="persist">張數</th>
+                                    <th data-tablesaw-priority="persist">成交價</th>
                                     <th data-tablesaw-priority="2">盤價</th>
                                     <th data-tablesaw-priority="2">匯款/應收金額</th>
                                     <th data-tablesaw-priority="2">匯款銀行</th>
                                     <th data-tablesaw-priority="2">匯款分行</th>
                                     <th data-tablesaw-priority="2">匯款戶名</th>
                                     <th data-tablesaw-priority="2">匯款帳號</th>
-                                    <th data-tablesaw-priority="2">轉讓會員</th>
+                                    <th data-tablesaw-priority="persist">轉讓會員</th>
                                     <th data-tablesaw-priority="2">完稅人</th>
                                     <th data-tablesaw-priority="2">一審</th>
                                     <th data-tablesaw-priority="2">二審</th>
@@ -75,7 +75,7 @@
                                     <th data-tablesaw-priority="2">通知查帳</th>
                                     <th data-tablesaw-priority="2">上傳契約-要記得選擇檔案</th>
                                     <th data-tablesaw-priority="2">上傳稅單-要記得選擇檔案</th>
-                                    <th data-tablesaw-priority="2">是否結案</th>
+                                    <th data-tablesaw-priority="persist">是否結案</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -161,8 +161,9 @@
                                       <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
                                     </td>
                                     <td>
-                                      <?php echo ($orders[$i]['轉讓會員']) ?></td>
+                                      <?php echo ($orders[$i]['轉讓會員']) ?>
                                       <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
+                                    </td>
                                     <td>
                                       <?php echo ($orders[$i]['完稅人']) ?>
                                       <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
@@ -184,8 +185,7 @@
                                         <button type="submit">二審</button>
                                         <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
                                       </form>
-                                    </td>
-                                    <?php
+                                       <?php
                                     if($orders[$i]['成交單狀態']=='審核完成'){
                                       // echo '<p class="text-primary"><b>審完</b>';
                                       echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核完成">';
@@ -197,13 +197,18 @@
                                       echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核不通過">';
                                     }
                                     ?>
-                                    <td><?php
+                                    </td>
+
+                                    <td>
+                                    <?php
                                     if($orders[$i]['新舊']==1){
                                       echo "新";
                                     } else {
                                       echo "舊";
                                     }
-                                    ?></td>
+                                    ?>
+
+                                    </td>
                                     <td><?php echo ($orders[$i]['自行應付']) ?></td>
                                     <td>
                                       <?php echo ($orders[$i]['刻印']) ?>
