@@ -150,8 +150,9 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_cus_info($name) {
+    public function get_customer_info($name) {
         $sql = "SELECT * FROM `orders` WHERE `客戶姓名` = '".$name."' LIMIT 1";
+        $query = $this->db->query($sql);
         if($query->result()!=null){
             foreach ($query->result() as $row) {
                 $result[] = array('客戶姓名'=>$row-> 客戶姓名,
@@ -159,6 +160,53 @@ class Orders_model extends CI_Model {
                                 '聯絡電話'=>$row-> 聯絡電話,
                                 '聯絡人'=>$row-> 聯絡人,
                                 '聯絡地址'=>$row-> 聯絡地址,);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_dealer_info($name) {
+        $sql = "SELECT * FROM `dealer` WHERE `盤商名` = '".$name."'";
+        $query = $this->db->query($sql);
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array('盤商名'=>$row-> 盤商名,
+                                '盤商傳真'=>$row-> 盤商傳真,
+                                '盤商電話'=>$row-> 盤商電話,);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_taxer_info($name) {
+        $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
+        $query = $this->db->query($sql);
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array(
+                                '完稅姓名'=>$row-> 完稅姓名,
+                                '完稅ID'=>$row-> 完稅ID,
+                                '完稅地址'=>$row-> 完稅地址,);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_payer_info($name) {
+        $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
+        $query = $this->db->query($sql);
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array(
+                                '完稅姓名'=>$row-> 完稅姓名,
+                                '完稅ID'=>$row-> 完稅ID,
+                                '完稅地址'=>$row-> 完稅地址,);
             }
             return  $result;
         } else {

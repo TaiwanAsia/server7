@@ -260,6 +260,30 @@ class Orders extends CI_Controller {
 							'employees' => $employees,);
 		$this->show($arrayName);
 	}
+
+	public function import_customer_info() {
+		$info = $this->orders_model->get_customer_info($_GET['customer_name']);
+		$myJSON = json_encode($info[0]);
+		print_r($myJSON);
+	}
+
+	public function import_dealer_info() {
+		$info = $this->orders_model->get_dealer_info($_GET['dealer_name']);
+		$myJSON = json_encode($info[0]);
+		print_r($myJSON);
+	}
+
+	public function import_taxer_info() {
+		$info = $this->orders_model->get_taxer_info($_GET['taxer_name']);
+		$myJSON = json_encode($info[0]);
+		print_r($myJSON);
+	}
+
+	public function import_payer_info() {
+		$info = $this->orders_model->get_payer_info($_GET['payer_name']);
+		$myJSON = json_encode($info[0]);
+		print_r($myJSON);
+	}
 }
 
 

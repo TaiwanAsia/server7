@@ -17,27 +17,28 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">客戶姓名</label></td>
-                                    <td><input class="" type="text" name="客戶姓名" value="" id="" required></td>
+                                    <td><input class="" type="text" name="客戶姓名" value="" id="customer_name" required></td>
+                                    <td><button id="import_customer">匯入</button></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">身分證字號</label></td>
-                                    <td><input class="" type="text" name="身分證字號" value="" id=""></td>
+                                    <td><input class="" type="text" name="身分證字號" value="" id="customer_id"></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">聯絡電話</label></td>
-                                    <td><input class="" type="tel" name="聯絡電話" value="" id="" required></td>
+                                    <td><input class="" type="tel" name="聯絡電話" value="" id="customer_tel" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">聯絡人</label></td>
-                                    <td><input class="" type="text" name="聯絡人" value="" id="" required></td>
+                                    <td><input class="" type="text" name="聯絡人" value="" id="customer_man" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">聯絡地址</label></td>
-                                    <td><input class="" type="text" name="聯絡地址" value="" id="" required></td>
+                                    <td><input class="" type="text" name="聯絡地址" value="" id="customer_address" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -96,13 +97,60 @@
                                     <td></td>
                                     <td><label for="" class="text-danger">轉讓會員</label></td>
                                     <td>
-                                        <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
+                                        <select id="轉讓會員" name="轉讓會員" class="form-control" required onchange="myFunction()">
                                             <?php
                                             for ($j=0; $j < count($employees); $j++) {
                                                 echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
                                             }
                                             ?>
                                         </select>
+                                    </td>
+                                    <td id="盤商資料" style="display:none">
+                                        <table>
+                                            <tr>
+                                                <td>盤商名</td>
+                                                <td><input id="dealer_name" type="text" name=""></td>
+                                                <td><button id="import_dealer">匯入</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>傳　真</td>
+                                                <td><input id="dealer_fax" type="text" name=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>電　話</td>
+                                                <td><input id="dealer_tel" type="text" name=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>完稅姓名</td>
+                                                <td><input id="taxer_name" type="text" name=""></td>
+                                                <td><button id="import_taxer">匯入</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>完稅ID</td>
+                                                <td><input id="taxer_id" type="text" name=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>完稅地址</td>
+                                                <td><input id="taxer_address" type="text" name=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>匯款姓名</td>
+                                                <td><input id="payer_name" type="text" name=""></td>
+                                                <td><button id="import_payer">匯入</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>匯款銀行</td>
+                                                <td><input id="payer_bank" type="text" name=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>匯款帳號</td>
+                                                <td><input id="payer_account" type="text" name=""></td>
+                                            </tr>
+                                            <tr>
+                                                <td>匯款金額</td>
+                                                <td><input id="payer_money" type="text" name=""></td>
+                                            </tr>
+                                        </table>
                                     </td>
                                 </tr>
                                 <tr>
@@ -163,7 +211,7 @@
                                     <td><button type="submit">送出</button></td>
                                 </tr>
                             </table>
-                        </div>
+                        </div>>
                     </form>
                 </div>
             </main>
@@ -172,7 +220,98 @@
 </body>
 
 <script>
+
     function gettoday() {
         document.getElementById("date").valueAsDate = new Date()
     }
+
+    function myFunction() {
+        var x = document.getElementById("轉讓會員").value;
+        if (x == '盤商') {
+            document.getElementById("盤商資料").style.display = "table-row";
+
+        } else {
+            document.getElementById("盤商資料").style.display = "none";
+        }
+    }
+
+    $("#import_customer").click(function() {
+        $.ajax({
+            type: "GET",
+            url: "<?=base_url()?>index.php/orders/import_customer_info?customer_name="+ $("#customer_name").val(),
+            dataType: "json",
+            success: function(data) {
+                if (data.客戶姓名) {
+                    $("#customer_id").val(data.身分證字號);
+                    $("#customer_tel").val(data.聯絡電話);
+                    $("#customer_man").val(data.聯絡人);
+                    $("#customer_address").val(data.聯絡地址);
+                }        
+            },
+            error: function(jqXHR,data) {
+                alert("發生錯誤: " + jqXHR.status);
+            }
+        })
+    })
+
+    $("#import_dealer").click(function() {
+        $.ajax({
+            type: "GET",
+            url: "<?=base_url()?>index.php/orders/import_dealer_info?dealer_name="+ $("#dealer_name").val(),
+            dataType: "json",
+            success: function(data) {
+                if (data.盤商名) {
+                    $("#dealer_fax").val(data.盤商傳真);
+                    $("#dealer_tel").val(data.盤商電話);
+                    // $("#createResult").html('盤商：' + data.盤商名稱 + '，匯入成功！');
+                } else {
+                    $("#createResult").html(data.msg);
+                }                   
+            },
+            error: function(jqXHR,data) {
+                // alert("發生錯誤: " + jqXHR.status);
+                alert(data);
+            }
+        })
+    })
+
+    $("#import_taxer").click(function() {
+        $.ajax({
+            type: "GET",
+            url: "<?=base_url()?>index.php/orders/import_taxer_info?taxer_name="+ $("#taxer_name").val(),
+            dataType: "json",
+            success: function(data) {
+                if (data.完稅姓名) {
+                    $("#taxer_id").val(data.完稅ID);
+                    $("#taxer_address").val(data.完稅地址);
+                } else {
+                    $("#createResult").html(data.msg);
+                }                   
+            },
+            error: function(jqXHR,data) {
+                alert("發生錯誤: " + jqXHR.status);
+            }
+        })
+    })
+
+    $("#import_payer").click(function() {
+        $.ajax({
+            type: "GET",
+            url: "<?=base_url()?>index.php/orders/import_payer_info?payer_name="+ $("#payer_name").val(),
+            dataType: "json",
+            success: function(data) {
+                if (data.匯款姓名) {
+                    $("#payer_bank").val(data.匯款銀行);
+                    $("#payer_account").val(data.匯款帳號);
+                    $("#payer_money").val(data.匯款金額);
+                } else {
+                    $("#createResult").html(data.msg);
+                }                   
+            },
+            error: function(jqXHR,data) {
+                alert("發生錯誤: " + jqXHR.status);
+            }
+        })
+    })
+
 </script>
