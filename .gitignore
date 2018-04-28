@@ -5,3 +5,4 @@ upload/tax/93
 upload/contact/93
 
 application/config/*
+application/config/database.php
