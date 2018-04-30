@@ -41,7 +41,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 
   <body>
-    <?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱']; ?>
+    <?php //if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱']; ?>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
 
@@ -63,16 +63,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/index">
-                            <span data-feather="home"></span>
+                            <!-- <span data-feather="home"></span> -->
                             成交單管理<span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="checkbill">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/checkbill">
                             應收帳款
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="#">
                             對盤交易明細
                             </a>
@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             if ($_SESSION['權限名稱']=='最高權限') { ?>
                                 <!-- <li class="nav-item"> -->
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
-                                    <span data-feather="file-text"></span>
+                                    <!-- <span data-feather="file-text"></span> -->
                                     帳號管理
                                     </a>
                                 </li>

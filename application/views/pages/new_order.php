@@ -72,7 +72,7 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款/應收金額</label></td>
-                                    <td><input class="" type="text" name="匯款金額" value="" id=""></td>
+                                    <td><input class="" type="text" name="匯款金額應收帳款" value="" id=""></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -308,7 +308,7 @@
                 if (data.匯款姓名) {
                     $("#payer_bank").val(data.匯款銀行);
                     $("#payer_account").val(data.匯款帳號);
-                    $("#payer_money").val(data.匯款金額);
+                    $("#payer_money").val(data.匯款金額應收帳款);
                 } else {
                     $("#createResult").html(data.msg);
                 }                   

@@ -4,9 +4,15 @@
                         <div class="offset-md-1">
                             <table>
                                 <tr>
-                                    <td><?php echo form_error('編號'); ?></td>
-                                    <td><label for="" class="">編號</label></td>       
-                                    <td><input readonly type="text" name="ID" value="<?php echo $result[0]['ID'] ?>" id=""></td>
+                                    <td class="text-danger"><b>☝二審前必須先過戶喔。</b></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <label for="" class="">編號</label>
+                                        <input type="hidden" name="ID" value="<?php echo $result[0]['ID'] ?>">
+                                    </td>       
+                                    <td><h3><label for="" class="text-success"><?php echo $result[0]['ID'] ?></label></h3></td>
                                 </td>
                                 <tr>
                                     <td><?php echo form_error('客戶姓名'); ?></td>
@@ -33,7 +39,21 @@
                                     <td><label for="" class="">自行應付</label></td>
                                     <td><input class="" type="text" name="自行應付" id="" value="<?php echo $result[0]['自行應付']; ?>" ></td>
                                 </tr>
-                                
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-danger"><b>╔═══════════════════════════════════════════════════════════╗</b></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-danger"><b>║✶所有產生的費用包含：刻印收送、二次過戶等等自行應付的部分，在二審完後即無法更改！║</b></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-danger"><b>╚═══════════════════════════════════════════════════════════╝</b></td>
+                                </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">過戶費</label></td>
@@ -63,6 +83,36 @@
                                     <td><label for="" class="">過戶日期</label></td>
                                     <td><input class="" type="text" name="過戶日期" id="" value="<?php echo $result[0]['過戶日期']; ?>" ></td>
                                 </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">契約</label></td>
+                                    <td style="min-width:100px;">
+                                        <?php if (file_exists("upload/contact/" . $result[0]['ID'])){
+                                          ?>
+                                        <a href="<?=base_url('upload/contact/'.$result[0]['ID'])?>" target="_blank">檢視</a>
+                                        <?php } else {
+                                        echo "<label class='text-danger'>尚未上傳契約</label>";
+                                        } ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">稅單</label></td>
+                                    <td>
+                                        <?php if (file_exists("upload/tax/" . $result[0]['ID'])){
+                                          ?>
+                                        <a href="<?=base_url('upload/tax/'.$result[0]['ID'])?>" target="_blank">檢視</a>
+                                        <?php } else {
+                                        echo "<label class='text-danger'>尚未上傳稅單</label>";
+                                        } ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="hidden" name="成交單狀態" value="<?php echo $result[0]['成交單狀態'] ?>">
+                                    </td>
+                                </tr>
+                                <tr></tr>
                                 <tr>
                                     <td></td>
                                     <td></td>

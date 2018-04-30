@@ -71,7 +71,7 @@ class Orders extends CI_Controller {
 						'張數' => $_POST['張數'],
 						'成交價' => $_POST['成交價'],
 						'盤價' => $_POST['盤價'],
-						'匯款金額' => $_POST['匯款金額'],
+						'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
 						'匯款銀行' => $_POST['匯款銀行'],
 						'匯款分行' => $_POST['匯款分行'],
 						'匯款戶名' => $_POST['匯款戶名'],
@@ -98,7 +98,11 @@ class Orders extends CI_Controller {
 	
 	public function checkbill() {
 		$this->load->view('templates/header');
-		$this->load->view('pages/receivable_view');
+		$orders = $this->orders_model->get_checkbill($_SESSION['權限名稱'],$_SESSION['NAME']);
+		$employees = $this->orders_model->get_employee();
+		$arrayName = array('orders' => $orders,
+							'employees' => $employees,);
+		$this->load->view('pages/receivable_view', $arrayName);
 	}
 
 	public function upload_contact() {
@@ -136,6 +140,7 @@ class Orders extends CI_Controller {
 				$this->index();
 			} else {
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
+				echo "string";
 				$this->index();
 			}
 		}
@@ -182,7 +187,7 @@ class Orders extends CI_Controller {
 			'匯款戶名' => $_POST['匯款戶名'],
 			'匯款帳號' => $_POST['匯款帳號'],
 			'轉讓會員' => $_POST['轉讓會員'],
-			'匯款金額' => $_POST['匯款金額'],
+			'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
 			'完稅人' => $_POST['完稅人'],
 			'過戶費' => $_POST['過戶費'],
 			'刻印' => $_POST['刻印'],
@@ -211,7 +216,7 @@ class Orders extends CI_Controller {
 						'張數' => $_POST['張數'],
 						'成交價' => $_POST['成交價'],
 						'盤價' => $_POST['盤價'],
-						'匯款金額' => $_POST['匯款金額'],
+						'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
 						'匯款銀行' => $_POST['匯款銀行'],
 						'匯款分行' => $_POST['匯款分行'],
 						'匯款帳號' => $_POST['匯款帳號'],
@@ -236,7 +241,7 @@ class Orders extends CI_Controller {
 
 	//二審表格
 	public function go_edit2() {
-		$result = $this -> orders_model -> get($_POST['id'],null,null);
+		$result = $this -> orders_model -> get($_GET['id'],null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
@@ -247,20 +252,32 @@ class Orders extends CI_Controller {
 
 	//二審update
 	public function edit2_order() {
-		$data = array(
-						'ID' => $_POST['ID'],
-						'客戶姓名' => $_POST['客戶姓名'],
-						'成交價' => $_POST['成交價'],
-						'盤價' => $_POST['盤價'],
-						'張數' => $_POST['張數'],
-						'自行應付' => $_POST['自行應付'],
-						'過戶費' => $_POST['過戶費'],
-						'刻印' => $_POST['刻印'],
-						'轉讓會員' => $_POST['轉讓會員'],
-						'過戶日期' => $_POST['過戶日期'],
-						'最後動作時間' => date('Y-m-d H:i:s'),);
-		$this -> orders_model -> edit($data);
-		$this->index();
+		if ($_POST['成交單狀態'] == '審核完成') {
+			if (file_exists("upload/tax/".$_POST['ID'])&&file_exists("upload/contact/".$_POST['ID'])){
+				$data = array(
+							'ID' => $_POST['ID'],
+							'客戶姓名' => $_POST['客戶姓名'],
+							'成交價' => $_POST['成交價'],
+							'盤價' => $_POST['盤價'],
+							'張數' => $_POST['張數'],
+							'自行應付' => $_POST['自行應付'],
+							'過戶費' => $_POST['過戶費'],
+							'刻印' => $_POST['刻印'],
+							'轉讓會員' => $_POST['轉讓會員'],
+							'過戶日期' => $_POST['過戶日期'],
+							'二審' => 1,
+							'最後動作時間' => date('Y-m-d H:i:s'),);
+			$this -> orders_model -> edit($data);
+			$this->index();
+			} else {
+				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
+				$this->index();
+			}
+		} else {
+			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
+				$this->index();
+		}
+		
 	}
 
 	//進入庫存頁面

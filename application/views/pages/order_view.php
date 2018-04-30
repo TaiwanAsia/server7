@@ -142,8 +142,8 @@
                                       <input type="hidden" id="盤價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['盤價']; ?>">
                                     </td>
                                     <td>
-                                      <?php echo ($orders[$i]['匯款金額']) ?>
-                                      <input type="hidden" id="匯款金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額']; ?>">
+                                      <?php echo ($orders[$i]['匯款金額應收帳款']) ?>
+                                      <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
                                     </td>
                                     <td>
                                       <?php echo ($orders[$i]['匯款銀行']) ?>
@@ -181,24 +181,20 @@
                                         echo "<td><p class='text-primary'><b>審完</b></td>";
                                       }
                                     ?>
+                                    <?php
+                                      if ($orders[$i]['二審']==0) {
+                                    ?>
                                     <td>
-                                      <form method="POST" action="go_edit2">
+                                      <form method="GET" action="go_edit2">
                                         <button type="submit">二審</button>
                                         <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
                                       </form>
-                                       <?php
-                                    if($orders[$i]['成交單狀態']=='審核完成'){
-                                      // echo '<p class="text-primary"><b>審完</b>';
-                                      echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核完成">';
-                                    } elseif ($orders[$i]['成交單狀態']=='審核中') {
-                                      // echo '<p class="text-success"><b>審核中</b>';
-                                      echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核中">';
-                                    } else {
-                                      // echo '<p class="text-danger"><b>審核不通過</b>';
-                                      echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核不通過">';
-                                    }
-                                    ?>
                                     </td>
+                                    <?php
+                                      } else {
+                                        echo "<td><p class='text-primary'><b>審完</b></td>";
+                                      }
+                                    ?>
 
                                     <td>
                                     <?php
@@ -290,11 +286,26 @@
                                           echo "未結";
                                         }
                                       ?>
+
+                                      <?php
+                                      //秦不知道成交單狀態要放哪，先放這。
+                                      if($orders[$i]['成交單狀態']=='審核完成'){
+                                        // echo '<p class="text-primary"><b>審完</b>';
+                                        echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核完成">';
+                                      } elseif ($orders[$i]['成交單狀態']=='審核中') {
+                                        // echo '<p class="text-success"><b>審核中</b>';
+                                        echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核中">';
+                                      } else {
+                                        // echo '<p class="text-danger"><b>審核不通過</b>';
+                                        echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核不通過">';
+                                      }
+                                      ?>
+
                                     </td>
 
                                     <!-- 沒顯示出來的欄位 -->
                                     <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
-                                    <input type="hidden" id="匯款金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額']; ?>">
+                                    <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
                                     <input type="hidden" id="過戶費<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶費']; ?>">
                                     <input type="hidden" id="刻印收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印收送']; ?>">
                                     <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>">
@@ -398,7 +409,7 @@
                     <tr>
                       <td class="text-danger"><label><b>匯款/應收金額<b/></label></td>
                       <td>
-                        <input type="text" name="匯款金額" class="autochange" value="" id="edit_匯款金額">
+                        <input type="text" name="匯款金額應收帳款" class="autochange" value="" id="edit_匯款金額應收帳款">
                         <button type="button" onclick="calculate_sell()">賣</button>
                         <button type="button" onclick="calculate_buy()">買</button>
                       </td>
@@ -480,8 +491,8 @@
             var id = i;
 
             document.getElementById('edit_id').value = id;
-            document.getElementById("edit_匯款金額").value = 0;
-            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額','過戶費','匯款日期','刻印',
+            document.getElementById("edit_匯款金額應收帳款").value = 0;
+            ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額應收帳款','過戶費','匯款日期','刻印',
                 '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期','過戶日期','自行應付','刻印收送'
               ].forEach(function(field) {
               var source = document.getElementById(field+id);
@@ -505,18 +516,18 @@
 
           //計算匯款金額與自行應付
           function calculate_sell() {
-            document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997;
-            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+            document.getElementById("edit_匯款金額應收帳款").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997;
+            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額應收帳款").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
           }
           function calculate_buy() {
-            document.getElementById("edit_匯款金額").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000;
-            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000);
+            document.getElementById("edit_匯款金額應收帳款").value = document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000;
+            document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額應收帳款").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000);
           }
 
           //自行應付變動=匯款金額-股票金額
           $(document).ready(function(){
             $(".autochange").change(function(){
-              document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+              document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額應收帳款").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
             });
           });
 

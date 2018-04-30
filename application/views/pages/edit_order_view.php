@@ -84,9 +84,9 @@
                                     <td><input class="" type="text" name="盤價" id="" value="<?php echo $result[0]['盤價']; ?>"></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('匯款金額'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">匯款/應收金額</label></td>
-                                    <td><input class="" type="text" name="匯款金額" id="" value="<?php echo $result[0]['匯款金額']; ?>"></td>
+                                    <td><input class="" type="text" name="匯款金額應收帳款" id="" value="<?php echo $result[0]['匯款金額應收帳款']; ?>"></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('匯款銀行'); ?></td>
