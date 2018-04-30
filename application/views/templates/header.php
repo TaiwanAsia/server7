@@ -57,8 +57,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </form>
     <div class="container-fluid">
         <div class="row" style="flex-wrap: initial">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
+            <nav class="s-sidebar bg-light">
+                <div class="s-sidebar-1">
                     <ul class="nav flex-column">
 
                         <li class="nav-item">

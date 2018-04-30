@@ -1,3 +1,11 @@
+.s-sidebar {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 12.5%;
+  flex: 0 0 12.5%;
+  max-width: 12.5%; }
+  .s-sidebar .s-sidebar-1 {
+    margin: 12px auto 0 auto; }
+
 th, td, form {
   white-space: nowrap; }
 
@@ -89,5 +97,8 @@ th, td, form {
 .pn-ProductNav_Contents-no-transition {
   transition: none; }
 
+.t-form-t h1, .t-form-t div {
+  margin: 12px; }
+
 .td-cs-1 {
-  background-color: #00FFFF; }
+  background-color: #77DDFF; }

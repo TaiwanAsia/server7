@@ -1,7 +1,6 @@
 
                 <main role="main" style="flex: 1 0 auto;" >
-                  <div class="t-form-h">
-                    <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
 
                         <h1 class="h2">成交單</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
@@ -27,7 +26,6 @@
 
                 <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
 
-                  <div class="t-form-t">
                     <!-- <button id="pnAdvancerLeft" class="pn-Advancer pn-Advancer_Left" type="button">
                       <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
                     </button>
@@ -35,7 +33,6 @@
                       <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
                     </button> -->
                     <!-- <h2>成交單清冊</h2> -->
-                  </div>
 
 
                     <div class="t-form">
@@ -82,7 +79,7 @@
                             <tbody>
                                 <?php if($orders) {
                                     for($i=0; $i<count($orders); $i++) { ?>
-                                <tr>
+                                <tr class="<?php if($orders[$i]['媒合'] != 0 ) { echo "td-cs-1"; } ?>">
                                     <td>
                                       <form method="GET" action="go_edit">
                                         <button type="submit">編輯</button>
@@ -161,7 +158,7 @@
                                       <?php echo ($orders[$i]['匯款帳號']) ?>
                                       <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
                                     </td>
-                                    <td class="<?php if($orders[$i]['轉讓會員'] =='庫存') { echo "td-cs-1"; } ?>">
+                                    <td>
                                       <?php echo ($orders[$i]['轉讓會員']) ?>
                                       <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
                                     </td>
@@ -315,7 +312,6 @@
                                 <?php }} ?>
                             </tbody>
                         </table>
-                    </div>
                 </main>
             </div>
         </div>
