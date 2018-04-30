@@ -88,3 +88,6 @@ th, td, form {
 
 .pn-ProductNav_Contents-no-transition {
   transition: none; }
+
+.td-cs-1 {
+  background-color: #00FFFF; }

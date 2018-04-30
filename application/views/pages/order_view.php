@@ -161,7 +161,7 @@
                                       <?php echo ($orders[$i]['匯款帳號']) ?>
                                       <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
                                     </td>
-                                    <td>
+                                    <td class="<?php if($orders[$i]['轉讓會員'] =='庫存') { echo "td-cs-1"; } ?>">
                                       <?php echo ($orders[$i]['轉讓會員']) ?>
                                       <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
                                     </td>
