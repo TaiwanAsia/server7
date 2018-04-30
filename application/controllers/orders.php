@@ -48,7 +48,17 @@ class Orders extends CI_Controller {
 
 	public function add_order()
 	{	
-		$data = array(
+		$thelast_id = $this->orders_model->get_last_id();
+		$today_y = date('Y');
+		$today_m = date('m');
+		$id_y = substr($thelast_id, 0, 4);
+		$id_m = substr($thelast_id, 4, 2);
+		if (($today_y == $id_y)&&($today_m == $id_m)) {
+			$insert_id = $thelast_id+1;
+		} else {
+			$insert_id = $today_y.$today_m."0001";
+		}
+		$data = array(	'ID' => $insert_id,
 						'成交日期' => $_POST['成交日期'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
@@ -263,8 +273,13 @@ class Orders extends CI_Controller {
 
 	public function import_customer_info() {
 		$info = $this->orders_model->get_customer_info($_GET['customer_name']);
-		$myJSON = json_encode($info[0]);
-		print_r($myJSON);
+		if ($info[0]['業務'] == $_SESSION['NAME']) {
+			$myJSON = json_encode($info[0]);
+			print_r($myJSON);
+		} else {
+			echo "false";
+		}
+		
 	}
 
 	public function import_dealer_info() {

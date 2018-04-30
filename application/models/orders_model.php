@@ -103,7 +103,18 @@ class Orders_model extends CI_Model {
         }
     }
 
-    //
+    //抓最後一筆ID
+    public function get_last_id() {
+        $query = $this->db->query("SELECT * FROM `orders` ORDER BY `ID` DESC LIMIT 1");
+        if ($query->num_rows()>0) {
+            $row = $query->row();
+            $thelastid = $row->ID;
+            return $thelastid;
+        } else {
+            return false;
+        }
+    }
+    
     public function edit($data) {
         $this->db->where('id', $data['ID']);
         $this->db->update('orders', $data);
@@ -155,7 +166,8 @@ class Orders_model extends CI_Model {
         $query = $this->db->query($sql);
         if($query->result()!=null){
             foreach ($query->result() as $row) {
-                $result[] = array('客戶姓名'=>$row-> 客戶姓名,
+                $result[] = array('業務'=>$row-> 業務,
+                                '客戶姓名'=>$row-> 客戶姓名,
                                 '身分證字號'=>$row-> 身分證字號,
                                 '聯絡電話'=>$row-> 聯絡電話,
                                 '聯絡人'=>$row-> 聯絡人,
@@ -204,9 +216,10 @@ class Orders_model extends CI_Model {
         if($query->result()!=null){
             foreach ($query->result() as $row) {
                 $result[] = array(
-                                '完稅姓名'=>$row-> 完稅姓名,
-                                '完稅ID'=>$row-> 完稅ID,
-                                '完稅地址'=>$row-> 完稅地址,);
+                                '匯款姓名'=>$row-> 完稅姓名,
+                                '匯款銀行'=>$row-> 匯款銀行,
+                                '匯款帳號'=>$row-> 匯款帳號,
+                                '匯款金額'=>$row-> 匯款金額,);
             }
             return  $result;
         } else {

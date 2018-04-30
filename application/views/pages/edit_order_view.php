@@ -4,13 +4,13 @@
                         <div class="offset-md-1">
                             <table>
                                 <tr>
-                                    <td><?php echo form_error('編號'); ?></td>
+                                    <td class="text-danger"><p><b>☝記得選日期喔！　</b></p></td>
                                     <td><label for="" class="">編號</label></td>       
-                                    <td><input readonly type="text" name="ID" value="<?php echo $result[0]['ID'] ?>" id=""></td>
+                                    <td><h3><label for="" class="text-success"><?php echo $result[0]['ID'] ?></label></h3></td>
                                 </td>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="">成交日期</label></td>
+                                    <td><label for="" class="text-danger">成交日期</label></td>
                                     <td><input class="" type="date" name="成交日期" value="" id="date" value="<?php echo $result[0]['成交日期']; ?>" required></td>
                                     <td>原為<?php echo $result[0]['成交日期']; ?></td>
                                     <td><button type="button" onclick="gettoday()">今天</button></td>

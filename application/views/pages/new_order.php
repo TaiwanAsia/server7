@@ -4,7 +4,7 @@
                         <div class="offset-md-1">
                             <table>
                                 <tr>
-                                    <td></td>
+                                    <td class="text-danger"><p><b>☝紅色為必填欄位　　</b></p></td>
                                     <td><label for="" class="text-danger">成交日期</label></td>
                                     <td><input class="" type="date" name="成交日期" value="" id="date" required></td>
                                     <td><button type="button" onclick="gettoday()">今天</button></td>
@@ -19,6 +19,7 @@
                                     <td><label for="" class="text-danger">客戶姓名</label></td>
                                     <td><input class="" type="text" name="客戶姓名" value="" id="customer_name" required></td>
                                     <td><button id="import_customer">匯入</button></td>
+                                    <td><p id="createResult"></p></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -105,6 +106,7 @@
                                             ?>
                                         </select>
                                     </td>
+                                    <td><p class="text-info">★轉讓會員為此成交單與你的交易方</p></td>
                                     <td id="盤商資料" style="display:none">
                                         <table>
                                             <tr>
@@ -246,7 +248,10 @@
                     $("#customer_tel").val(data.聯絡電話);
                     $("#customer_man").val(data.聯絡人);
                     $("#customer_address").val(data.聯絡地址);
-                }        
+                    $("#createResult").html('');
+                } else {
+                    $("#createResult").html('此客戶未出現在您的成交資料過！');
+                }
             },
             error: function(jqXHR,data) {
                 alert("發生錯誤: " + jqXHR.status);
