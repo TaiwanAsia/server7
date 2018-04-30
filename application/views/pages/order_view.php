@@ -43,7 +43,7 @@
                             <thead class="thead-light">
                                 <tr>
                                   <th data-tablesaw-priority="persist"></th>
-                                  <th data-tablesaw-priority="0">編號</th>
+                                  <th data-tablesaw-priority="1">編號</th>
                                   <th data-tablesaw-priority="1" scope="col">成交日期</th>
                                   <th data-tablesaw-priority="0">業務</th>
                                   <th data-tablesaw-priority="1">客戶姓名</th>
@@ -63,8 +63,8 @@
                                   <th data-tablesaw-priority="0">匯款帳號</th>
                                   <th data-tablesaw-priority="0">轉讓會員</th>
                                   <th data-tablesaw-priority="0">完稅人</th>
-                                  <th data-tablesaw-priority="0">一審</th>
-                                  <th data-tablesaw-priority="0">二審</th>
+                                  <th data-tablesaw-priority="1">一審</th>
+                                  <th data-tablesaw-priority="1">二審</th>
                                   <!-- <th>成交單狀態</th> -->
                                   <th data-tablesaw-priority="0">新舊</th>
                                   <th data-tablesaw-priority="0">自行應付</th>
@@ -73,7 +73,7 @@
                                   <th data-tablesaw-priority="0">媒合</th>
                                   <th data-tablesaw-priority="0">收付款</th>
                                   <th data-tablesaw-priority="0">過戶日期</th>
-                                  <th data-tablesaw-priority="0">通知查帳</th>
+                                  <th data-tablesaw-priority="1">通知查帳</th>
                                   <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
                                   <th data-tablesaw-priority="0">上傳稅單-要記得選擇檔案</th>
                                   <th data-tablesaw-priority="1">是否結案</th>
@@ -365,7 +365,6 @@
                             ?>
                         </select>
                       </td>
-                      <td></td>
                       <td><label>成交價</label></td>
                       <td><input type="text" name="成交價" value="" id="edit_成交價"></td>
                       <td><label>盤價</label></td>

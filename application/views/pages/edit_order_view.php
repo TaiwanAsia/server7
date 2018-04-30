@@ -4,16 +4,19 @@
                         <div class="offset-md-1">
                             <table>
                                 <tr>
-                                    <td class="text-danger"><p><b>☝記得選日期喔！　</b></p></td>
-                                    <td><label for="" class="">編號</label></td>       
+                                    <td></td>
+                                    <td>
+                                        <label for="" class="">編號</label>
+                                        <input type="hidden" name="ID" value="<?php echo $result[0]['ID'] ?>">
+                                    </td>       
                                     <td><h3><label for="" class="text-success"><?php echo $result[0]['ID'] ?></label></h3></td>
                                 </td>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">成交日期</label></td>
-                                    <td><input class="" type="date" name="成交日期" value="" id="date" value="<?php echo $result[0]['成交日期']; ?>" required></td>
-                                    <td>原為<?php echo $result[0]['成交日期']; ?></td>
-                                    <td><button type="button" onclick="gettoday()">今天</button></td>
+                                    <td><input class="" type="date" name="成交日期" value="<?php echo $result[0]['成交日期'] ?>" id="date" required></td>
+                                    <td><input type="hidden" id="original_date" value="<?php echo $result[0]['成交日期'] ?>"></td>
+                                    <!-- <td><button type="button" onclick="gettoday()">今天</button></td> -->
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('業務'); ?></td>
@@ -106,7 +109,7 @@
                                     <td><input class="" type="text" name="匯款戶名" id="" value="<?php echo $result[0]['匯款戶名']; ?>"></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('轉讓會員'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">轉讓會員</label></td>
                                     <td>
                                         <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
@@ -191,4 +194,10 @@
         </div>
     </div>    
 </body>
+
+<script type="text/javascript">
+    // var original_date = document.getElementById('original_date').value;
+    // var dateControl = document.querySelector('input[type="date"]');
+    // dateControl.value = '2017-06-09';
+</script>
 
