@@ -109,8 +109,11 @@
                                       } ?>
                                     </td>
                                     <td>
-                                      <?php echo ($orders[$i]['聯絡地址']) ?>
+                                      <?php if($_SESSION['聯絡地址權限']==1) {
+                                        echo ($orders[$i]['聯絡地址']); 
+                                      ?>
                                       <input type="hidden" id="address<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡地址']; ?>">
+                                      <?php } ?>
                                     </td>
                                     <td><?php
                                     if($orders[$i]['買賣']==1){
@@ -135,9 +138,13 @@
                                       <input type="hidden" id="成交價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交價']; ?>">
                                     </td>
                                     <td>
-                                      <?php echo ($orders[$i]['盤價']) ?>
+                                      <?php if($_SESSION['盤價權限']==1) {
+                                        echo ($orders[$i]['盤價']); 
+                                      ?>
                                       <input type="hidden" id="盤價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['盤價']; ?>">
+                                      <?php } ?>
                                     </td>
+                                    <?php if ($_SESSION['匯款資訊權限']==1) { ?>
                                     <td>
                                       <?php echo ($orders[$i]['匯款金額應收帳款']) ?>
                                       <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
@@ -158,17 +165,24 @@
                                       <?php echo ($orders[$i]['匯款帳號']) ?>
                                       <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
                                     </td>
+                                    <?php } else {
+                                      echo "<td></td><td></td><td></td><td></td><td></td>";
+                                    } ?>
+
                                     <td>
-                                      <?php echo ($orders[$i]['轉讓會員']) ?>
+                                      <?php if($_SESSION['轉讓會員權限']==1) {
+                                        echo ($orders[$i]['轉讓會員']); 
+                                      ?>
                                       <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
+                                      <?php } ?>
                                     </td>
                                     <td>
                                       <?php echo ($orders[$i]['完稅人']) ?>
                                       <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
                                     </td>
                                     <?php
-                                      if ($orders[$i]['成交單狀態']!='審核完成') {
-                                    ?>
+                                    if ($_SESSION['一審權限']==1) {
+                                      if ($orders[$i]['成交單狀態']!='審核完成') { ?>
                                     <!-- Trigger/Open The Modal -->
                                     <td>
                                       <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
@@ -177,8 +191,12 @@
                                       } else {
                                         echo "<td><p class='text-primary'><b>審完</b></td>";
                                       }
+                                    } else {
+                                      echo "<td></td>";
+                                    }
                                     ?>
                                     <?php
+                                    if ($_SESSION['二審權限']==1) {
                                       if ($orders[$i]['二審']==0) {
                                     ?>
                                     <td>
@@ -191,6 +209,9 @@
                                       } else {
                                         echo "<td><p class='text-primary'><b>審完</b></td>";
                                       }
+                                    } else {
+                                      echo "<td></td>";
+                                    }
                                     ?>
 
                                     <td>
