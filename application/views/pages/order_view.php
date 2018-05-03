@@ -35,7 +35,7 @@
                                   <th data-tablesaw-priority="0">業務</th>
                                   <th data-tablesaw-priority="1">客戶姓名</th>
                                   <th data-tablesaw-priority="0">身分證字號</th>
-                                  <th data-tablesaw-priority="1">聯絡電話</th>
+                                  <th data-tablesaw-priority="0">聯絡電話</th>
                                   <th data-tablesaw-priority="0">聯絡人</th>
                                   <th data-tablesaw-priority="0">聯絡住址</th>
                                   <th data-tablesaw-priority="0">買賣</th>
@@ -94,16 +94,19 @@
                                         echo ($orders[$i]['身分證字號']); 
                                       ?>
                                       <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
-                                      <?php } else {
-
-                                      } ?>
+                                      <?php } ?>
                                     </td>
                                     <td>
-                                      <?php echo ($orders[$i]['聯絡電話']) ?>
+                                      <?php if($_SESSION['聯絡電話權限']==1) {
+                                        echo ($orders[$i]['聯絡電話']); 
+                                      ?>
                                       <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
+                                      <?php } ?>
                                     </td>
                                     <td>
-                                      <?php echo ($orders[$i]['聯絡人']) ?>
+                                      <?php if($_SESSION['聯絡人權限']==1) {
+                                        echo ($orders[$i]['聯絡人']); 
+                                      } ?>
                                     </td>
                                     <td>
                                       <?php echo ($orders[$i]['聯絡地址']) ?>
