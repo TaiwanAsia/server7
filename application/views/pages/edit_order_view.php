@@ -13,7 +13,7 @@
                                 </td>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="text-danger">成交日期</label></td>
+                                    <td><label for="" class="">成交日期</label></td>
                                     <td><input class="" type="date" name="成交日期" value="<?php echo $result[0]['成交日期'] ?>" id="date" required></td>
                                     <td><input type="hidden" id="original_date" value="<?php echo $result[0]['成交日期'] ?>"></td>
                                     <!-- <td><button type="button" onclick="gettoday()">今天</button></td> -->
@@ -121,6 +121,7 @@
                                             ?>
                                         </select>
                                     </td>
+                                    <td><p class="text-info">★轉讓會員為此成交單與你的交易方</p></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('完稅人'); ?></td>

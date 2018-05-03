@@ -27,15 +27,7 @@
 
                 <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
 
-                  <div class="t-form-t">
-                    <!-- <button id="pnAdvancerLeft" class="pn-Advancer pn-Advancer_Left" type="button">
-                      <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M445.44 38.183L-2.53 512l447.97 473.817 85.857-81.173-409.6-433.23v81.172l409.6-433.23L445.44 38.18z"/></svg>
-                    </button>
-                    <button id="pnAdvancerRight" class="pn-Advancer pn-Advancer_Right" type="button">
-                      <svg class="pn-Advancer_Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 551 1024"><path d="M105.56 985.817L553.53 512 105.56 38.183l-85.857 81.173 409.6 433.23v-81.172l-409.6 433.23 85.856 81.174z"/></svg>
-                    </button> -->
-                    <!-- <h2>成交單清冊</h2> -->
-                  </div>
+
 
 
                     <div class="t-form">
@@ -84,10 +76,12 @@
                                     for($i=0; $i<count($orders); $i++) { ?>
                                 <tr>
                                     <td>
+                                      <?php if ($_SESSION['編輯權限']==1) { ?>
                                       <form method="GET" action="go_edit">
                                         <button type="submit">編輯</button>
                                         <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
                                       </form>
+                                      <?php } ?>
                                     </td>
                                     <td><?php echo ($orders[$i]['ID']) ?></td>
                                     <td>
@@ -101,8 +95,13 @@
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
                                     <td>
-                                      <?php echo ($orders[$i]['身分證字號']) ?>
+                                      <?php if($_SESSION['身分證字號權限']==1) {
+                                        echo ($orders[$i]['身分證字號']); 
+                                      ?>
                                       <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
+                                      <?php } else {
+
+                                      } ?>
                                     </td>
                                     <td>
                                       <?php echo ($orders[$i]['聯絡電話']) ?>
@@ -206,13 +205,17 @@
                                     ?>
 
                                     </td>
+                                    
                                     <td><?php echo ($orders[$i]['自行應付']) ?></td>
+
                                     <td>
                                       <?php echo ($orders[$i]['刻印']) ?>
                                       <input type="hidden" id="刻印<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印']; ?>">
                                     </td>
+                                    
                                     <td><?php echo ($orders[$i]['過戶費']) ?></td>
-                                    <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+
+                                    <?php if ($_SESSION['媒合權限']==1) { ?>
                                       <td style="min-width: 100px;">
                                         <?php if($orders[$i]['媒合']==0){ ?>
                                           <form method="post" action="match">
@@ -228,7 +231,7 @@
                                             <button type="submit" id="" name="" class="">確認</button>
                                           </form>
                                         <?php } else {
-                                          echo $orders[$i]['媒合'];
+                                          echo "<u>".$orders[$i]['媒合']."</u>";
                                         }
                                         ?>
                                       </td>
@@ -236,15 +239,17 @@
                                       if ($orders[$i]['媒合']==0) {
                                         echo "<td>未媒合</td>";
                                       } else {
-                                        echo $orders[$i]['媒合'];
+                                        echo "<td><u>".$orders[$i]['媒合']."</u></td>";
                                       }
                                      }?>
 
                                     <td><?php echo ($orders[$i]['匯款日期']) ?></td>
+                                    
                                     <td>
                                       <?php echo ($orders[$i]['過戶日期']) ?>
                                       <input type="hidden" id="過戶日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶日期']; ?>">
                                     </td>
+
                                     <td>
                                         <form method="post" action="checkbill">
                                             <button type="submit">通知查帳</button>

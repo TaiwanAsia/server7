@@ -132,6 +132,7 @@ class Orders_model extends CI_Model {
     }
 
     public function match($self, $other) {
+        echo "自己編號:".$self."  對方編號".$other;
         //先update自己的媒合
         $data = array(
             '媒合' => $other,
