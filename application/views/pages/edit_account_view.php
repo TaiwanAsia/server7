@@ -2,7 +2,9 @@
 
 
 <div id="container">
+	
 	<div id="body">
+
 		<form action="edit_account" method="POST" name="" style= "display:inline">
 
 			<div>
@@ -30,13 +32,15 @@
 						</td>
 						<td>
 							<select name="權限名稱">
-								<option value=""></option>';
-								<option value="最高權限">最高權限</option>';
-								<option value="次高權限">次高權限</option>';
-								<option value="會計">會計</option>';
-								<option value="行政">行政</option>';
-								<option value="業務">業務</option>';
-								<option value="工讀">工讀</option>';
+								<option value="<?php echo($data[0]['權限名稱']); ?>" checked>
+									<?php echo($data[0]['權限名稱']); ?>
+								</option>
+								<option value="最高權限">最高權限</option>
+								<option value="次高權限">次高權限</option>
+								<option value="會計">會計</option>
+								<option value="行政">行政</option>
+								<option value="業務">業務</option>
+								<option value="工讀">工讀</option>
 							</select>
 						</td>
 						<td>

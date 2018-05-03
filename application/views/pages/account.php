@@ -4,6 +4,7 @@
 			<form action="go_add_account" method="POST" name="" style= "display:inline">
 				<input type="submit" name="" value="新增">
 			</form>
+			<br><br>
 			<table style="width:100%" border="1">
 				<tr>
 					<th nowrap="nowrap">編號</th>

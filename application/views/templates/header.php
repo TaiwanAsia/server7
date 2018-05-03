@@ -41,7 +41,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </script>
 
   <body>
-    <?php //if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱']; ?>
+    <?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱'];
+    // echo '帳號設定權限: '.$_SESSION['帳號設定權限'];
+     ?>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
 
@@ -96,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li> -->
                         <?php
-                            if ($_SESSION['權限名稱']=='最高權限') { ?>
+                            if ($_SESSION['帳號設定權限']==1) { ?>
                                 <!-- <li class="nav-item"> -->
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
                                     <!-- <span data-feather="file-text"></span> -->

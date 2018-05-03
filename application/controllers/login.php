@@ -47,6 +47,27 @@ class Login extends CI_Controller {
 					$_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
 					$_SESSION['權限名稱'] = $flag['權限名稱'];
 					$_SESSION['NAME'] = $flag['NAME'];
+					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
+
+					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
+					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
+                    $_SESSION['成交日期權限'] = $authority[0]['成交日期權限'];
+                    $_SESSION['業務權限'] = $authority[0]['業務權限'];
+                    $_SESSION['客戶姓名權限'] = $authority[0]['客戶姓名權限'];
+                    $_SESSION['身分證字號權限'] = $authority[0]['身分證字號權限'];
+                    $_SESSION['聯絡電話權限'] = $authority[0]['聯絡電話權限'];
+                    $_SESSION['聯絡人權限'] = $authority[0]['聯絡人權限'];
+                    $_SESSION['聯絡地址權限'] = $authority[0]['聯絡地址權限'];
+                    $_SESSION['股票資訊權限'] = $authority[0]['股票資訊權限'];
+                    $_SESSION['盤價權限'] = $authority[0]['盤價權限'];
+                    $_SESSION['匯款資訊權限'] = $authority[0]['匯款資訊權限'];
+                    $_SESSION['轉讓會員權限'] = $authority[0]['轉讓會員權限'];
+                    $_SESSION['完稅人權限'] = $authority[0]['完稅人權限'];
+                    $_SESSION['媒合權限'] = $authority[0]['媒合權限'];
+                    $_SESSION['一審權限'] = $authority[0]['一審權限'];
+                    $_SESSION['二審權限'] = $authority[0]['二審權限'];
+                    $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
+
 					// $this->login_model->login_move_record($_SESSION['name'],'login','login');
 					redirect('index.php/orders/index');
 				} else {
@@ -96,7 +117,6 @@ class Login extends CI_Controller {
 		public function go_edit_account() {
 			$account_id = $_POST['account_id'];
 			$data = $this->login_model->show_account($account_id); //撈欲編輯資料
-			// print_r($data);
 			$this->load->view('templates/header');
 			$this->load->view('pages/edit_account_view', array('data' => $data,));
 		}

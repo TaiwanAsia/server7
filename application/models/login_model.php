@@ -64,6 +64,39 @@ class Login_model extends CI_Model {
     //     $this->db->insert('move_record',$move);
     // }
 
+        //依照權限名稱抓權限
+        public function get_authority($data) {
+            $this->db->where('權限名稱', $data);
+            $query = $this->db->get('account_type');
+            if($query->result()!=null){
+                foreach ($query->result() as $row) {
+                    $result[] = array(
+                                '帳號設定權限'=>$row-> 帳號設定權限,
+                                '編輯權限'=>$row-> 編輯權限,
+                                '成交日期權限'=>$row-> 成交日期權限,
+                                '業務權限'=>$row-> 業務權限,
+                                '客戶姓名權限'=>$row-> 客戶姓名權限,
+                                '身分證字號權限'=>$row-> 身分證字號權限,
+                                '聯絡電話權限'=>$row-> 聯絡電話權限,
+                                '聯絡人權限'=>$row-> 聯絡人權限,
+                                '聯絡地址權限'=>$row-> 聯絡地址權限,
+                                '股票資訊權限'=>$row-> 股票資訊權限,
+                                '盤價權限'=>$row-> 盤價權限,
+                                '匯款資訊權限'=>$row-> 匯款資訊權限,
+                                '轉讓會員權限'=>$row-> 轉讓會員權限,
+                                '完稅人權限'=>$row-> 完稅人權限,
+                                '媒合權限'=>$row-> 媒合權限,
+                                '一審權限'=>$row-> 一審權限,
+                                '二審權限'=>$row-> 二審權限,
+                                '剩下資訊權限'=>$row-> 剩下資訊權限,);
+                }
+                print_r($result);
+                return  $result;
+            } else {
+                return flase;
+            }
+        }
+
 }
 
 ?>
