@@ -277,6 +277,87 @@ class Orders extends CI_Controller {
 		
 	}
 
+	public function import(){
+		// 引入函式庫
+		require_once APPPATH."third_party\PHPExcel.php";
+
+		if(isset($_POST["Import"])){
+			$filename = $_FILES["file"]["tmp_name"];
+
+			$Max_Files = 10;
+			if(count($filename) <= $Max_Files && $_FILES["file"]["size"][0] > 0){ //判斷上傳數量是否符合標準1～10
+				for ($i = 0; $i < count($filename); $i++) {
+
+					if ($_FILES["file"]["error"][$i] == UPLOAD_ERR_OK) {
+						 // Read your Excel workbook
+		                try {
+		                    //看這個檔案是什麼類型
+		                    $inputFileType = PHPExcel_IOFactory::identify($filename[$i]);
+		                    //開這個類型的reader
+		                    $objReader     = PHPExcel_IOFactory::createReader($inputFileType);
+		                    //read檔案
+		                    $objPHPExcel   = $objReader->load($filename[$i]);
+		                } catch(Exception $e) {
+		                    die('Error loading file "'.pathinfo($filename[$i],PATHINFO_BASENAME).'": '.$e->getMessage());
+		                }
+
+		                $sheet         = $objPHPExcel->getSheet(0); 
+		                $highestRow    = $sheet->getHighestRow(); 
+		                $highestColumn = $sheet->getHighestColumn();
+		                
+		                // Loop through each row of the worksheet in turn
+		                $rowData = array();
+		                $allrowData = array();
+
+		                for ($row = 2; $row <= $highestRow; $row++){ 
+		                	// Read a row of data into an array
+		                    $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+		                                                    NULL,
+		                                                    TRUE,
+		                                                    FALSE);
+		                    // Insert row data array into your database of choice here
+
+		                    if ($rowData[0][0] != '' && $rowData[0][0] != '銷單序號' && $rowData[0][3] != '') { // 避開匯入時的title行以及轉入為0
+		                    	$datas[$i][$row-2] = array(
+		                    		'日期' => substr($rowData[0][1], 0, 3).'-'.substr($rowData[0][1], 3, 2).'-'.substr($rowData[0][1], 5, 2),
+		                    		'轉入' => $rowData[0][3],
+		                    	);
+		                    }
+
+		                }
+		                echo '<span style="color:#FF0000;"><b>上傳成功<br></b></span>';
+					} else {
+		            	echo '<span style="color:#FF0000;"><b>上傳失敗<br></b></span>';
+		            }
+				}
+			} elseif (count($filename) > $Max_Files) {
+            	echo '<span style="color:#FF0000;"><h1><b>上傳數量超過最大值'.$Max_Files.'</b></h1></span>';
+            } else {
+            	echo '<span style="color:#FF0000;"><h1><b>您尚未選取檔案</b></h1></span>';
+            }
+            reconile($datas);
+		}
+    }
+
+    public function reconile($datas) {
+    	$orders = $this->orders_model->get_checkbill(); //先抓欲對帳表
+
+    	for ($i = 0; $i < count($orders); $i++) {
+    		$time = $orders[$i]['成交日期'];
+    		$money = $orders[$i]['匯款金額應收帳款'];
+
+    		if ($money != '0') {
+    			for ($j = 0; $j < count($datas); $j++) {
+    				for ($k = 0; $k < count($datas[j]); $k++) {
+    					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
+    						//對帳完成
+    					}
+    				}
+    			}
+    		}
+    	}
+    }
+
 	//進入庫存頁面
 	public function go_inventory() {
 		$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
