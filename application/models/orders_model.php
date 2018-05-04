@@ -38,7 +38,7 @@ class Orders_model extends CI_Model {
                         // '收付款'=>$row-> 收付款,
                         '現金或匯款'=>$row-> 現金或匯款,
                         '匯款日期'=>$row-> 匯款日期,
-                        // '通知查帳'=>$row-> 通知查帳,
+                        '通知查帳'=>$row-> 通知查帳,
                         '成交單狀態'=>$row-> 成交單狀態,
                         // '契約'=>$row-> 契約,
                         // '稅單'=>$row-> 稅單,
@@ -230,21 +230,29 @@ class Orders_model extends CI_Model {
     }
 
     public function get_checkbill() {
-        if($_SESSION['權限名稱']=='最高權限') {
+        $query = array();
+        if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
             $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
-
-            if($query->num_rows()>0) {
-                $result = $this->transformer($query);
-                return $result;
-            } else {
-                return false;
-            }
+        } elseif ($_SESSION['權限名稱']=='業務') {
+            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+            $query = $this->db->query($sql);
+        }
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
         } else {
             return false;
         }
     }
 
+    public function pushinto_checkbill($order_id) {
+        $data = array('成交單編號'=>$order_id);
+        $this->db->insert('check_money', $data);
+        $data2 = array('通知查帳'=>1);
+        $this->db->where('ID', $order_id);
+        $this->db->update('orders', $data2);
+    }
 
 }
 

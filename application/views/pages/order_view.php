@@ -181,7 +181,7 @@
                                       <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
                                     </td>
                                     <?php
-                                    if ($_SESSION['一審權限']==1) {
+                                    if ($_SESSION['一二審通知查帳權限']==1) {
                                       if ($orders[$i]['成交單狀態']!='審核完成') { ?>
                                     <!-- Trigger/Open The Modal -->
                                     <td>
@@ -196,7 +196,7 @@
                                     }
                                     ?>
                                     <?php
-                                    if ($_SESSION['二審權限']==1) {
+                                    if ($_SESSION['一二審通知查帳權限']==1) {
                                       if ($orders[$i]['二審']==0) {
                                     ?>
                                     <td>
@@ -270,9 +270,16 @@
                                     </td>
 
                                     <td>
-                                        <form method="post" action="checkbill">
+                                      <?php if ($_SESSION['一二審通知查帳權限']==1) {
+                                        if ($orders[$i]['通知查帳']==0) { ?>
+                                        <form method="post" action="pushinto_checkbill">
+                                          <input type="hidden" name="成交單編號" value="<?php echo ($orders[$i]['ID']) ?>">
                                             <button type="submit">通知查帳</button>
                                         </form>
+                                      <?php } else { ?>
+                                        <label>已通知</label>
+                                      <?php }
+                                      }?>
                                     </td>
                                     <td style="min-width:100px;">
                                         <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){

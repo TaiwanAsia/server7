@@ -8,7 +8,11 @@
                   <div class="t-form-t">
 
                   </div>
-
+                  <form class="form-horizontal well" action="import" method="post" name="upload_excel" enctype="multipart/form-data" style= "display:inline;">
+                        <input type="file" name="file[]" id="file" class="input-large" multiple>
+                        <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">     上傳
+                        </button>
+                    </form>
 
                     <div class="t-form">
                         <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>

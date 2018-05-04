@@ -90,11 +90,16 @@ class Orders extends CI_Controller {
 	
 	public function checkbill() {
 		$this->load->view('templates/header');
-		$orders = $this->orders_model->get_checkbill($_SESSION['權限名稱'],$_SESSION['NAME']);
+		$orders = $this->orders_model->get_checkbill();
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,);
 		$this->load->view('pages/receivable_view', $arrayName);
+	}
+
+	public function pushinto_checkbill() {
+		$this->orders_model->pushinto_checkbill($_POST['成交單編號']);
+		$this->index();
 	}
 
 	public function upload_contact() {
