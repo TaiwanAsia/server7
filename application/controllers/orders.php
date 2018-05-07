@@ -320,7 +320,7 @@ class Orders extends CI_Controller {
 
 		                    if ($rowData[0][0] != '' && $rowData[0][0] != '銷單序號' && $rowData[0][3] != '') { // 避開匯入時的title行以及轉入為0
 		                    	$datas[$i][$Data_size++] = array(
-		                    		'日期' => substr($rowData[0][1], 0, 3).'-'.substr($rowData[0][1], 3, 2).'-'.substr($rowData[0][1], 5, 2),
+		                    		'日期' => (substr($rowData[0][1], 0, 3)+1911).'-'.substr($rowData[0][1], 3, 2).'-'.substr($rowData[0][1], 5, 2),
 		                    		'轉入' => $rowData[0][3],
 		                    	);
 		                    }
@@ -359,6 +359,7 @@ class Orders extends CI_Controller {
     				for ($k = 0; $k < count($datas[$j]); $k++) {
     					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
     						//對帳完成
+    						echo $datas[$j][$k]['日期']." ".$datas[$j][$k]['轉入'].'<br>';
     					}
     				}
     			}
