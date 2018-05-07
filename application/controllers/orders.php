@@ -335,11 +335,11 @@ class Orders extends CI_Controller {
             } else {
             	echo '<span style="color:#FF0000;"><h1><b>您尚未選取檔案</b></h1></span>';
             }
-            reconile($datas);
+            $this->reconcile($datas);
 		}
     }
 
-    public function reconile($datas) {
+    public function reconcile($datas) {
     	$orders = $this->orders_model->get_checkbill(); //先抓欲對帳表
 
     	for ($i = 0; $i < count($orders); $i++) {
