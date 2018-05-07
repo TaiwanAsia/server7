@@ -99,7 +99,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li> -->
                         <?php
                             if ($_SESSION['帳號設定權限']==1) { ?>
-                                <!-- <li class="nav-item"> -->
+                                <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
                                     <!-- <span data-feather="file-text"></span> -->
                                     帳號管理

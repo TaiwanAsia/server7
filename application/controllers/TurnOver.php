@@ -16,7 +16,13 @@ class TurnOver extends CI_Controller {
 
 	public function get() {
 		$data = $this->turnover_model->get_turnover();
-		print_r($data);
+		for ($i=0; $i < count($data); $i++) { 
+			echo "<br>";
+			print_r($data[$i]);
+			echo "<br>";
+			$this->turnover_model->insert_to_orders($data[$i]);
+		}
+
 	}
 
 }
