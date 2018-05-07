@@ -359,7 +359,8 @@ class Orders extends CI_Controller {
     				for ($k = 0; $k < count($datas[$j]); $k++) {
     					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
     						//對帳完成
-    						echo $datas[$j][$k]['日期']." ".$datas[$j][$k]['轉入'].'<br>';
+    						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
+    						$this->orders_model->check_money_received($orders[$i]['ID'],$money);
     					}
     				}
     			}

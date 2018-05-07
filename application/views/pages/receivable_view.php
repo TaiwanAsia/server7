@@ -18,29 +18,33 @@
                         <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
                             <thead class="thead-light">
                                 <tr>
-                                  <th data-tablesaw-priority="1">編號</th>
-                                  <th data-tablesaw-priority="1" scope="col">成交日期</th>
-                                  <th data-tablesaw-priority="1">業務</th>
-                                  <th data-tablesaw-priority="1">客戶姓名</th>
-                                  <th data-tablesaw-priority="0">身分證字號</th>
-                                  <th data-tablesaw-priority="0">聯絡電話</th>
-                                  <th data-tablesaw-priority="0">聯絡人</th>
-                                  <th data-tablesaw-priority="0">聯絡住址</th>
-                                  <th data-tablesaw-priority="1">買賣</th>
-                                  <th data-tablesaw-priority="1">股票</th>
-                                  <th data-tablesaw-priority="1">張數</th>
-                                  <th data-tablesaw-priority="1">成交價</th>
-                                  <th data-tablesaw-priority="0">盤價</th>
-                                  <th data-tablesaw-priority="1">應收金額</th>
-                                  <th data-tablesaw-priority="1">已收金額</th>
-                                  <th data-tablesaw-priority="1">尚餘應收</th>
-                                  <th data-tablesaw-priority="0">匯款戶名</th>
-                                  <th data-tablesaw-priority="0">匯款帳號</th>
-                                  <th data-tablesaw-priority="0">轉讓會員</th>
-                                  <th data-tablesaw-priority="1">完稅人</th>
-                                  <th data-tablesaw-priority="1">過戶日期</th>
-                                  <th data-tablesaw-priority="1">匯款日期</th>
-                                  <th data-tablesaw-priority="1">通知查帳</th>
+                                    <th data-tablesaw-priority="1">編號</th>
+                                    <th data-tablesaw-priority="1" scope="col">成交日期</th>
+                                    <th data-tablesaw-priority="1">業務</th>
+                                    <th data-tablesaw-priority="1">客戶姓名</th>
+                                    <th data-tablesaw-priority="0">身分證字號</th>
+                                    <th data-tablesaw-priority="0">聯絡電話</th>
+                                    <th data-tablesaw-priority="0">聯絡人</th>
+                                    <th data-tablesaw-priority="0">聯絡住址</th>
+                                    <th data-tablesaw-priority="1">買賣</th>
+                                    <th data-tablesaw-priority="1">股票</th>
+                                    <th data-tablesaw-priority="1">張數</th>
+                                    <th data-tablesaw-priority="1">成交價</th>
+                                    <th data-tablesaw-priority="0">盤價</th>
+                                    <th data-tablesaw-priority="1">應收金額</th>
+                                    <th data-tablesaw-priority="1">已收金額</th>
+                                    <th data-tablesaw-priority="1">尚餘應收</th>
+                                    <th data-tablesaw-priority="0">匯款戶名</th>
+                                    <th data-tablesaw-priority="0">匯款帳號</th>
+                                    <th data-tablesaw-priority="0">轉讓會員</th>
+                                    <th data-tablesaw-priority="1">完稅人</th>
+                                    <th data-tablesaw-priority="1">過戶日期</th>
+                                    <th data-tablesaw-priority="1">匯款日期</th>
+                                    <?php if ($_SESSION['權限名稱']='最高權限') { ?>
+                                    <th data-tablesaw-priority="1">查帳狀態</th>
+                                    <?php } else { ?>
+                                    <th data-tablesaw-priority="1">通知查帳</th>
+                                    <?php } ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -136,9 +140,20 @@
                                       <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
                                     </td>
                                     <td>
+                                        <?php
+                                        if ($_SESSION['權限名稱']='最高權限') { 
+                                            if ($orders[$i]['通知查帳']=='未查帳') { ?>
+                                                <label>未查帳</label>
+                                        <?php } else { ?>
+                                        <label>已查帳</label>
+
+                                        <?php }
+                                    } else { ?>
                                         <form method="post" action="checkbill">
                                             <button type="submit">通知查帳</button>
                                         </form>
+                                        <?php } ?>
+                                        
                                     </td>
 
                                     <!-- <td class="text-danger">

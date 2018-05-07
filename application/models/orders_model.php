@@ -254,6 +254,12 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data2);
     }
 
+    public function check_money_received($id, $money) {
+        $data = array('已收金額'=>$money, '通知查帳'=>'已查帳');
+        $this->db->where('ID', $id);
+        $this->db->update('orders', $data);
+    }
+
 }
 
 ?>
