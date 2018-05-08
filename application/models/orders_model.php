@@ -19,7 +19,7 @@ class Orders_model extends CI_Model {
                         '成交價'=>$row-> 成交價,
                         '盤價'=>$row-> 盤價,
                         '匯款金額應收帳款'=>$row-> 匯款金額應收帳款,
-                        '已收金額'=>$row-> 已收金額,
+                        '已匯金額已收金額'=>$row-> 已匯金額已收金額,
                         '匯款銀行'=>$row-> 匯款銀行,
                         '匯款分行'=>$row-> 匯款分行,
                         '匯款戶名'=>$row-> 匯款戶名,
@@ -246,16 +246,14 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function pushinto_checkbill($order_id) {
-        $data = array('成交單編號'=>$order_id);
-        $this->db->insert('check_money', $data);
-        $data2 = array('通知查帳'=>1);
+    public function pushinto_checkbill($order_id, $move_time) {
+        $data2 = array('通知查帳'=>'已通知','最後動作時間'=>$move_time);
         $this->db->where('ID', $order_id);
         $this->db->update('orders', $data2);
     }
 
     public function check_money_received($id, $money) {
-        $data = array('已收金額'=>$money, '通知查帳'=>date("Y-m-d"));
+        $data = array('已匯金額已收金額'=>$money, '通知查帳'=>date("Y-m-d"));
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
     }

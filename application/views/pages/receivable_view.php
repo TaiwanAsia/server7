@@ -108,12 +108,12 @@
                                       <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
                                     </td>
                                     <td>
-                                      <label class="text-primary"><p><?php echo ($orders[$i]['已收金額']) ?></p></label>
-                                      <input type="hidden" id="已收金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['已收金額']; ?>">
+                                      <label class="text-primary"><p><?php echo ($orders[$i]['已匯金額已收金額']) ?></p></label>
+                                      <input type="hidden" id="已匯金額已收金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['已匯金額已收金額']; ?>">
                                     </td>
                                     <td>
-                                      <?php echo (($orders[$i]['匯款金額應收帳款']-$orders[$i]['已收金額'])) ?>
-                                      <input type="hidden" id="尚餘應收<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']-$orders[$i]['已收金額']; ?>">
+                                      <?php echo (($orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額'])) ?>
+                                      <input type="hidden" id="尚餘應收<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額']; ?>">
                                     </td>
                                     <td>
                                       <?php echo ($orders[$i]['匯款戶名']) ?>
@@ -144,15 +144,21 @@
                                         if ($_SESSION['權限名稱']=='最高權限') { 
                                             if ($orders[$i]['通知查帳']=='未查帳') { ?>
                                                 <label>未查帳</label>
+                                        <?php } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
+                                            <label>已通知</label>
                                         <?php } else { ?>
-                                        <label>已查帳</label>
+                                        <label><?php echo $orders[$i]['通知查帳']; ?></label>
 
                                         <?php }
-                                    } else { ?>
+                                    } else {
+                                    if ($orders[$i]['通知查帳']=='已通知') { ?>
+                                        <label>已通知</label>
+                                    <?php } else { ?>
                                         <form method="post" action="checkbill">
                                             <button type="submit">通知查帳</button>
                                         </form>
-                                        <?php } ?>
+                                        <?php }
+                                    } ?>
                                         
                                     </td>
 

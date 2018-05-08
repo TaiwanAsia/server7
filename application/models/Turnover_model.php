@@ -33,7 +33,7 @@ class Turnover_model extends CI_Model {
                         '匯款日期'=>$row-> 匯款日期,
                         '過戶日期'=>$row-> 過戶日期,
                         // '審核完日期'=>$row-> 審核完日期,
-                        '已收金額'=>$row-> 已收金額,
+                        '已匯金額已收金額'=>$row-> 已匯金額已收金額,
                         );
                 }
                 return $result;

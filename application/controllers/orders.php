@@ -98,7 +98,7 @@ class Orders extends CI_Controller {
 	}
 
 	public function pushinto_checkbill() {
-		$this->orders_model->pushinto_checkbill($_POST['成交單編號']);
+		$this->orders_model->pushinto_checkbill($_POST['成交單編號'],date('Y-m-d H:i:s'));
 		$this->index();
 	}
 

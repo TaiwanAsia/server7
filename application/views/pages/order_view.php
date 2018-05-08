@@ -38,7 +38,7 @@
                                   <th data-tablesaw-priority="0">聯絡電話</th>
                                   <th data-tablesaw-priority="0">聯絡人</th>
                                   <th data-tablesaw-priority="0">聯絡住址</th>
-                                  <th data-tablesaw-priority="0">買賣</th>
+                                  <th data-tablesaw-priority="1">買賣</th>
                                   <th data-tablesaw-priority="1">股票</th>
                                   <th data-tablesaw-priority="1">張數</th>
                                   <th data-tablesaw-priority="1">成交價</th>
@@ -270,14 +270,35 @@
                                     </td>
 
                                     <td>
-                                      <?php if ($_SESSION['一二審通知查帳權限']==1) {
-                                        if ($orders[$i]['通知查帳']==0) { ?>
-                                        <form method="post" action="pushinto_checkbill">
-                                          <input type="hidden" name="成交單編號" value="<?php echo ($orders[$i]['ID']) ?>">
-                                            <button type="submit">通知查帳</button>
-                                        </form>
-                                      <?php } else { ?>
-                                        <label>已通知</label>
+                                      <?php
+                                      if ($_SESSION['權限名稱']!='最高權限') {
+                                        //業務
+                                        if ($_SESSION['一二審通知查帳權限']==1) {
+                                          if ($orders[$i]['通知查帳']=='未查帳') { 
+                                      
+                                      ?>
+                                            <form method="post" action="pushinto_checkbill">
+                                              <input type="hidden" name="成交單編號" value="<?php echo ($orders[$i]['ID']) ?>">
+                                                <button type="submit">通知查帳</button>
+                                            </form>
+                                      <?php
+                                        } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
+                                            <label>已通知</label>
+                                      <?php
+                                        } else { ?>
+                                            <label><?php echo $orders[$i]['通知查帳']; ?></label>
+                                      <?php }
+                                        }
+                                      } else {
+                                        //最高權限
+                                        if ($orders[$i]['通知查帳']=='未查帳') { ?>
+                                          <label>未查帳</label>
+                                      <?php  
+                                        } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
+                                          <a href="QQQ"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
+                                      <?php
+                                        } else { ?>
+                                          <label><?php echo $orders[$i]['通知查帳']; ?></label>
                                       <?php }
                                       }?>
                                     </td>
@@ -382,15 +403,16 @@
                       <td><label>成交日期</label></td>
                       <td><input class="" type="date" name="成交日期" value="" id="edit_成交日期" required=""></td>
                       <td><label>過戶日期</label></td>
-                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期" required=""><label class="text-danger"><b>(自動)</b></label></td>
+                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期"><label class="text-danger"><b>(自動)</b></label></td>
                     </tr>
                     <tr>
                       <td><label>股票名稱</label></td>
                       <td><input type="text" name="股票" value="" id="edit_company"></td>
-                      <td width="200px">
+                      <td width="20px">
                         <input type="radio" name="買賣" value="1" checked><label class="text-danger"><b>買</b></label>
                         <input type="radio" name="買賣" value="0"><label class="text-primary"><b>賣</b></label>
                       </td>
+                      <td></td>
                       <td><label>張數</label></td>
                       <td><input type="text" name="張數" value="" id="edit_amount"></td>
                     </tr>
