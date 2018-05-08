@@ -40,7 +40,7 @@
                                     <th data-tablesaw-priority="1">完稅人</th>
                                     <th data-tablesaw-priority="1">過戶日期</th>
                                     <th data-tablesaw-priority="1">匯款日期</th>
-                                    <?php if ($_SESSION['權限名稱']='最高權限') { ?>
+                                    <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                     <th data-tablesaw-priority="1">查帳狀態</th>
                                     <?php } else { ?>
                                     <th data-tablesaw-priority="1">通知查帳</th>
@@ -141,7 +141,7 @@
                                     </td>
                                     <td>
                                         <?php
-                                        if ($_SESSION['權限名稱']='最高權限') { 
+                                        if ($_SESSION['權限名稱']=='最高權限') { 
                                             if ($orders[$i]['通知查帳']=='未查帳') { ?>
                                                 <label>未查帳</label>
                                         <?php } else { ?>

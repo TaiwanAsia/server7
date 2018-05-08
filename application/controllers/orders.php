@@ -89,11 +89,11 @@ class Orders extends CI_Controller {
 	}
 	
 	public function checkbill() {
-		$this->load->view('templates/header');
 		$orders = $this->orders_model->get_checkbill();
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,);
+		$this->load->view('templates/header');
 		$this->load->view('pages/receivable_view', $arrayName);
 	}
 
