@@ -371,7 +371,7 @@ class Orders extends CI_Controller {
     		} elseif ($money != '0' && $receive_money == '0') {	//已匯金額
     			for ($j = 0; $j < count($datas); $j++) {
     				for ($k = 0; $k < count($datas[$j]); $k++) {
-    					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉出']) { //一周內
+    					if ($time == $datas[$j][$k]['日期'] && $money == $datas[$j][$k]['轉出']) { //一周內
     						//對帳完成
     						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
     						$this->orders_model->check_money_received($orders[$i]['ID'],$money);
