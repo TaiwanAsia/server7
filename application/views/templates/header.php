@@ -74,11 +74,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             應收帳款
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            對盤交易明細
+                        <li class="nav-item">
+                            <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+                                <a class="nav-link" href="boss_check_money">
+                                    待查帳
+                                </a>
+                            <?php } else { ?>
+                            <a class="nav-link" href="salesman_check_money">
+                                通知查帳
                             </a>
+                            <?php } ?>
                         </li>
+                        <!--
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                             <span data-feather="users"></span>

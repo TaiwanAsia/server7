@@ -5,14 +5,6 @@
                             <table>
                                 <tr>
                                     <td></td>
-                                    <td>
-                                        <label for="" class="">編號</label>
-                                        <input type="hidden" name="ID" value="">
-                                    </td>       
-                                    <td><h3><label for="" class="text-success"><?php echo $order[0]['ID']; ?></label></h3></td>
-                                </td>
-                                <tr>
-                                    <td></td>
                                     <td><label for="" class="">入帳日期</label></td>
                                     <td><input class="" type="date" name="轉出日期轉入日期" id="" value=""></td>
                                 </tr>
@@ -23,7 +15,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="">匯入帳號</label></td>
+                                    <td><label for="" class="">匯款帳號末5碼</label></td>
                                     <td><input class="" type="text" name="匯款帳號" id="" value=""></td>
                                 </tr>
                                 <tr>

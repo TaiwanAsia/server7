@@ -406,7 +406,7 @@ class Orders extends CI_Controller {
 		print_r($myJSON);
 	}
 
-	public function type_check_money() {
+	public function salesman_check_money() {
 		$this->load->view('templates/header');
 		$order = $this->orders_model->get(null,$_SESSION['權限名稱'], $_SESSION['NAME']);
 		$arrayName = array('order' => $order);

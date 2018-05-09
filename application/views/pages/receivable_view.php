@@ -146,14 +146,14 @@
                                             if ($orders[$i]['通知查帳']=='未查帳') { ?>
                                                 <label>未查帳</label>
                                         <?php } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
-                                            <a href="type_check_money<?php echo '?id='.$orders[$i]['ID']; ?>"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
+                                            <img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40">
                                         <?php } else { ?>
                                         <label><?php echo $orders[$i]['通知查帳']; ?></label>
 
                                         <?php }
                                     } else {
                                     if ($orders[$i]['通知查帳']=='已通知') { ?>
-                                        <a href="type_check_money"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
+                                        <img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40">
                                     <?php } else { ?>
                                         <form method="post" action="checkbill">
                                             <button type="submit">通知查帳</button>
