@@ -353,8 +353,9 @@ class Orders extends CI_Controller {
     	for ($i = 0; $i < count($orders); $i++) {
     		$time = $orders[$i]['成交日期'];
     		$money = $orders[$i]['匯款金額應收帳款'];
+    		$receive_money = $orders[$i]['已匯金額已收金額'];
 
-    		if ($money != '0') {
+    		if ($money != '0' && $receive_money == '0') {
     			for ($j = 0; $j < count($datas); $j++) {
     				for ($k = 0; $k < count($datas[$j]); $k++) {
     					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
