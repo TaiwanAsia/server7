@@ -321,7 +321,8 @@ class Orders extends CI_Controller {
 		                    if ($rowData[0][0] != '' && $rowData[0][0] != '銷單序號' && $rowData[0][3] != '') { // 避開匯入時的title行以及轉入為0
 		                    	$datas[$i][$Data_size++] = array(
 		                    		'日期' => (substr($rowData[0][1], 0, 3)+1911).'-'.substr($rowData[0][1], 3, 2).'-'.substr($rowData[0][1], 5, 2),
-		                    		'轉入' => $rowData[0][3],
+		                    		'轉出' => $rowData[0][2],
+		                    		'轉入' => $rowData[0][3],		        
 		                    	);
 		                    }
 
@@ -348,17 +349,29 @@ class Orders extends CI_Controller {
     }
 
     public function reconcile($datas) {
-    	$orders = $this->orders_model->get_checkbill(); //先抓欲對帳表
-
+    	//先抓欲對帳表
+    	//$orders = $this->orders_model->get_checkbill(); 
+    	$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);	//2018.5.9 更新買賣匯款一起處理
+    	
     	for ($i = 0; $i < count($orders); $i++) {
     		$time = $orders[$i]['成交日期'];
     		$money = $orders[$i]['匯款金額應收帳款'];
     		$receive_money = $orders[$i]['已匯金額已收金額'];
 
-    		if ($money != '0' && $receive_money == '0') {
+    		if ($orders[$i]['買賣'] == '1' && $money != '0' && $receive_money == '0') {	//已收金額
     			for ($j = 0; $j < count($datas); $j++) {
     				for ($k = 0; $k < count($datas[$j]); $k++) {
     					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
+    						//對帳完成
+    						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
+    						$this->orders_model->check_money_received($orders[$i]['ID'],$money);
+    					}
+    				}
+    			}
+    		} elseif ($money != '0' && $receive_money == '0') {	//已匯金額
+    			for ($j = 0; $j < count($datas); $j++) {
+    				for ($k = 0; $k < count($datas[$j]); $k++) {
+    					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉出']) { //一周內
     						//對帳完成
     						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
     						$this->orders_model->check_money_received($orders[$i]['ID'],$money);
