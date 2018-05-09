@@ -405,6 +405,17 @@ class Orders extends CI_Controller {
 		$myJSON = json_encode($info[0]);
 		print_r($myJSON);
 	}
+
+	public function type_check_money() {
+		$this->load->view('templates/header');
+		$order = $this->orders_model->get(null,$_SESSION['權限名稱'], $_SESSION['NAME']);
+		$arrayName = array('order' => $order);
+		$this->load->view('pages/check_money',$arrayName);
+	}
+
+	public function check_money() {
+
+	}
 }
 
 

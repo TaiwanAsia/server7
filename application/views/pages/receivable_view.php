@@ -140,26 +140,27 @@
                                       <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
                                     </td>
                                     <td>
+                                        <form action="type_check_money" method="get">
                                         <?php
                                         if ($_SESSION['權限名稱']=='最高權限') { 
                                             if ($orders[$i]['通知查帳']=='未查帳') { ?>
                                                 <label>未查帳</label>
                                         <?php } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
-                                            <label>已通知</label>
+                                            <a href="type_check_money<?php echo '?id='.$orders[$i]['ID']; ?>"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
                                         <?php } else { ?>
                                         <label><?php echo $orders[$i]['通知查帳']; ?></label>
 
                                         <?php }
                                     } else {
                                     if ($orders[$i]['通知查帳']=='已通知') { ?>
-                                        <label>已通知</label>
+                                        <a href="type_check_money"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
                                     <?php } else { ?>
                                         <form method="post" action="checkbill">
                                             <button type="submit">通知查帳</button>
                                         </form>
                                         <?php }
                                     } ?>
-                                        
+                                        </form>
                                     </td>
 
                                     <!-- <td class="text-danger">

@@ -283,7 +283,7 @@
                                             </form>
                                       <?php
                                         } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
-                                            <label>已通知</label>
+                                            <a href="checkbill"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
                                       <?php
                                         } else { ?>
                                             <label><?php echo $orders[$i]['通知查帳']; ?></label>
@@ -295,7 +295,7 @@
                                           <label>未查帳</label>
                                       <?php  
                                         } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
-                                          <a href="QQQ"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
+                                          <a href="checkbill"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
                                       <?php
                                         } else { ?>
                                           <label><?php echo $orders[$i]['通知查帳']; ?></label>
