@@ -356,9 +356,9 @@ class Orders extends CI_Controller {
     	for ($i = 0; $i < count($orders); $i++) {
     		$time = $orders[$i]['成交日期'];
     		$money = $orders[$i]['匯款金額應收帳款'];
-    		$receive_money = $orders[$i]['已匯金額已收金額'];
+    		$inform = $orders[$i]['通知查帳'];
 
-    		if ($orders[$i]['買賣'] == '1' && $money != '0' && $receive_money == '0') {	//已收金額
+    		if ($orders[$i]['買賣'] == '1' && $inform == '已通知') {	//已收金額
     			for ($j = 0; $j < count($datas); $j++) {
     				for ($k = 0; $k < count($datas[$j]); $k++) {
     					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
@@ -368,7 +368,7 @@ class Orders extends CI_Controller {
     					}
     				}
     			}
-    		} elseif ($money != '0' && $receive_money == '0') {	//已匯金額
+    		} elseif ($inform == '已通知') {	//已匯金額
     			for ($j = 0; $j < count($datas); $j++) {
     				for ($k = 0; $k < count($datas[$j]); $k++) {
     					if ($time == $datas[$j][$k]['日期'] && $money == $datas[$j][$k]['轉出']) { //一周內
