@@ -271,36 +271,32 @@
 
                                     <td>
                                       <?php
-                                      if ($_SESSION['權限名稱']!='最高權限') {
-                                        //業務
                                         if ($_SESSION['一二審通知查帳權限']==1) {
-                                          if ($orders[$i]['通知查帳']=='未查帳') { 
-                                      
-                                      ?>
-                                            <form method="post" action="pushinto_checkbill">
-                                              <input type="hidden" name="成交單編號" value="<?php echo ($orders[$i]['ID']) ?>">
-                                                <button type="submit">通知查帳</button>
+                                        //有通知查帳的權限
+                                          if ($orders[$i]['通知查帳']=='未通知') {
+                                          //業務尚未點通知查帳 ?>
+                                            <form method="get" action="salesman_check_money">
+                                              <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
+                                              <button type="submit">未通知</button>
                                             </form>
+
                                       <?php
-                                        } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
+                                        } elseif ($orders[$i]['通知查帳']=='已通知') {
+                                          //業務點了通知查帳 ?>
+
                                             <a href="checkbill"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
+
                                       <?php
-                                        } else { ?>
+                                        } else {
+                                          //老闆已查帳 ?>
                                             <label><?php echo $orders[$i]['通知查帳']; ?></label>
-                                      <?php }
-                                        }
-                                      } else {
-                                        //最高權限
-                                        if ($orders[$i]['通知查帳']=='未查帳') { ?>
-                                          <label>未查帳</label>
-                                      <?php  
-                                        } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
-                                          <a href="checkbill"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
-                                      <?php
-                                        } else { ?>
+                                      <?php 
+                                          }
+                                        } else { 
+                                        //沒有通知查帳的權限 ?>
                                           <label><?php echo $orders[$i]['通知查帳']; ?></label>
-                                      <?php }
-                                      }?>
+                                      <?php 
+                                        } ?>
                                     </td>
                                     <td style="min-width:100px;">
                                         <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){

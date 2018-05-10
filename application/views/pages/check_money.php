@@ -5,6 +5,12 @@
                             <table>
                                 <tr>
                                     <td></td>
+                                    <td><label for="" class=""><b>成交單編號</b></label></td>
+                                    <td><label for="" class="text-danger"><?php echo $order[0]['ID']; ?></label></td>
+                                    <td><input class="" type="hidden" name="ID" id="" value="<?php echo $order[0]['ID']; ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
                                     <td><label for="" class="">入帳日期</label></td>
                                     <td><input class="" type="date" name="轉出日期轉入日期" id="" value=""></td>
                                 </tr>
@@ -16,7 +22,7 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款帳號末5碼</label></td>
-                                    <td><input class="" type="text" name="匯款帳號" id="" value=""></td>
+                                    <td><input class="" type="text" name="匯款帳號末5碼" id="" value=""></td>
                                 </tr>
                                 <tr>
                                     <td></td>

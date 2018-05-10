@@ -98,7 +98,7 @@ class Orders extends CI_Controller {
 	}
 
 	public function pushinto_checkbill() {
-		$this->orders_model->pushinto_checkbill($_POST['成交單編號'],date('Y-m-d H:i:s'));
+		$this->orders_model->pushinto_checkbill($_POST['成交單編號'], date('Y-m-d H:i:s'));
 		$this->index();
 	}
 
@@ -422,13 +422,21 @@ class Orders extends CI_Controller {
 
 	public function salesman_check_money() {
 		$this->load->view('templates/header');
-		$order = $this->orders_model->get(null,$_SESSION['權限名稱'], $_SESSION['NAME']);
+		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME']);
 		$arrayName = array('order' => $order);
 		$this->load->view('pages/check_money',$arrayName);
 	}
 
 	public function check_money() {
+		$this->orders_model->add_money_info($_POST['ID'], $_POST['轉出日期轉入日期'],$_POST['匯款人'],$_POST['匯款帳號末5碼'],$_POST['已匯金額已收金額'],date('Y-m-d H:i:s'));
+		$this->index();
+	}
 
+	public function boss_check_money() {
+		$this->load->view('templates/header');
+		$data = $this->orders_model->get_ready_to_check();
+		$arrayName = array('data' => $data);
+		$this->load->view('pages/ready_to_check',$arrayName);
 	}
 }
 

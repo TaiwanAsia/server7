@@ -8,11 +8,14 @@
                   <div class="t-form-t">
 
                   </div>
-                  <form class="form-horizontal well" action="import" method="post" name="upload_excel" enctype="multipart/form-data" style= "display:inline;">
-                        <input type="file" name="file[]" id="file" class="input-large" multiple>
-                        <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">     上傳
-                        </button>
-                    </form>
+                    <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+                        <form class="form-horizontal well" action="import" method="post" name="upload_excel" enctype="multipart/form-data" style= "display:inline;">
+                            <input type="file" name="file[]" id="file" class="input-large" multiple>
+                            <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">     上傳
+                            </button>
+                        </form>
+                    <?php } ?>
+                    
 
                     <div class="t-form">
                         <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
@@ -26,7 +29,7 @@
                                     <th data-tablesaw-priority="0">聯絡電話</th>
                                     <th data-tablesaw-priority="0">聯絡人</th>
                                     <th data-tablesaw-priority="0">聯絡住址</th>
-                                    <th data-tablesaw-priority="1">買賣</th>
+                                    <th data-tablesaw-priority="0">買賣</th>
                                     <th data-tablesaw-priority="1">股票</th>
                                     <th data-tablesaw-priority="1">張數</th>
                                     <th data-tablesaw-priority="1">成交價</th>
@@ -112,7 +115,7 @@
                                       <input type="hidden" id="已匯金額已收金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['已匯金額已收金額']; ?>">
                                     </td>
                                     <td>
-                                      <?php echo (($orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額'])) ?>
+                                      <label class="text-success"><?php echo (($orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額'])) ?></label>
                                       <input type="hidden" id="尚餘應收<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額']; ?>">
                                     </td>
                                     <td>
@@ -143,23 +146,20 @@
                                         <form action="type_check_money" method="get">
                                         <?php
                                         if ($_SESSION['權限名稱']=='最高權限') { 
-                                            if ($orders[$i]['通知查帳']=='未查帳') { ?>
-                                                <label>未查帳</label>
-                                        <?php } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
-                                            <img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40">
-                                        <?php } else { ?>
-                                        <label><?php echo $orders[$i]['通知查帳']; ?></label>
-
+                                            if ($orders[$i]['通知查帳']=='未通知') { ?>
+                                                <label><b>未通知</b></label>
+                                        <?php
+                                            } elseif ($orders[$i]['通知查帳']=='已通知') { ?>
+                                                <img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40">
+                                        <?php } 
+                                        } else {
+                                            if ($orders[$i]['通知查帳']=='未通知') { ?>
+                                                <label><b>未通知</b></label>
+                                        <?php
+                                            } else { ?>
+                                                <img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40">
                                         <?php }
-                                    } else {
-                                    if ($orders[$i]['通知查帳']=='已通知') { ?>
-                                        <img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40">
-                                    <?php } else { ?>
-                                        <form method="post" action="checkbill">
-                                            <button type="submit">通知查帳</button>
-                                        </form>
-                                        <?php }
-                                    } ?>
+                                        } ?>
                                         </form>
                                     </td>
 

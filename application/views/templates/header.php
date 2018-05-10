@@ -76,23 +76,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li>
                         <li class="nav-item">
                             <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
-                                <a class="nav-link" href="boss_check_money">
+                                <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/boss_check_money">
                                     待查帳
                                 </a>
-                            <?php } else { ?>
-                            <a class="nav-link" href="salesman_check_money">
-                                通知查帳
-                            </a>
                             <?php } ?>
                         </li>
-                        <!--
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
-                            客戶關係管理
-                            </a>
-                        </li>
-                        <li class="nav-item">
+                        
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="#">
                             <span data-feather="file-text"></span>
                             成交單管理
@@ -103,13 +93,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span data-feather="file-text"></span>
                             服務工單
                             </a>
-                        </li> -->
+                        </li> 
+                        -->
                         <?php
                             if ($_SESSION['帳號設定權限']==1) { ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
-                                    <!-- <span data-feather="file-text"></span> -->
-                                    帳號管理
+                                        帳號管理
                                     </a>
                                 </li>
                         <?php  }
