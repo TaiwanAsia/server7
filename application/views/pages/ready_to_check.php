@@ -9,7 +9,6 @@
 					<th nowrap="nowrap">匯款帳號末5碼</th>
 					<th nowrap="nowrap">入帳金額</th>
 					<th nowrap="nowrap"></th>
-					<th nowrap="nowrap"></th>
 				</tr>
 				<?php 
 				if ($data) {
@@ -22,13 +21,7 @@
 						echo '<td>
 							<form action="" method="POST" name="" style= "display:inline">
 							<input type="hidden" name="account_id" value="'.$data[$i]['ID'].'">
-							<input type="submit" name="" value="確認">
-							</form>
-							</td>';
-						echo '<td>
-							<form action="" method="POST" name="" style= "display:inline">
-							<input type="hidden" name="account_id" value="'.$data[$i]['ID'].'">
-							<input type="submit" name="" value="駁回">
+							<input type="submit" name="" value="動作">
 							</form>
 							</td>';
 						echo "</tr>";

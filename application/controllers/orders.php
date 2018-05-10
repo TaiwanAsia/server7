@@ -433,9 +433,9 @@ class Orders extends CI_Controller {
 	}
 
 	public function boss_check_money() {
-		$this->load->view('templates/header');
 		$data = $this->orders_model->get_ready_to_check();
 		$arrayName = array('data' => $data);
+		$this->load->view('templates/header');
 		$this->load->view('pages/ready_to_check',$arrayName);
 	}
 }
