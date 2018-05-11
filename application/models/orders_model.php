@@ -235,10 +235,10 @@ class Orders_model extends CI_Model {
     public function get_checkbill() {
         $query = array();
         if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
-            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' and `通知查帳`!='已查帳' ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' and `通知查帳`!='已確認' ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         } elseif ($_SESSION['權限名稱']=='業務') {
-            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' and `通知查帳`!='已查帳' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' and `通知查帳`!='已確認' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         }
         if($query->num_rows()>0) {
@@ -249,26 +249,27 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function pushinto_checkbill($order_id, $move_time) {
-        $data2 = array('通知查帳'=>'已通知','最後動作時間'=>$move_time);
-        $this->db->where('ID', $order_id);
-        $this->db->update('orders', $data2);
-    }
+    // public function pushinto_checkbill($order_id, $move_time) {
+    //     $data2 = array('通知查帳'=>'待對帳','最後動作時間'=>$move_time);
+    //     $this->db->where('ID', $order_id);
+    //     $this->db->update('orders', $data2);
+    // }
 
     public function check_money_received($id, $money) {
-        $data = array('已匯金額已收金額'=>$money, '通知查帳'=>'已查帳');
+        $data = array('已匯金額已收金額'=>$money, '通知查帳'=>'待確認');
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
     }
 
-    public function add_money_info($id, $date, $name, $last5, $money, $move_time) {
-        $data = array('轉出日期轉入日期'=>$date, '匯款人'=>$name, '匯款帳號末5碼'=>$last5, '已匯金額已收金額'=>$money, '通知查帳'=>'已通知', '最後動作時間'=>$move_time);
+    public function inform_check_money($id, $date, $name, $last5, $money, $move_time) {
+        $data = array('轉出日期轉入日期'=>$date, '匯款人'=>$name, '匯款帳號末5碼'=>$last5, '已匯金額已收金額'=>$money, '通知查帳'=>'待對帳', '最後動作時間'=>$move_time);
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
     }
 
     public function get_ready_to_check() {
-        $query = $this->db->get_where('ORDERS', array('通知查帳' => '已通知'));
+        $sql = "SELECT * FROM `orders` WHERE `通知查帳` = '待對帳' OR `通知查帳` = '待確認'";
+        $query = $this->db->query($sql);
         if($query->num_rows()>0) {
             $result = $this->transformer($query);
             return $result;

@@ -1,6 +1,6 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <div>
-                    <form method="post" name="" action="check_money" >
+                    <form method="post" name="" action="inform_check_money" >
                         <div class="offset-md-1">
                             <table>
                                 <tr>

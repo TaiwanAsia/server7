@@ -77,7 +77,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="nav-item">
                             <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                 <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/boss_check_money">
-                                    待查帳
+                                    待匯入待確認
                                 </a>
                             <?php } ?>
                         </li>

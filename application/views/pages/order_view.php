@@ -271,7 +271,7 @@
 
                                     <td>
                                       <?php
-                                        if ($_SESSION['一二審通知查帳權限']==1) {
+                                      if ($_SESSION['一二審通知查帳權限']==1) {
                                         //有通知查帳的權限
                                           if ($orders[$i]['通知查帳']=='未通知') {
                                           //業務尚未點通知查帳 ?>
@@ -281,19 +281,22 @@
                                             </form>
 
                                       <?php
-                                        } elseif ($orders[$i]['通知查帳']=='已通知') {
+                                          } elseif ($orders[$i]['通知查帳']=='待對帳') {
                                           //業務點了通知查帳 ?>
-
-                                            <a href="checkbill"><img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40"></a>
+                                            <a href="checkbill"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
 
                                       <?php
-                                        } else {
-                                          //老闆已查帳 ?>
+                                          } elseif ($orders[$i]['通知查帳']=='待確認') {
+                                          //已匯入銀行明細對帳正確，待大姊自己手動確認 ?>
+                                            <a href="checkbill"><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40"></a>
+                                      <?php
+                                          } else {
+                                          //大姊手動確認，顯示日期 ?>
                                             <label><?php echo $orders[$i]['通知查帳']; ?></label>
                                       <?php 
                                           }
-                                        } else { 
-                                        //沒有通知查帳的權限 ?>
+                                      } else { 
+                                      //沒有通知查帳的權限 ?>
                                           <label><?php echo $orders[$i]['通知查帳']; ?></label>
                                       <?php 
                                         } ?>
