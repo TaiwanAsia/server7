@@ -91,26 +91,26 @@
                                     </td>
                                     <td>
                                       <?php if($_SESSION['身分證字號權限']==1) {
-                                        echo ($orders[$i]['身分證字號']); 
+                                        echo ($orders[$i]['身分證字號']);
                                       ?>
                                       <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
                                       <?php } ?>
                                     </td>
                                     <td>
                                       <?php if($_SESSION['聯絡電話權限']==1) {
-                                        echo ($orders[$i]['聯絡電話']); 
+                                        echo ($orders[$i]['聯絡電話']);
                                       ?>
                                       <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
                                       <?php } ?>
                                     </td>
                                     <td>
                                       <?php if($_SESSION['聯絡人權限']==1) {
-                                        echo ($orders[$i]['聯絡人']); 
+                                        echo ($orders[$i]['聯絡人']);
                                       } ?>
                                     </td>
                                     <td>
                                       <?php if($_SESSION['聯絡地址權限']==1) {
-                                        echo ($orders[$i]['聯絡地址']); 
+                                        echo ($orders[$i]['聯絡地址']);
                                       ?>
                                       <input type="hidden" id="address<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡地址']; ?>">
                                       <?php } ?>
@@ -139,7 +139,7 @@
                                     </td>
                                     <td>
                                       <?php if($_SESSION['盤價權限']==1) {
-                                        echo ($orders[$i]['盤價']); 
+                                        echo ($orders[$i]['盤價']);
                                       ?>
                                       <input type="hidden" id="盤價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['盤價']; ?>">
                                       <?php } ?>
@@ -171,7 +171,7 @@
 
                                     <td>
                                       <?php if($_SESSION['轉讓會員權限']==1) {
-                                        echo ($orders[$i]['轉讓會員']); 
+                                        echo ($orders[$i]['轉讓會員']);
                                       ?>
                                       <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
                                       <?php } ?>
@@ -224,14 +224,14 @@
                                     ?>
 
                                     </td>
-                                    
+
                                     <td><?php echo ($orders[$i]['自行應付']) ?></td>
 
                                     <td>
                                       <?php echo ($orders[$i]['刻印']) ?>
                                       <input type="hidden" id="刻印<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印']; ?>">
                                     </td>
-                                    
+
                                     <td><?php echo ($orders[$i]['過戶費']) ?></td>
 
                                     <?php if ($_SESSION['媒合權限']==1) { ?>
@@ -263,7 +263,7 @@
                                      }?>
 
                                     <td><?php echo ($orders[$i]['匯款日期']) ?></td>
-                                    
+
                                     <td>
                                       <?php echo ($orders[$i]['過戶日期']) ?>
                                       <input type="hidden" id="過戶日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶日期']; ?>">
@@ -290,12 +290,12 @@
                                         } else {
                                           //老闆已查帳 ?>
                                             <label><?php echo $orders[$i]['通知查帳']; ?></label>
-                                      <?php 
+                                      <?php
                                           }
-                                        } else { 
+                                        } else {
                                         //沒有通知查帳的權限 ?>
                                           <label><?php echo $orders[$i]['通知查帳']; ?></label>
-                                      <?php 
+                                      <?php
                                         } ?>
                                     </td>
                                     <td style="min-width:100px;">
@@ -372,11 +372,12 @@
         <div class="s-modal" data-popup="popup-1">
             <div class="modal-content">
               <div class="modal-header">
+                <span class="s-close" data-popup-close="popup-1">&times;</span>
                 <h3>編輯成交單</h3>
               </div>
               <form method="post" name="edit_order_info" action="edit_order_status" >
                 <!-- 為修改成交單狀態,與edit_order不同 -->
-                <div class="">
+                <div class="modal-main">
                   <table>
                     <tr>
                       <td><label>成交單編號</label></td>
@@ -524,11 +525,10 @@
                   </table>
                 </div>
               </form>
-                <span class="s-close" data-popup-close="popup-1">&times;</span>
             </div>
         </div>
 
-<!-- modal function -> assets/js/action.js -->
+<!-- modal function assets/js/action.js -->
 
 
         <script>
