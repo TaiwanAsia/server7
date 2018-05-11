@@ -278,6 +278,12 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function check_end($id, $date, $move_time) {
+        $data = array('通知查帳'=>$date, '最後動作時間'=>$move_time);
+        $this->db->where('ID', $id);
+        $this->db->update('orders', $data);
+    }
+
 
 
 }

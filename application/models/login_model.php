@@ -19,7 +19,7 @@ class Login_model extends CI_Model {
             }
             return $result;
         }
-        else {    
+        else {
             return false;
         }
     }
@@ -27,9 +27,9 @@ class Login_model extends CI_Model {
         //查看帳號
         function show_account($id){
             if (is_null($id)) {
-                $query = $this->db->get('EMPLOYEE'); 
+                $query = $this->db->get('EMPLOYEE');
             } else {
-                $query = $this->db->get_where('EMPLOYEE', array('ID'=>$id)); 
+                $query = $this->db->get_where('EMPLOYEE', array('ID'=>$id));
             }
             if($query->result()!=null){
                 foreach ($query->result() as $row) {
@@ -42,7 +42,7 @@ class Login_model extends CI_Model {
                 return  $result;
             }
         }
-    
+
         //刪除帳號
         function delete_account($delete_account){
             $this->db->delete('EMPLOYEE', array('ID' => $delete_account));
@@ -52,11 +52,11 @@ class Login_model extends CI_Model {
         function add_account($data){
             $this->db->insert('EMPLOYEE',$data);
         }
-    
+
         //編輯帳號
         function edit_account($data) {
             $this->db->where('ID', $data['ID']);
-            $this->db->update('EMPLOYEE', $data); 
+            $this->db->update('EMPLOYEE', $data);
         }
 
     // public function login_move_record($name,$table,$action){
@@ -89,7 +89,7 @@ class Login_model extends CI_Model {
                                 '一二審通知查帳權限'=>$row-> 一二審通知查帳權限,
                                 '剩下資訊權限'=>$row-> 剩下資訊權限,);
                 }
-                print_r($result);
+                // print_r($result);
                 return  $result;
             } else {
                 return flase;

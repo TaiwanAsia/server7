@@ -155,13 +155,15 @@
                                             } elseif ($orders[$i]['通知查帳']=='待確認') { ?>
                                                 <img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40">
                                         <?php
-                                            }
+                                            } else { ?>
+                                                <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
+                                        <?php }
                                         } else {
-                                            if ($orders[$i]['通知查帳']=='未通知') { ?>
-                                                <label><b>未通知</b></label>
+                                            if ($orders[$i]['通知查帳']=='未通知'||$orders[$i]['通知查帳']=='待對帳'||$orders[$i]['通知查帳']=='待確認') { ?>
+                                                <label><b>未確認</b></label>
                                         <?php
                                             } else { ?>
-                                                <img src="<?php echo base_url(); ?>static/已通知2.png" width="80" height="40">
+                                                <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
                                         <?php }
                                         } ?>
                                         </form>

@@ -43,10 +43,20 @@ th, td, form {
     padding: 20px;
     border: 1px solid #888;
     width: 80%; }
+  .s-modal .modal-content-2 {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; }
+  .s-modal .modal-sec-1 {
+    margin: 5em auto; }
+    .s-modal .modal-sec-1 table {
+      margin: 0 auto; }
+      .s-modal .modal-sec-1 table td {
+        padding: 12px 24px; }
   .s-modal .s-close {
-    position: absolute;
-    top: 1em;
-    right: 1em;
+    position: relative;
     color: #dc3545;
     float: right;
     font-size: 28px;
@@ -62,6 +72,8 @@ th, td, form {
   .s-modal .edit_btn1 {
     cursor: pointer;
     color: #353535; }
+  .s-modal .modal-footer .modal2-btn {
+    float: right; }
 
 .pn-Advancer {
   /* Reset the button */
@@ -101,4 +113,4 @@ th, td, form {
   margin: 12px; }
 
 .td-cs-1 {
-  background-color: #77DDFF; }
+  background-color: #EEF2FF; }

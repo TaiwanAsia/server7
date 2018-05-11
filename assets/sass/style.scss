@@ -44,12 +44,27 @@
 	    border: 1px solid #888;
 	    width: 80%;
 	}
+	.modal-content-2 {
+	    background-color: #fefefe;
+	    margin: auto;
+	    padding: 20px;
+	    border: 1px solid #888;
+	    width: 50%;
+	}
+
+	.modal-sec-1{
+		margin: 5em auto;
+			table{
+				    margin: 0 auto;
+				td{
+					  padding: 12px 24px;
+				}
+			}
+	}
 
 	/* The Close Button */
 		.s-close {
-		    position: absolute;
-				top: 1em;
-				right: 1em;
+		    position: relative;
 				color: #dc3545;
 		    float: right;
 		    font-size: 28px;
@@ -70,6 +85,12 @@
 		.edit_btn1{
 			cursor: pointer;
 			color: #353535;
+		}
+
+		.modal-footer{
+			.modal2-btn{
+				float: right;
+			}
 		}
 	}
 

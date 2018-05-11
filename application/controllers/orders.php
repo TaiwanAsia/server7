@@ -438,6 +438,11 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('pages/ready_to_check',$arrayName);
 	}
+
+	public function check_end() {
+		$this->orders_model->check_end($_POST['ID'], $_POST['確認日期'], date('Y-m-d H:i:s'));
+		$this->boss_check_money();
+	}
 }
 
 
