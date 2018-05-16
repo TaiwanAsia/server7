@@ -196,6 +196,7 @@ class Orders extends CI_Controller {
 			'匯款日期' => $_POST['匯款日期'],
 			'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '一審', $_POST['ID'], null);
 		$this->index();
 
 	}
@@ -303,6 +304,7 @@ class Orders extends CI_Controller {
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
 			$this -> orders_model -> edit($data);
+			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
 			$this->index();
 			} else {
 				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
@@ -469,6 +471,7 @@ class Orders extends CI_Controller {
 
 	public function inform_check_money() {
 		$this->orders_model->inform_check_money($_POST['ID'], $_POST['轉出日期轉入日期'],$_POST['匯款人'],$_POST['匯款帳號末5碼'],$_POST['待查帳金額'],date('Y-m-d H:i:s'));
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '通知查帳', $_POST['ID'], null);
 		$this->index();
 	}
 

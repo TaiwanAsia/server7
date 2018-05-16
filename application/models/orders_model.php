@@ -136,14 +136,14 @@ class Orders_model extends CI_Model {
 
     public function move_record($name, $time, $move, $result, $effect) {
         if ($move == '修改') {
-            $effect = '成交單編號'.$result." ".$effect;
+            $result = $result." ".$effect;
         }
-        $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$effect, );
+        $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$result, );
         $this->db->insert('move_record', $data);
     }
 
     public function get_move_record() {
-        $sql = "SELECT * FROM `move_record`";
+        $sql = "SELECT * FROM `move_record` ORDER BY `時間` DESC";
         $query = $this->db->query($sql);
         if($query->result()!=null){
             foreach ($query->result() as $row) {
