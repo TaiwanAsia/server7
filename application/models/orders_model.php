@@ -134,13 +134,29 @@ class Orders_model extends CI_Model {
         return $id;
     }
 
-    public function move_record($name, $time, $move, $result, $original) {
+    public function move_record($name, $time, $move, $result, $effect) {
         if ($move == '修改') {
-            $effect = '成交單編號'.$result;
+            $effect = '成交單編號'.$result." ".$effect;
         }
-        $effect = '成交單編號'.$result;
         $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$effect, );
         $this->db->insert('move_record', $data);
+    }
+
+    public function get_move_record() {
+        $sql = "SELECT * FROM `move_record`";
+        $query = $this->db->query($sql);
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array('ID'=>$row-> ID,
+                                '員工'=>$row-> 員工,
+                                '時間'=>$row-> 時間,
+                                '動作'=>$row-> 動作,
+                                '影響'=>$row-> 影響,);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
     }
 
     public function match($self, $other) {

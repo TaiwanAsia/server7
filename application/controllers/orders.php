@@ -257,20 +257,14 @@ class Orders extends CI_Controller {
 						'刻印' => $_POST['刻印'],
 						'過戶費' => $_POST['過戶費'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
-		print_r($title);
-		echo "<br><br>";
-		print_r($original);
-		echo "<br><br>";
-		print_r($data);
-		// $effect = '';
-		// for ($i=0; $i < count($title); $i++) { 
-		// 	if ($original[$title[$i]] != $data[$title[$i]]) {
-		// 		$effect = $title[$i].":".$original[$title[$i]]."改為".$data[$title[$i]];
-		// 	}
-		// }
-		// echo $effect;
-		// $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $id, $original);
-		// $this -> orders_model -> edit($data);
+		$effect = '';
+		for ($i=0; $i < count($title); $i++) { 
+			if ($original[0][$title[$i]] != $data[$title[$i]]) {
+				$effect = $effect."[".$title[$i]."]"."=>".$original[0][$title[$i]]."改為".$data[$title[$i]]."  ";
+			}
+		}
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $_POST['ID'], $effect);
+		$this -> orders_model -> edit($data);
 		$this->index();
 	}
 
@@ -495,6 +489,12 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_check_record();
 		$this->load->view('templates/header');
 		$this->load->view('pages/check_record', array('data'=>$data));
+	}
+
+	public function move_record() {
+		$data = $this->orders_model->get_move_record();
+		$this->load->view('templates/header');
+		$this->load->view('pages/move_record', array('data'=>$data));
 	}
 }
 
