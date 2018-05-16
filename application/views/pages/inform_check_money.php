@@ -27,7 +27,7 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">入帳金額</label></td>
-                                    <td><input class="" type="text" name="已匯金額已收金額" id="" value=""></td>
+                                    <td><input class="" type="text" name="待查帳金額" id="" value=""></td>
                                 </tr>
 
                                 <tr></tr>

@@ -29,9 +29,9 @@
                                     <td><input class="" type="text" name="客戶姓名" id="" value="<?php echo $result[0]['客戶姓名']; ?>" required></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('身分證字號'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">身分證字號</label></td>
-                                    <td><input class="" type="text" name="身分證字號" id="" value="<?php echo $result[0]['身分證字號']; ?>" required></td>
+                                    <td><input class="" type="text" name="身分證字號" id="" value="<?php echo $result[0]['身分證字號']; ?>"></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('聯絡電話'); ?></td>

@@ -4,55 +4,55 @@ class Orders_model extends CI_Model {
 
     public function transformer($query) {
         if ($query->num_rows() > 0) {
-                foreach ($query->result() as $row) {
-                        $result[] = array('ID'=>$row-> ID,
-                        '成交日期'=>$row-> 成交日期,
-                        '業務'=>$row-> 業務,
-                        '客戶姓名'=>$row->客戶姓名,
-                        '身分證字號'=>$row-> 身分證字號,
-                        '聯絡電話'=>$row-> 聯絡電話,
-                        '聯絡人'=>$row-> 聯絡人,
-                        '聯絡地址'=>$row-> 聯絡地址,
-                        '買賣'=>$row-> 買賣,
-                        '股票'=>$row-> 股票,
-                        '張數'=>$row-> 張數,
-                        '成交價'=>$row-> 成交價,
-                        '盤價'=>$row-> 盤價,
-                        '匯款金額應收帳款'=>$row-> 匯款金額應收帳款,
-                        '已匯金額已收金額'=>$row-> 已匯金額已收金額,
-                        '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
-                        '匯款人'=>$row-> 匯款人,
-                        '匯款銀行'=>$row-> 匯款銀行,
-                        '匯款分行'=>$row-> 匯款分行,
-                        '匯款戶名'=>$row-> 匯款戶名,
-                        '匯款帳號'=>$row-> 匯款帳號,
-                        '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
-                        '轉讓會員'=>$row-> 轉讓會員,
-                        '完稅人'=>$row-> 完稅人,
-                        // '一審'=>$row-> 一審,
-                        '新舊'=>$row-> 新舊,
-                        '自行應付'=>$row-> 自行應付,
-                        '刻印'=>$row-> 刻印,
-                        '刻印收送'=>$row-> 刻印收送,
-                        '過戶日期'=>$row-> 過戶日期,
-                        '過戶費'=>$row-> 過戶費,
-                        '媒合'=>$row-> 媒合,
-                        // '收付款'=>$row-> 收付款,
-                        '現金或匯款'=>$row-> 現金或匯款,
-                        '匯款日期'=>$row-> 匯款日期,
-                        '通知查帳'=>$row-> 通知查帳,
-                        '成交單狀態'=>$row-> 成交單狀態,
-                        '二審'=>$row-> 二審,
-                        // '契約'=>$row-> 契約,
-                        // '稅單'=>$row-> 稅單,
-                        '已結案'=>$row-> 已結案,
-                        '最後動作時間'=>$row-> 最後動作時間,
-                                            );
-                }
-                return $result;
-        }
-        else {
-                return false;
+            foreach ($query->result() as $row) {
+                    $result[] = array('ID'=>$row-> ID,
+                    '成交日期'=>$row-> 成交日期,
+                    '業務'=>$row-> 業務,
+                    '客戶姓名'=>$row->客戶姓名,
+                    '身分證字號'=>$row-> 身分證字號,
+                    '聯絡電話'=>$row-> 聯絡電話,
+                    '聯絡人'=>$row-> 聯絡人,
+                    '聯絡地址'=>$row-> 聯絡地址,
+                    '買賣'=>$row-> 買賣,
+                    '股票'=>$row-> 股票,
+                    '張數'=>$row-> 張數,
+                    '成交價'=>$row-> 成交價,
+                    '盤價'=>$row-> 盤價,
+                    '匯款金額應收帳款'=>$row-> 匯款金額應收帳款,
+                    '已匯金額已收金額'=>$row-> 已匯金額已收金額,
+                    '待查帳金額'=>$row-> 待查帳金額,
+                    '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
+                    '匯款人'=>$row-> 匯款人,
+                    '匯款銀行'=>$row-> 匯款銀行,
+                    '匯款分行'=>$row-> 匯款分行,
+                    '匯款戶名'=>$row-> 匯款戶名,
+                    '匯款帳號'=>$row-> 匯款帳號,
+                    '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
+                    '轉讓會員'=>$row-> 轉讓會員,
+                    '完稅人'=>$row-> 完稅人,
+                    // '一審'=>$row-> 一審,
+                    '新舊'=>$row-> 新舊,
+                    '自行應付'=>$row-> 自行應付,
+                    '刻印'=>$row-> 刻印,
+                    '刻印收送'=>$row-> 刻印收送,
+                    '過戶日期'=>$row-> 過戶日期,
+                    '過戶費'=>$row-> 過戶費,
+                    '媒合'=>$row-> 媒合,
+                    // '收付款'=>$row-> 收付款,
+                    '現金或匯款'=>$row-> 現金或匯款,
+                    '匯款日期'=>$row-> 匯款日期,
+                    '通知查帳'=>$row-> 通知查帳,
+                    '成交單狀態'=>$row-> 成交單狀態,
+                    '二審'=>$row-> 二審,
+                    // '契約'=>$row-> 契約,
+                    // '稅單'=>$row-> 稅單,
+                    '已結案'=>$row-> 已結案,
+                    '最後動作時間'=>$row-> 最後動作時間,
+                                        );
+            }
+            return $result;
+        } else {
+             return false;
         }
 }
 
@@ -132,6 +132,15 @@ class Orders_model extends CI_Model {
         $this->db->insert('orders',$data);
         $id = $this->db->insert_id();
         return $id;
+    }
+
+    public function move_record($name, $time, $move, $result, $original) {
+        if ($move == '修改') {
+            $effect = '成交單編號'.$result;
+        }
+        $effect = '成交單編號'.$result;
+        $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$effect, );
+        $this->db->insert('move_record', $data);
     }
 
     public function match($self, $other) {
@@ -224,7 +233,7 @@ class Orders_model extends CI_Model {
                                 '匯款姓名'=>$row-> 完稅姓名,
                                 '匯款銀行'=>$row-> 匯款銀行,
                                 '匯款帳號'=>$row-> 匯款帳號,
-                                '匯款金額應收帳款'=>$row-> 匯款金額應收帳款,);
+                                '匯款金額'=>$row-> 匯款金額,);
             }
             return  $result;
         } else {
@@ -235,10 +244,10 @@ class Orders_model extends CI_Model {
     public function get_checkbill() {
         $query = array();
         if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
-            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' and `通知查帳`!='已確認' ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         } elseif ($_SESSION['權限名稱']=='業務') {
-            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' and `通知查帳`!='已確認' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         }
         if($query->num_rows()>0) {
@@ -255,14 +264,22 @@ class Orders_model extends CI_Model {
     //     $this->db->update('orders', $data2);
     // }
 
-    public function check_money_received($id, $money) {
-        $data = array('已匯金額已收金額'=>$money, '通知查帳'=>'待確認');
+    public function check_money_received($id, $待查帳金額, $money) {
+        $data = array('已匯金額已收金額'=>$money, '待查帳金額'=>0, '通知查帳'=>'待確認');
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
     }
 
-    public function inform_check_money($id, $date, $name, $last5, $money, $move_time) {
-        $data = array('轉出日期轉入日期'=>$date, '匯款人'=>$name, '匯款帳號末5碼'=>$last5, '已匯金額已收金額'=>$money, '通知查帳'=>'待對帳', '最後動作時間'=>$move_time);
+    public function inform_check_money($id, $date, $name, $last5, $待查帳金額, $move_time) {
+        $query = $this->db->get_where('ORDERS', array('ID' => $id));
+        $result = $this->transformer($query);
+        if ($待查帳金額 < $result[0]['匯款金額應收帳款']) {
+            //分批匯款, 通知查帳跳過待對帳->直接跳到待確認
+            $data = array('轉出日期轉入日期'=>$date, '匯款人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知查帳'=>'待確認', '最後動作時間'=>$move_time);
+        } else {
+            //一次匯款, 通知查帳->待對帳
+            $data = array('轉出日期轉入日期'=>$date, '匯款人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知查帳'=>'待對帳', '最後動作時間'=>$move_time);
+        }
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
     }
@@ -279,9 +296,43 @@ class Orders_model extends CI_Model {
     }
 
     public function check_end($id, $date, $move_time) {
-        $data = array('通知查帳'=>$date, '最後動作時間'=>$move_time);
+        $order = $this->get($id, $_SESSION['權限名稱'], $_SESSION['NAME']);
+        $總匯款金額 = $order[0]['已匯金額已收金額'] + $order[0]['待查帳金額'];
+        if ($總匯款金額 == $order[0]['匯款金額應收帳款']) {
+            //一次匯款完
+            $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '最後動作時間'=>$move_time);
+        } else {
+            //還沒匯完
+            $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>'未通知', '最後動作時間'=>$move_time);
+        }
+
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
+
+        //將查帳日期,金額,動作時間 至 check_money
+        $record = array('成交單編號'=>$id, '匯款帳號末5碼'=>$order[0]['匯款帳號末5碼'], '轉出日期轉入日期'=>$order[0]['轉出日期轉入日期'], '查帳金額'=>$order[0]['待查帳金額'], '查帳日期'=>$date, '已匯金額已收金額'=>$order[0]['待查帳金額'], '最後動作時間'=>$move_time);
+            $this->db->insert('check_money_record', $record);
+    }
+
+    public function get_check_record() {
+        $sql = "SELECT * FROM `check_money_record` ORDER BY `最後動作時間` DESC";
+        $query = $this->db->query($sql);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                    $result[] = array('id'=>$row-> id,
+                    '成交單編號'=>$row-> 成交單編號,
+                    '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
+                    '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
+                    '查帳金額'=>$row-> 查帳金額,
+                    '已匯金額已收金額'=>$row-> 已匯金額已收金額,
+                    '查帳日期'=>$row-> 查帳日期,
+                    '最後動作時間'=>$row-> 最後動作時間);
+            }
+            return $result;
+        } else {
+            return false;
+        }
+
     }
 
 

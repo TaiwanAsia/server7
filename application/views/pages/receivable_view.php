@@ -3,6 +3,15 @@
                   <div class="t-form-h">
                     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
                         <h1 class="h2">應收帳款</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group mr-2">
+                                <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/checkbill'" value="所有應收"></input>
+                                <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+                                    <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/boss_check_money'" value="上傳/確認"></input>
+                                <?php } ?>
+                                <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/check_record'" value="分匯紀錄"></input>
+                            </div>
+                        </div>
                     </div>
 
                   <div class="t-form-t">
@@ -15,6 +24,8 @@
                             </button>
                         </form>
                     <?php } ?>
+
+                    
                     
 
                     <div class="t-form">
@@ -30,13 +41,14 @@
                                     <th data-tablesaw-priority="0">聯絡人</th>
                                     <th data-tablesaw-priority="0">聯絡住址</th>
                                     <th data-tablesaw-priority="0">買賣</th>
-                                    <th data-tablesaw-priority="1">股票</th>
+                                    <th data-tablesaw-priority="0">股票</th>
                                     <th data-tablesaw-priority="1">張數</th>
                                     <th data-tablesaw-priority="1">成交價</th>
                                     <th data-tablesaw-priority="0">盤價</th>
                                     <th data-tablesaw-priority="1">應收金額</th>
                                     <th data-tablesaw-priority="1">已收金額</th>
                                     <th data-tablesaw-priority="1">尚餘應收</th>
+                                    <th data-tablesaw-priority="1">待查帳金額</th>
                                     <th data-tablesaw-priority="0">匯款戶名</th>
                                     <th data-tablesaw-priority="0">匯款帳號</th>
                                     <th data-tablesaw-priority="0">轉讓會員</th>
@@ -119,6 +131,10 @@
                                       <input type="hidden" id="尚餘應收<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額']; ?>">
                                     </td>
                                     <td>
+                                      <label class="text-primary"><p><?php echo ($orders[$i]['待查帳金額']) ?></p></label>
+                                      <input type="hidden" id="待查帳金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['待查帳金額']; ?>">
+                                    </td>
+                                    <td>
                                       <?php echo ($orders[$i]['匯款戶名']) ?>
                                       <input type="hidden" id="匯款戶名<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款戶名']; ?>">
                                     </td>
@@ -145,7 +161,6 @@
                                     <td>
                                         <form action="type_check_money" method="get">
                                         <?php
-                                        if ($_SESSION['權限名稱']=='最高權限') { 
                                             if ($orders[$i]['通知查帳']=='未通知') { ?>
                                                 <label><b>未通知</b></label>
                                         <?php
@@ -158,14 +173,7 @@
                                             } else { ?>
                                                 <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
                                         <?php }
-                                        } else {
-                                            if ($orders[$i]['通知查帳']=='未通知'||$orders[$i]['通知查帳']=='待對帳'||$orders[$i]['通知查帳']=='待確認') { ?>
-                                                <label><b>未確認</b></label>
-                                        <?php
-                                            } else { ?>
-                                                <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
-                                        <?php }
-                                        } ?>
+                                        ?>
                                         </form>
                                     </td>
 

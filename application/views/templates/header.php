@@ -74,14 +74,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             應收帳款
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                 <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/boss_check_money">
-                                    待匯入待確認
+                                    待對帳待確認
                                 </a>
                             <?php } ?>
                         </li>
-                        
+                         -->
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="#">
                             <span data-feather="file-text"></span>

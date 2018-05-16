@@ -85,6 +85,7 @@ class Orders extends CI_Controller {
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 		$this->index();
 	}
 	
@@ -117,6 +118,7 @@ class Orders extends CI_Controller {
 				$this->index();
 			} else {
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$id);
+				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
 				$this->index();
 			}
 		}
@@ -137,7 +139,7 @@ class Orders extends CI_Controller {
 				$this->index();
 			} else {
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
-				echo "string";
+				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
 				$this->index();
 			}
 		}
@@ -198,8 +200,38 @@ class Orders extends CI_Controller {
 
 	}
 
+	public function get_title() {
+		$title = array(0 => '成交日期',
+                        1 => 'ID',
+                        2 => '業務',
+                        3 => '客戶姓名',
+                        4 => '身分證字號',
+                        5 => '聯絡電話',
+                        6 => '聯絡人',
+                        7 => '聯絡地址',
+                        8 => '買賣',
+                        9 => '股票',
+                        10 => '張數',
+                        11 => '成交價',
+                        12 => '盤價',
+                        13 => '匯款金額應收帳款',
+                        14 => '匯款銀行',
+                        15 => '匯款分行',
+                        16 => '匯款帳號',
+                        17 => '匯款戶名',
+                        18 => '轉讓會員',
+                        19 => '完稅人',
+                        20 => '新舊',
+                        21 => '自行應付',
+                        22 => '刻印',
+                        23 => '過戶費',);
+		return $title;
+	}
+
 	//單純修改成交單內容
 	public function edit_order() {
+		$title = $this->get_title();
+		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
 		$data = array('成交日期' => $_POST['成交日期'],
 						'ID' => $_POST['ID'],
 						'業務' => $_POST['業務'],
@@ -219,14 +251,26 @@ class Orders extends CI_Controller {
 						'匯款帳號' => $_POST['匯款帳號'],
 						'匯款戶名' => $_POST['匯款戶名'],
 						'轉讓會員' => $_POST['轉讓會員'],
-						// '從庫存出' => $_POST['從庫存出'],
 						'完稅人' => $_POST['完稅人'],
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],
 						'刻印' => $_POST['刻印'],
 						'過戶費' => $_POST['過戶費'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
-		$this -> orders_model -> edit($data);
+		print_r($title);
+		echo "<br><br>";
+		print_r($original);
+		echo "<br><br>";
+		print_r($data);
+		// $effect = '';
+		// for ($i=0; $i < count($title); $i++) { 
+		// 	if ($original[$title[$i]] != $data[$title[$i]]) {
+		// 		$effect = $title[$i].":".$original[$title[$i]]."改為".$data[$title[$i]];
+		// 	}
+		// }
+		// echo $effect;
+		// $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $id, $original);
+		// $this -> orders_model -> edit($data);
 		$this->index();
 	}
 
@@ -337,7 +381,9 @@ class Orders extends CI_Controller {
             } else {
             	echo '<span style="color:#FF0000;"><h1><b>您尚未選取檔案</b></h1></span>';
             }
-            $this->reconcile($datas);
+            if (isset($datas)) {
+            	$this->reconcile($datas);
+            }
 
             $this->load->view('templates/header');
             $orders = $this->orders_model->get_checkbill();
@@ -364,7 +410,7 @@ class Orders extends CI_Controller {
     					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
     						//對帳完成
     						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
-    						$this->orders_model->check_money_received($orders[$i]['ID'],$money);
+    						$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
     					}
     				}
     			}
@@ -374,7 +420,7 @@ class Orders extends CI_Controller {
     					if ($time == $datas[$j][$k]['日期'] && $money == $datas[$j][$k]['轉出']) { //一周內
     						//對帳完成
     						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
-    						$this->orders_model->check_money_received($orders[$i]['ID'],$money);
+    						$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
     					}
     				}
     			}
@@ -428,7 +474,7 @@ class Orders extends CI_Controller {
 	}
 
 	public function inform_check_money() {
-		$this->orders_model->inform_check_money($_POST['ID'], $_POST['轉出日期轉入日期'],$_POST['匯款人'],$_POST['匯款帳號末5碼'],$_POST['已匯金額已收金額'],date('Y-m-d H:i:s'));
+		$this->orders_model->inform_check_money($_POST['ID'], $_POST['轉出日期轉入日期'],$_POST['匯款人'],$_POST['匯款帳號末5碼'],$_POST['待查帳金額'],date('Y-m-d H:i:s'));
 		$this->index();
 	}
 
@@ -440,8 +486,15 @@ class Orders extends CI_Controller {
 	}
 
 	public function check_end() {
+		$data = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
 		$this->orders_model->check_end($_POST['ID'], $_POST['確認日期'], date('Y-m-d H:i:s'));
 		$this->boss_check_money();
+	}
+
+	public function check_record() {
+		$data = $this->orders_model->get_check_record();
+		$this->load->view('templates/header');
+		$this->load->view('pages/check_record', array('data'=>$data));
 	}
 }
 
