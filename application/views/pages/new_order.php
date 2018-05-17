@@ -125,8 +125,7 @@
                                             <tr>
                                                 <td>完稅姓名</td>
                                                 <td>
-                                                    <select id="taxer_name" name="taxer_name" class="form-control">
-                                                    
+                                                    <select id="taxer_name" name="taxer_name" class="form-control" required onchange="taxer_change()">
                                                     </select>
                                                 </td>
                                                 <!--
@@ -271,6 +270,8 @@
         $("#taxer_name option").remove();
         $("#dealer_fax").val("");
         $("#dealer_tel").val("");
+        $("#taxer_id").val("");
+        $("#taxer_address").val("");
         $.ajax({
             type: "GET",
             url: "<?=base_url()?>index.php/orders/import_dealer_info?dealer_name="+ $("#dealer_name").val(),
@@ -290,6 +291,8 @@
                             $("#taxer_name").append($("<option></option>").attr("value", taxers_info[i].完稅姓名).text(taxers_info[i].完稅姓名));
                         }
                     }
+                    $("#taxer_id").val("<?php echo $taxers[0]['完稅ID']; ?>");
+                    $("#taxer_address").val("<?php echo $taxers[0]['完稅地址']; ?>");
                     
                     // $("#createResult").html('盤商：' + data.盤商名稱 + '，匯入成功！');
                 } else {
@@ -303,6 +306,26 @@
         })
     })
 
+    function taxer_change() {
+        $.ajax({
+            type: "GET",
+            url: "<?=base_url()?>index.php/orders/import_taxer_info?taxer_name="+ $("#taxer_name").find(":selected").val(),
+            dataType: "json",
+            success: function(data) {
+                if (data.完稅姓名) {
+                    $("#taxer_id").val(data.完稅ID);
+                    $("#taxer_address").val(data.完稅地址);
+                } else {
+                    $("#createResult").html(data.msg);
+                }                   
+            },
+            error: function(jqXHR,data) {
+                alert("發生錯誤: " + jqXHR.status);
+            }
+        })
+    }
+
+    /*
     $("#import_taxer").click(function() {
         $.ajax({
             type: "GET",
@@ -321,6 +344,7 @@
             }
         })
     })
+    */
 
     $("#import_payer").click(function() {
         $.ajax({
