@@ -134,13 +134,29 @@ class Orders_model extends CI_Model {
         return $id;
     }
 
-    public function move_record($name, $time, $move, $result, $original) {
+    public function move_record($name, $time, $move, $result, $effect) {
         if ($move == '修改') {
-            $effect = '成交單編號'.$result;
+            $result = $result." ".$effect;
         }
-        $effect = '成交單編號'.$result;
-        $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$effect, );
+        $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$result, );
         $this->db->insert('move_record', $data);
+    }
+
+    public function get_move_record() {
+        $sql = "SELECT * FROM `move_record` ORDER BY `時間` DESC";
+        $query = $this->db->query($sql);
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array('ID'=>$row-> ID,
+                                '員工'=>$row-> 員工,
+                                '時間'=>$row-> 時間,
+                                '動作'=>$row-> 動作,
+                                '影響'=>$row-> 影響,);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
     }
 
     public function match($self, $other) {
@@ -167,7 +183,8 @@ class Orders_model extends CI_Model {
                                 'ACCOUNT'=>$row-> ACCOUNT,
                                 'PASSWORD'=>$row-> PASSWORD,
                                 'NAME'=>$row-> NAME,
-                                '權限名稱'=>$row-> 權限名稱,);
+                                '權限名稱'=>$row-> 權限名稱,
+                                '趴數'=>$row-> 趴數,);
             }
             return  $result;
         } else {
@@ -305,7 +322,13 @@ class Orders_model extends CI_Model {
         $總匯款金額 = $order[0]['已匯金額已收金額'] + $order[0]['待查帳金額'];
         if ($總匯款金額 == $order[0]['匯款金額應收帳款']) {
             //一次匯款完
-            $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '最後動作時間'=>$move_time);
+            if ($order[0]['業務'] == 'JOY') {
+                //大姊確認金額就結案了,不用上傳水單
+                $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '已結案'=>1, '最後動作時間'=>$move_time);
+            } else {
+                $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '最後動作時間'=>$move_time);
+            }
+            
         } else {
             //還沒匯完
             $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>'未通知', '最後動作時間'=>$move_time);
@@ -314,9 +337,9 @@ class Orders_model extends CI_Model {
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
 
-        //將查帳日期,金額,動作時間 至 check_money
+        //將查帳日期,金額,動作時間 至 check_money_record
         $record = array('成交單編號'=>$id, '匯款帳號末5碼'=>$order[0]['匯款帳號末5碼'], '轉出日期轉入日期'=>$order[0]['轉出日期轉入日期'], '查帳金額'=>$order[0]['待查帳金額'], '查帳日期'=>$date, '已匯金額已收金額'=>$order[0]['待查帳金額'], '最後動作時間'=>$move_time);
-            $this->db->insert('check_money_record', $record);
+        $this->db->insert('check_money_record', $record);
     }
 
     public function get_check_record() {
@@ -337,9 +360,12 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
-
     }
 
+    public function finish_order($id) {
+        $sql = "UPDATE `orders` SET `已結案`= 1 WHERE `ID` = ".$id;
+        $query = $this->db->query($sql);
+    }
 
 
 }

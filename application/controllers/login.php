@@ -47,6 +47,7 @@ class Login extends CI_Controller {
 					$_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
 					$_SESSION['權限名稱'] = $flag['權限名稱'];
 					$_SESSION['NAME'] = $flag['NAME'];
+					$_SESSION['趴數'] = $flag['趴數'];
 					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
 
 					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
@@ -107,7 +108,8 @@ class Login extends CI_Controller {
 			$data = array('NAME' => $_POST['name'],
 							'ACCOUNT' => $_POST['account'],
 							'PASSWORD' => $_POST['password'],
-							'權限名稱' => $_POST['權限名稱'],);
+							'權限名稱' => $_POST['權限名稱'],
+							'趴數' => $_POST['趴數'],);
 			$this->login_model->add_account($data);
 			$this->account();
 		}
@@ -126,7 +128,8 @@ class Login extends CI_Controller {
 							'NAME' => $_POST['name'],
 							'ACCOUNT' => $_POST['account'],
 							'PASSWORD' => $_POST['password'],
-							'權限名稱' => $_POST['權限名稱'],);
+							'權限名稱' => $_POST['權限名稱'],
+							'趴數' => $_POST['趴數'],);
 			$this->login_model->edit_account($data);
 			$this->account();
 		}
@@ -137,6 +140,7 @@ class Login extends CI_Controller {
 		unset($_SESSION['ACCOUNT']);
 		unset($_SESSION['權限名稱']);
 		unset($_SESSION['NAME']);
+		unset($_SESSION['趴數']);
 		session_destroy();
 		redirect('index.php/login/index');
 	}

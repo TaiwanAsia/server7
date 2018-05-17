@@ -147,6 +147,28 @@ class Orders extends CI_Controller {
 		}
 	}
 
+	public function upload_water() {
+		$id = $_POST['id'];
+		if ($_FILES["file"]["error"] > 0){
+			echo "Error: " . $_FILES["file"]["error"];
+		} else {
+			echo "編號: " . $id."<br>";
+			echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
+			echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
+			echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
+			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+			if (file_exists("upload/tax/" . $id)){
+				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
+				$this->index();
+			} else {
+				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/water/".$id);
+				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水', $id, null);
+				$this->orders_model->finish_order($id);
+				$this->index();
+			}
+		}
+	}
+
 	public function match() {
 		// echo $_POST['欲媒合對方ID'].", ".$_POST['欲媒合自身ID']."<br>";
 		$this -> orders_model -> match($_POST['欲媒合自身ID'], $_POST['欲媒合對方ID']);
@@ -198,6 +220,7 @@ class Orders extends CI_Controller {
 			'匯款日期' => $_POST['匯款日期'],
 			'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '一審', $_POST['ID'], null);
 		$this->index();
 
 	}
@@ -259,20 +282,14 @@ class Orders extends CI_Controller {
 						'刻印' => $_POST['刻印'],
 						'過戶費' => $_POST['過戶費'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
-		print_r($title);
-		echo "<br><br>";
-		print_r($original);
-		echo "<br><br>";
-		print_r($data);
-		// $effect = '';
-		// for ($i=0; $i < count($title); $i++) { 
-		// 	if ($original[$title[$i]] != $data[$title[$i]]) {
-		// 		$effect = $title[$i].":".$original[$title[$i]]."改為".$data[$title[$i]];
-		// 	}
-		// }
-		// echo $effect;
-		// $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $id, $original);
-		// $this -> orders_model -> edit($data);
+		$effect = '';
+		for ($i=0; $i < count($title); $i++) { 
+			if ($original[0][$title[$i]] != $data[$title[$i]]) {
+				$effect = $effect."[".$title[$i]."]"."=>".$original[0][$title[$i]]."改為".$data[$title[$i]]."  ";
+			}
+		}
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $_POST['ID'], $effect);
+		$this -> orders_model -> edit($data);
 		$this->index();
 	}
 
@@ -311,6 +328,7 @@ class Orders extends CI_Controller {
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
 			$this -> orders_model -> edit($data);
+			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
 			$this->index();
 			} else {
 				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
@@ -477,6 +495,7 @@ class Orders extends CI_Controller {
 
 	public function inform_check_money() {
 		$this->orders_model->inform_check_money($_POST['ID'], $_POST['轉出日期轉入日期'],$_POST['匯款人'],$_POST['匯款帳號末5碼'],$_POST['待查帳金額'],date('Y-m-d H:i:s'));
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '通知查帳', $_POST['ID'], null);
 		$this->index();
 	}
 
@@ -497,6 +516,12 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_check_record();
 		$this->load->view('templates/header');
 		$this->load->view('pages/check_record', array('data'=>$data));
+	}
+
+	public function move_record() {
+		$data = $this->orders_model->get_move_record();
+		$this->load->view('templates/header');
+		$this->load->view('pages/move_record', array('data'=>$data));
 	}
 }
 
