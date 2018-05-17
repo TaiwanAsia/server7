@@ -11,7 +11,8 @@
 					<th nowrap="nowrap">名稱</th>
 					<th nowrap="nowrap">帳號</th>
 					<th nowrap="nowrap">密碼</th>
-					<th nowrap="nowrap">等級</th>
+					<th nowrap="nowrap">權限</th>
+					<th nowrap="nowrap">趴數</th>
 					<th nowrap="nowrap"></th>
 					<th nowrap="nowrap"></th>
 				</tr>
@@ -24,6 +25,7 @@
 						echo "<td>".$data[$i]['ACCOUNT']."</td>";
 						echo '<td nowrap="nowrap">'.$data[$i]['PASSWORD']."</td>";
 						echo "<td>".$data[$i]['權限名稱']."</td>";
+						echo "<td>".$data[$i]['趴數']."</td>";
 						echo '<td>
 							<form action="delete_account" method="POST" name="" style= "display:inline">
 							<input type="hidden" name="account_id" value="'.$data[$i]['ID'].'">

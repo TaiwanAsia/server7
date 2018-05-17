@@ -63,6 +63,7 @@
                                   <th data-tablesaw-priority="1">通知查帳</th>
                                   <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
                                   <th data-tablesaw-priority="0">上傳稅單-要記得選擇檔案</th>
+                                  <th data-tablesaw-priority="0">上傳水</th>
                                   <th data-tablesaw-priority="1">是否結案</th>
                                 </tr>
                             </thead>
@@ -78,7 +79,7 @@
                                       </form>
                                       <?php } ?>
                                     </td>
-                                    <td><?php echo ($orders[$i]['ID']) ?></td>
+                                    <td><label id="mousemove<?php echo ($orders[$i]['ID']) ?>" onmouseout="changefont_back(<?php echo ($orders[$i]['ID']) ?>)" onmousemove="changefont(<?php echo ($orders[$i]['ID']) ?>)" onclick="showbonus(<?php echo ($orders[$i]['ID']) ?>)" style="cursor: pointer;"><?php echo ($orders[$i]['ID']) ?></label></td>
                                     <td>
                                       <?php echo ($orders[$i]['成交日期']) ?>
                                       <input type="hidden" id="成交日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交日期']; ?>">
@@ -329,12 +330,26 @@
                                         </form>
                                         <?php } ?>
                                     </td>
-                                    <td class="text-danger">
+                                    <td>
+                                        <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
+                                          ?>
+                                        <a href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
+                                        <?php  } else {?>
+                                        <form method="post" action="upload_water" enctype="multipart/form-data">
+                                          <div class="form-group">
+                                              <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                                              <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
+                                              <button type="submit" id="" name="" class="">上傳</button>
+                                          </div>
+                                        </form>
+                                        <?php } ?>
+                                    </td>
+                                    <td>
                                       <?php
                                         if($orders[$i]['已結案']==1){
-                                          echo "已結";
+                                          echo "<label class='text-info'>"."已結</label>";
                                         } else {
-                                          echo "未結";
+                                          echo "<label class='text-danger'>"."未結</label>";
                                         }
                                       ?>
 
@@ -352,7 +367,7 @@
                                       }
                                       ?>
 
-                                    </td>
+                                  </td>
 
                                     <!-- 沒顯示出來的欄位 -->
                                     <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
@@ -361,6 +376,7 @@
                                     <input type="hidden" id="刻印收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印收送']; ?>">
                                     <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>">
                                     <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
+                                    <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
 
                                 </tr>
                                 <?php }} ?>
@@ -535,6 +551,37 @@
 
 
         <script>
+
+          function changefont(i) {
+            document.getElementById("mousemove"+i).style.color="orange";     
+          }
+
+          function changefont_back(i) {
+            document.getElementById("mousemove"+i).style.color="black";
+          }
+
+
+          //計算獎金
+          function showbonus(i){
+            var id = i;
+            var 成交價 = document.getElementById('成交價'+id).value;
+            var 盤價 = document.getElementById('盤價'+id).value;
+            var 張數 = document.getElementById('amount'+id).value;
+            var 過戶費 = document.getElementById('過戶費'+id).value;
+            var 自行應付 = document.getElementById('自行應付'+id).value
+            var 趴數 = document.getElementById('趴數'+id).value;
+            var 買賣 = 0;
+            var 稅金 = 0;
+            if (document.getElementById('買賣'+id).value==0) {
+              買賣 = '賣';
+            } else {
+              買賣 = '買';
+            }
+            if (買賣='賣') {
+              稅金 = 成交價*張數*1000*0.003;
+            }
+            alert('成交價 '+成交價+'\n盤價 '+盤價+'\n張數 '+張數+'\n'+買賣+'\n稅金 '+稅金+'\n過戶費 '+過戶費+'\n自行應付 '+自行應付+'\n趴數 '+趴數);
+          }
 
 
           //編輯資料

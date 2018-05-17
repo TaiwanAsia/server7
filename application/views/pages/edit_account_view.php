@@ -15,6 +15,7 @@
 						<th nowrap="nowrap">帳號</th>
 						<th nowrap="nowrap">密碼</th>
 						<th nowrap="nowrap">權限</th>
+						<th nowrap="nowrap">趴數</th>
 					</tr>
 					<tr>
 						<td>
@@ -42,6 +43,9 @@
 								<option value="業務">業務</option>
 								<option value="工讀">工讀</option>
 							</select>
+						</td>
+						<td>
+							<input type="text" name="趴數" value="<?php echo($data[0]['趴數']); ?>">
 						</td>
 						<td>
 							<input type="submit" name="" value="確認">

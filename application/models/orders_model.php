@@ -183,7 +183,8 @@ class Orders_model extends CI_Model {
                                 'ACCOUNT'=>$row-> ACCOUNT,
                                 'PASSWORD'=>$row-> PASSWORD,
                                 'NAME'=>$row-> NAME,
-                                '權限名稱'=>$row-> 權限名稱,);
+                                '權限名稱'=>$row-> 權限名稱,
+                                '趴數'=>$row-> 趴數,);
             }
             return  $result;
         } else {
@@ -316,7 +317,13 @@ class Orders_model extends CI_Model {
         $總匯款金額 = $order[0]['已匯金額已收金額'] + $order[0]['待查帳金額'];
         if ($總匯款金額 == $order[0]['匯款金額應收帳款']) {
             //一次匯款完
-            $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '最後動作時間'=>$move_time);
+            if ($order[0]['業務'] == 'JOY') {
+                //大姊確認金額就結案了,不用上傳水單
+                $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '已結案'=>1, '最後動作時間'=>$move_time);
+            } else {
+                $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '最後動作時間'=>$move_time);
+            }
+            
         } else {
             //還沒匯完
             $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>'未通知', '最後動作時間'=>$move_time);
@@ -325,9 +332,9 @@ class Orders_model extends CI_Model {
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
 
-        //將查帳日期,金額,動作時間 至 check_money
+        //將查帳日期,金額,動作時間 至 check_money_record
         $record = array('成交單編號'=>$id, '匯款帳號末5碼'=>$order[0]['匯款帳號末5碼'], '轉出日期轉入日期'=>$order[0]['轉出日期轉入日期'], '查帳金額'=>$order[0]['待查帳金額'], '查帳日期'=>$date, '已匯金額已收金額'=>$order[0]['待查帳金額'], '最後動作時間'=>$move_time);
-            $this->db->insert('check_money_record', $record);
+        $this->db->insert('check_money_record', $record);
     }
 
     public function get_check_record() {
@@ -348,9 +355,12 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
-
     }
 
+    public function finish_order($id) {
+        $sql = "UPDATE `orders` SET `已結案`= 1 WHERE `ID` = ".$id;
+        $query = $this->db->query($sql);
+    }
 
 
 }

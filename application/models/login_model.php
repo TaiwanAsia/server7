@@ -15,7 +15,8 @@ class Login_model extends CI_Model {
                                 'NAME'=>$row-> NAME,
                                 'ACCOUNT'=>$row-> ACCOUNT,
                                 'PASSWORD'=>$row-> PASSWORD,
-                                '權限名稱'=>$row-> 權限名稱,);
+                                '權限名稱'=>$row-> 權限名稱,
+                                '趴數'=>$row-> 趴數,);
             }
             return $result;
         }
@@ -37,7 +38,8 @@ class Login_model extends CI_Model {
                                     'ACCOUNT'=>$row-> ACCOUNT,
                                     'PASSWORD'=>$row-> PASSWORD,
                                     'NAME'=>$row-> NAME,
-                                    '權限名稱'=>$row-> 權限名稱,);
+                                    '權限名稱'=>$row-> 權限名稱,
+                                    '趴數'=>$row-> 趴數,);
                 }
                 return  $result;
             }
