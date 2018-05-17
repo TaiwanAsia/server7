@@ -124,8 +124,15 @@
                                             </tr>
                                             <tr>
                                                 <td>完稅姓名</td>
+                                                <td>
+                                                    <select id="taxer_name" name="taxer_name" class="form-control">
+                                                    
+                                                    </select>
+                                                </td>
+                                                <!--
                                                 <td><input id="taxer_name" type="text" name=""></td>
                                                 <td><button id="import_taxer">匯入</button></td>
+                                                !-->
                                             </tr>
                                             <tr>
                                                 <td>完稅ID</td>
@@ -260,6 +267,10 @@
     })
 
     $("#import_dealer").click(function() {
+        //先清除之前匯入的資料
+        $("#taxer_name option").remove();
+        $("#dealer_fax").val("");
+        $("#dealer_tel").val("");
         $.ajax({
             type: "GET",
             url: "<?=base_url()?>index.php/orders/import_dealer_info?dealer_name="+ $("#dealer_name").val(),
@@ -268,6 +279,18 @@
                 if (data.盤商名) {
                     $("#dealer_fax").val(data.盤商傳真);
                     $("#dealer_tel").val(data.盤商電話);
+                    var taxers_info = [];
+                    <?php
+                        for ($j = 0; $j < count($taxers); $j++) {
+                            echo "taxers_info[".$j."] = {'盤商名':'".$taxers[$j]['盤商名']."', '完稅姓名':'".$taxers[$j]['完稅姓名']."'};";
+                        } 
+                    ?>
+                    for (var i = 0; i < taxers_info.length; i++) {
+                        if (data.盤商名 == taxers_info[i].盤商名) {
+                            $("#taxer_name").append($("<option></option>").attr("value", taxers_info[i].完稅姓名).text(taxers_info[i].完稅姓名));
+                        }
+                    }
+                    
                     // $("#createResult").html('盤商：' + data.盤商名稱 + '，匯入成功！');
                 } else {
                     $("#createResult").html(data.msg);

@@ -39,8 +39,10 @@ class Orders extends CI_Controller {
     {
 		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$employees = $this->orders_model->get_employee();
+		$taxers = $this->orders_model->get_taxer_info(null);
 		$arrayName = array('orders' => $orders,
-							'employees' => $employees,	);
+							'employees' => $employees,
+							'taxers' => $taxers,);
 
 		$this->load->view('templates/header');
 		$this->load->view('pages/new_order', $arrayName);

@@ -209,11 +209,16 @@ class Orders_model extends CI_Model {
     }
 
     public function get_taxer_info($name) {
-        $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
+        if ($name != null) {
+            $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
+        } else {
+            $sql = "SELECT * FROM `taxer`";
+        }
         $query = $this->db->query($sql);
         if($query->result()!=null){
             foreach ($query->result() as $row) {
                 $result[] = array(
+                                '盤商名'=>$row-> 盤商名,
                                 '完稅姓名'=>$row-> 完稅姓名,
                                 '完稅ID'=>$row-> 完稅ID,
                                 '完稅地址'=>$row-> 完稅地址,);
