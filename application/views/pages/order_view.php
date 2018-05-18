@@ -8,13 +8,14 @@
                               <!-- <button class="btn btn-sm btn-outline-secondary" id="new_order">新增成交單</button> -->
                               <!-- <button class="btn btn-sm btn-outline-secondary">所有</button> -->
                               <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/index'" value="所有"></input>
-                              <button class="btn btn-sm btn-outline-secondary">未審核</button>
-                              <button class="btn btn-sm btn-outline-secondary">審核完</button>
                               <form action="go_inventory" method="post">
                                 <button id="inventory" class="btn btn-sm btn-outline-secondary">庫存</button>
                               </form>
+                              <form action="go_ko" method="post">
+                                <button id="inventory" class="btn btn-sm btn-outline-secondary">KO</button>
+                              </form>
                               <input class="btn btn-sm btn-outline-secondary" type="button" onclick="location.href='new_order';" value="新增成交單" />
-                              <button class="btn btn-sm btn-outline-secondary">匯出</button>
+                              <!-- <button class="btn btn-sm btn-outline-secondary">匯出</button> -->
                               <!-- <button class="btn btn-primary">匯出</button> -->
                             </div>
                             <!-- <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
@@ -190,7 +191,12 @@
                                     </td>
                                     <?php
                                       } else {
-                                        echo "<td><p class='text-primary'><b>審完</b></td>";
+                                        if ($_SESSION['權限名稱'] == '最高權限') {
+                                          echo '<td><p style="cursor: help;" class="text-primary" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>審完</b></td>';
+                                        } else {
+                                          echo "<td><p class='text-primary'><b>審完</b></td>";
+                                        }
+                                        
                                       }
                                     } else {
                                       echo "<td></td>";
@@ -430,7 +436,7 @@
                       </td>
                       <td></td>
                       <td><label>張數</label></td>
-                      <td><input type="text" name="張數" value="" id="edit_amount"></td>
+                      <td><input type="text" name="張數" value="" class="autochange" id="edit_amount"></td>
                     </tr>
                     <tr>
                       <td><label>轉讓會員</label></td>
@@ -445,7 +451,7 @@
                         </select>
                       </td>
                       <td><label>成交價</label></td>
-                      <td><input type="text" name="成交價" value="" id="edit_成交價"></td>
+                      <td><input type="text" name="成交價" value="" class="autochange" id="edit_成交價"></td>
                       <td><label>盤價</label></td>
                       <td><input type="text" name="盤價" value="" id="edit_盤價"></td>
                     </tr>
@@ -498,7 +504,7 @@
                       </td>
                       <td><label>刻印</label></td>
                       <td>
-                        <select id="edit_刻印" name="刻印" class="form-control">
+                        <select id="edit_刻印" name="刻印" class="autochange">
                             <?php
                               for($j=0; $j<=10; $j++) {
                                 echo "<option value=".$j.">".$j."</option>";
@@ -508,7 +514,7 @@
                       </td>
                       <td><label>收送</label></td>
                       <td>
-                        <input type="text" name="刻印收送" value="" id="edit_刻印收送">
+                        <input type="text" name="刻印收送" class="autochange" value="" id="edit_刻印收送">
                       </td>
                     </tr>
                     <tr>
@@ -516,14 +522,13 @@
                       <td>
                         <input type="radio" name="成交單狀態" value="審核完成" checked><label class="text-primary">審核完成</label>
                         <input type="radio" name="成交單狀態" value="審核中"><label class="text-success">審核中</label>
-                        <input type="radio" name="成交單狀態" value="審核不通過"><label class="text-danger">審核不通過</label>
                       </td>
                     </tr>
                     <tr>
                       <td><label>現金或匯款</label></td>
                       <td>
                         <input type="radio" name="現金或匯款" value="現金"><label class="">現金</label>
-                        <input type="radio" name="現金或匯款" value="匯款"><label class="">匯款</label>
+                        <input type="radio" name="現金或匯款" value="匯款" checked><label class="">匯款</label>
                       </td>
                     </tr>
                     <tr>
@@ -624,7 +629,13 @@
           //自行應付變動=匯款金額-股票金額
           $(document).ready(function(){
             $(".autochange").change(function(){
-              document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額應收帳款").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997);
+              var a = document.getElementById('edit_刻印收送').value;
+              if (!a) {
+                a = 0;
+              } else {
+                a = parseInt(a);
+              }
+              document.getElementById('edit_自行應付').value = document.getElementById("edit_匯款金額應收帳款").value - (document.getElementById('edit_amount').value*document.getElementById('edit_成交價').value*1000*0.997)+(document.getElementById('edit_刻印').value*40) + a;
             });
           });
 

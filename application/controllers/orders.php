@@ -457,6 +457,17 @@ class Orders extends CI_Controller {
 		$this->show($arrayName);
 	}
 
+	//進入KO頁面
+	public function go_ko() {
+		$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$employees = $this->orders_model->get_employee();
+		$arrayName = array('orders' => $orders,
+							'employees' => $employees,);
+		$this->show($arrayName);
+	}
+
+
+	//新增成交單時匯入客戶資料
 	public function import_customer_info() {
 		$info = $this->orders_model->get_customer_info($_GET['customer_name']);
 		if ($info[0]['業務'] == $_SESSION['NAME']) {
@@ -468,24 +479,28 @@ class Orders extends CI_Controller {
 		
 	}
 
+	//新增成交單時匯入盤商資料
 	public function import_dealer_info() {
 		$info = $this->orders_model->get_dealer_info($_GET['dealer_name']);
 		$myJSON = json_encode($info[0]);
 		print_r($myJSON);
 	}
 
+	//新增成交單時匯入完稅人資料
 	public function import_taxer_info() {
 		$info = $this->orders_model->get_taxer_info($_GET['taxer_name']);
 		$myJSON = json_encode($info[0]);
 		print_r($myJSON);
 	}
 
+	//新增成交單時匯入付款資料
 	public function import_payer_info() {
 		$info = $this->orders_model->get_payer_info($_GET['payer_name']);
 		$myJSON = json_encode($info[0]);
 		print_r($myJSON);
 	}
 
+	//頁面進入通知查帳頁面
 	public function salesman_check_money() {
 		$this->load->view('templates/header');
 		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME']);
@@ -493,12 +508,14 @@ class Orders extends CI_Controller {
 		$this->load->view('pages/inform_check_money',$arrayName);
 	}
 
+	//更改通知查帳
 	public function inform_check_money() {
 		$this->orders_model->inform_check_money($_POST['ID'], $_POST['轉出日期轉入日期'],$_POST['匯款人'],$_POST['匯款帳號末5碼'],$_POST['待查帳金額'],date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '通知查帳', $_POST['ID'], null);
 		$this->index();
 	}
 
+	//大姊進入確認帳款頁面
 	public function boss_check_money() {
 		$data = $this->orders_model->get_ready_to_check();
 		$arrayName = array('data' => $data);
@@ -506,18 +523,21 @@ class Orders extends CI_Controller {
 		$this->load->view('pages/ready_to_check',$arrayName);
 	}
 
+	//大姊確認帳款
 	public function check_end() {
 		$data = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
 		$this->orders_model->check_end($_POST['ID'], $_POST['確認日期'], date('Y-m-d H:i:s'));
 		$this->boss_check_money();
 	}
 
+	//查看匯款紀錄
 	public function check_record() {
 		$data = $this->orders_model->get_check_record();
 		$this->load->view('templates/header');
 		$this->load->view('pages/check_record', array('data'=>$data));
 	}
 
+	//查看動作紀錄
 	public function move_record() {
 		$data = $this->orders_model->get_move_record();
 		$this->load->view('templates/header');

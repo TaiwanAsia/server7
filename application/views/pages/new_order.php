@@ -125,7 +125,7 @@
                                             <tr>
                                                 <td>完稅姓名</td>
                                                 <td>
-                                                    <select id="taxer_name" name="taxer_name" class="form-control" required onchange="taxer_change()">
+                                                    <select id="taxer_name" name="taxer_name" class="form-control" onchange="taxer_change()">
                                                     </select>
                                                 </td>
                                                 <!--
@@ -162,8 +162,8 @@
                                     <td></td>
                                     <td><label for="" class="text-danger">新舊</label></td>
                                     <td>
-                                        <input type="radio" name="新舊" value="1" checked><label class="text-danger"><b>新</b></label>
-                                        <input type="radio" name="新舊" value="0"><label class="text-success"><b>舊</b></label>
+                                        <input type="radio" name="新舊" value="1"><label class="text-danger"><b>新</b></label>
+                                        <input type="radio" name="新舊" value="0" checked><label class="text-success"><b>舊</b></label>
                                     </td>
                                 </tr>
                                 <tr>
