@@ -284,12 +284,12 @@
                                       <?php
                                           } elseif ($orders[$i]['通知查帳']=='待對帳') {
                                           //業務點了通知查帳 ?>
-                                            <a href="checkbill"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
+                                            <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
 
                                       <?php
                                           } elseif ($orders[$i]['通知查帳']=='待確認') {
                                           //已匯入銀行明細對帳正確，待大姊自己手動確認 ?>
-                                            <a href="checkbill"><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40"></a>
+                                            <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40"></a>
                                       <?php
                                           } else {
                                           //大姊手動確認，顯示日期 ?>
@@ -522,7 +522,6 @@
                     <tr>
                       <td><label>現金或匯款</label></td>
                       <td>
-                        <input type="radio" name="現金或匯款" value="未付款" checked><label class="">未付款</label>
                         <input type="radio" name="現金或匯款" value="現金"><label class="">現金</label>
                         <input type="radio" name="現金或匯款" value="匯款"><label class="">匯款</label>
                       </td>

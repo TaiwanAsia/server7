@@ -134,10 +134,6 @@
                                                 !-->
                                             </tr>
                                             <tr>
-                                                <td>完稅ID</td>
-                                                <td><input id="taxer_id" type="text" name=""></td>
-                                            </tr>
-                                            <tr>
                                                 <td>完稅地址</td>
                                                 <td><input id="taxer_address" type="text" name=""></td>
                                             </tr>
@@ -153,10 +149,6 @@
                                             <tr>
                                                 <td>匯款帳號</td>
                                                 <td><input id="payer_account" type="text" name=""></td>
-                                            </tr>
-                                            <tr>
-                                                <td>匯款金額</td>
-                                                <td><input id="payer_money" type="text" name=""></td>
                                             </tr>
                                         </table>
                                     </td>
