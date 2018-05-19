@@ -23,6 +23,7 @@
                             <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">     上傳
                             </button>
                         </form>
+                        <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"></input>
                     <?php } ?>
 
                     

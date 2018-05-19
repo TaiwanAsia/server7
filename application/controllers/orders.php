@@ -416,34 +416,42 @@ class Orders extends CI_Controller {
     	//先抓欲對帳表
     	//$orders = $this->orders_model->get_checkbill(); 
     	$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);	//2018.5.9 更新買賣匯款一起處理
+    	$datas = $this->orders_model->get_bills();
     	
     	for ($i = 0; $i < count($orders); $i++) {
     		$time = $orders[$i]['成交日期'];
     		$money = $orders[$i]['匯款金額應收帳款'];
     		$inform = $orders[$i]['通知查帳'];
 
-    		if ($orders[$i]['買賣'] == '1' && $inform == '待對帳') {	//已收金額
-    			for ($j = 0; $j < count($datas); $j++) {
-    				for ($k = 0; $k < count($datas[$j]); $k++) {
-    					if (abs(strtotime($time) - strtotime($datas[$j][$k]['日期'])) <= 3600*24*7 && $money == $datas[$j][$k]['轉入']) { //一周內
-    						//對帳完成
-    						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
-    						$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
-    					}
-    				}
-    			}
-    		} elseif ($inform == '待對帳') {	//已匯金額
-    			for ($j = 0; $j < count($datas); $j++) {
-    				for ($k = 0; $k < count($datas[$j]); $k++) {
-    					if ($time == $datas[$j][$k]['日期'] && $money == $datas[$j][$k]['轉出']) { //一周內
-    						//對帳完成
-    						echo $datas[$j][$k]['日期']." ".$orders[$i]['ID'].'<br>';
-    						$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
-    					}
-    				}
-    			}
+    		if ($inform == '未通知' || $inform == '待對帳') {
+	    		if ($orders[$i]['買賣'] == '1') {	//已收金額
+	    			for ($j = 0; $j < count($datas); $j++) {
+	    				if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
+	    					//對帳完成
+	    					echo $datas[$j]['日期']." ".$orders[$i]['ID'].'<br>';
+	    					$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
+	    					$this->orders_model->check_bill_received($datas[$j]['id']);
+	    				}
+	    			}
+	    		} else {	//已匯金額
+	    			for ($j = 0; $j < count($datas); $j++) {
+	    				if ($time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //一周內
+	    					//對帳完成
+	    					echo $datas[$j]['日期']." ".$orders[$i]['ID'].'<br>';
+	    					$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
+	    					$this->orders_model->check_bill_received($datas[$j]['id']);
+	    				}
+	    			}
+	    		}
     		}
     	}
+
+    	$this->load->view('templates/header');
+        $orders = $this->orders_model->get_checkbill();
+		$employees = $this->orders_model->get_employee();
+		$arrayName = array('orders' => $orders,
+						'employees' => $employees,);
+		$this->load->view('pages/receivable_view', $arrayName);
     }
 
 	//進入庫存頁面
