@@ -160,6 +160,10 @@ class Orders_model extends CI_Model {
         return $id;
     }
 
+    public function add_bill($data) {
+        $this->db->insert('bills', $data);
+    }
+
     public function move_record($name, $time, $move, $result, $effect) {
         if ($move == '修改') {
             $result = $result." ".$effect;

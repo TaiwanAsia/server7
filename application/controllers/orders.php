@@ -380,14 +380,17 @@ class Orders extends CI_Controller {
 		                                                    FALSE);
 		                    // Insert row data array into your database of choice here
 
-		                    if ($rowData[0][0] != '' && $rowData[0][0] != '銷單序號' && $rowData[0][3] != '') { // 避開匯入時的title行以及轉入為0
-		                    	$datas[$i][$Data_size++] = array(
+		                    if ($rowData[0][0] != '' && $rowData[0][0] != '銷單序號' && ($rowData[0][2] != NULL || $rowData[0][3] != NULL)) { // 避開匯入時的title行以及轉出轉入皆為空
+		                    	$data = array(
 		                    		'日期' => (substr($rowData[0][1], 0, 3)+1911).'-'.substr($rowData[0][1], 3, 2).'-'.substr($rowData[0][1], 5, 2),
 		                    		'轉出' => $rowData[0][2],
-		                    		'轉入' => $rowData[0][3],		        
+		                    		'轉入' => $rowData[0][3],
+		                    		'帳號' => $rowData[0][6],
+		                    		'備註' => $rowData[0][7],
+		                    		'是否已對帳' => '0',		        
 		                    	);
 		                    }
-
+		                    $this->orders_model->add_bill($data);
 		                }
 		                echo '<span style="color:#FF0000;"><b>上傳成功<br></b></span>';
 					} else {
@@ -399,9 +402,6 @@ class Orders extends CI_Controller {
             } else {
             	echo '<span style="color:#FF0000;"><h1><b>您尚未選取檔案</b></h1></span>';
             }
-            if (isset($datas)) {
-            	$this->reconcile($datas);
-            }
 
             $this->load->view('templates/header');
             $orders = $this->orders_model->get_checkbill();
@@ -412,7 +412,7 @@ class Orders extends CI_Controller {
 		}
     }
 
-    public function reconcile($datas) {
+    public function reconcile() {
     	//先抓欲對帳表
     	//$orders = $this->orders_model->get_checkbill(); 
     	$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);	//2018.5.9 更新買賣匯款一起處理
