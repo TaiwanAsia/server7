@@ -252,11 +252,7 @@ class Orders_model extends CI_Model {
     }
 
     public function get_taxer_info($name) {
-        if ($name != null) {
-            $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
-        } else {
-            $sql = "SELECT * FROM `taxer`";
-        }
+        $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
         $query = $this->db->query($sql);
         if($query->result()!=null){
             foreach ($query->result() as $row) {
