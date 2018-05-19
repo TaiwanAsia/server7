@@ -336,6 +336,12 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data);
     }
 
+    public function check_money_exported($id, $待查帳金額, $money) {
+        $data = array('已匯金額已收金額'=>$money, '待查帳金額'=>0, '通知查帳'=>$date);
+        $this->db->where('ID', $id);
+        $this->db->update('orders', $data);
+    }
+
     public function check_bill_received($id) {
         $data = array('是否已對帳'=>'1');
         $this->db->where('id', $id);

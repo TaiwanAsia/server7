@@ -430,7 +430,7 @@ class Orders extends CI_Controller {
 	    					//對帳完成
 	    					echo $datas[$j]['日期']." ".$orders[$i]['ID'].'<br>';
 	    					$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
-	    					$this->orders_model->check_bill_received($datas[$j]['id']);
+	    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 	    				}
 	    			}
 	    		} else {	//已匯金額
@@ -438,8 +438,8 @@ class Orders extends CI_Controller {
 	    				if ($time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //一周內
 	    					//對帳完成
 	    					echo $datas[$j]['日期']." ".$orders[$i]['ID'].'<br>';
-	    					$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
-	    					$this->orders_model->check_bill_received($datas[$j]['id']);
+	    					$this->orders_model->check_money_exported($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
+	    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 	    				}
 	    			}
 	    		}
