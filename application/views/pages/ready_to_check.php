@@ -34,8 +34,12 @@
   						echo "<td id='o_id'>".$data[$i]['ID']."</td>";
   						echo "<td>".$data[$i]['匯款人']."</td>";
   						echo "<td>".$data[$i]['匯款帳號末5碼']."</td>";
-              echo "<td>".$data[$i]['轉出日期轉入日期']."</td>";
-  						echo '<td nowrap="nowrap">'.$data[$i]['待查帳金額']."</td>";
+              echo "<td>".$data[$i]['轉出日期轉入日期']."</td>"; ?>
+  						<td nowrap="nowrap">
+                <label><?php echo $data[$i]['待查帳金額'];?></label>
+                <input type="hidden" name="" id="o_money<?php echo $data[$i]['ID']; ?>" value="<?php echo $data[$i]['待查帳金額']; ?>">
+              </td>
+              <?php
               echo "<td>";
               if ($data[$i]['通知查帳']=='待對帳') { ?>
                 <img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40">
@@ -76,6 +80,12 @@
   										</td>
                       <td><button type="button" onclick="gettoday()">今天</button></td>
   									</tr>
+                    <tr>
+                      <td><h6>金額</h6></td>
+                      <td>
+                        <input type="text" id="t_money" name="money">
+                      </td>
+                    </tr>
 								</tbody>
 								</table>
               </div>
@@ -93,6 +103,7 @@
       function Check(i) {
         var id = i;
         document.getElementById('t_id').value = id;
+        document.getElementById('t_money').value = document.getElementById('o_money'+id).value;
       }
 
       function gettoday() {

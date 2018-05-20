@@ -159,6 +159,7 @@
                                         <input type="radio" name="新舊" value="1"><label class="text-danger"><b>新</b></label>
                                         <input type="radio" name="新舊" value="0" checked><label class="text-success"><b>舊</b></label>
                                     </td>
+                                    <td><p class="text-info">★客戶第一次買賣股票則為新戶(賣則必為舊戶，因為有買過)</p></td>
                                 </tr>
                                 <tr>
                                     <td></td>

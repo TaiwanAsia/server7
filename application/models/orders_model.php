@@ -160,13 +160,23 @@ class Orders_model extends CI_Model {
         return $id;
     }
 
+    public function delete($id) {
+        $this->db->where('ID', $id);
+        $this->db->delete('orders'); 
+    }
+
     public function add_bill($data) {
         $this->db->insert('bills', $data);
     }
 
     public function move_record($name, $time, $move, $result, $effect) {
+        $query = null;
         if ($move == '修改') {
             $result = $result." ".$effect;
+        } elseif ($move == '刪除') {
+            $query = $this->db->get_where('orders', array('ID' => $result));
+            $i = $this->transformer($query);
+            $this->db->insert('deleted_orders', $i[0]);
         }
         $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$result, );
         $this->db->insert('move_record', $data);

@@ -31,6 +31,7 @@
                             <thead class="thead-light">
                                 <tr>
                                   <th data-tablesaw-priority="persist"></th>
+                                  <th data-tablesaw-priority="persist"></th>
                                   <th data-tablesaw-priority="1">編號</th>
                                   <th data-tablesaw-priority="1" scope="col">成交日期</th>
                                   <th data-tablesaw-priority="0">業務</th>
@@ -80,6 +81,19 @@
                                       </form>
                                       <?php } ?>
                                     </td>
+                                    <td>
+                                      <?php if ($_SESSION['刪除權限']==1) { ?>
+                                        <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
+                                      <?php } ?>
+                                    </td>
+                                    <!-- <td>
+                                      <?php if ($_SESSION['刪除權限']==1) { ?>
+                                      <form method="POST" action="delete">
+                                        <button type="submit">刪除</button>
+                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+                                      </form>
+                                      <?php } ?>
+                                    </td> -->
                                     <td><label id="mousemove<?php echo ($orders[$i]['ID']) ?>" onmouseout="changefont_back(<?php echo ($orders[$i]['ID']) ?>)" onmousemove="changefont(<?php echo ($orders[$i]['ID']) ?>)" onclick="showbonus(<?php echo ($orders[$i]['ID']) ?>)" style="cursor: pointer;"><?php echo ($orders[$i]['ID']) ?></label></td>
                                     <td>
                                       <?php echo ($orders[$i]['成交日期']) ?>
@@ -184,21 +198,34 @@
                                     </td>
                                     <?php
                                     if ($_SESSION['一二審通知查帳權限']==1) {
-                                      if ($orders[$i]['成交單狀態']!='審核完成') { ?>
-                                    <!-- Trigger/Open The Modal -->
-                                    <td>
-                                      <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
-                                    </td>
-                                    <?php
+                                      if ($orders[$i]['成交單狀態']!='審核完成') {
+                                      //一審[未完]開始 ?>
+                                      <td>
+                                        <!-- Trigger/Open The Modal -->
+                                        <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
+                                      </td>
+                                    <?php 
+                                      //一審[未完]結束
                                       } else {
-                                        if ($_SESSION['權限名稱'] == '最高權限') {
-                                          echo '<td><p style="cursor: help;" class="text-primary" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>審完</b></td>';
+                                        //一審[完]開始
+                                          if ($orders[$i]['買賣']==0) {
+                                          //此筆客戶為賣方, 一審[審完]改成[已匯]
+                                          if ($_SESSION['權限名稱'] == '最高權限') {
+                                            echo '<td><p style="cursor: help;" class="text-primary" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>已匯</b></td>';
+                                          } else {
+                                            echo "<td><p class='text-primary'><b>已匯</b></td>";
+                                          }
                                         } else {
-                                          echo "<td><p class='text-primary'><b>審完</b></td>";
+                                          if ($_SESSION['權限名稱'] == '最高權限') {
+                                            echo '<td><p style="cursor: help;" class="text-danger" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>審完</b></td>';
+                                          } else {
+                                            echo "<td><p class='text-primary'><b>審完</b></td>";
+                                          }
                                         }
-                                        
+                                        //一審[完]結束
                                       }
                                     } else {
+                                      //沒有一二審權限
                                       echo "<td></td>";
                                     }
                                     ?>
@@ -409,9 +436,6 @@
                       <td><input readonly type="text" name="ID" value="" id="edit_id"></td>
                       <td><label>客戶姓名</label></td>
                       <td><input type="text" name="客戶姓名" value="" id="edit_name"></td>
-                      <!-- <td>
-                        <button id="autofill" type="button">自動填入</button>
-                      </td> -->
                     </tr>
                     <tr>
                       <td><label>身分證字號</label></td>
@@ -588,7 +612,7 @@
           }
 
 
-          //編輯資料
+          //編輯成交單
           function Edit(i){
             var id = i;
 
@@ -614,6 +638,35 @@
             ['買賣','成交單狀態','現金或匯款'].forEach(function(field) {
               form.elements[field].value = document.getElementById(field+id).value;
             });
+          }
+
+          //刪除成交單
+          function Delete(i) {
+            var id = i;
+            // alert('是否確定刪除 [成交單]編號['+id+']。');
+            if (str=prompt("確認刪除成交單編號["+id+"]請輸入 y或Y ","")) {
+              if (str=='Y'||str=='y') {
+                url = "<?=base_url()?>index.php/orders/delete";
+                go = "<?=base_url()?>index.php/orders/index";
+                $.ajax({
+                  url: url,
+                  type: 'post',
+                  data: {id:id},
+                  dataType: "json",
+                  success: function(data){
+                    alert(data);
+                    window.location.replace(go);
+                  },
+                  error:function(xhr, ajaxOptions, thrownError){
+                  }
+                });
+              } else {
+                alert("輸入字串錯誤，取消刪除");
+              }
+            } else {
+              alert("取消刪除");
+            } 
+            
           }
 
           //計算匯款金額與自行應付
@@ -667,26 +720,6 @@
               document.getElementById('edit_過戶日期').value = result;
             });
           });
-
-          //自動填入客戶資訊
-          $("#autofill").click(function() {
-            var name = document.getElementById('edit_name').value;
-            url = "<?=base_url()?>index.php/orders/autofill";
-            // go = "<?=base_url()?>orders/index";
-            $.ajax({
-              url: url,
-              type: 'post',
-              data: {name:name},
-              // dataType:'json',
-              success: function(data){
-                console.log(data);
-                  // window.location.replace(go);
-              },
-              error:function(xhr, ajaxOptions, thrownError){
-              }
-            });
-          })
-
 
           feather.replace()
 

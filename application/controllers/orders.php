@@ -88,6 +88,14 @@ class Orders extends CI_Controller {
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 		$this->index();
 	}
+
+	public function delete() {
+		$id = $_POST['id'];
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '刪除', $id, null);
+		$this->orders_model->delete($id);
+		$myJSON = json_encode('Done!');
+		print_r($myJSON);
+	}
 	
 	public function checkbill() {
 		$orders = $this->orders_model->get_checkbill();

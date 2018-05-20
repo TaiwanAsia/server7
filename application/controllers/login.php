@@ -52,6 +52,7 @@ class Login extends CI_Controller {
 
 					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
 					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
+					$_SESSION['刪除權限'] = $authority[0]['刪除權限'];
                     $_SESSION['成交日期權限'] = $authority[0]['成交日期權限'];
                     $_SESSION['業務權限'] = $authority[0]['業務權限'];
                     $_SESSION['客戶姓名權限'] = $authority[0]['客戶姓名權限'];

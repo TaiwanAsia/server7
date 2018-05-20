@@ -160,22 +160,23 @@
                                       <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
                                     </td>
                                     <td>
-                                        <form action="type_check_money" method="get">
-                                        <?php
-                                            if ($orders[$i]['通知查帳']=='未通知') { ?>
-                                                <label><b>未通知</b></label>
-                                        <?php
-                                            } elseif ($orders[$i]['通知查帳']=='待對帳') { ?>
-                                                <img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40">
-                                        <?php
-                                            } elseif ($orders[$i]['通知查帳']=='待確認') { ?>
-                                                <img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40">
-                                        <?php
-                                            } else { ?>
-                                                <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
-                                        <?php }
-                                        ?>
-                                        </form>
+                                    <?php
+                                        if ($orders[$i]['通知查帳']=='未通知') { ?>
+                                            <form method="get" action="salesman_check_money">
+                                                <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
+                                                <button type="submit">未通知</button>
+                                            </form>
+                                    <?php
+                                        } elseif ($orders[$i]['通知查帳']=='待對帳') { ?>
+                                            <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
+                                    <?php
+                                        } elseif ($orders[$i]['通知查帳']=='待確認') { ?>
+                                            <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40"></a>
+                                    <?php
+                                        } else { ?>
+                                            <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
+                                    <?php }
+                                    ?>
                                     </td>
 
                                     <!-- <td class="text-danger">
