@@ -99,9 +99,23 @@ class Orders extends CI_Controller {
 	
 	public function checkbill() {
 		$orders = $this->orders_model->get_checkbill();
+		$total_receivable = 0;
+		$total_received = 0;
+		for ($i=0; $i < count($orders); $i++) { 
+			$total_receivable = $total_receivable + $orders[$i]['匯款金額應收帳款'];
+			$total_received = $total_received + $orders[$i]['已匯金額已收金額'];
+		}
+		$total_left = $total_receivable - $total_received;
+		$total_info = array('total_receivable' => $total_receivable,
+							'total_received' => $total_received,
+							'total_left' => $total_left,);
+
 		$employees = $this->orders_model->get_employee();
+
 		$arrayName = array('orders' => $orders,
-							'employees' => $employees,);
+							'employees' => $employees,
+							'total_info' => $total_info,);
+		
 		$this->load->view('templates/header');
 		$this->load->view('pages/receivable_view', $arrayName);
 	}
