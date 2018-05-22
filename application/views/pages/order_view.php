@@ -276,7 +276,9 @@
                                                 <option selected value="0">尚無</option>
                                                 <?php
                                                 for ($j=0; $j < count($orders); $j++) {
-                                                    echo "<option>".$orders[$j]['ID']."</option>";
+                                                    if ($i != $j && $orders[$i]['股票'] == $orders[$j]['股票'] && $orders[$i]['買賣'] != $orders[$j]['買賣']) {
+                                                      echo "<option>".$orders[$j]['ID']."</option>";
+                                                    }
                                                 }
                                                 ?>
                                             </select>
