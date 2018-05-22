@@ -24,12 +24,18 @@
                             </button>
                         </form>
                         <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"></input>
+
                     <?php } ?>
 
-                    
+                    <div>
+                        <?php echo "總應收".$total_info['total_receivable']; ?>
+                        <?php echo "　總已收".$total_info['total_received']; ?>
+                        <?php echo "　總尚餘".$total_info['total_left']; ?>
+                    </div>
                     
 
                     <div class="t-form">
+
                         <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
                             <thead class="thead-light">
                                 <tr>
