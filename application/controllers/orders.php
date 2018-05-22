@@ -28,8 +28,10 @@ class Orders extends CI_Controller {
 			redirect('index.php/login/index');
 		} else {
 			$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+			$all_orders = $orders;
 			$employees = $this->orders_model->get_employee();
 			$arrayName = array('orders' => $orders,
+								'all_orders' => $all_orders,
 								'employees' => $employees,);
 			$this->show($arrayName);
 		}
@@ -497,8 +499,10 @@ class Orders extends CI_Controller {
 	//進入庫存頁面
 	public function go_inventory() {
 		$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
+							'all_orders' => $all_orders,
 							'employees' => $employees,);
 		$this->show($arrayName);
 	}
@@ -506,8 +510,10 @@ class Orders extends CI_Controller {
 	//進入KO頁面
 	public function go_ko() {
 		$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
+							'all_orders' => $all_orders,
 							'employees' => $employees,);
 		$this->show($arrayName);
 	}

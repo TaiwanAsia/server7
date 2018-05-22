@@ -275,8 +275,10 @@
                                             <select id="inputState" name="欲媒合對方ID" class="form-control">
                                                 <option selected value="0">尚無</option>
                                                 <?php
-                                                for ($j=0; $j < count($orders); $j++) {
-                                                    echo "<option>".$orders[$j]['ID']."</option>";
+                                                for ($j=0; $j < count($all_orders); $j++) {
+                                                    if ($orders[$i]['股票'] == $all_orders[$j]['股票'] && $orders[$i]['買賣'] != $all_orders[$j]['買賣']) {
+                                                      echo "<option>".$all_orders[$j]['ID']."</option>";
+                                                    }
                                                 }
                                                 ?>
                                             </select>
