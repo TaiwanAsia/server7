@@ -1,6 +1,6 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <div>
-                    <form method="post" name="edit_order_info" action="edit_order" >
+                    <form method="post" name="edit_order_info" action="admin_edit_order" >
                         <div class="offset-md-1">
                             <table>
                                 <tr>
@@ -190,7 +190,7 @@
                                     <td><input class="" type="text" name="過戶費" id="" value="<?php echo $result[0]['過戶費']; ?>" ></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('媒合'); ?></td>
+                                    <td></td>
                                     <td><label for="" class="">媒合</label></td>
                                     <td>
                                         <select id="inputState" name="媒合" class="form-control">

@@ -171,7 +171,7 @@ class Orders_model extends CI_Model {
 
     public function move_record($name, $time, $move, $result, $effect) {
         $query = null;
-        if ($move == '修改') {
+        if ($move == '修改' || $move == 'admin修改') {
             $result = $result." ".$effect;
         } elseif ($move == '刪除') {
             $query = $this->db->get_where('orders', array('ID' => $result));
