@@ -196,8 +196,10 @@
                                         <select id="inputState" name="媒合" class="form-control">
                                             <option selected value="0">尚無媒合</option>
                                             <?php
-                                            for ($i=0; $i < count($orders); $i++) { 
-                                                echo "<option>".$orders[$i]['ID']."</option>";
+                                            for ($i=0; $i < count($all_orders); $i++) { 
+                                                if ($result[0]['股票'] == $all_orders[$i]['股票'] && $result[0]['買賣'] != $all_orders[$i]['買賣']) {
+                                                    echo "<option>".$all_orders[$i]['ID']."</option>";
+                                                }
                                             }
                                             ?>
                                         </select>

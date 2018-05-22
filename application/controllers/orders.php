@@ -207,9 +207,10 @@ class Orders extends CI_Controller {
 		// foreach ($result[0] as $key => $value) {
 		// 	echo $key.": ".$value."<br>";
 		// };  
+		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$this->load->view('templates/header');
 		if ($_SESSION['權限名稱']=='最高權限') {
-			$this->load->view('pages/admin_edit_order_view',array('result' => $result,'employees' => $employees,));
+			$this->load->view('pages/admin_edit_order_view',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
 		} else {
 			$this->load->view('pages/edit_order_view',array('result' => $result,'employees' => $employees,));
 		}
