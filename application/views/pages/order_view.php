@@ -88,7 +88,9 @@
                                         <button type="submit">編輯</button>
                                         <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
                                       </form>
-                                      <?php } ?>
+                                      <?php 
+                                        }
+                                      }?>
                                     </td>
                                     <td>
                                       <?php if ($_SESSION['刪除權限']==1) { ?>
