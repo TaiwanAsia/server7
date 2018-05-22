@@ -195,8 +195,26 @@ class Orders extends CI_Controller {
 		$this->index();
 	}
 
-
+	//修改成交單資料
 	public function go_edit() {
+		$result = $this -> orders_model -> get($_GET['id'],null,null);
+		// $old_date_timestamp = strtotime($result[0]['成交日期']);
+		// $new_date = date('Y/m/d', $old_date_timestamp);
+		// $result[0]['日期'] = $new_date;
+		$employees = $this->orders_model->get_employee();
+		// foreach ($result[0] as $key => $value) {
+		// 	echo $key.": ".$value."<br>";
+		// };  
+		$this->load->view('templates/header');
+		if ($_SESSION['權限名稱']=='最高權限') {
+			$this->load->view('pages/admin_edit_order_view',array('result' => $result,'employees' => $employees,));
+		} else {
+			$this->load->view('pages/edit_order_view',array('result' => $result,'employees' => $employees,));
+		}
+	}
+
+	//管理者修改成交單資料
+	public function admin_go_edit() {
 		$result = $this -> orders_model -> get($_GET['id'],null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);

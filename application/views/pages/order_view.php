@@ -74,23 +74,12 @@
                                     for($i=0; $i<count($orders); $i++) { ?>
                                 <tr class="<?php if($orders[$i]['媒合'] != 0 ) { echo "td-cs-1"; } ?>">
                                     <td>
-                                      <?php if ($_SESSION['編輯權限']==1) { 
-                                        if ($_SESSION['權限名稱']!='最高權限') {
-                                        //非最高權限只能編輯部分欄位 ?>
+                                      <?php if ($_SESSION['編輯權限']==1) { ?>
                                       <form method="GET" action="go_edit">
-                                        <button type="submit">編輯</button>
                                         <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
-                                      </form>
-                                      <?php 
-                                        } else { 
-                                        //最高權限可以編輯所有欄位 ?>
-                                      <form method="GET" action="go_edit">
                                         <button type="submit">編輯</button>
-                                        <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
                                       </form>
-                                      <?php 
-                                        }
-                                      }?>
+                                      <?php } ?>
                                     </td>
                                     <td>
                                       <?php if ($_SESSION['刪除權限']==1) { ?>
@@ -287,9 +276,7 @@
                                                 <option selected value="0">尚無</option>
                                                 <?php
                                                 for ($j=0; $j < count($orders); $j++) {
-                                                    if ($i != $j && $orders[$i]['股票'] == $orders[$j]['股票'] && $orders[$i]['買賣'] != $orders[$j]['買賣']) {
-                                                      echo "<option>".$orders[$j]['ID']."</option>";
-                                                    }
+                                                    echo "<option>".$orders[$j]['ID']."</option>";
                                                 }
                                                 ?>
                                             </select>

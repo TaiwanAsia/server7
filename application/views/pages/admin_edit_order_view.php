@@ -15,8 +15,7 @@
                                     <td></td>
                                     <td><label for="" class="">成交日期</label></td>
                                     <td><input class="" type="date" name="成交日期" value="<?php echo $result[0]['成交日期'] ?>" id="date" required></td>
-                                    <td><input type="hidden" id="original_date" value="<?php echo $result[0]['成交日期'] ?>"></td>
-                                    <!-- <td><button type="button" onclick="gettoday()">今天</button></td> -->
+                                    <td><input type="hidden" id="" value="<?php echo $result[0]['成交日期'] ?>"></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('業務'); ?></td>
@@ -89,6 +88,27 @@
                                     <td><input class="" type="text" name="匯款金額應收帳款" id="" value="<?php echo $result[0]['匯款金額應收帳款']; ?>"></td>
                                 </tr>
                                 <tr>
+                                    <td></td>
+                                    <td><label for="" class="">已匯/已收金額</label></td>
+                                    <td><input class="" type="text" name="已匯金額已收金額" id="" value="<?php echo $result[0]['已匯金額已收金額']; ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">待查帳金額</label></td>
+                                    <td><input class="" type="text" name="待查帳金額" id="" value="<?php echo $result[0]['待查帳金額']; ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">轉出/轉入日期</label></td>
+                                    <td><input class="" type="date" name="轉出日期轉入日期" value="<?php echo $result[0]['轉出日期轉入日期'] ?>" id="date" required></td>
+                                    <td><input type="hidden" id="" value="<?php echo $result[0]['轉出日期轉入日期'] ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">匯款人</label></td>
+                                    <td><input class="" type="text" name="匯款人" id="" value="<?php echo $result[0]['匯款人']; ?>"></td>
+                                </tr>
+                                <tr>
                                     <td><?php echo form_error('匯款銀行'); ?></td>
                                     <td><label for="" class="">匯款銀行</label></td>
                                     <td><input class="" type="text" name="匯款銀行" id="" value="<?php echo $result[0]['匯款銀行']; ?>"></td>
@@ -102,6 +122,11 @@
                                     <td></td>
                                     <td><label for="" class="">匯款帳號</label></td>
                                     <td><input class="" type="text" name="匯款帳號" id="" value="<?php echo $result[0]['匯款帳號']; ?>" ></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">匯款帳號末5碼</label></td>
+                                    <td><input class="" type="text" name="匯款帳號末5碼" id="" value="<?php echo $result[0]['匯款帳號末5碼']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('匯款戶名'); ?></td>
@@ -155,10 +180,16 @@
                                 </tr>
                                 <tr>
                                     <td></td>
+                                    <td><label for="" class="">過戶日期</label></td>
+                                    <td><input class="" type="date" name="過戶日期" value="<?php echo $result[0]['過戶日期'] ?>" id="date" required></td>
+                                    <td><input type="hidden" id="" value="<?php echo $result[0]['過戶日期'] ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" id="" value="<?php echo $result[0]['過戶費']; ?>" ></td>
                                 </tr>
-                                <!-- <tr>
+                                <tr>
                                     <td><?php echo form_error('媒合'); ?></td>
                                     <td><label for="" class="">媒合</label></td>
                                     <td>
@@ -171,17 +202,54 @@
                                             ?>
                                         </select>
                                     </td>
-                                </tr> -->
-                                <!-- <tr>
-                                    <td><?php echo form_error('收付款'); ?></td>
-                                    <td><label for="" class="">收付款</label></td>
-                                    <td><input class="" type="text" name="收付款" id="" required></td>
+                                    <td><p class="text-info">★請確認所選無誤</p></td>
                                 </tr>
                                 <tr>
-                                    <td><?php echo form_error('過戶日'); ?></td>
-                                    <td><label for="" class="">過戶日</label></td>
-                                    <td><input class="" type="date" name="過戶日" id="" required></td>
-                                </tr> -->
+                                    <td></td>
+                                    <td><label for="" class="">匯款日期</label></td>
+                                    <td><input class="" type="date" name="匯款日期" value="<?php echo $result[0]['匯款日期'] ?>" id="date" required></td>
+                                    <td><input type="hidden" id="" value="<?php echo $result[0]['匯款日期'] ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">通知查帳</label></td>
+                                    <td><input class="" type="text" name="通知查帳" id="" value="<?php echo $result[0]['通知查帳']; ?>" ></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">成交單狀態</label></td>
+                                    <td><input class="" type="text" name="成交單狀態" id="" value="<?php echo $result[0]['成交單狀態']; ?>" ></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">二審</label></td>
+                                    <td>
+                                        <select class="form-control" name="二審" id="">
+                                        <?php if ($result[0]['二審']==1) { ?>
+                                            <option value="1" selected="selected">審完</option>
+                                            <option value="0">未審</option>
+                                        <?php } else { ?>
+                                            <option value="1">審完</option>
+                                            <option value="0" selected="selected">未審</option>
+                                        <?php }?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">已結案</label></td>
+                                    <td>
+                                        <select class="form-control" name="已結案" id="">
+                                        <?php if ($result[0]['已結案']==1) { ?>
+                                            <option value="1" selected="selected">已結案</option>
+                                            <option value="0">未結案</option>
+                                        <?php } else { ?>
+                                            <option value="1">已結案</option>
+                                            <option value="0" selected="selected">未結案</option>
+                                        <?php }?>
+                                        </select>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
@@ -195,10 +263,4 @@
         </div>
     </div>    
 </body>
-
-<script type="text/javascript">
-    // var original_date = document.getElementById('original_date').value;
-    // var dateControl = document.querySelector('input[type="date"]');
-    // dateControl.value = '2017-06-09';
-</script>
 
