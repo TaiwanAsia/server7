@@ -558,7 +558,7 @@ class Orders extends CI_Controller {
 	    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
 	    			//對帳完成
 	    			echo $datas[$j]['日期']." ".$orders_buy[$i]['ID'].'<br>';
-	    			$this->orders_model->check_money_received($orders_buy[$i]['id'], $orders_buy[$i]['成交單編號'], $money);
+	    			$this->orders_model->check_money_received($orders_buy[$i]['id'], $orders_buy[$i]['成交單編號'], date('Y-m-d H:i:s'), $money);
 	    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 	    		}
 	    	}
