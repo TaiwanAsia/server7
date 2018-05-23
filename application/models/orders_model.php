@@ -20,14 +20,14 @@ class Orders_model extends CI_Model {
                     '盤價'=>$row-> 盤價,
                     '匯款金額應收帳款'=>$row-> 匯款金額應收帳款,
                     '已匯金額已收金額'=>$row-> 已匯金額已收金額,
-                    '待查帳金額'=>$row-> 待查帳金額,
-                    '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
-                    '匯款人'=>$row-> 匯款人,
+                    // '待查帳金額'=>$row-> 待查帳金額,
+                    // '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
+                    // '匯款人'=>$row-> 匯款人,
                     '匯款銀行'=>$row-> 匯款銀行,
                     '匯款分行'=>$row-> 匯款分行,
                     '匯款戶名'=>$row-> 匯款戶名,
                     '匯款帳號'=>$row-> 匯款帳號,
-                    '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
+                    // '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
                     '轉讓會員'=>$row-> 轉讓會員,
                     '完稅人'=>$row-> 完稅人,
                     // '一審'=>$row-> 一審,
@@ -39,8 +39,8 @@ class Orders_model extends CI_Model {
                     '過戶費'=>$row-> 過戶費,
                     '媒合'=>$row-> 媒合,
                     // '收付款'=>$row-> 收付款,
-                    '現金或匯款'=>$row-> 現金或匯款,
-                    '匯款日期'=>$row-> 匯款日期,
+                    // '現金或匯款'=>$row-> 現金或匯款,
+                    // '匯款日期'=>$row-> 匯款日期,
                     '通知查帳'=>$row-> 通知查帳,
                     '成交單狀態'=>$row-> 成交單狀態,
                     '二審'=>$row-> 二審,
@@ -358,67 +358,88 @@ class Orders_model extends CI_Model {
         $this->db->update('bills', $data);
     }
 
-    public function inform_check_money($id, $date, $name, $last5, $待查帳金額, $move_time) {
+    public function inform_check_money_model($id, $way, $date, $name, $last5, $待查帳金額, $move_time) {
         $query = $this->db->get_where('ORDERS', array('ID' => $id));
         $result = $this->transformer($query);
-        if ($待查帳金額 < $result[0]['匯款金額應收帳款']) {
-            //分批匯款, 通知查帳跳過待對帳->直接跳到待確認
-            $data = array('轉出日期轉入日期'=>$date, '匯款人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知查帳'=>'待確認', '最後動作時間'=>$move_time);
+        if ($way == '匯款') {
+            $data = array('id'=>null, '成交單編號'=>$id, '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
         } else {
-            //一次匯款, 通知查帳->待對帳
-            $data = array('轉出日期轉入日期'=>$date, '匯款人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知查帳'=>'待對帳', '最後動作時間'=>$move_time);
+            //現金
+            // $sql = "INSERT INTO `check_money_record`(`id`, `成交單編號`, `支付方式`, `支付人`, `匯款帳號末5碼`, `轉出日期轉入日期`, `待查帳金額`, `已匯金額已收金額`, `通知日期`, `查帳日期`, `最後動作時間`) VALUES (,'".$id."','".$way."','".$name.",null,".$date."','".$待查帳金額.",0,".$move_time."',,'".$move_time."')";
+            // $this->db->query($sql);
+            $data = array('id'=>NULL, '成交單編號'=>$id, '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>null, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
         }
+        $this->db->insert('check_money_record', $data);
         $this->db->where('ID', $id);
-        $this->db->update('orders', $data);
+        $this->db->update('orders', array('通知查帳'=>'待對帳'));
     }
 
-    public function get_ready_to_check() {
-        $sql = "SELECT * FROM `orders` WHERE `通知查帳` = '待對帳' OR `通知查帳` = '待確認'";
-        $query = $this->db->query($sql);
-        if($query->num_rows()>0) {
-            $result = $this->transformer($query);
-            return $result;
-        } else {
-            return false;
-        }
-    }
+    // public function get_ready_to_check() {
+    //     $sql = "SELECT * FROM `check_money_record`";
+    //     $query = $this->db->query($sql);
+    //     if($query->num_rows()>0) {
+    //         $result = $this->transformer($query);
+    //         return $result;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    public function check_end($id, $date, $move_time) {
-        $order = $this->get($id, $_SESSION['權限名稱'], $_SESSION['NAME']);
-        $總匯款金額 = $order[0]['已匯金額已收金額'] + $order[0]['待查帳金額'];
+    public function check_end_model($id, $成交單編號, $money, $date, $move_time) {
+        $order = $this->get($成交單編號, $_SESSION['權限名稱'], $_SESSION['NAME']);
+        $總匯款金額 = $order[0]['已匯金額已收金額'] + $money;
         if ($總匯款金額 == $order[0]['匯款金額應收帳款']) {
             //一次匯款完
             if ($order[0]['業務'] == 'JOY') {
                 //大姊確認金額就結案了,不用上傳水單
-                $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '已結案'=>1, '最後動作時間'=>$move_time);
+                $data = array('已匯金額已收金額'=>$總匯款金額, '通知查帳'=>$date, '已結案'=>1, '最後動作時間'=>$move_time);
             } else {
-                $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>$date, '最後動作時間'=>$move_time);
+                $data = array('已匯金額已收金額'=>$總匯款金額, '通知查帳'=>$date, '最後動作時間'=>$move_time);
             }
             
         } else {
             //還沒匯完
-            $data = array('已匯金額已收金額'=>$總匯款金額, '待查帳金額'=>0 ,'通知查帳'=>'未通知', '最後動作時間'=>$move_time);
+            $data = $this->get_check_record($成交單編號, null);
+            if (count($data)>1) {
+                $data = array('已匯金額已收金額'=>$總匯款金額,'通知查帳'=>'待對帳', '最後動作時間'=>$move_time);
+            } else {
+                $data = array('已匯金額已收金額'=>$總匯款金額,'通知查帳'=>'未通知', '最後動作時間'=>$move_time);
+            }
         }
 
-        $this->db->where('ID', $id);
+        $this->db->where('ID', $成交單編號);
         $this->db->update('orders', $data);
 
-        //將查帳日期,金額,動作時間 至 check_money_record
-        $record = array('成交單編號'=>$id, '匯款帳號末5碼'=>$order[0]['匯款帳號末5碼'], '轉出日期轉入日期'=>$order[0]['轉出日期轉入日期'], '查帳金額'=>$order[0]['待查帳金額'], '查帳日期'=>$date, '已匯金額已收金額'=>$order[0]['待查帳金額'], '最後動作時間'=>$move_time);
-        $this->db->insert('check_money_record', $record);
+        //待查帳金額轉至已匯金額, 而後歸零
+        $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '最後動作時間'=>$move_time);
+        $this->db->where('id', $id);
+        $this->db->update('check_money_record', $record);
     }
 
-    public function get_check_record() {
-        $sql = "SELECT * FROM `check_money_record` ORDER BY `最後動作時間` DESC";
+    public function get_check_record($成交單編號, $type) {
+        if (is_null($成交單編號)) {
+            if ($type == '未查帳') {
+                $sql = "SELECT * FROM `check_money_record` WHERE `待查帳金額`!=0 ORDER BY `最後動作時間` DESC";
+            } elseif($type == '已查帳') {
+                //查完帳,待查帳金額=0,已收金額!=0
+                $sql = "SELECT * FROM `check_money_record` WHERE `待查帳金額`=0 ORDER BY `最後動作時間` DESC";
+            }
+        } else {
+            $sql = "SELECT * FROM `check_money_record` WHERE `成交單編號` = $成交單編號 and `待查帳金額`!=0";
+        }
+
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                     $result[] = array('id'=>$row-> id,
                     '成交單編號'=>$row-> 成交單編號,
+                    '支付方式'=>$row-> 支付方式,
+                    '支付人'=>$row-> 支付人,
                     '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
                     '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
-                    '查帳金額'=>$row-> 查帳金額,
+                    '待查帳金額'=>$row-> 待查帳金額,
                     '已匯金額已收金額'=>$row-> 已匯金額已收金額,
+                    '通知日期'=>$row-> 通知日期,
                     '查帳日期'=>$row-> 查帳日期,
                     '最後動作時間'=>$row-> 最後動作時間);
             }

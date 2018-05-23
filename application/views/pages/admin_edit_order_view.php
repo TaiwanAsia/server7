@@ -14,18 +14,18 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">成交日期</label></td>
-                                    <td><input class="" type="date" name="成交日期" value="<?php echo $result[0]['成交日期'] ?>" id="date" required></td>
+                                    <td><input class="" type="date" name="成交日期" value="<?php echo $result[0]['成交日期'] ?>" id="date" ></td>
                                     <td><input type="hidden" id="" value="<?php echo $result[0]['成交日期'] ?>"></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('業務'); ?></td>
                                     <td><label for="" class="">業務</label></td>       
-                                    <td><input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id=""></td>
+                                    <td><input readonly type="text" name="業務" value="<?php echo $result[0]['業務'] ?>" id=""></td>
                                 </td>
                                 <tr>
                                     <td><?php echo form_error('客戶姓名'); ?></td>
                                     <td><label for="" class="">客戶姓名</label></td>
-                                    <td><input class="" type="text" name="客戶姓名" id="" value="<?php echo $result[0]['客戶姓名']; ?>" required></td>
+                                    <td><input class="" type="text" name="客戶姓名" id="" value="<?php echo $result[0]['客戶姓名']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -35,17 +35,17 @@
                                 <tr>
                                     <td><?php echo form_error('聯絡電話'); ?></td>
                                     <td><label for="" class="">聯絡電話</label></td>
-                                    <td><input class="" type="tel" name="聯絡電話" id="" value="<?php echo $result[0]['聯絡電話']; ?>" required></td>
+                                    <td><input class="" type="tel" name="聯絡電話" id="" value="<?php echo $result[0]['聯絡電話']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('聯絡人'); ?></td>
                                     <td><label for="" class="">聯絡人</label></td>
-                                    <td><input class="" type="text" name="聯絡人" id="" value="<?php echo $result[0]['聯絡人']; ?>" required></td>
+                                    <td><input class="" type="text" name="聯絡人" id="" value="<?php echo $result[0]['聯絡人']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('聯絡地址'); ?></td>
                                     <td><label for="" class="">聯絡地址</label></td>
-                                    <td><input class="" type="text" name="聯絡地址" id="" value="<?php echo $result[0]['聯絡地址']; ?>" required></td>
+                                    <td><input class="" type="text" name="聯絡地址" id="" value="<?php echo $result[0]['聯絡地址']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('買賣'); ?></td>
@@ -65,17 +65,17 @@
                                 <tr>
                                     <td><?php echo form_error('股票'); ?></td>
                                     <td><label for="" class="">股票</label></td>
-                                    <td><input class="" type="text" name="股票" id="" value="<?php echo $result[0]['股票']; ?>" required></td>
+                                    <td><input class="" type="text" name="股票" id="" value="<?php echo $result[0]['股票']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('張數'); ?></td>
                                     <td><label for="" class="">張數</label></td>
-                                    <td><input class="" type="text" name="張數" id="" value="<?php echo $result[0]['張數']; ?>" required></td>
+                                    <td><input class="" type="text" name="張數" id="" value="<?php echo $result[0]['張數']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('成交價'); ?></td>
                                     <td><label for="" class="">成交價</label></td>
-                                    <td><input class="" type="text" name="成交價" id="" value="<?php echo $result[0]['成交價']; ?>" required></td>
+                                    <td><input class="" type="text" name="成交價" id="" value="<?php echo $result[0]['成交價']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('盤價'); ?></td>
@@ -92,22 +92,22 @@
                                     <td><label for="" class="">已匯/已收金額</label></td>
                                     <td><input class="" type="text" name="已匯金額已收金額" id="" value="<?php echo $result[0]['已匯金額已收金額']; ?>"></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">待查帳金額</label></td>
                                     <td><input class="" type="text" name="待查帳金額" id="" value="<?php echo $result[0]['待查帳金額']; ?>"></td>
-                                </tr>
-                                <tr>
+                                </tr> -->
+                                <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">轉出/轉入日期</label></td>
-                                    <td><input class="" type="date" name="轉出日期轉入日期" value="<?php echo $result[0]['轉出日期轉入日期'] ?>" id="date" required></td>
+                                    <td><input class="" type="date" name="轉出日期轉入日期" value="<?php echo $result[0]['轉出日期轉入日期'] ?>" id="date" ></td>
                                     <td><input type="hidden" id="" value="<?php echo $result[0]['轉出日期轉入日期'] ?>"></td>
-                                </tr>
-                                <tr>
+                                </tr> -->
+                                <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款人</label></td>
                                     <td><input class="" type="text" name="匯款人" id="" value="<?php echo $result[0]['匯款人']; ?>"></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td><?php echo form_error('匯款銀行'); ?></td>
                                     <td><label for="" class="">匯款銀行</label></td>
@@ -123,11 +123,11 @@
                                     <td><label for="" class="">匯款帳號</label></td>
                                     <td><input class="" type="text" name="匯款帳號" id="" value="<?php echo $result[0]['匯款帳號']; ?>" ></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款帳號末5碼</label></td>
                                     <td><input class="" type="text" name="匯款帳號末5碼" id="" value="<?php echo $result[0]['匯款帳號末5碼']; ?>" ></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td><?php echo form_error('匯款戶名'); ?></td>
                                     <td><label for="" class="">匯款戶名</label></td>
@@ -137,7 +137,7 @@
                                     <td></td>
                                     <td><label for="" class="">轉讓會員</label></td>
                                     <td>
-                                        <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
+                                        <select id="edit_轉讓會員" name="轉讓會員" class="form-control" >
                                             <option value="<?php echo $result[0]['轉讓會員'] ?>"><?php echo $result[0]['轉讓會員'] ?></option>
                                             <?php
                                             for ($j=0; $j < count($employees); $j++) {
@@ -151,7 +151,7 @@
                                 <tr>
                                     <td><?php echo form_error('完稅人'); ?></td>
                                     <td><label for="" class="">完稅人</label></td>
-                                    <td><input class="" type="text" name="完稅人" id="" value="<?php echo $result[0]['完稅人']; ?>" required></td>
+                                    <td><input class="" type="text" name="完稅人" id="" value="<?php echo $result[0]['完稅人']; ?>" ></td>
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('新舊'); ?></td>
@@ -181,7 +181,7 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">過戶日期</label></td>
-                                    <td><input class="" type="date" name="過戶日期" value="<?php echo $result[0]['過戶日期'] ?>" id="date" required></td>
+                                    <td><input class="" type="date" name="過戶日期" value="<?php echo $result[0]['過戶日期'] ?>" id="date" ></td>
                                     <td><input type="hidden" id="" value="<?php echo $result[0]['過戶日期'] ?>"></td>
                                 </tr>
                                 <tr>
@@ -206,12 +206,12 @@
                                     </td>
                                     <td><p class="text-info">★請確認所選無誤</p></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款日期</label></td>
-                                    <td><input class="" type="date" name="匯款日期" value="<?php echo $result[0]['匯款日期'] ?>" id="date" required></td>
+                                    <td><input class="" type="date" name="匯款日期" value="<?php echo $result[0]['匯款日期'] ?>" id="date" ></td>
                                     <td><input type="hidden" id="" value="<?php echo $result[0]['匯款日期'] ?>"></td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">通知查帳</label></td>

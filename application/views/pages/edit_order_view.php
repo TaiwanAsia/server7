@@ -21,7 +21,7 @@
                                 <tr>
                                     <td><?php echo form_error('業務'); ?></td>
                                     <td><label for="" class="">業務</label></td>       
-                                    <td><input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id=""></td>
+                                    <td><input readonly type="text" name="業務" value="<?php echo $result[0]['業務'] ?>" id=""></td>
                                 </td>
                                 <tr>
                                     <td><?php echo form_error('客戶姓名'); ?></td>

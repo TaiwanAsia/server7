@@ -283,27 +283,27 @@ class Orders extends CI_Controller {
 	                        12 => '盤價',
 	                        13 => '匯款金額應收帳款',
 	                        14 => '已匯金額已收金額',
-							15 => '待查帳金額',
-							16 => '轉出日期轉入日期',
-							17 => '匯款人',
-	                        18 => '匯款銀行',
-	                        19 => '匯款分行',
-	                        20 => '匯款帳號',
-	                        21 => '匯款帳號末5碼',
-	                        22 => '匯款戶名',
-	                        23 => '轉讓會員',
-	                        24 => '完稅人',
-	                        25 => '新舊',
-	                        26 => '自行應付',
-	                        27 => '刻印',
-	                        28 => '過戶日期',
-	                        29 => '過戶費',
-	                    	30 => '媒合',
-	                        31 => '匯款日期',
-	                        32 => '通知查帳',
-	                        33 => '成交單狀態',
-	                    	34 => '二審',
-	                    	35 => '已結案',);
+							// 15 => '待查帳金額',
+							// 16 => '轉出日期轉入日期',
+							// 17 => '匯款人',
+	                        15 => '匯款銀行',
+	                        16 => '匯款分行',
+	                        17 => '匯款帳號',
+	                        // 21 => '匯款帳號末5碼',
+	                        18 => '匯款戶名',
+	                        19 => '轉讓會員',
+	                        20 => '完稅人',
+	                        21 => '新舊',
+	                        22 => '自行應付',
+	                        23 => '刻印',
+	                        24 => '過戶日期',
+	                        25 => '過戶費',
+	                    	26 => '媒合',
+	                        // 31 => '匯款日期',
+	                        27 => '通知查帳',
+	                        28 => '成交單狀態',
+	                    	29 => '二審',
+	                    	30 => '已結案',);
 		} else {
 			$title = array(0 => '成交日期',
 	                        1 => 'ID',
@@ -335,7 +335,7 @@ class Orders extends CI_Controller {
 
 	//單純修改成交單內容
 	public function edit_order() {
-		$title = $this->get_title();
+		$title = $this->get_title('非admin');
 		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
 		$data = array('成交日期' => $_POST['成交日期'],
 						'ID' => $_POST['ID'],
@@ -393,13 +393,13 @@ class Orders extends CI_Controller {
 						'盤價' => $_POST['盤價'],
 						'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
 						'已匯金額已收金額' => $_POST['已匯金額已收金額'],
-						'待查帳金額' => $_POST['待查帳金額'],
-						'轉出日期轉入日期' => $_POST['轉出日期轉入日期'],
-						'匯款人' => $_POST['匯款人'],
+						// '待查帳金額' => $_POST['待查帳金額'],
+						// '轉出日期轉入日期' => $_POST['轉出日期轉入日期'],
+						// '匯款人' => $_POST['匯款人'],
 						'匯款銀行' => $_POST['匯款銀行'],
 						'匯款分行' => $_POST['匯款分行'],
 						'匯款帳號' => $_POST['匯款帳號'],
-						'匯款帳號末5碼' => $_POST['匯款帳號末5碼'],
+						// '匯款帳號末5碼' => $_POST['匯款帳號末5碼'],
 						'匯款戶名' => $_POST['匯款戶名'],
 						'轉讓會員' => $_POST['轉讓會員'],
 						'完稅人' => $_POST['完稅人'],
@@ -409,7 +409,7 @@ class Orders extends CI_Controller {
 						'過戶日期' => $_POST['過戶日期'],
 						'過戶費' => $_POST['過戶費'],
 						'媒合' => $_POST['媒合'],
-						'匯款日期' => $_POST['匯款日期'],
+						// '匯款日期' => $_POST['匯款日期'],
 						'通知查帳' => $_POST['通知查帳'],
 						'成交單狀態' => $_POST['成交單狀態'],
 						'二審' => $_POST['二審'],
@@ -446,7 +446,7 @@ class Orders extends CI_Controller {
 	//二審update
 	public function edit2_order() {
 		if ($_POST['成交單狀態'] == '審核完成') {
-			if (file_exists("upload/tax/".$_POST['ID'])&&file_exists("upload/contact/".$_POST['ID'])){
+			// if (file_exists("upload/tax/".$_POST['ID'])&&file_exists("upload/contact/".$_POST['ID'])){
 				$data = array(
 							'ID' => $_POST['ID'],
 							'客戶姓名' => $_POST['客戶姓名'],
@@ -463,10 +463,10 @@ class Orders extends CI_Controller {
 			$this -> orders_model -> edit($data);
 			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
 			$this->index();
-			} else {
-				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
-				$this->index();
-			}
+			// } else {
+			// 	echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
+			// 	$this->index();
+			// }
 		} else {
 			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->index();
@@ -655,14 +655,14 @@ class Orders extends CI_Controller {
 
 	//更改通知查帳
 	public function inform_check_money() {
-		$this->orders_model->inform_check_money($_POST['ID'], $_POST['轉出日期轉入日期'],$_POST['匯款人'],$_POST['匯款帳號末5碼'],$_POST['待查帳金額'],date('Y-m-d H:i:s'));
+		$this->orders_model->inform_check_money_model($_POST['ID'], $_POST['支付方式'], $_POST['轉出日期轉入日期'], $_POST['支付人'], $_POST['匯款帳號末5碼'], $_POST['待查帳金額'], date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '通知查帳', $_POST['ID'], null);
 		$this->index();
 	}
 
 	//大姊進入確認帳款頁面
 	public function boss_check_money() {
-		$data = $this->orders_model->get_ready_to_check();
+		$data = $this->orders_model->get_check_record(null, '未查帳');
 		$arrayName = array('data' => $data);
 		$this->load->view('templates/header');
 		$this->load->view('pages/ready_to_check',$arrayName);
@@ -670,14 +670,13 @@ class Orders extends CI_Controller {
 
 	//大姊確認帳款
 	public function check_end() {
-		$data = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
-		$this->orders_model->check_end($_POST['ID'], $_POST['確認日期'], date('Y-m-d H:i:s'));
+		$this->orders_model->check_end_model($_POST['id'], $_POST['成交單編號'], $_POST['money'], $_POST['確認日期'], date('Y-m-d H:i:s'));
 		$this->boss_check_money();
 	}
 
 	//查看匯款紀錄
 	public function check_record() {
-		$data = $this->orders_model->get_check_record();
+		$data = $this->orders_model->get_check_record(null, '已查帳');
 		$this->load->view('templates/header');
 		$this->load->view('pages/check_record', array('data'=>$data));
 	}

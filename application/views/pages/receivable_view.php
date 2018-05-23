@@ -55,13 +55,13 @@
                                     <th data-tablesaw-priority="1">應收金額</th>
                                     <th data-tablesaw-priority="1">已收金額</th>
                                     <th data-tablesaw-priority="1">尚餘應收</th>
-                                    <th data-tablesaw-priority="1">待查帳金額</th>
+                                    <!-- <th data-tablesaw-priority="1">待查帳金額</th> -->
                                     <th data-tablesaw-priority="0">匯款戶名</th>
                                     <th data-tablesaw-priority="0">匯款帳號</th>
                                     <th data-tablesaw-priority="0">轉讓會員</th>
                                     <th data-tablesaw-priority="1">完稅人</th>
                                     <th data-tablesaw-priority="1">過戶日期</th>
-                                    <th data-tablesaw-priority="1">匯款日期</th>
+                                    <!-- <th data-tablesaw-priority="1">匯款日期</th> -->
                                     <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                     <th data-tablesaw-priority="1">查帳狀態</th>
                                     <?php } else { ?>
@@ -137,10 +137,10 @@
                                       <label class="text-success"><?php echo (($orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額'])) ?></label>
                                       <input type="hidden" id="尚餘應收<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']-$orders[$i]['已匯金額已收金額']; ?>">
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                       <label class="text-primary"><p><?php echo ($orders[$i]['待查帳金額']) ?></p></label>
                                       <input type="hidden" id="待查帳金額<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['待查帳金額']; ?>">
-                                    </td>
+                                    </td> -->
                                     <td>
                                       <?php echo ($orders[$i]['匯款戶名']) ?>
                                       <input type="hidden" id="匯款戶名<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款戶名']; ?>">
@@ -161,10 +161,10 @@
                                       <?php echo ($orders[$i]['過戶日期']) ?>
                                       <input type="hidden" id="過戶日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶日期']; ?>">
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                       <?php echo ($orders[$i]['匯款日期']) ?>
                                       <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
-                                    </td>
+                                    </td> -->
                                     <td>
                                     <?php
                                         if ($orders[$i]['通知查帳']=='未通知') { ?>
@@ -215,7 +215,7 @@
                                     <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
                                     <input type="hidden" id="過戶費<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶費']; ?>">
                                     <input type="hidden" id="刻印收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印收送']; ?>">
-                                    <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>">
+                                    <!-- <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>"> -->
                                     <!-- <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>"> -->
 
                                 </tr>

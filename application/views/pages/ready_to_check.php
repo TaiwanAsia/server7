@@ -27,28 +27,31 @@
           <th nowrap="nowrap">查帳狀態</th>
 					<th nowrap="nowrap"></th>
 				</tr>
+        
 				<?php
 				if ($data) {
-					for ($i=0; $i<count($data); $i++) {
-						echo "<tr>";
-  						echo "<td id='o_id'>".$data[$i]['ID']."</td>";
-  						echo "<td>".$data[$i]['匯款人']."</td>";
+					for ($i=0; $i<count($data); $i++) { ?>
+            <input type="hidden" id="o_id<?php echo $data[$i]['id']; ?>" value="<?php echo $data[$i]['id']; ?>">
+				<?php	
+            echo "<tr>";
+  						echo "<td>".$data[$i]['成交單編號']."</td>";
+  						echo "<td>".$data[$i]['支付人']."</td>";
   						echo "<td>".$data[$i]['匯款帳號末5碼']."</td>";
               echo "<td>".$data[$i]['轉出日期轉入日期']."</td>"; ?>
   						<td nowrap="nowrap">
                 <label><?php echo $data[$i]['待查帳金額'];?></label>
-                <input type="hidden" name="" id="o_money<?php echo $data[$i]['ID']; ?>" value="<?php echo $data[$i]['待查帳金額']; ?>">
+                <input type="hidden" name="" id="o_money<?php echo $data[$i]['id']; ?>" value="<?php echo $data[$i]['待查帳金額']; ?>">
               </td>
               <?php
               echo "<td>";
-              if ($data[$i]['通知查帳']=='待對帳') { ?>
+              if ($data[$i]['待查帳金額']!=0) { ?>
                 <img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40">
               <?php } elseif ($data[$i]['通知查帳']=='待確認') { ?>
                 <img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40">
               <?php }
               echo "</td>"; ?>
   						<td>
-                <button data-popup-open="popup-2" onclick="Check(<?php echo $data[$i]['ID']; ?>)">動作</button>
+                <button data-popup-open="popup-2" onclick="Check(<?php echo $data[$i]['成交單編號'].','.$data[$i]['id']; ?>)">動作</button>
   						</td>
 						</tr>
           <?php
@@ -70,8 +73,9 @@
 								<table>
 									<tbody>
                     <tr>
-                      <td>編號</td>
-                      <td><input readonly type="text" name="ID" value="" id="t_id"></td>
+                      <td>成交單編號</td>
+                      <td><input readonly type="text" name="成交單編號" value="" id="t_order_id"></td>
+                      <td><input type="hidden" name="id" id="id" value=""></td>
                     </tr>
   									<tr>
   										<td><h6>確認日期</h6></td>
@@ -100,9 +104,10 @@
 
     <script>
       
-      function Check(i) {
-        var id = i;
-        document.getElementById('t_id').value = id;
+      function Check(order_id, id) {
+        var order_id = order_id;
+        document.getElementById('t_order_id').value = order_id;
+        document.getElementById('id').value = document.getElementById('o_id'+id).value;
         document.getElementById('t_money').value = document.getElementById('o_money'+id).value;
       }
 

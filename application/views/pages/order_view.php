@@ -319,7 +319,10 @@
                                       <?php
                                           } elseif ($orders[$i]['通知查帳']=='待對帳') {
                                           //業務點了通知查帳 ?>
-                                            <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
+                                            <form method="get" action="salesman_check_money">
+                                              <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
+                                              <button type="submit"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></button>
+                                            </form>
 
                                       <?php
                                           } elseif ($orders[$i]['通知查帳']=='待確認') {
@@ -409,8 +412,8 @@
                                     <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
                                     <input type="hidden" id="過戶費<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶費']; ?>">
                                     <input type="hidden" id="刻印收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印收送']; ?>">
-                                    <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>">
-                                    <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
+                                    <!-- <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>"> -->
+                                    <!-- <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>"> -->
                                     <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
 
                                 </tr>
@@ -550,13 +553,13 @@
                         <input type="radio" name="成交單狀態" value="審核中"><label class="text-success">審核中</label>
                       </td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td><label>現金或匯款</label></td>
                       <td>
                         <input type="radio" name="現金或匯款" value="現金"><label class="">現金</label>
                         <input type="radio" name="現金或匯款" value="匯款" checked><label class="">匯款</label>
                       </td>
-                    </tr>
+                    </tr> -->
                     <tr>
                       <td><label>匯款日期</label></td>
                       <td>
