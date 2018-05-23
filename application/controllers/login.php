@@ -66,7 +66,9 @@ class Login extends CI_Controller {
                     $_SESSION['轉讓會員權限'] = $authority[0]['轉讓會員權限'];
                     $_SESSION['完稅人權限'] = $authority[0]['完稅人權限'];
                     $_SESSION['媒合權限'] = $authority[0]['媒合權限'];
-                    $_SESSION['一二審通知查帳權限'] = $authority[0]['一二審通知查帳權限'];
+                    $_SESSION['一審權限'] = $authority[0]['一審權限'];
+                    $_SESSION['二審權限'] = $authority[0]['二審權限'];
+                    $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
                     $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
 
 					// $this->login_model->login_move_record($_SESSION['name'],'login','login');

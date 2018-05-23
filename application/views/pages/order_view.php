@@ -197,7 +197,7 @@
                                       <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
                                     </td>
                                     <?php
-                                    if ($_SESSION['一二審通知查帳權限']==1) {
+                                    if ($_SESSION['一審權限']==1) {
                                       if ($orders[$i]['成交單狀態']!='審核完成') {
                                       //一審[未完]開始 ?>
                                       <td>
@@ -230,7 +230,7 @@
                                     }
                                     ?>
                                     <?php
-                                    if ($_SESSION['一二審通知查帳權限']==1) {
+                                    if ($_SESSION['二審權限']==1) {
                                       if ($orders[$i]['二審']==0) {
                                     ?>
                                     <td>
@@ -307,7 +307,7 @@
 
                                     <td>
                                       <?php
-                                      if ($_SESSION['一二審通知查帳權限']==1) {
+                                      if ($_SESSION['通知查帳權限']==1) {
                                         //有通知查帳的權限
                                           if ($orders[$i]['通知查帳']=='未通知') {
                                           //業務尚未點通知查帳 ?>
@@ -413,7 +413,7 @@
                                     <input type="hidden" id="過戶費<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶費']; ?>">
                                     <input type="hidden" id="刻印收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印收送']; ?>">
                                     <!-- <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>"> -->
-                                    <!-- <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>"> -->
+                                    <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
                                     <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
 
                                 </tr>
@@ -620,7 +620,6 @@
           //編輯成交單
           function Edit(i){
             var id = i;
-
             document.getElementById('edit_id').value = id;
             document.getElementById("edit_匯款金額應收帳款").value = 0;
             ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額應收帳款','過戶費','匯款日期','刻印',

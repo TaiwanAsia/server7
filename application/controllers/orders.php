@@ -257,7 +257,7 @@ class Orders extends CI_Controller {
 			'刻印' => $_POST['刻印'],
 			'刻印收送' => $_POST['刻印收送'],
 			'成交單狀態' => $_POST['成交單狀態'],
-			'現金或匯款' => $_POST['現金或匯款'],
+			// '現金或匯款' => $_POST['現金或匯款'],
 			'匯款日期' => $_POST['匯款日期'],
 			'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
