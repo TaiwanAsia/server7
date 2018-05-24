@@ -334,6 +334,12 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function Sell_Edit_Model($id, $date, $date2) {
+        $data = array('成交單狀態'=>'審核完成', '匯款日期'=>$date, '過戶日期'=>$date2);
+        $this->db->where('ID', $id);
+        $this->db->update('orders', $data);
+    }
+
     // public function pushinto_checkbill($order_id, $move_time) {
     //     $data2 = array('通知查帳'=>'待對帳','最後動作時間'=>$move_time);
     //     $this->db->where('ID', $order_id);

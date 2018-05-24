@@ -266,6 +266,13 @@ class Orders extends CI_Controller {
 
 	}
 
+	//一審改已匯
+	public function Sell_Edit() {
+		$this->orders_model->Sell_Edit_Model($_POST['id'], date('Y-m-d'), date('Y-m-d', strtotime("+3 day")));
+		$myJSON = json_encode('Done!');
+		print_r($myJSON);
+	}
+
 	public function get_title($authority) {
 		if ($authority == 'admin') {
 			$title = array(0 => '成交日期',
