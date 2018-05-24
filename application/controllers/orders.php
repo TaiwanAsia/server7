@@ -538,42 +538,45 @@ class Orders extends CI_Controller {
             	echo '<span style="color:#FF0000;"><h1><b>您尚未選取檔案</b></h1></span>';
             }
 
-            $this->load->view('templates/header');
-            $orders = $this->orders_model->get_checkbill();
-			$employees = $this->orders_model->get_employee();
-			$arrayName = array('orders' => $orders,
-							'employees' => $employees,);
-			$this->load->view('pages/receivable_view', $arrayName);
+            $this->checkbill();
 		}
     }
 
     public function reconcile() {
     	//先抓欲對帳表
     	//$orders = $this->orders_model->get_checkbill(); 
-    	$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);	//2018.5.9 更新買賣匯款一起處理
+    	$orders_sell = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);	//2018.5.23 更新此處只處理賣
+    	$orders_buy = $this->orders_model->get_check_record(null, '未查帳'); //2018.5.23 更新買從已通知查帳處理
     	$datas = $this->orders_model->get_bills();
     	
-    	for ($i = 0; $i < count($orders); $i++) {
-    		$time = $orders[$i]['成交日期'];
-    		$money = $orders[$i]['匯款金額應收帳款'];
-    		$inform = $orders[$i]['通知查帳'];
+    	//對帳通知未查帳
+    	for ($i = 0; $i < count($orders_buy); $i++) {
+    		$time = $orders_buy[$i]['轉出日期轉入日期'];
+    		$money = $orders_buy[$i]['待查帳金額'];
 
-    		if ($inform == '未通知' || $inform == '待對帳') {
-	    		if ($orders[$i]['買賣'] == '1') {	//已收金額
-	    			for ($j = 0; $j < count($datas); $j++) {
-	    				if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
-	    					//對帳完成
-	    					echo $datas[$j]['日期']." ".$orders[$i]['ID'].'<br>';
-	    					$this->orders_model->check_money_received($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
-	    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
-	    				}
-	    			}
-	    		} else {	//已匯金額
+			for ($j = 0; $j < count($datas); $j++) {
+	    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
+	    			//對帳完成
+	    			echo $datas[$j]['日期']." ".$orders_buy[$i]['ID'].'<br>';
+	    			$this->orders_model->check_money_received($orders_buy[$i]['id'], $orders_buy[$i]['成交單編號'], date('Y-m-d H:i:s'), $money);
+	    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+	    		}
+	    	}
+    	}
+
+    	//對帳所有轉出匯款
+    	for ($i = 0; $i < count($orders_sell); $i++) {
+    		$time = $orders_sell[$i]['成交日期'];
+    		$money = $orders_sell[$i]['匯款金額應收帳款'];
+    		$inform = $orders_sell[$i]['通知查帳'];
+    		
+	    	if ($orders_sell[$i]['買賣'] == '0') {	//已匯金額
+	    		if ($inform == '未通知' || $inform == '待對帳') {
 	    			for ($j = 0; $j < count($datas); $j++) {
 	    				if ($time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //一周內
 	    					//對帳完成
-	    					echo $datas[$j]['日期']." ".$orders[$i]['ID'].'<br>';
-	    					$this->orders_model->check_money_exported($orders[$i]['ID'], $orders[$i]['待查帳金額'], $money);
+	    					echo $datas[$j]['日期']." ".$orders_sell[$i]['ID'].'<br>';
+	    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money);
 	    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 	    				}
 	    			}
@@ -581,12 +584,7 @@ class Orders extends CI_Controller {
     		}
     	}
 
-    	$this->load->view('templates/header');
-        $orders = $this->orders_model->get_checkbill();
-		$employees = $this->orders_model->get_employee();
-		$arrayName = array('orders' => $orders,
-						'employees' => $employees,);
-		$this->load->view('pages/receivable_view', $arrayName);
+    	$this->checkbill();
     }
 
 	//進入庫存頁面

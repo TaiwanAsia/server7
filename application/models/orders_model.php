@@ -340,19 +340,23 @@ class Orders_model extends CI_Model {
     //     $this->db->update('orders', $data2);
     // }
 
-    public function check_money_received($id, $待查帳金額, $money) {
-        $data = array('已匯金額已收金額'=>$money, '待查帳金額'=>0, '通知查帳'=>'待確認');
+    public function check_money_received($id, $成交單編號, $date, $money) {
+        $data = array('通知查帳'=>'待確認');
+        $this->db->where('ID', $成交單編號);
+        $this->db->update('orders', $data);
+
+        $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '最後動作時間'=>$date);
+        $this->db->where('id', $id);
+        $this->db->update('check_money_record', $record);
+    }
+
+    public function check_money_exported($id, $money) {
+        $data = array('已匯金額已收金額'=>$money, '通知查帳'=>$date);
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
     }
 
-    public function check_money_exported($id, $待查帳金額, $money) {
-        $data = array('已匯金額已收金額'=>$money, '待查帳金額'=>0, '通知查帳'=>$date);
-        $this->db->where('ID', $id);
-        $this->db->update('orders', $data);
-    }
-
-    public function check_bill_received($id) {
+    public function check_bill_reconciled($id) {
         $data = array('是否已對帳'=>'1');
         $this->db->where('id', $id);
         $this->db->update('bills', $data);
