@@ -27,7 +27,15 @@ class Orders extends CI_Controller {
 		if (!isset($_SESSION['ACCOUNT'])) {
 			redirect('index.php/login/index');
 		} else {
-			$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+			if (isset($_GET['股票'])) {
+				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],$_GET['股票'],null,null);
+			} else if (isset($_GET['客戶姓名'])) {
+				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,$_GET['客戶姓名'],null);
+			} else if (isset($_GET['聯絡電話'])) {
+				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,$_GET['聯絡電話']);
+			} else {
+				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
+			}
 			$all_orders = $orders;
 			$employees = $this->orders_model->get_employee();
 			$arrayName = array('orders' => $orders,
@@ -39,7 +47,7 @@ class Orders extends CI_Controller {
 
 	public function new_order()
     {
-		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,);
@@ -199,7 +207,7 @@ class Orders extends CI_Controller {
 
 	//修改成交單資料
 	public function go_edit() {
-		$result = $this -> orders_model -> get($_GET['id'],null,null);
+		$result = $this -> orders_model -> get($_GET['id'],null,null,null,null,null);
 		// $old_date_timestamp = strtotime($result[0]['成交日期']);
 		// $new_date = date('Y/m/d', $old_date_timestamp);
 		// $result[0]['日期'] = $new_date;
@@ -207,7 +215,7 @@ class Orders extends CI_Controller {
 		// foreach ($result[0] as $key => $value) {
 		// 	echo $key.": ".$value."<br>";
 		// };  
-		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
 		$this->load->view('templates/header');
 		if ($_SESSION['權限名稱']=='最高權限') {
 			$this->load->view('pages/admin_edit_order_view',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
@@ -218,7 +226,7 @@ class Orders extends CI_Controller {
 
 	//管理者修改成交單資料
 	public function admin_go_edit() {
-		$result = $this -> orders_model -> get($_GET['id'],null,null);
+		$result = $this -> orders_model -> get($_GET['id'],null,null,null,null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
@@ -343,7 +351,7 @@ class Orders extends CI_Controller {
 	//單純修改成交單內容
 	public function edit_order() {
 		$title = $this->get_title('非admin');
-		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
+		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
 		$data = array('成交日期' => $_POST['成交日期'],
 						'ID' => $_POST['ID'],
 						'業務' => $_POST['業務'],
@@ -383,7 +391,7 @@ class Orders extends CI_Controller {
 	//單純修改成交單內容admin(全部欄位都能修改)
 	public function admin_edit_order() {
 		$title = $this->get_title('admin');
-		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
+		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
 		$data = array(
 						'ID' => $_POST['ID'],
 						'成交日期' => $_POST['成交日期'],
@@ -441,7 +449,7 @@ class Orders extends CI_Controller {
 
 	//二審表格
 	public function go_edit2() {
-		$result = $this -> orders_model -> get($_GET['id'],null,null);
+		$result = $this -> orders_model -> get($_GET['id'],null,null,null,null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
@@ -552,7 +560,7 @@ class Orders extends CI_Controller {
     public function reconcile() {
     	//先抓欲對帳表
     	//$orders = $this->orders_model->get_checkbill(); 
-    	$orders_sell = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);	//2018.5.23 更新此處只處理賣
+    	$orders_sell = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);	//2018.5.23 更新此處只處理賣
     	$orders_buy = $this->orders_model->get_check_record(null, '未查帳'); //2018.5.23 更新買從已通知查帳處理
     	$datas = $this->orders_model->get_bills();
     	
@@ -601,7 +609,7 @@ class Orders extends CI_Controller {
 	//進入庫存頁面
 	public function go_inventory() {
 		$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
-		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
 							'all_orders' => $all_orders,
@@ -612,7 +620,7 @@ class Orders extends CI_Controller {
 	//進入KO頁面
 	public function go_ko() {
 		$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
-		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
 							'all_orders' => $all_orders,
@@ -657,7 +665,7 @@ class Orders extends CI_Controller {
 	//頁面進入通知查帳頁面
 	public function salesman_check_money() {
 		$this->load->view('templates/header');
-		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME']);
+		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
 		$arrayName = array('order' => $order);
 		$this->load->view('pages/inform_check_money',$arrayName);
 	}

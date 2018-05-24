@@ -142,7 +142,8 @@
                                     ?></p>
                                    </td>
                                     <td>
-                                      <?php echo ($orders[$i]['股票']) ?>
+                                      <a href="javascript:location.href='<?php echo base_url()."index.php/orders/index?股票=".$orders[$i]['股票']; ?>'"
+                                        title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']); ?></a>
                                       <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
                                     </td>
                                     <td>
