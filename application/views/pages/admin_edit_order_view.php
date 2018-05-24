@@ -215,7 +215,8 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">通知查帳</label></td>
-                                    <td><input class="" type="text" name="通知查帳" id="" value="<?php echo $result[0]['通知查帳']; ?>" ></td>
+                                    <td><input class="" type="text" name="通知查帳" id="通知查帳日期" value="<?php echo $result[0]['通知查帳']; ?>" ></td>
+                                    <td><button type="button" onclick="gettoday()">今天</button></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -266,3 +267,26 @@
     </div>    
 </body>
 
+<script type="text/javascript">
+    function gettoday() {
+        myDate = new Date();
+        // var strDate = myDate.getDate().toString();
+        //處理月 位數=1則補0至前
+        var Month = myDate.getMonth()+1;
+        Month = Month.toString();
+        if (Month.length==1) {
+            Month = '0'+Month;
+        }
+        //處理日 位數=1則補0至前
+        var dDate = myDate.getDate();
+        dDate = dDate.toString();
+        if (dDate.length==1) {
+            dDate = '0'+dDate;
+        }
+        if (myDate.getDate().length == 1) {
+            document.getElementById("通知查帳日期").value = myDate.getFullYear()+'-'+Month+'-'+dDate;
+        } else {
+            document.getElementById("通知查帳日期").value = myDate.getFullYear()+'-'+Month+'-'+dDate;
+        }
+    }
+</script>
