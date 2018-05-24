@@ -102,7 +102,17 @@
                                     </td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
                                     <td>
-                                      <?php echo ($orders[$i]['客戶姓名']) ?>
+                                      <a href="javascript:location.href='
+                                        <?php 
+                                        echo base_url()."index.php/orders/";
+                                        if ($orders[$i]['轉讓會員'] == '庫存') {
+                                          echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名']; 
+                                        } else if($orders[$i]['轉讓會員'] == 'KO') {
+                                          echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名']; 
+                                        } else {
+                                          echo "index?客戶姓名=".$orders[$i]['客戶姓名']; 
+                                        }?>'" 
+                                        title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>                              
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
                                     <td>
@@ -113,10 +123,19 @@
                                       <?php } ?>
                                     </td>
                                     <td>
-                                      <?php if($_SESSION['聯絡電話權限']==1) {
-                                        echo ($orders[$i]['聯絡電話']);
-                                      ?>
-                                      <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
+                                      <?php if($_SESSION['聯絡電話權限']==1) { ?>
+                                        <a href="javascript:location.href='
+                                          <?php 
+                                          echo base_url()."index.php/orders/";
+                                          if ($orders[$i]['轉讓會員'] == '庫存') {
+                                            echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話']; 
+                                          } else if($orders[$i]['轉讓會員'] == 'KO') {
+                                            echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話']; 
+                                          } else {
+                                            echo "index?聯絡電話=".$orders[$i]['聯絡電話']; 
+                                          }?>'" 
+                                          title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>            
+                                        <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
                                       <?php } ?>
                                     </td>
                                     <td>
@@ -142,8 +161,17 @@
                                     ?></p>
                                    </td>
                                     <td>
-                                      <a href="javascript:location.href='<?php echo base_url()."index.php/orders/index?股票=".$orders[$i]['股票']; ?>'"
-                                        title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']); ?></a>
+                                      <a href="javascript:location.href='
+                                        <?php 
+                                        echo base_url()."index.php/orders/";
+                                        if ($orders[$i]['轉讓會員'] == '庫存') {
+                                          echo "go_inventory?股票=".$orders[$i]['股票']; 
+                                        } else if($orders[$i]['轉讓會員'] == 'KO') {
+                                          echo "go_ko?股票=".$orders[$i]['股票']; 
+                                        } else {
+                                          echo "index?股票=".$orders[$i]['股票']; 
+                                        }?>'" 
+                                        title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>               
                                       <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
                                     </td>
                                     <td>

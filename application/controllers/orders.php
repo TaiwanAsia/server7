@@ -608,7 +608,15 @@ class Orders extends CI_Controller {
 
 	//進入庫存頁面
 	public function go_inventory() {
-		$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		if (isset($_GET['股票'])) {
+			$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME'],$_GET['股票'],null,null);
+		} else if (isset($_GET['客戶姓名'])) {
+			$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,$_GET['客戶姓名'],null);
+		} else if (isset($_GET['聯絡電話'])) {
+			$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,$_GET['聯絡電話']);
+		} else {
+			$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
+		}
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
@@ -619,7 +627,15 @@ class Orders extends CI_Controller {
 
 	//進入KO頁面
 	public function go_ko() {
-		$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		if (isset($_GET['股票'])) {
+			$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME'],$_GET['股票'],null,null);
+		} else if (isset($_GET['客戶姓名'])) {
+			$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,$_GET['客戶姓名'],null);
+		} else if (isset($_GET['聯絡電話'])) {
+			$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,$_GET['聯絡電話']);
+		} else {
+			$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
+		}
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
 		$employees = $this->orders_model->get_employee();
 		$arrayName = array('orders' => $orders,
