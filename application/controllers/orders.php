@@ -550,39 +550,43 @@ class Orders extends CI_Controller {
     	$datas = $this->orders_model->get_bills();
     	
     	//對帳通知未查帳
-    	for ($i = 0; $i < count($orders_buy); $i++) {
-    		$time = $orders_buy[$i]['轉出日期轉入日期'];
-    		$money = $orders_buy[$i]['待查帳金額'];
+    	if ($orders_buy != null && $datas != NULL) {
+	    	for ($i = 0; $i < count($orders_buy); $i++) {
+	    		$time = $orders_buy[$i]['轉出日期轉入日期'];
+	    		$money = $orders_buy[$i]['待查帳金額'];
 
-			for ($j = 0; $j < count($datas); $j++) {
-	    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
-	    			//對帳完成
-	    			echo $datas[$j]['日期']." ".$orders_buy[$i]['ID'].'<br>';
-	    			$this->orders_model->check_money_received($orders_buy[$i]['id'], $orders_buy[$i]['成交單編號'], date('Y-m-d H:i:s'), $money);
-	    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
-	    		}
+				for ($j = 0; $j < count($datas); $j++) {
+		    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
+		    			//對帳完成
+		    			echo $datas[$j]['日期']." ".$orders_buy[$i]['ID'].'<br>';
+		    			$this->orders_model->check_money_received($orders_buy[$i]['id'], $orders_buy[$i]['成交單編號'], date('Y-m-d H:i:s'), $money);
+		    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+		    		}
+		    	}
 	    	}
-    	}
+	    }
 
     	//對帳所有轉出匯款
-    	for ($i = 0; $i < count($orders_sell); $i++) {
-    		$time = $orders_sell[$i]['成交日期'];
-    		$money = $orders_sell[$i]['匯款金額應收帳款'];
-    		$inform = $orders_sell[$i]['通知查帳'];
-    		
-	    	if ($orders_sell[$i]['買賣'] == '0') {	//已匯金額
-	    		if ($inform == '未通知' || $inform == '待對帳') {
-	    			for ($j = 0; $j < count($datas); $j++) {
-	    				if ($time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //一周內
-	    					//對帳完成
-	    					echo $datas[$j]['日期']." ".$orders_sell[$i]['ID'].'<br>';
-	    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money);
-	    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
-	    				}
-	    			}
+    	if ($orders_sell != null && $datas != null) {
+	    	for ($i = 0; $i < count($orders_sell); $i++) {
+	    		$time = $orders_sell[$i]['成交日期'];
+	    		$money = $orders_sell[$i]['匯款金額應收帳款'];
+	    		$inform = $orders_sell[$i]['通知查帳'];
+	    		
+		    	if ($orders_sell[$i]['買賣'] == '0') {	//已匯金額
+		    		if ($inform == '未通知' || $inform == '待對帳') {
+		    			for ($j = 0; $j < count($datas); $j++) {
+		    				if ($time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //一周內
+		    					//對帳完成
+		    					echo $datas[$j]['日期']." ".$orders_sell[$i]['ID'].'<br>';
+		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money);
+		    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+		    				}
+		    			}
+		    		}
 	    		}
-    		}
-    	}
+	    	}
+	    }
 
     	$this->checkbill();
     }
