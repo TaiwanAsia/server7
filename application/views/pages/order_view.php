@@ -446,7 +446,7 @@
                                     <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
                                     <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
                                     <input type="hidden" id="過戶費<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['過戶費']; ?>">
-                                    <input type="hidden" id="刻印收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印收送']; ?>">
+                                    <input type="hidden" id="收送<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['收送']; ?>">
                                     <!-- <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>"> -->
                                     <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
                                     <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
@@ -578,7 +578,7 @@
                       </td>
                       <td><label>收送</label></td>
                       <td>
-                        <input type="text" name="刻印收送" class="autochange" value="" id="edit_刻印收送">
+                        <input type="text" name="收送" class="autochange" value="" id="edit_收送">
                       </td>
                     </tr>
                     <tr>
@@ -601,7 +601,6 @@
                         <input class="paydate" type="date" min='1899-01-01' max="2100-12-31" name="匯款日期" value="" id="edit_匯款日期">
                         <button type="button" onclick="getdealdate()">同成交日期</button>
                       </td>
-                      <!-- <td></td> -->
                     </tr>
                     <tr>
                       <td></td>
@@ -654,7 +653,7 @@
           //大姊一鍵將客戶為買的一審改為已匯
           function Buy_Edit(i) {
             var id = i;
-            url = "<?=base_url()?>index.php/orders/Sell_Edit";
+            url = "<?=base_url()?>index.php/orders/Buy_Edit";
             go = "<?=base_url()?>index.php/orders/index";
             $.ajax({
               url: url,
@@ -677,7 +676,7 @@
             document.getElementById('edit_id').value = id;
             document.getElementById("edit_匯款金額應收帳款").value = 0;
             ['name', 'F', 'phone','address','company','amount','成交價','盤價','匯款銀行','匯款金額應收帳款','過戶費','匯款日期','刻印',
-                '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期','過戶日期','自行應付','刻印收送'
+                '匯款分行','匯款戶名','轉讓會員','匯款帳號','完稅人','成交日期','過戶日期','自行應付','收送'
               ].forEach(function(field) {
               var source = document.getElementById(field+id);
               if (!source) {
@@ -740,7 +739,7 @@
           //自行應付變動=匯款金額-股票金額
           $(document).ready(function(){
             $(".autochange").change(function(){
-              var a = document.getElementById('edit_刻印收送').value;
+              var a = document.getElementById('edit_收送').value;
               if (!a) {
                 a = 0;
               } else {

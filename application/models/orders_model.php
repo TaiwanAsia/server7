@@ -34,7 +34,7 @@ class Orders_model extends CI_Model {
                     '新舊'=>$row-> 新舊,
                     '自行應付'=>$row-> 自行應付,
                     '刻印'=>$row-> 刻印,
-                    '刻印收送'=>$row-> 刻印收送,
+                    '收送'=>$row-> 收送,
                     '過戶日期'=>$row-> 過戶日期,
                     '過戶費'=>$row-> 過戶費,
                     '媒合'=>$row-> 媒合,
@@ -454,7 +454,7 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function Sell_Edit_Model($id, $date, $date2) {
+    public function Buy_Edit_Model($id, $date, $date2) {
         $data = array('成交單狀態'=>'審核完成', '匯款日期'=>$date, '過戶日期'=>$date2);
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);

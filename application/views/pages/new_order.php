@@ -6,7 +6,7 @@
                                 <tr>
                                     <td class="text-danger"><p><b>☝紅色為必填欄位　　</b></p></td>
                                     <td><label for="" class="text-danger">成交日期</label></td>
-                                    <td><input class="" type="date" name="成交日期" value="" id="date" required></td>
+                                    <td><input class="" type="date" id="成交日期" name="成交日期" value="" id="date" required></td>
                                     <td><button type="button" onclick="gettoday()">今天</button></td>
                                 </tr>
                                 <tr>
@@ -88,6 +88,12 @@
                                     <td></td>
                                     <td></td>
                                     <td id="money_info"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">匯款日期</label></td>
+                                    <td><input class="" type="date" id="匯款日期" name="匯款日期" value="" id="" required></td>
+                                    <td><button type="button" onclick="getdealdate()">同成交日期</button></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -188,6 +194,17 @@
                                 </tr>
                                 <tr>
                                     <td></td>
+                                    <td><label for="" class="">收送</label></td>
+                                    <td><input class="" type="text" name="收送" value="" id=""></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="text-danger">過戶日期</label></td>
+                                    <td><input class="" type="date" id="過戶日期" name="過戶日期" value="" id="" required></td>
+                                    <td><labe>預設為匯款日期後第3天</labe></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" value="" id=""></td>
                                 </tr>
@@ -232,7 +249,7 @@
 <script>
 
     function gettoday() {
-        document.getElementById("date").valueAsDate = new Date()
+        document.getElementById("成交日期").valueAsDate = new Date();
     }
 
     function myFunction() {
@@ -266,7 +283,20 @@
         } else {
             document.getElementById("money_info").innerHTML = '公式 : '+張數+'*1000*'+成交價+'*0.997='+(張數*1000*成交價)*0.997;
         }
+    }
 
+    //匯款日期抓成交日期
+    function getdealdate() {
+        document.getElementById("匯款日期").value = document.getElementById("成交日期").value;
+        var pay = document.getElementById("匯款日期").value;
+        var paydate = new Date(pay);
+        month = '' + (paydate.getMonth()+1),
+        day = '' + (paydate.getDate()+3),
+        year = paydate.getFullYear();
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        result = [year, month, day].join('-');
+        document.getElementById('過戶日期').value = result;
     }
 
     $("#import_customer").click(function() {

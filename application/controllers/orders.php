@@ -263,7 +263,7 @@ class Orders extends CI_Controller {
 			'完稅人' => $_POST['完稅人'],
 			'過戶費' => $_POST['過戶費'],
 			'刻印' => $_POST['刻印'],
-			'刻印收送' => $_POST['刻印收送'],
+			'收送' => $_POST['收送'],
 			'成交單狀態' => $_POST['成交單狀態'],
 			// '現金或匯款' => $_POST['現金或匯款'],
 			'匯款日期' => $_POST['匯款日期'],
@@ -275,8 +275,10 @@ class Orders extends CI_Controller {
 	}
 
 	//一審改已匯
-	public function Sell_Edit() {
-		$this->orders_model->Sell_Edit_Model($_POST['id'], date('Y-m-d'), date('Y-m-d', strtotime("+3 day")));
+	public function Buy_Edit() {
+		$original = $this->orders_model->get($_POST['id'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
+		$date = $original[0]['成交日期'];
+		$this->orders_model->Buy_Edit_Model($_POST['id'], $date, date('Y-m-d', strtotime($date."+3 day")));
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);
 	}
