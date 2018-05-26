@@ -229,10 +229,10 @@
                                     if ($_SESSION['一審權限']==1) {
                                       if ($orders[$i]['成交單狀態']!='審核完成') {
                                       //一審[未完]開始 
-                                        if ($orders[$i]['買賣']==0) { 
+                                        if ($orders[$i]['買賣']==1) { 
                                            //客戶賣, 大姊匯錢則不用再點一審進去, 改成點擊觸發成交單狀態為完成以及更改匯款日期&過戶日期 ?>
                                           <td>
-                                            <button onclick="Sell_Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
+                                            <button onclick="Buy_Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
                                           </td>
                                          <?php } else { ?>
                                       <td>
@@ -651,8 +651,8 @@
             alert('成交價 '+成交價+'\n盤價 '+盤價+'\n張數 '+張數+'\n'+買賣+'\n稅金 '+稅金+'\n過戶費 '+過戶費+'\n自行應付 '+自行應付+'\n趴數 '+趴數);
           }
 
-          //大姊一鍵將一審改為已匯
-          function Sell_Edit(i) {
+          //大姊一鍵將客戶為買的一審改為已匯
+          function Buy_Edit(i) {
             var id = i;
             url = "<?=base_url()?>index.php/orders/Sell_Edit";
             go = "<?=base_url()?>index.php/orders/index";

@@ -45,8 +45,10 @@
                                     <td></td>
                                     <td><label for="" class="text-danger">買賣</label></td>
                                     <td>
-                                        <input type="radio" name="買賣" value="1" checked><label class="text-danger"><b>買</b></label>
-                                        <input type="radio" name="買賣" value="0"><label class="text-primary"><b>賣</b></label>
+                                        <input type="radio" name="買賣" value="1" checked>
+                                        <label class="text-danger"><b>買</b></label>
+                                        <input type="radio" name="買賣" value="0">
+                                        <label class="text-primary"><b>賣</b></label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -57,12 +59,12 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">張數</label></td>
-                                    <td><input class="" type="text" name="張數" value="" id="" required></td>
+                                    <td><input class="" type="text" name="張數" value="" id="張數" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">成交價</label></td>
-                                    <td><input class="" type="text" name="成交價" value="" id="" required></td>
+                                    <td><input class="" type="text" name="成交價" value="" id="成交價" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -73,6 +75,19 @@
                                     <td></td>
                                     <td><label for="" class="">匯款/應收金額</label></td>
                                     <td><input class="" type="text" name="匯款金額應收帳款" value="" id=""></td>
+                                    <td><button onclick="accounting()">自動驗算</button></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td id="order_info"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td id="money_info"></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -228,6 +243,30 @@
         } else {
             document.getElementById("盤商資料").style.display = "none";
         }
+    }
+
+    function accounting() {
+        var 張數 = document.getElementById("張數").value;
+        var 成交價 = document.getElementById("成交價").value;
+        // var 張數 = document.getElementById("張數").value;
+        // alert(document.getElementById("買賣").value);
+        var 買賣value = $("input:checked").val();
+        if (買賣value == 1) {
+            var 買賣方 = '買';
+            document.getElementById("order_info").innerHTML = '張數: '+document.getElementById("張數").value + 
+        '成交價: '+document.getElementById("成交價").value + ' 且客戶 ['+買賣方+'] 方';
+        } else {
+            var 買賣方 = '賣';
+            document.getElementById("order_info").innerHTML = '張數: '+document.getElementById("張數").value + 
+        '成交價: '+document.getElementById("成交價").value + ' 且客戶 ['+買賣方+'] 方需扣掉千分之三金額';
+        }
+        
+        if (買賣方 == '買') {  
+            document.getElementById("money_info").innerHTML = '公式 : '+張數+'*1000*'+成交價+'='+張數*1000*成交價;
+        } else {
+            document.getElementById("money_info").innerHTML = '公式 : '+張數+'*1000*'+成交價+'*0.997='+(張數*1000*成交價)*0.997;
+        }
+
     }
 
     $("#import_customer").click(function() {
