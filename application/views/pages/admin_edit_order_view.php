@@ -180,6 +180,11 @@
                                 </tr>
                                 <tr>
                                     <td></td>
+                                    <td><label for="" class="">收送</label></td>
+                                    <td><input class="" type="text" name="收送" id="" value="<?php echo $result[0]['收送']; ?>" ></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
                                     <td><label for="" class="">過戶日期</label></td>
                                     <td><input class="" type="date" name="過戶日期" value="<?php echo $result[0]['過戶日期'] ?>" id="date" ></td>
                                     <td><input type="hidden" id="" value="<?php echo $result[0]['過戶日期'] ?>"></td>

@@ -31,7 +31,6 @@
                             <thead class="thead-light">
                                 <tr>
                                   <th data-tablesaw-priority="persist"></th>
-                                  <th data-tablesaw-priority="persist"></th>
                                   <th data-tablesaw-priority="1">編號</th>
                                   <th data-tablesaw-priority="1" scope="col">成交日期</th>
                                   <th data-tablesaw-priority="0">業務</th>
@@ -73,14 +72,14 @@
                                 <?php if($orders) {
                                     for($i=0; $i<count($orders); $i++) { ?>
                                 <tr class="<?php if($orders[$i]['媒合'] != 0 ) { echo "td-cs-1"; } ?>">
-                                    <td>
+                                    <!-- <td>
                                       <?php if ($_SESSION['編輯權限']==1) { ?>
                                       <form method="GET" action="go_edit">
                                         <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
                                         <button type="submit">編輯</button>
                                       </form>
                                       <?php } ?>
-                                    </td>
+                                    </td> -->
                                     <td>
                                       <?php if ($_SESSION['刪除權限']==1) { ?>
                                         <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
@@ -489,7 +488,7 @@
                       <td><label>成交日期</label></td>
                       <td><input class="" type="date" name="成交日期" value="" id="edit_成交日期" required=""></td>
                       <td><label>過戶日期</label></td>
-                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期"><label class="text-danger"><b>(自動)</b></label></td>
+                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期"></td>
                     </tr>
                     <tr>
                       <td><label>股票名稱</label></td>
@@ -524,9 +523,6 @@
                       <td>
                         <input type="text" name="自行應付" value="" id="edit_自行應付">
                       </td>
-                      <td colspan="3">
-                        <label class="text-danger"><b>(預設為賣　匯款金額 - 盤價x張數x0.997)</b></label>
-                      </td>
                     </tr>
                   </table>
                 </div>
@@ -548,33 +544,21 @@
                       <td class="text-danger"><label><b>匯款/應收金額<b/></label></td>
                       <td>
                         <input type="text" name="匯款金額應收帳款" class="autochange" value="" id="edit_匯款金額應收帳款">
-                        <button type="button" onclick="calculate_sell()">賣</button>
-                        <button type="button" onclick="calculate_buy()">買</button>
                       </td>
                       <!-- <td></td> -->
                     </tr>
                     <tr>
                       <td><label>完稅人</label></td>
-                      <td><input type="text" name="完稅人" value="" id="edit_完稅人" required=""></td>
+                      <td>
+                        <input type="text" name="完稅人" value="" id="edit_完稅人" required="">
+                      </td>
                       <td><label>過戶費</label></td>
                       <td>
-                        <select id="edit_過戶費" name="過戶費" class="form-control">
-                          <option value="0">0</option>
-                          <option value="500">500</option>
-                          <option value="1000">1000</option>
-                          <option value="1500">1500</option>
-                          <option value="2000">2000</option>
-                        </select>
+                        <input type="text" name="過戶費" value="" id="edit_過戶費" required="">
                       </td>
                       <td><label>刻印</label></td>
                       <td>
-                        <select id="edit_刻印" name="刻印" class="autochange">
-                            <?php
-                              for($j=0; $j<=10; $j++) {
-                                echo "<option value=".$j.">".$j."</option>";
-                              }
-                            ?>
-                        </select>
+                        <input type="text" name="刻印" value="" id="edit_刻印" required="">
                       </td>
                       <td><label>收送</label></td>
                       <td>
@@ -705,6 +689,7 @@
               if (str=='Y'||str=='y') {
                 url = "<?=base_url()?>index.php/orders/delete";
                 go = "<?=base_url()?>index.php/orders/index";
+                alert('work');
                 $.ajax({
                   url: url,
                   type: 'post',
