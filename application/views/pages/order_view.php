@@ -693,14 +693,13 @@
               if (str=='Y'||str=='y') {
                 url = "<?=base_url()?>index.php/orders/copy";
                 go = "<?=base_url()?>index.php/orders/index";
-                alert('work');
                 $.ajax({
                   url: url,
                   type: 'post',
                   data: {id:id},
                   dataType: "json",
                   success: function(data){
-                    alert(data);
+                    // alert(data);
                     window.location.replace(go);
                   },
                   error:function(xhr, ajaxOptions, thrownError){
@@ -722,14 +721,13 @@
               if (str=='Y'||str=='y') {
                 url = "<?=base_url()?>index.php/orders/delete";
                 go = "<?=base_url()?>index.php/orders/index";
-                alert('work');
                 $.ajax({
                   url: url,
                   type: 'post',
                   data: {id:id},
                   dataType: "json",
                   success: function(data){
-                    alert(data);
+                    // alert(data);
                     window.location.replace(go);
                   },
                   error:function(xhr, ajaxOptions, thrownError){
