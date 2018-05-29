@@ -20,11 +20,12 @@
 			<br><br>
 			<table  id="eoTable" class="table table-md table-hover table-responsive" >
 				<tr>
-					<th nowrap="nowrap">成交單編號</th>
-					<th nowrap="nowrap">匯款人</th>
-					<th nowrap="nowrap">匯款帳號末5碼</th>
-          <th nowrap="nowrap">入帳日期</th>
-					<th nowrap="nowrap">待查帳金額</th>
+          <th nowrap="nowrap">成交單編號</th>
+          <th nowrap="nowrap">支付方式</th>
+          <th nowrap="nowrap">支付人</th>
+          <th nowrap="nowrap">匯款帳號末5碼</th>
+          <th nowrap="nowrap">轉入日期</th>
+          <th nowrap="nowrap">已收金額</th>
           <th nowrap="nowrap">查帳狀態</th>
 					<th nowrap="nowrap"></th>
 				</tr>
@@ -36,6 +37,7 @@
 				<?php	
             echo "<tr>";
   						echo "<td>".$data[$i]['成交單編號']."</td>";
+              echo "<td>".$data[$i]['支付方式']."</td>";
   						echo "<td>".$data[$i]['支付人']."</td>";
   						echo "<td>".$data[$i]['匯款帳號末5碼']."</td>";
               echo "<td>".$data[$i]['轉出日期轉入日期']."</td>"; ?>
@@ -47,7 +49,7 @@
               echo "<td>";
               if ($data[$i]['待查帳金額']!=0) { ?>
                 <img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40">
-              <?php } elseif ($data[$i]['通知查帳']=='待確認') { ?>
+              <?php } elseif ($data[$i]['查帳狀態']=='待確認') { ?>
                 <img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40">
               <?php }
               echo "</td>"; ?>

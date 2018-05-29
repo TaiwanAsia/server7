@@ -540,7 +540,7 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data);
 
         //待查帳金額轉至已匯金額, 而後歸零
-        $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '最後動作時間'=>$move_time);
+        $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '查帳狀態'=>'待確認', '最後動作時間'=>$move_time);
         $this->db->where('id', $id);
         $this->db->update('check_money_record', $record);
     }
@@ -568,6 +568,7 @@ class Orders_model extends CI_Model {
                     '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
                     '待查帳金額'=>$row-> 待查帳金額,
                     '已匯金額已收金額'=>$row-> 已匯金額已收金額,
+                    '查帳狀態'=>$row-> 查帳狀態,
                     '通知日期'=>$row-> 通知日期,
                     '查帳日期'=>$row-> 查帳日期,
                     '最後動作時間'=>$row-> 最後動作時間);
