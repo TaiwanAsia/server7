@@ -37,9 +37,9 @@
 
                     <div class="t-form">
 
-                        <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
-                          <thead class="thead-light">
-                            <tr>
+                        <table id="receivTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
+                          <thead class="">
+                            <tr class="thead-light">
                               <th data-tablesaw-priority="1">編號</th>
                               <th data-tablesaw-priority="1" scope="col">成交日期</th>
                               <th data-tablesaw-priority="1">業務</th>
@@ -68,6 +68,55 @@
                               <?php } else { ?>
                               <th data-tablesaw-priority="1">通知查帳</th>
                               <?php } ?>
+                              </tr>
+                            <!-- second thead for dada -->
+                              <tr>
+                                <th data-tablesaw-priority="1"></th> <!-- 編號 -->
+                                <th data-tablesaw-priority="1" scope="col"></th> <!-- 成交日期 -->
+                                <th data-tablesaw-priority="1"></th> <!-- 業務 -->
+                                <th data-tablesaw-priority="1"></th> <!-- 客戶姓名 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 身分證字號 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 聯絡電話 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 聯絡人 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 聯絡住址 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 買賣 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 股票 -->
+                                <th data-tablesaw-priority="1"></th> <!-- 張數 -->
+                                <th data-tablesaw-priority="1"></th> <!-- 成交價 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 盤價 -->
+                                <th data-tablesaw-priority="1">
+                                  <small>
+                                  <?php if ($_SESSION['權限名稱']=='最高權限') {
+                                  echo "總應收:".$total_info['total_receivable'];
+                                  } ?>
+                                  </small>
+                                </th> <!-- 應收金額 -->
+                                <th data-tablesaw-priority="1">
+                                  <small>
+                                   <?php if ($_SESSION['權限名稱']=='最高權限') {
+                                  echo "總已收:".$total_info['total_received'];
+                                  } ?>
+                                  </small>
+                                </th> <!-- 已收金額 -->
+                                <th data-tablesaw-priority="1">
+                                  <small>
+                                   <?php if ($_SESSION['權限名稱']=='最高權限') {
+                                  echo "總尚餘:".$total_info['total_left'];
+                                  } ?>
+                                  </small>
+                                </th> <!-- 尚餘應收 -->
+                                <!-- <th data-tablesaw-priority="1">待查帳金額</th> -->
+                                <th data-tablesaw-priority="0"></th> <!-- 匯款戶名 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 匯款帳號 -->
+                                <th data-tablesaw-priority="0"></th> <!-- 轉讓會員 -->
+                                <th data-tablesaw-priority="1"></th> <!-- 完稅人 -->
+                                <th data-tablesaw-priority="1"></th> <!-- 過戶日期 -->
+                                <!-- <th data-tablesaw-priority="1">匯款日期</th> -->
+                                <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+                                <th data-tablesaw-priority="1"></th> <!-- 查帳狀態 -->
+                                <?php } else { ?>
+                                <th data-tablesaw-priority="1"></th> <!-- 通知查帳 -->
+                                <?php } ?>
                               </tr>
                             </thead>
                             <tbody>
