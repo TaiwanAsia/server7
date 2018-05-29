@@ -466,11 +466,18 @@ class Orders_model extends CI_Model {
     // }
 
     public function check_money_received($id, $成交單編號, $date, $money) {
+        /*
         $data = array('通知查帳'=>'待確認');
         $this->db->where('ID', $成交單編號);
         $this->db->update('orders', $data);
 
+
         $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '最後動作時間'=>$date);
+        $this->db->where('id', $id);
+        $this->db->update('check_money_record', $record);
+        */
+
+        $record = array('查帳狀態'=>'待確認', '查帳日期'=>$date, '最後動作時間'=>$date);
         $this->db->where('id', $id);
         $this->db->update('check_money_record', $record);
     }
@@ -515,7 +522,7 @@ class Orders_model extends CI_Model {
     // }
 
     public function check_end_model($id, $成交單編號, $money, $date, $move_time) {
-        $order = $this->get($成交單編號, $_SESSION['權限名稱'], $_SESSION['NAME']);
+        $order = $this->get($成交單編號, $_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
         $總匯款金額 = $order[0]['已匯金額已收金額'] + $money;
         if ($總匯款金額 == $order[0]['匯款金額應收帳款']) {
             //一次匯款完
@@ -540,7 +547,7 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data);
 
         //待查帳金額轉至已匯金額, 而後歸零
-        $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '查帳狀態'=>'待確認', '最後動作時間'=>$move_time);
+        $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '查帳狀態'=>'已確認', '最後動作時間'=>$move_time);
         $this->db->where('id', $id);
         $this->db->update('check_money_record', $record);
     }
