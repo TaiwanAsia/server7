@@ -55,6 +55,7 @@
                                     <td></td>
                                     <td><label for="" class="text-danger">股票</label></td>
                                     <td><input class="" type="text" name="股票" value="" id="股票" required></td>
+                                    <td><p class="text-danger"><b>****股票名稱必須等於S5的公司名稱****</b></p></td>
                                 </tr>
                                 <tr>
                                     <td></td>
