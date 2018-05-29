@@ -18,6 +18,15 @@
 	width: 100px;
 	}
 
+	.btn--s1{
+		background-color: #989aff!important;
+    color: #fff!important;
+    font-weight: 100!important;
+    &:hover{
+    	background-color: #6c757d!important;
+    	color: #fff;
+    }
+	}
 
 	.s-modal {
 	display: none; /* Hidden by default */
@@ -152,3 +161,8 @@
 		background-color: #EEF2FF;
 	}
 
+
+	.thead__fs {
+    display: flex;
+    flex-direction: column-reverse;
+	}

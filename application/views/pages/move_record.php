@@ -3,7 +3,8 @@
 		<div>
 
 			<br><br>
-			<table style="width:100%" border="1">
+			<table class="table" border="1">
+				<thead class="thead-light">
 				<tr>
 					<th nowrap="nowrap">編號</th>
 					<th nowrap="nowrap">員工</th>
@@ -13,7 +14,8 @@
 					<th nowrap="nowrap"></th>
 					<th nowrap="nowrap"></th>
 				</tr>
-				<?php 
+				</thead>
+				<?php
 				if (isset($data)) {
 					for ($i=0; $i<count($data); $i++) {
 						echo "<tr>";

@@ -1,7 +1,7 @@
 
                 <main role="main" style="flex: 1 0 auto;" >
                   <div class="t-form-h">
-                    <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
                         <h1 class="h2">應收帳款</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
@@ -9,7 +9,7 @@
                                 <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                     <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/boss_check_money'" value="上傳/確認"></input>
                                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/check_record'" value="分匯紀錄"></input>
-                                <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"></input>
+                                <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"></input>
                                 <?php } ?>
                             </div>
                         </div>
@@ -33,42 +33,42 @@
                             echo "　總尚餘".$total_info['total_left'];
                         } ?>
                     </div>
-                    
+
 
                     <div class="t-form">
 
                         <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
-                            <thead class="thead-light">
-                                <tr>
-                                    <th data-tablesaw-priority="1">編號</th>
-                                    <th data-tablesaw-priority="1" scope="col">成交日期</th>
-                                    <th data-tablesaw-priority="1">業務</th>
-                                    <th data-tablesaw-priority="1">客戶姓名</th>
-                                    <th data-tablesaw-priority="0">身分證字號</th>
-                                    <th data-tablesaw-priority="0">聯絡電話</th>
-                                    <th data-tablesaw-priority="0">聯絡人</th>
-                                    <th data-tablesaw-priority="0">聯絡住址</th>
-                                    <th data-tablesaw-priority="0">買賣</th>
-                                    <th data-tablesaw-priority="0">股票</th>
-                                    <th data-tablesaw-priority="1">張數</th>
-                                    <th data-tablesaw-priority="1">成交價</th>
-                                    <th data-tablesaw-priority="0">盤價</th>
-                                    <th data-tablesaw-priority="1">應收金額</th>
-                                    <th data-tablesaw-priority="1">已收金額</th>
-                                    <th data-tablesaw-priority="1">尚餘應收</th>
-                                    <!-- <th data-tablesaw-priority="1">待查帳金額</th> -->
-                                    <th data-tablesaw-priority="0">匯款戶名</th>
-                                    <th data-tablesaw-priority="0">匯款帳號</th>
-                                    <th data-tablesaw-priority="0">轉讓會員</th>
-                                    <th data-tablesaw-priority="1">完稅人</th>
-                                    <th data-tablesaw-priority="1">過戶日期</th>
-                                    <!-- <th data-tablesaw-priority="1">匯款日期</th> -->
-                                    <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
-                                    <th data-tablesaw-priority="1">查帳狀態</th>
-                                    <?php } else { ?>
-                                    <th data-tablesaw-priority="1">通知查帳</th>
-                                    <?php } ?>
-                                </tr>
+                          <thead class="thead-light">
+                            <tr>
+                              <th data-tablesaw-priority="1">編號</th>
+                              <th data-tablesaw-priority="1" scope="col">成交日期</th>
+                              <th data-tablesaw-priority="1">業務</th>
+                              <th data-tablesaw-priority="1">客戶姓名</th>
+                              <th data-tablesaw-priority="0">身分證字號</th>
+                              <th data-tablesaw-priority="0">聯絡電話</th>
+                              <th data-tablesaw-priority="0">聯絡人</th>
+                              <th data-tablesaw-priority="0">聯絡住址</th>
+                              <th data-tablesaw-priority="0">買賣</th>
+                              <th data-tablesaw-priority="0">股票</th>
+                              <th data-tablesaw-priority="1">張數</th>
+                              <th data-tablesaw-priority="1">成交價</th>
+                              <th data-tablesaw-priority="0">盤價</th>
+                              <th data-tablesaw-priority="1">應收金額</th>
+                              <th data-tablesaw-priority="1">已收金額</th>
+                              <th data-tablesaw-priority="1">尚餘應收</th>
+                              <!-- <th data-tablesaw-priority="1">待查帳金額</th> -->
+                              <th data-tablesaw-priority="0">匯款戶名</th>
+                              <th data-tablesaw-priority="0">匯款帳號</th>
+                              <th data-tablesaw-priority="0">轉讓會員</th>
+                              <th data-tablesaw-priority="1">完稅人</th>
+                              <th data-tablesaw-priority="1">過戶日期</th>
+                              <!-- <th data-tablesaw-priority="1">匯款日期</th> -->
+                              <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+                              <th data-tablesaw-priority="1">查帳狀態</th>
+                              <?php } else { ?>
+                              <th data-tablesaw-priority="1">通知查帳</th>
+                              <?php } ?>
+                              </tr>
                             </thead>
                             <tbody>
                                 <?php if($orders) {
@@ -208,7 +208,7 @@
                                         echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核不通過">';
                                       }
                                       ?>
-                                    
+
                                     </td> -->
 
                                     <!-- 沒顯示出來的欄位 -->
