@@ -288,17 +288,25 @@
         }
     }
 
+    Date.prototype.addDays = function(days) {
+        var dat = new Date(this.valueOf());
+        dat.setDate(dat.getDate() + days);
+        return dat;
+    }
+
     //匯款日期抓成交日期
     function getdealdate() {
         document.getElementById("匯款日期").value = document.getElementById("成交日期").value;
         var pay = document.getElementById("匯款日期").value;
         var paydate = new Date(pay);
-        month = '' + (paydate.getMonth()+1),
-        day = '' + (paydate.getDate()+3),
-        year = paydate.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
+        過戶日期 = paydate.addDays(3);
+        month = 過戶日期.getMonth()+1,
+        day = 過戶日期.getDate(),
+        year = 過戶日期.getFullYear();
+        if (month.toString().length < 2) month = '0' + month;
+        if (day.toString().length < 2) day = '0' + day;
         result = [year, month, day].join('-');
+        alert(result);
         document.getElementById('過戶日期').value = result;
     }
 
