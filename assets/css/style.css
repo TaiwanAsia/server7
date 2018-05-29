@@ -117,8 +117,15 @@ th, td, form {
 .pn-ProductNav_Contents-no-transition {
   transition: none; }
 
-.t-form-t h1, .t-form-t div {
+.t-form-t {
   margin: 12px; }
+  .t-form-t h1, .t-form-t div {
+    margin: 12px; }
+
+.thd-s1 {
+  width: 8vw;
+  white-space: normal;
+  word-break: break-word; }
 
 .td-cs-1 {
   background-color: #EEF2FF; }

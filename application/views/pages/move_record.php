@@ -1,9 +1,6 @@
 
-	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-		<div>
-
-			<br><br>
-			<table class="table" border="1">
+	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+			<table class="table">
 				<thead class="thead-light">
 				<tr>
 					<th nowrap="nowrap">編號</th>
@@ -15,6 +12,7 @@
 					<th nowrap="nowrap"></th>
 				</tr>
 				</thead>
+				<tbody>
 				<?php
 				if (isset($data)) {
 					for ($i=0; $i<count($data); $i++) {
@@ -28,8 +26,8 @@
 					}
 				}
 				?>
+				</tbody>
 			</table>
-		</div>
 	</main>
 
 

@@ -1,11 +1,11 @@
 
-	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-		<div>
-			<form action="go_add_account" method="POST" name="" style= "display:inline">
+	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+			<form action="go_add_account" method="POST" class="t-form-t" name="">
 				<input type="submit" name="" value="新增">
 			</form>
-			<br><br>
-			<table style="width:100%" border="1">
+			<div class="t-form">
+			<table class="table">
+				<thead class="thead-light">
 				<tr>
 					<th nowrap="nowrap">編號</th>
 					<th nowrap="nowrap">名稱</th>
@@ -16,7 +16,9 @@
 					<th nowrap="nowrap"></th>
 					<th nowrap="nowrap"></th>
 				</tr>
-				<?php 
+				</thead>
+				<tbody>
+				<?php
 				if (isset($data)) {
 					for ($i=0; $i<count($data); $i++) {
 						echo "<tr>";
@@ -42,8 +44,9 @@
 					}
 				}
 				?>
+				</tbody>
 			</table>
-		</div>
+	</div>
 	</main>
 
 

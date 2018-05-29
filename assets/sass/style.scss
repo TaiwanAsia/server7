@@ -152,11 +152,17 @@
 	}
 
 	.t-form-t{
-		h1, div{
 			margin:12px;
-		}
+			h1, div{
+				margin:12px;
+			}
 	}
 
+	.thd-s1{
+		width: 8vw;
+		white-space: normal;
+		word-break:break-word;
+	}
 	.td-cs-1{
 		background-color: #EEF2FF;
 	}
