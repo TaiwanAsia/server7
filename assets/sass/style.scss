@@ -18,6 +18,15 @@
 	width: 100px;
 	}
 
+	.btn--s1{
+		background-color: #989aff!important;
+    color: #fff!important;
+    font-weight: 100!important;
+    &:hover{
+    	background-color: #6c757d!important;
+    	color: #fff;
+    }
+	}
 
 	.s-modal {
 	display: none; /* Hidden by default */
@@ -143,12 +152,23 @@
 	}
 
 	.t-form-t{
-		h1, div{
 			margin:12px;
-		}
+			h1, div{
+				margin:12px;
+			}
 	}
 
+	.thd-s1{
+		width: 8vw;
+		white-space: normal;
+		word-break:break-word;
+	}
 	.td-cs-1{
 		background-color: #EEF2FF;
 	}
 
+
+	.thead__fs {
+    display: flex;
+    flex-direction: column-reverse;
+	}

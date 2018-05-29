@@ -54,7 +54,7 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="text-danger">股票</label></td>
-                                    <td><input class="" type="text" name="股票" value="" id="" required></td>
+                                    <td><input class="" type="text" name="股票" value="" id="股票" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -265,18 +265,33 @@
         if (買賣value == 1) {
             var 買賣方 = '買';
             document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + 
-        ' 成交價 : '+document.getElementById("成交價").value + '  客戶買進';
+        ' 成交價 : '+document.getElementById("成交價").value + '  客戶[買進]';
         } else {
             var 買賣方 = '賣';
             document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + 
-        ' 成交價 : '+document.getElementById("成交價").value + '  且客戶賣出，需扣掉千分之三金額';
+        ' 成交價 : '+document.getElementById("成交價").value + '  且客戶[賣出]，需扣掉千分之三金額';
         }
         
-        if (買賣方 == '買') {  
-            document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) = '+張數*1000*成交價;
+        if (買賣方 == '買') {
+            if (張數 > 1) {
+                document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) = '+張數*1000*成交價;
+            } else {
+                document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.9(零股) = '+張數*1000*成交價*0.9;
+            }
         } else {
-            document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) *0.997 = '+(張數*1000*成交價)*0.997;
+            if (張數 > 1) {
+                document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 = '+(張數*1000*成交價)*0.997;
+            } else {
+                document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 * 0.9(零股) = '+(張數*1000*成交價)*0.997*0.9;
+            }
+            
         }
+    }
+
+    Date.prototype.addDays = function(days) {
+        var dat = new Date(this.valueOf());
+        dat.setDate(dat.getDate() + days);
+        return dat;
     }
 
     //匯款日期抓成交日期
@@ -284,12 +299,14 @@
         document.getElementById("匯款日期").value = document.getElementById("成交日期").value;
         var pay = document.getElementById("匯款日期").value;
         var paydate = new Date(pay);
-        month = '' + (paydate.getMonth()+1),
-        day = '' + (paydate.getDate()+3),
-        year = paydate.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
+        過戶日期 = paydate.addDays(3);
+        month = 過戶日期.getMonth()+1,
+        day = 過戶日期.getDate(),
+        year = 過戶日期.getFullYear();
+        if (month.toString().length < 2) month = '0' + month;
+        if (day.toString().length < 2) day = '0' + day;
         result = [year, month, day].join('-');
+        alert(result);
         document.getElementById('過戶日期').value = result;
     }
 

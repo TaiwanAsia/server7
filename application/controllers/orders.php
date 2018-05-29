@@ -45,6 +45,14 @@ class Orders extends CI_Controller {
 		}
 	}
 
+	public function search() {
+		$orders = $this->orders_model->get($_GET['keyword'],$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);
+		$employees = $this->orders_model->get_employee();
+		$arrayName = array('orders' => $orders,
+							'employees' => $employees,);
+		$this->show($arrayName);
+	}
+
 	public function new_order()
     {
 		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null,null);

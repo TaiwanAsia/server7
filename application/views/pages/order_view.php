@@ -101,18 +101,18 @@
                                     </td>
                                     </td>
                                     <td><?php echo ($orders[$i]['業務']) ?></td>
-                                    <td>
+                                    <td class="thd-s1">
                                       <a href="javascript:location.href='
-                                        <?php 
+                                        <?php
                                         echo base_url()."index.php/orders/";
                                         if ($orders[$i]['轉讓會員'] == '庫存') {
-                                          echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名']; 
+                                          echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名'];
                                         } else if($orders[$i]['轉讓會員'] == 'KO') {
-                                          echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名']; 
+                                          echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名'];
                                         } else {
-                                          echo "index?客戶姓名=".$orders[$i]['客戶姓名']; 
-                                        }?>'" 
-                                        title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>                              
+                                          echo "index?客戶姓名=".$orders[$i]['客戶姓名'];
+                                        }?>'"
+                                        title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
                                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                                     </td>
                                     <td>
@@ -125,16 +125,16 @@
                                     <td>
                                       <?php if($_SESSION['聯絡電話權限']==1) { ?>
                                         <a href="javascript:location.href='
-                                          <?php 
+                                          <?php
                                           echo base_url()."index.php/orders/";
                                           if ($orders[$i]['轉讓會員'] == '庫存') {
-                                            echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話']; 
+                                            echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話'];
                                           } else if($orders[$i]['轉讓會員'] == 'KO') {
-                                            echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話']; 
+                                            echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話'];
                                           } else {
-                                            echo "index?聯絡電話=".$orders[$i]['聯絡電話']; 
-                                          }?>'" 
-                                          title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>            
+                                            echo "index?聯絡電話=".$orders[$i]['聯絡電話'];
+                                          }?>'"
+                                          title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
                                         <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
                                       <?php } ?>
                                     </td>
@@ -162,16 +162,16 @@
                                    </td>
                                     <td>
                                       <a href="javascript:location.href='
-                                        <?php 
+                                        <?php
                                         echo base_url()."index.php/orders/";
                                         if ($orders[$i]['轉讓會員'] == '庫存') {
-                                          echo "go_inventory?股票=".$orders[$i]['股票']; 
+                                          echo "go_inventory?股票=".$orders[$i]['股票'];
                                         } else if($orders[$i]['轉讓會員'] == 'KO') {
-                                          echo "go_ko?股票=".$orders[$i]['股票']; 
+                                          echo "go_ko?股票=".$orders[$i]['股票'];
                                         } else {
-                                          echo "index?股票=".$orders[$i]['股票']; 
-                                        }?>'" 
-                                        title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>               
+                                          echo "index?股票=".$orders[$i]['股票'];
+                                        }?>'"
+                                        title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
                                       <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
                                     </td>
                                     <td>
@@ -228,8 +228,8 @@
                                     <?php
                                     if ($_SESSION['一審權限']==1) {
                                       if ($orders[$i]['成交單狀態']!='審核完成') {
-                                      //一審[未完]開始 
-                                        if ($orders[$i]['買賣']==1) { 
+                                      //一審[未完]開始
+                                        if ($orders[$i]['買賣']==1) {
                                            //客戶賣, 大姊匯錢則不用再點一審進去, 改成點擊觸發成交單狀態為完成以及更改匯款日期&過戶日期 ?>
                                           <td>
                                             <button onclick="Buy_Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
@@ -356,7 +356,7 @@
                                           //業務點了通知查帳 ?>
                                             <form method="get" action="salesman_check_money">
                                               <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
-                                              <button type="submit"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></button>
+                                              <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
                                             </form>
 
                                       <?php
@@ -369,7 +369,7 @@
                                             <label><?php echo $orders[$i]['通知查帳']; ?></label>
                                       <?php
                                           }
-                                      } else { 
+                                      } else {
                                       //沒有通知查帳的權限 ?>
                                           <label><?php echo $orders[$i]['通知查帳']; ?></label>
                                       <?php
@@ -608,7 +608,7 @@
         <script>
 
           function changefont(i) {
-            document.getElementById("mousemove"+i).style.color="orange";     
+            document.getElementById("mousemove"+i).style.color="orange";
           }
 
           function changefont_back(i) {
@@ -693,14 +693,13 @@
               if (str=='Y'||str=='y') {
                 url = "<?=base_url()?>index.php/orders/copy";
                 go = "<?=base_url()?>index.php/orders/index";
-                alert('work');
                 $.ajax({
                   url: url,
                   type: 'post',
                   data: {id:id},
                   dataType: "json",
                   success: function(data){
-                    alert(data);
+                    // alert(data);
                     window.location.replace(go);
                   },
                   error:function(xhr, ajaxOptions, thrownError){
@@ -711,7 +710,7 @@
               }
             } else {
               alert("取消刪除");
-            } 
+            }
           }
 
           //刪除成交單
@@ -722,14 +721,13 @@
               if (str=='Y'||str=='y') {
                 url = "<?=base_url()?>index.php/orders/delete";
                 go = "<?=base_url()?>index.php/orders/index";
-                alert('work');
                 $.ajax({
                   url: url,
                   type: 'post',
                   data: {id:id},
                   dataType: "json",
                   success: function(data){
-                    alert(data);
+                    // alert(data);
                     window.location.replace(go);
                   },
                   error:function(xhr, ajaxOptions, thrownError){
@@ -740,8 +738,8 @@
               }
             } else {
               alert("取消刪除");
-            } 
-            
+            }
+
           }
 
           //計算匯款金額與自行應付
