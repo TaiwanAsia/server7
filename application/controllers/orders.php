@@ -625,9 +625,10 @@ class Orders extends CI_Controller {
 				for ($j = 0; $j < count($datas); $j++) {
 		    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
 		    			//對帳完成
-		    			echo $datas[$j]['日期']." ".$orders_buy[$i]['ID'].'<br>';
+		    			echo $datas[$j]['日期']." ".$orders_buy[$i]['id'].'<br>';
 		    			$this->orders_model->check_money_received($orders_buy[$i]['id'], $orders_buy[$i]['成交單編號'], date('Y-m-d H:i:s'), $money);
 		    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+		    			break;
 		    		}
 		    	}
 	    	}
@@ -648,6 +649,7 @@ class Orders extends CI_Controller {
 		    					echo $datas[$j]['日期']." ".$orders_sell[$i]['ID'].'<br>';
 		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money);
 		    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+		    					break;
 		    				}
 		    			}
 		    		}
