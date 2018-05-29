@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
 
-          <input form="search" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+          <input form="search" class="form-control form-control-dark w-100" type="text" placeholder="Ex : 2018050001" aria-label="Search" name="keyword">
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
@@ -55,7 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
         </ul>
     </nav>
-    <form method="get" action="search" id="search">
+    <form method="get" name="search" action="search" id="search">
     </form>
     <div class="container-fluid">
         <div class="row" style="flex-wrap: initial">
