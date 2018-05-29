@@ -66,6 +66,7 @@
                                   <th data-tablesaw-priority="0">上傳稅單-要記得選擇檔案</th>
                                   <th data-tablesaw-priority="0">上傳水</th>
                                   <th data-tablesaw-priority="1">是否結案</th>
+                                  <th data-tablesaw-priority="persist"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -440,6 +441,9 @@
                                       ?>
 
                                   </td>
+                                  <td>
+                                    <button onclick="Copy(<?php echo $orders[$i]['ID']; ?>)">複製</button>
+                                  </td>
 
                                     <!-- 沒顯示出來的欄位 -->
                                     <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
@@ -679,6 +683,35 @@
             ['買賣','成交單狀態','現金或匯款'].forEach(function(field) {
               form.elements[field].value = document.getElementById(field+id).value;
             });
+          }
+
+          //複製成交單
+          function Copy(i) {
+            var id = i;
+            // alert('確認是否複製 [成交單]編號['+id+']')
+            if (str=prompt("確認複製成交單編號["+id+"]請輸入 y或Y ","")) {
+              if (str=='Y'||str=='y') {
+                url = "<?=base_url()?>index.php/orders/copy";
+                go = "<?=base_url()?>index.php/orders/index";
+                alert('work');
+                $.ajax({
+                  url: url,
+                  type: 'post',
+                  data: {id:id},
+                  dataType: "json",
+                  success: function(data){
+                    alert(data);
+                    window.location.replace(go);
+                  },
+                  error:function(xhr, ajaxOptions, thrownError){
+                  }
+                });
+              } else {
+                alert("輸入字串錯誤，取消刪除");
+              }
+            } else {
+              alert("取消刪除");
+            } 
           }
 
           //刪除成交單

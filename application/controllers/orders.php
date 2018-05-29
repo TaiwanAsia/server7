@@ -102,6 +102,53 @@ class Orders extends CI_Controller {
 		$this->index();
 	}
 
+	public function copy() {
+		$result = $this->orders_model->get($_POST['id'],null,null,null,null,null);
+		$thelast_id = $this->orders_model->get_last_id();
+		$today_y = date('Y');
+		$today_m = date('m');
+		$id_y = substr($thelast_id, 0, 4);
+		$id_m = substr($thelast_id, 4, 2);
+		if (($today_y == $id_y)&&($today_m == $id_m)) {
+			$insert_id = $thelast_id+1;
+		} else {
+			$insert_id = $today_y.$today_m."0001";
+		}
+		$data = array(	'ID' => $insert_id,
+						'成交日期' => $result[0]['成交日期'],
+						'業務' => $result[0]['業務'],
+						'客戶姓名' => $result[0]['客戶姓名'],
+						'身分證字號' => $result[0]['身分證字號'],
+						'聯絡電話' => $result[0]['聯絡電話'],
+						'聯絡人' => $result[0]['聯絡人'],
+						'聯絡地址' => $result[0]['聯絡地址'],
+						'買賣' => $result[0]['買賣'],
+						'股票' => $result[0]['股票'],
+						'張數' => $result[0]['張數'],
+						'成交價' => $result[0]['成交價'],
+						'盤價' => $result[0]['盤價'],
+						'匯款金額應收帳款' => $result[0]['匯款金額應收帳款'],
+						'匯款日期' => $result[0]['匯款日期'],
+						'匯款銀行' => $result[0]['匯款銀行'],
+						'匯款分行' => $result[0]['匯款分行'],
+						'匯款戶名' => $result[0]['匯款戶名'],
+						'匯款帳號' => $result[0]['匯款帳號'],
+						'轉讓會員' => $result[0]['轉讓會員'],
+						'完稅人' => $result[0]['完稅人'],
+						'新舊' => $result[0]['新舊'],
+						'自行應付' => $result[0]['自行應付'],
+						'刻印' => $result[0]['刻印'],
+						'收送' => $result[0]['收送'],
+						'過戶日期' => $result[0]['過戶日期'],
+						'過戶費' => $result[0]['過戶費'],
+						'最後動作時間' => date('Y-m-d H:i:s'),
+					);
+		$insert_id = $this->orders_model->add($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '複製', $insert_id, null);
+		$myJSON = json_encode('Done!');
+		print_r($myJSON);
+	}
+
 	public function delete() {
 		$id = $_POST['id'];
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '刪除', $id, null);
