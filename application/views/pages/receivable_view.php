@@ -8,9 +8,9 @@
                                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/checkbill'" value="所有應收"></input>
                                 <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                     <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/boss_check_money'" value="上傳/確認"></input>
-                                <?php } ?>
                                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/check_record'" value="分匯紀錄"></input>
                                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"></input>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -27,9 +27,11 @@
                     <?php } ?>
 
                     <div>
-                        <?php echo "總應收".$total_info['total_receivable']; ?>
-                        <?php echo "　總已收".$total_info['total_received']; ?>
-                        <?php echo "　總尚餘".$total_info['total_left']; ?>
+                        <?php if ($_SESSION['權限名稱']=='最高權限') {
+                            echo "總應收".$total_info['total_receivable'];
+                            echo "　總已收".$total_info['total_received'];
+                            echo "　總尚餘".$total_info['total_left'];
+                        } ?>
                     </div>
                     
 

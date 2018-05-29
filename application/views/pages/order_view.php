@@ -356,7 +356,7 @@
                                           //業務點了通知查帳 ?>
                                             <form method="get" action="salesman_check_money">
                                               <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
-                                              <button type="submit"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></button>
+                                              <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
                                             </form>
 
                                       <?php
