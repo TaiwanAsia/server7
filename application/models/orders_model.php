@@ -279,7 +279,7 @@ class Orders_model extends CI_Model {
         $this->db->insert('orders',$data);
         $id = $this->db->insert_id();
         if ($data['業務'] == 'JOY') {
-            $array = array('一審'=>'審核完成', '二審'=>1, '通知查帳'=>'待確認');
+            $array = array('成交單狀態'=>'審核完成', '二審'=>1, '通知查帳'=>'待對帳');
             $this->db->where('ID', $id);
             $this->db->update('orders', $array);
         }
