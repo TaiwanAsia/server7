@@ -101,7 +101,19 @@
                                       <input type="hidden" id="成交日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交日期']; ?>">
                                     </td>
                                     </td>
-                                    <td><?php echo ($orders[$i]['業務']) ?></td>
+                                    <td>
+                                      <a href="javascript:location.href='
+                                        <?php
+                                        echo base_url()."index.php/orders/";
+                                        if ($orders[$i]['轉讓會員'] == '庫存') {
+                                          echo "go_inventory?業務=".$orders[$i]['業務'];
+                                        } else if($orders[$i]['轉讓會員'] == 'KO') {
+                                          echo "go_ko?業務=".$orders[$i]['業務'];
+                                        } else {
+                                          echo "index?業務=".$orders[$i]['業務'];
+                                        }?>'"
+                                        title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
+                                    </td>
                                     <td class="thd-s1">
                                       <a href="javascript:location.href='
                                         <?php
