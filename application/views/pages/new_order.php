@@ -78,7 +78,7 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款/應收金額</label></td>
-                                    <td><input class="" type="text" name="匯款金額應收帳款" value="" id=""></td>
+                                    <td><input class="" type="text" name="匯款金額應收帳款" value="" id="" required=""></td>
                                     <td><button onclick="accounting()">驗算金額</button></td>
                                 </tr>
                                 <tr>
@@ -307,7 +307,7 @@
         if (month.toString().length < 2) month = '0' + month;
         if (day.toString().length < 2) day = '0' + day;
         result = [year, month, day].join('-');
-        alert(result);
+        // alert(result);
         document.getElementById('過戶日期').value = result;
     }
 
