@@ -750,8 +750,8 @@ class Orders extends CI_Controller {
 	public function salesman_check_money() {
 		$this->load->view('templates/header');
 		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
-		$arrayName = array('order' => $order);
-		$this->load->view('pages/inform_check_money',$arrayName);
+		$array = array('order' => $order);
+		$this->load->view('pages/inform_check_money',$array);
 	}
 
 	//更改通知查帳

@@ -26,13 +26,15 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">金額</label></td>
-                                    <td><input class="" type="text" name="待查帳金額" id="" value=""></td>
+                                    <td><input class="" type="text" name="待查帳金額" id="" value="" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">支付人</label></td>
-                                    <td><input class="" type="text" name="支付人" id="" value=""></td>
+                                    <td><input class="" type="text" name="支付人" id="支付人" value=""></td>
+                                    <td><button onclick="Set('<?php echo $order[0]['客戶姓名']; ?>')">同客戶姓名</button></td>
                                 </tr>
+                                <!-- <?php print_r($order);?> -->
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款帳號末5碼</label></td>
@@ -53,5 +55,13 @@
             </main>
         </div>
     </div>    
+    <script>
+        function Set(name) {
+            var n = name;
+            document.getElementById("支付人").value = n;
+        }
+    </script>
 </body>
+
+
 
