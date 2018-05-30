@@ -30,6 +30,12 @@ $('#pnAdvancerRight').click(function() {
   }, "slow");
 });
 
+$("#receFileUpload").change(function(){
+  fileName = $(this)[0].files[0].name;
+   $('.filename_zone').html(fileName);
+	console.log("fileName" + fileName);
+  });
+
 });
 
 

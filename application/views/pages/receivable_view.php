@@ -9,7 +9,6 @@
                                 <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                     <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/boss_check_money'" value="上傳/確認"></input>
                                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/check_record'" value="分匯紀錄"></input>
-                                <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"></input>
                                 <?php } ?>
                             </div>
                         </div>
@@ -18,10 +17,16 @@
         <div class="t-form-t">
           <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
               <form class="form-horizontal well" action="import" method="post" name="upload_excel" enctype="multipart/form-data" style= "display:inline;">
-                  <input type="file" name="file[]" id="file" class="input-large" multiple>
-                  <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">     上傳
-                  </button>
+              <div class="upload-files">
+                  <label for="receFileUpload" class="btn btn-sm btn-outline-secondary">
+                    選擇檔案
+                  </label>
+                  <input id="receFileUpload" type="file" name="file[]" class="input-large" multiple>
+                  <span class="filename_zone"></span>
+                </div>
+                <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">上傳</button>
               </form>
+                <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳">
           <?php } ?>
         </div>
                   <div class="t-form">
@@ -295,7 +300,13 @@
                 </main>
             </div>
         </div>
-
-
     </body>
+    <script type="text/javascript">
+
+    $("#receFileUpload").change(function(){
+      fileName = $(this)[0].files[0].name;
+       $('.filename_zone').html(fileName);
+      console.log("fileName" + fileName);
+      });
+    </script>
 </html>
