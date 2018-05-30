@@ -14,7 +14,7 @@
                         </div>
                     </div>
 
-        <div class="t-form-t">
+        <!-- <div class="t-form-t">
           <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
               <form class="form-horizontal well" action="import" method="post" name="upload_excel" enctype="multipart/form-data" style= "display:inline;">
               <div class="upload-files">
@@ -28,10 +28,10 @@
               </form>
                 <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳">
           <?php } ?>
-        </div>
+        </div> -->
                   <div class="t-form">
 
-                      <table id="receivTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
+                      <table id="receivTable" class="table table-md table-hover table-responsive">
                         <thead>
                           <tr style="display: none;">
                             <th data-tablesaw-priority="1">編號</th>
@@ -63,16 +63,25 @@
                             <th data-tablesaw-priority="1">通知查帳</th>
                             <?php } ?>
                             </tr>
-                          <!-- second thead for dada -->
-                            <tr>
-                              <th data-tablesaw-priority="1"></th> <!-- 編號 -->
-                              <th data-tablesaw-priority="1" scope="col"></th> <!-- 成交日期 -->
-                              <th data-tablesaw-priority="1"></th> <!-- 業務 -->
+                          <!-- function thead for dada -->
+                            <tr class="function-r">
+                              <th data-tablesaw-priority="1">
+                                <label for="receFileUpload" class="btn btn-sm btn-outline-secondary">選擇檔案</label>
+                                <input id="receFileUpload" type="file" name="file[]" class="input-large" multiple>
+                              </th> <!-- 編號 -->
+                              <th data-tablesaw-priority="1" colspan="3">
+                                <span class="filename_zone"></span>
+                              </th> <!-- 成交日期 -->
+                              <th data-tablesaw-priority="1">
+                                <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">上傳</button>
+                              </th> <!-- 業務 -->
                               <th data-tablesaw-priority="1"></th> <!-- 客戶姓名 -->
                               <th data-tablesaw-priority="0"></th> <!-- 身分證字號 -->
                               <th data-tablesaw-priority="0"></th> <!-- 聯絡電話 -->
                               <th data-tablesaw-priority="0"></th> <!-- 聯絡人 -->
-                              <th data-tablesaw-priority="0"></th> <!-- 聯絡住址 -->
+                              <th data-tablesaw-priority="0">
+                                <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳">
+                              </th> <!-- 聯絡住址 -->
                               <th data-tablesaw-priority="0"></th> <!-- 買賣 -->
                               <th data-tablesaw-priority="0"></th> <!-- 股票 -->
                               <th data-tablesaw-priority="1"></th> <!-- 張數 -->
