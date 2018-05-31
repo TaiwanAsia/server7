@@ -402,7 +402,7 @@
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
                   <div class="form-group">
-                      <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                      <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit" id="" name="" class="">上傳</button>
                   </div>
@@ -416,7 +416,7 @@
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
                   <div class="form-group">
-                      <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                      <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit" id="" name="" class="">上傳</button>
                   </div>
@@ -430,7 +430,7 @@
                 <?php  } else {?>
                 <form method="post" action="upload_water" enctype="multipart/form-data">
                   <div class="form-group">
-                      <input type="file" name="file" class="form-control-file" id="exampleFormControlFile1">
+                      <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit" id="" name="" class="">上傳</button>
                   </div>

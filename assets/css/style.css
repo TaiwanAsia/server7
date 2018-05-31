@@ -144,6 +144,10 @@ th, td, form {
 input#receFileUpload {
   display: none; }
 
+.f-file-s {
+  display: inline-block;
+  width: 60%; }
+
 .filename_zone {
   display: inline-block;
   color: #676767;
