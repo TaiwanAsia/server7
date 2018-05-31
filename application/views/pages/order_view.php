@@ -291,7 +291,12 @@
             </td>
             <?php
               } else {
-                echo "<td><p class='text-primary'><b>審完</b></td>";
+                if ($orders[$i]['買賣']==1) {
+                  echo "<td><p class='text-danger'><b>審完</b></td>";
+                } else {
+                  echo "<td><p class='text-primary'><b>審完</b></td>";
+                }
+                
               }
             } else {
               echo "<td></td>";
@@ -393,7 +398,7 @@
             <td style="min-width:100px;">
                 <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){
                   ?>
-                <a href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
+                <a href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
                   <div class="form-group">
@@ -407,7 +412,7 @@
             <td>
                 <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){
                   ?>
-                <a href="<?=base_url('upload/tax/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
+                <a href="<?=base_url('upload/tax/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
                   <div class="form-group">
@@ -421,7 +426,7 @@
             <td>
                 <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
                   ?>
-                <a href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視</a>
+                <a href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php  } else {?>
                 <form method="post" action="upload_water" enctype="multipart/form-data">
                   <div class="form-group">

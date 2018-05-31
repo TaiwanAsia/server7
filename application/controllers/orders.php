@@ -758,7 +758,7 @@ class Orders extends CI_Controller {
 	public function inform_check_money() {
 		$this->orders_model->inform_check_money_model($_POST['ID'], $_POST['支付方式'], $_POST['轉出日期轉入日期'], $_POST['支付人'], $_POST['匯款帳號末5碼'], $_POST['待查帳金額'], date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '通知查帳', $_POST['ID'], null);
-		$this->index();
+		$this->checkbill();
 	}
 
 	//大姊進入確認帳款頁面
