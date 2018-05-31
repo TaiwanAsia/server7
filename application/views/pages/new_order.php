@@ -71,13 +71,13 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="">盤價</label></td>
+                                    <td><label for="" class="text-danger">盤價</label></td>
                                     <td><input class="" type="text" name="盤價" value="" id=""></td>
                                     <td><p class="text-info">★交易成本 / 庫存成本</p></td>
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="">匯款/應收金額</label></td>
+                                    <td><label for="" class="text-danger">匯款/應收金額</label></td>
                                     <td><input class="" type="text" name="匯款金額應收帳款" value="" id="" required=""></td>
                                     <td><button onclick="accounting()">驗算金額</button></td>
                                 </tr>
