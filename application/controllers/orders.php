@@ -551,6 +551,99 @@ class Orders extends CI_Controller {
 		
 	}
 
+	public function export() {
+		// 引入函式庫
+		require_once APPPATH."third_party\PHPExcel.php";
+
+		if (isset($_POST['Export'])) {
+			$date1 = $_POST['date1'];
+			$date2 = $_POST['date2'];
+
+			//判斷content檔案存在與否，存在則刪除
+			//$file = 'C:\xampp\tmp\excel\content.csv';
+			$file = 'C:\xampp\tmp\excel\temp.xls';
+			if(file_exists($file)){
+				unlink($file);
+			}
+
+			$data = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
+			$title = array('ID',
+						   '成交日期',
+	                       '業務',
+	                       '客戶姓名',
+	                       '身分證字號',
+	                       '聯絡電話',
+	                       '聯絡人',
+	                       '聯絡地址',
+	                       '買賣',
+	                       '股票',
+	                       '張數',
+	                       '成交價',
+	                       '盤價',
+	                       '匯款金額應收帳款',
+	                       '已匯金額已收金額',
+	                       '匯款銀行',
+	                       '匯款分行',
+	                       '匯款帳號',
+	                       '匯款戶名',
+	                       '轉讓會員',
+	                       '完稅人',
+	                       '新舊',
+	                       '自行應付',
+	                       '刻印',
+	                       '收送',
+	                       '匯款日期',
+	                       '過戶日期',
+	                       '過戶費',
+	                       '媒合',
+	                       '通知查帳',
+	                       '成交單狀態',
+	                       '二審',
+	                       '已結案',
+	                       '最後動作時間'
+	                    	);
+
+			//建立EXCEL暫存檔並將資料重新寫入
+			$objPHPExcel = new PHPExcel();
+			$objPHPExcel->setActiveSheetIndex(0);
+			$sheet = $objPHPExcel->getActiveSheet();
+			$row = 1;
+			//填入標頭行
+			for ($col = 1; $col <= count($title); $col++) {
+				if ($col <= 26) {
+					$sheet->setCellValue(chr($col + 64).$row, $title[$col - 1]);
+				} else {
+					$sheet->setCellValue('A'.chr($col + 64 - 26).$row, $title[$col - 1]);
+				}
+			}
+			//填入符合條件之成交單資料
+			$row = 2;
+			for ($num = 0; $num < count($data); $num++) {
+				if (strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期'])) {
+					for ($col = 1; $col <= count($title); $col++) {
+						if ($col <= 26) {
+							$sheet->setCellValue(chr($col + 64).$row, $data[$num][$title[$col - 1]]);
+						} else {
+							$sheet->setCellValue('A'.chr($col + 64 - 26).$row, $data[$num][$title[$col - 1]]);
+						}
+					}
+					$row++;
+				}
+			}
+			$PHPExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');//匯出成xls檔
+			//$PHPExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007"); //匯出成xlsx檔
+			$PHPExcelWriter->save($file);//建立暫存
+
+			//下載EXCEL檔
+			header("Content-type: application/force-download");
+			header("Content-Disposition: attachment; filename=\""."temp".".xls\"");
+			$PHPExcelWriter->save('php://output');
+		} else {
+			echo '<span style="color:#FF0000;"><b>下載失敗</b></span>';
+		}
+		$this->index();
+	}
+
 	public function import(){
 		// 引入函式庫
 		require_once APPPATH."third_party\PHPExcel.php";
