@@ -301,7 +301,7 @@ class Orders_model extends CI_Model {
         $this->db->insert('orders',$data);
         $id = $this->db->insert_id();
         if ($data['業務'] == 'JOY') {
-            $array = array('成交單狀態'=>'審核完成', '二審'=>1, '通知查帳'=>'待對帳');
+            $array = array('成交單狀態'=>'審核完成', '二審'=>1);
             $this->db->where('ID', $id);
             $this->db->update('orders', $array);
         }
@@ -415,12 +415,24 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_dealer_info($name) {
-        $sql = "SELECT * FROM `dealer` WHERE `盤商名` = '".$name."'";
+    public function get_dealer_info($keyword) {
+        if (is_null($keyword)) {
+            $sql = "SELECT * FROM `dealer`";
+        } else {
+            $type = intval($keyword);
+            if (is_int($type)) {
+                echo "int<br>";
+                $sql = "SELECT * FROM `dealer` WHERE `id` = '".$keyword."'";
+            } else {
+                echo "notint<br>";
+                $sql = "SELECT * FROM `dealer` WHERE `盤商名` = '".$keyword."'";
+            }
+        }
         $query = $this->db->query($sql);
         if($query->result()!=null){
             foreach ($query->result() as $row) {
-                $result[] = array('盤商名'=>$row-> 盤商名,
+                $result[] = array('id'=>$row-> id,
+                                '盤商名'=>$row-> 盤商名,
                                 '盤商傳真'=>$row-> 盤商傳真,
                                 '盤商電話'=>$row-> 盤商電話,);
             }
@@ -617,6 +629,15 @@ class Orders_model extends CI_Model {
     public function finish_order($id) {
         $sql = "UPDATE `orders` SET `已結案`= 1 WHERE `ID` = ".$id;
         $query = $this->db->query($sql);
+    }
+
+    public function add_dealer_model($data) {
+        $this->db->insert('dealer',$data);
+    }
+
+    public function edit_dealer_model($data) {
+        $this->db->where('id', $data['id']);
+        $this->db->update('dealer', $data);
     }
 
 

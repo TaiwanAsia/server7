@@ -104,7 +104,7 @@
             </td>
             </td>
             <td>
-              <a href="javascript:location.href='
+              <a class="clickable_hint" href="javascript:location.href='
                 <?php
                 echo base_url()."index.php/orders/";
                 if ($orders[$i]['轉讓會員'] == '庫存') {
@@ -117,7 +117,7 @@
                 title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
             </td>
             <td class="thd-s1">
-              <a href="javascript:location.href='
+              <a class="clickable_hint" href="javascript:location.href='
                 <?php
                 echo base_url()."index.php/orders/";
                 if ($orders[$i]['轉讓會員'] == '庫存') {
@@ -139,7 +139,7 @@
             </td>
             <td>
               <?php if($_SESSION['聯絡電話權限']==1) { ?>
-                <a href="javascript:location.href='
+                <a class="clickable_hint" href="javascript:location.href='
                   <?php
                   echo base_url()."index.php/orders/";
                   if ($orders[$i]['轉讓會員'] == '庫存') {
@@ -176,7 +176,7 @@
             ?></p>
            </td>
             <td>
-              <a href="javascript:location.href='
+              <a class="clickable_hint" href="javascript:location.href='
                 <?php
                 echo base_url()."index.php/orders/";
                 if ($orders[$i]['轉讓會員'] == '庫存') {
@@ -398,7 +398,7 @@
             <td style="min-width:100px;">
                 <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){
                   ?>
-                <a href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
+                <a class="clickable_hint" href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
                   <div class="form-group">
@@ -412,7 +412,7 @@
             <td>
                 <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){
                   ?>
-                <a href="<?=base_url('upload/tax/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
+                <a class="clickable_hint" href="<?=base_url('upload/tax/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
                   <div class="form-group">
@@ -426,7 +426,7 @@
             <td>
                 <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
                   ?>
-                <a href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
+                <a class="clickable_hint" href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php  } else {?>
                 <form method="post" action="upload_water" enctype="multipart/form-data">
                   <div class="form-group">
@@ -628,7 +628,13 @@
         </div>
 
 <!-- modal function assets/js/action.js -->
-
+        <style type="text/css">
+          .clickable_hint {
+            color: Steelblue;
+            /*color: RebeccaPurple;*/
+            text-decoration:underline;
+          }
+        </style>
 
         <script>
 

@@ -89,7 +89,7 @@ class Login extends CI_Controller {
 		public function account() {
 			$data = $this->login_model->show_account(null);//撈資料
 			$this->load->view('templates/header');
-			$this->load->view('pages/account', array('data' => $data,));
+			$this->load->view('pages/account/account_view', array('data' => $data,));
 		}
 	
 		//刪除帳號
@@ -103,7 +103,7 @@ class Login extends CI_Controller {
 		public function go_add_account() {
 			$data = $this->login_model->show_account(null);//先撈account資料
 			$this->load->view('templates/header');
-			$this->load->view('pages/add_account_view', array('data' => $data,));
+			$this->load->view('pages/account/add_account_view', array('data' => $data,));
 		}
 	
 		//新增帳號
@@ -122,7 +122,7 @@ class Login extends CI_Controller {
 			$account_id = $_POST['account_id'];
 			$data = $this->login_model->show_account($account_id); //撈欲編輯資料
 			$this->load->view('templates/header');
-			$this->load->view('pages/edit_account_view', array('data' => $data,));
+			$this->load->view('pages/account/edit_account_view', array('data' => $data,));
 		}
 	
 		//編輯帳號

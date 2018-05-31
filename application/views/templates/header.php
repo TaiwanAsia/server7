@@ -75,6 +75,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/fax_info">
+                            傳真資料<施工中>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                                 <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/move_record">
                                     動作紀錄

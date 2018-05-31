@@ -32,7 +32,7 @@
                                     <td></td>
                                     <td><label for="" class="">支付人</label></td>
                                     <td><input class="" type="text" name="支付人" id="支付人" value=""></td>
-                                    <td><button onclick="Set('<?php echo $order[0]['客戶姓名']; ?>')">同客戶姓名</button></td>
+                                    <td><button onclick="Set_payname('<?php echo $order[0]['客戶姓名']; ?>')">同客戶姓名</button></td>
                                 </tr>
                                 <!-- <?php print_r($order);?> -->
                                 <tr>
@@ -56,7 +56,7 @@
         </div>
     </div>    
     <script>
-        function Set(name) {
+        function Set_payname(name) {
             var n = name;
             document.getElementById("支付人").value = n;
         }

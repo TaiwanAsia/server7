@@ -278,9 +278,9 @@ class Orders extends CI_Controller {
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 		$this->load->view('templates/header');
 		if ($_SESSION['權限名稱']=='最高權限') {
-			$this->load->view('pages/admin_edit_order_view',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
+			$this->load->view('pages/order_edit/admin_edit_order_view',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
 		} else {
-			$this->load->view('pages/edit_order_view',array('result' => $result,'employees' => $employees,));
+			$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
 		}
 	}
 
@@ -295,7 +295,7 @@ class Orders extends CI_Controller {
 		// 	echo $key.": ".$value."<br>";
 		// };  
 		$this->load->view('templates/header');
-		$this->load->view('pages/edit_order_view',array('result' => $result,'employees' => $employees,));
+		$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
 	}
 
 	//改成交單狀態(一審)
@@ -766,7 +766,7 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_check_record(null, '未查帳');
 		$arrayName = array('data' => $data);
 		$this->load->view('templates/header');
-		$this->load->view('pages/ready_to_check',$arrayName);
+		$this->load->view('pages/money/ready_to_check',$arrayName);
 	}
 
 	//大姊確認帳款
@@ -779,14 +779,61 @@ class Orders extends CI_Controller {
 	public function check_record() {
 		$data = $this->orders_model->get_check_record(null, '已查帳');
 		$this->load->view('templates/header');
-		$this->load->view('pages/check_record', array('data'=>$data));
+		$this->load->view('pages/money/check_record', array('data'=>$data));
 	}
 
 	//查看動作紀錄
 	public function move_record() {
 		$data = $this->orders_model->get_move_record();
 		$this->load->view('templates/header');
-		$this->load->view('pages/move_record', array('data'=>$data));
+		$this->load->view('pages/admin/move_record', array('data'=>$data));
+	}
+
+	//進入傳真資料
+	public function fax_info() {
+		$this->load->view('templates/header');
+		$this->load->view('pages/fax/fax_info');
+	}
+
+	//進入盤商資料
+	public function go_dealer() {
+		$data = $this->orders_model->get_dealer_info(NULL);
+		$this->load->view('templates/header');
+		$this->load->view('pages/fax/dealer_info', array('data'=>$data));
+	}
+
+	//新增盤商頁面
+	public function go_add_dealer() {
+		$this->load->view('templates/header');
+		$this->load->view('pages/fax/add_dealer_view');
+	}
+
+	//新增盤商
+	public function add_dealer() {
+		$data = array('盤商名' => $_POST['name'],
+						'盤商傳真' => $_POST['fax'],
+						'盤商電話' => $_POST['tel']);
+		$this->orders_model->add_dealer_model($data);
+		$this->go_dealer();
+	}
+
+	//編輯盤商頁面
+	public function go_edit_dealer() {
+		$dealer_id = $_POST['dealer_id'];
+		$data = $this->orders_model->get_dealer_info($dealer_id); //撈欲編輯資料
+		$this->load->view('templates/header');
+		$this->load->view('pages/fax/edit_dealer_view', array('data' => $data,));
+	}
+
+	//編輯盤商
+	public function edit_dealer() {
+		$data = array(
+			'id' => $_POST['id'],
+			'盤商名' => $_POST['name'],
+						'盤商傳真' => $_POST['fax'],
+						'盤商電話' => $_POST['tel']);
+		$this->orders_model->edit_dealer_model($data);
+		$this->go_dealer();
 	}
 }
 
