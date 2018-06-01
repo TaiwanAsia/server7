@@ -76,7 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/fax_info">
-                            傳真資料<施工中>
+                            傳真資料
                             </a>
                         </li>
                         <li class="nav-item">

@@ -191,7 +191,8 @@
         <tr>
             <td></td>
             <td><label for="noteField">備註</label></td>
-            <td><input type="text" name="備註" id="noteField"></td>
+            <!-- <td><input type="text" name="備註" id="noteField"></td> -->
+            <td colspan="2"><textarea rows="4" cols="70" name="備註" id="noteField"></textarea></td>
         </tr>
         <tr></tr>
         <tr>

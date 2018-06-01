@@ -105,6 +105,7 @@ class Orders extends CI_Controller {
 						'收送' => $_POST['收送'],
 						'過戶日期' => $_POST['過戶日期'],
 						'過戶費' => $_POST['過戶費'],
+						'備註' => $_POST['備註'],
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
