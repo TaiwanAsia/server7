@@ -819,6 +819,13 @@ class Orders extends CI_Controller {
 		
 	}
 
+	//傳真資料匯入成交單資料
+	public function import_order_info() {
+		$info = $this->orders_model->get($_GET['order_id'],null,null,null,null);
+		$myJSON = json_encode($info[0]);
+		print_r($myJSON);
+	}
+
 	//新增成交單時匯入盤商資料
 	public function import_dealer_info() {
 		$info = $this->orders_model->get_dealer_info(3, $_GET['dealer_name']);
