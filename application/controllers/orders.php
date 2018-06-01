@@ -820,7 +820,7 @@ class Orders extends CI_Controller {
 
 	//新增成交單時匯入盤商資料
 	public function import_dealer_info() {
-		$info = $this->orders_model->get_dealer_info($_GET['dealer_name']);
+		$info = $this->orders_model->get_dealer_info(3, $_GET['dealer_name']);
 		$myJSON = json_encode($info[0]);
 		print_r($myJSON);
 	}
@@ -890,7 +890,7 @@ class Orders extends CI_Controller {
 
 	//進入盤商資料
 	public function go_dealer() {
-		$data = $this->orders_model->get_dealer_info(NULL);
+		$data = $this->orders_model->get_dealer_info(1, NULL);
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/dealer_info', array('data'=>$data));
 	}
@@ -912,8 +912,8 @@ class Orders extends CI_Controller {
 
 	//編輯盤商頁面
 	public function go_edit_dealer() {
-		$dealer_id = $_POST['dealer_id'];
-		$data = $this->orders_model->get_dealer_info($dealer_id); //撈欲編輯資料
+		$dealer_id = $_GET['dealer_id'];
+		$data = $this->orders_model->get_dealer_info(2, $dealer_id); //撈欲編輯資料
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/edit_dealer_view', array('data' => $data,));
 	}
@@ -921,13 +921,22 @@ class Orders extends CI_Controller {
 	//編輯盤商
 	public function edit_dealer() {
 		$data = array(
-			'id' => $_POST['id'],
-			'盤商名' => $_POST['name'],
-						'盤商傳真' => $_POST['fax'],
-						'盤商電話' => $_POST['tel']);
+						'id' => $_GET['id'],
+						'盤商名' => $_GET['name'],
+						'盤商傳真' => $_GET['fax'],
+						'盤商電話' => $_GET['tel']);
 		$this->orders_model->edit_dealer_model($data);
 		$this->go_dealer();
 	}
+
+	//刪除盤商
+	public function delete_dealer() {
+		$this->orders_model->delete_dealer_model($_GET['dealer_id']);
+		$this->go_dealer();
+	}
+
+
+
 }
 
 
