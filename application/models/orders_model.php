@@ -440,22 +440,50 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_taxer_info($name) {
-        $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
+    public function get_taxer_info($type, $keyword) {
+        if ($type == 1) {
+            $sql = "SELECT * FROM `taxer`";
+        } elseif ($type == 2) {
+            $sql = "SELECT * FROM `taxer` WHERE `id` = '".$keyword."'";
+        } elseif ($type == 3) {
+            $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$keyword."'";
+        }
+
         $query = $this->db->query($sql);
+
         if($query->result()!=null){
             foreach ($query->result() as $row) {
-                $result[] = array(
+                $result[] = array('id'=>$row-> id,
                                 '盤商名'=>$row-> 盤商名,
                                 '完稅姓名'=>$row-> 完稅姓名,
                                 '完稅ID'=>$row-> 完稅ID,
-                                '完稅地址'=>$row-> 完稅地址,);
+                                '完稅地址'=>$row-> 完稅地址,
+                                '匯款姓名'=>$row-> 匯款姓名,
+                                '匯款銀行'=>$row-> 匯款銀行,
+                                '匯款帳號'=>$row-> 匯款帳號,);
             }
             return  $result;
         } else {
             return false;
         }
     }
+
+    // public function get_taxer_info($name) {
+    //     $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
+    //     $query = $this->db->query($sql);
+    //     if($query->result()!=null){
+    //         foreach ($query->result() as $row) {
+    //             $result[] = array(
+    //                             '盤商名'=>$row-> 盤商名,
+    //                             '完稅姓名'=>$row-> 完稅姓名,
+    //                             '完稅ID'=>$row-> 完稅ID,
+    //                             '完稅地址'=>$row-> 完稅地址,);
+    //         }
+    //         return  $result;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     public function get_payer_info($name) {
         $sql = "SELECT * FROM `taxer` WHERE `完稅姓名` = '".$name."'";
@@ -633,14 +661,28 @@ class Orders_model extends CI_Model {
         $this->db->insert('dealer',$data);
     }
 
+    public function add_taxer_model($data) {
+        $this->db->insert('taxer',$data);
+    }
+
     public function edit_dealer_model($data) {
         $this->db->where('id', $data['id']);
         $this->db->update('dealer', $data);
     }
 
+    public function edit_taxer_model($data) {
+        $this->db->where('id', $data['id']);
+        $this->db->update('taxer', $data);
+    }
+
     public function delete_dealer_model($id) {
         $this->db->where('id', $id);
         $this->db->delete('dealer'); 
+    }
+
+    public function delete_taxer_model($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('taxer'); 
     }
 
 
