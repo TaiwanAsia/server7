@@ -169,13 +169,16 @@ input#receFileUpload {
   background-color: #EEF2FF; }
 
 tr.note-row {
-  background-color: #007bff; }
+  background-color: #363232; }
   tr.note-row td {
     border: none;
-    color: #fff;
-    letter-spacing: 1.2px; }
-    tr.note-row td:nth-child(1) {
-      text-align: right; }
+    letter-spacing: 1.2px;
+    padding: 0 0 0 .75rem; }
+  tr.note-row .n-tds-1 {
+    text-align: right;
+    color: #fff; }
+  tr.note-row .n-tds-2 {
+    color: #dfcc6f; }
   tr.note-row:hover td {
     color: #000; }
 

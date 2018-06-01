@@ -485,8 +485,8 @@
         </tr>
           <?php if ($orders[$i]['備註'] > 0) { ?>
             <tr class="note-row">
-              <td colspan="5">|備註內容:</td>
-              <td colspan="100"><?php echo $orders[$i]['備註']; ?></td>
+              <td colspan="5" class="n-tds-1">月珍備註內容:</td>
+              <td colspan="100" class="n-tds-2"><?php echo $orders[$i]['備註']; ?></td>
             </tr>
           <?php } ?>
 

@@ -219,19 +219,25 @@
 	}
 
 	tr.note-row{
-		background-color: #007bff;
+		background-color: rgb(54, 50, 50);
+
 		td{
 			border: none;
-			color: #fff;
 			letter-spacing: 1.2px;
-			&:nth-child(1){text-align: right;}
+			padding: 0 0 0 .75rem;
 		}
+		.n-tds-1{
+			text-align: right;
+			color: #fff;
+		}
+		.n-tds-2{
+			color: rgb(223, 204, 111);
+		}
+
 		&:hover td{
 			color: #000;
 		}
 	}
-
-
 
 	.thead__fs {
     display: flex;
