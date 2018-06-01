@@ -6,6 +6,9 @@
   .s-sidebar .s-sidebar-1 {
     margin: 12px auto 0 auto; }
 
+.show {
+  display: block; }
+
 th, td, form {
   white-space: nowrap; }
 
@@ -25,11 +28,8 @@ th, td, form {
 
 .s-modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
-  z-index: 1;
-  /* Sit on top */
+  z-index: 999;
   top: 0;
   right: 0;
   bottom: 0;
@@ -37,9 +37,7 @@ th, td, form {
   padding-top: 100px;
   z-index: 1050;
   width: 100%;
-  /* Full width */
   height: 100%;
-  /* Full height */
   overflow: auto;
   /* Enable scroll if needed */
   background-color: black;
@@ -169,6 +167,17 @@ input#receFileUpload {
 
 .td-cs-1 {
   background-color: #EEF2FF; }
+
+tr.note-row {
+  background-color: #007bff; }
+  tr.note-row td {
+    border: none;
+    color: #fff;
+    letter-spacing: 1.2px; }
+    tr.note-row td:nth-child(1) {
+      text-align: right; }
+  tr.note-row:hover td {
+    color: #000; }
 
 .thead__fs {
   display: flex;
