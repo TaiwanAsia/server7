@@ -340,6 +340,7 @@ class Orders extends CI_Controller {
 		$original = $this->orders_model->get($_POST['id'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
 		$date = $original[0]['成交日期'];
 		$this->orders_model->Buy_Edit_Model($_POST['id'], $date, date('Y-m-d', strtotime($date."+3 day")));
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '一審', $_POST['id'], null);
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);
 	}
