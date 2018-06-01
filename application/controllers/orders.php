@@ -835,7 +835,7 @@ class Orders extends CI_Controller {
 
 	//新增成交單時匯入完稅人資料
 	public function import_taxer_info() {
-		$info = $this->orders_model->get_taxer_info($_GET['taxer_name']);
+		$info = $this->orders_model->get_taxer_info(3, $_GET['taxer_name']);
 		$myJSON = json_encode($info[0]);
 		print_r($myJSON);
 	}
@@ -903,10 +903,23 @@ class Orders extends CI_Controller {
 		$this->load->view('pages/fax/dealer_info', array('data'=>$data));
 	}
 
+	//進入完稅人資料
+	public function go_taxer() {
+		$data = $this->orders_model->get_taxer_info(1, NULL);
+		$this->load->view('templates/header');
+		$this->load->view('pages/fax/taxer_info', array('data'=>$data));
+	}
+
 	//新增盤商頁面
 	public function go_add_dealer() {
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/add_dealer_view');
+	}
+
+	//新增完稅人頁面
+	public function go_add_taxer() {
+		$this->load->view('templates/header');
+		$this->load->view('pages/fax/add_taxer_view');
 	}
 
 	//新增盤商
@@ -918,12 +931,33 @@ class Orders extends CI_Controller {
 		$this->go_dealer();
 	}
 
+	//新增完稅人
+	public function add_taxer() {
+		$data = array('盤商名' => $_POST['盤商名'],
+						'完稅姓名' => $_POST['完稅姓名'],
+						'完稅ID' => $_POST['完稅ID'],
+						'完稅地址' => $_POST['完稅地址'],
+						'匯款姓名' => $_POST['匯款姓名'],
+						'匯款銀行' => $_POST['匯款銀行'],
+						'匯款帳號' => $_POST['匯款帳號'],);
+		$this->orders_model->add_taxer_model($data);
+		$this->go_taxer();
+	}
+
 	//編輯盤商頁面
 	public function go_edit_dealer() {
 		$dealer_id = $_GET['dealer_id'];
 		$data = $this->orders_model->get_dealer_info(2, $dealer_id); //撈欲編輯資料
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/edit_dealer_view', array('data' => $data,));
+	}
+
+	//編輯完稅人頁面
+	public function go_edit_taxer() {
+		$taxer_id = $_GET['taxer_id'];
+		$data = $this->orders_model->get_taxer_info(2, $taxer_id); //撈欲編輯資料
+		$this->load->view('templates/header');
+		$this->load->view('pages/fax/edit_taxer_view', array('data' => $data,));
 	}
 
 	//編輯盤商
@@ -937,11 +971,33 @@ class Orders extends CI_Controller {
 		$this->go_dealer();
 	}
 
+	//編輯完稅人
+	public function edit_taxer() {
+		$data = array(
+						'id' => $_GET['id'],
+						'盤商名' => $_GET['盤商名'],
+						'完稅姓名' => $_GET['完稅姓名'],
+						'完稅ID' => $_GET['完稅ID'],
+						'完稅地址' => $_GET['完稅地址'],
+						'匯款姓名' => $_GET['匯款姓名'],
+						'匯款銀行' => $_GET['匯款銀行'],
+						'匯款帳號' => $_GET['匯款帳號'],);
+		$this->orders_model->edit_taxer_model($data);
+		$this->go_taxer();
+	}
+
 	//刪除盤商
 	public function delete_dealer() {
 		$this->orders_model->delete_dealer_model($_GET['dealer_id']);
 		$this->go_dealer();
 	}
+
+	//刪除完稅人
+	public function delete_taxer() {
+		$this->orders_model->delete_taxer_model($_GET['taxer_id']);
+		$this->go_taxer();
+	}
+
 
 
 
