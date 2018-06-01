@@ -415,20 +415,17 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_dealer_info($keyword) {
-        if (is_null($keyword)) {
+    public function get_dealer_info($type, $keyword) {
+        if ($type == 1) {
             $sql = "SELECT * FROM `dealer`";
-        } else {
-            $type = intval($keyword);
-            if (is_int($type)) {
-                echo "int<br>";
-                $sql = "SELECT * FROM `dealer` WHERE `id` = '".$keyword."'";
-            } else {
-                echo "notint<br>";
-                $sql = "SELECT * FROM `dealer` WHERE `盤商名` = '".$keyword."'";
-            }
+        } elseif ($type == 2) {
+            $sql = "SELECT * FROM `dealer` WHERE `id` = '".$keyword."'";
+        } elseif ($type == 3) {
+            $sql = "SELECT * FROM `dealer` WHERE `盤商名` = '".$keyword."'";
         }
+
         $query = $this->db->query($sql);
+
         if($query->result()!=null){
             foreach ($query->result() as $row) {
                 $result[] = array('id'=>$row-> id,
@@ -638,6 +635,11 @@ class Orders_model extends CI_Model {
     public function edit_dealer_model($data) {
         $this->db->where('id', $data['id']);
         $this->db->update('dealer', $data);
+    }
+
+    public function delete_dealer_model($id) {
+        $this->db->where('id', $id);
+        $this->db->delete('dealer'); 
     }
 
 

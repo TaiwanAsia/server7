@@ -22,18 +22,21 @@
 						echo "<td>".$data[$i]['盤商名']."</td>";
 						echo "<td>".$data[$i]['盤商傳真']."</td>";
 						echo "<td>".$data[$i]['盤商電話']."</td>";
+						
 						echo '<td>
-							<form action="delete_dealer" method="POST" name="" style= "display:inline">
-							<input type="hidden" name="dealer_id" value="'.$data[$i]['id'].'">
-							<input type="submit" name="" value="刪除">
-							</form>
-							</td>';
-						echo '<td>
-							<form action="go_edit_dealer" method="POST" name="" style= "display:inline">
+							<form action="go_edit_dealer" method="GET" name="" style= "display:inline">
 							<input type="hidden" name="dealer_id" value="'.$data[$i]['id'].'">
 							<input type="submit" name="" value="編輯">
 							</form>
 							</td>';
+						
+						echo '<td>
+							<form action="delete_dealer" method="GET" name="" style= "display:inline">
+							<input type="hidden" name="dealer_id" value="'.$data[$i]['id'].'">
+							<input type="submit" name="" value="刪除">
+							</form>
+							</td>';
+							
 						echo "</tr>";
 					}
 				}
