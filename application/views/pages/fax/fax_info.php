@@ -51,7 +51,7 @@
                     <td></td>
                     <td>張　數</td>
                     <td><input id="stock_amount" type="text" name=""></td>
-                </tr>1
+                </tr>
 
 
                 
