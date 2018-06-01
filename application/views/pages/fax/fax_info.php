@@ -34,19 +34,24 @@
                 </tr>
 
                 <tr>
+                    <td>成交單編號</td>
+                    <td><input id="order_id" type="text" name=""></td>
+                    <td><button id="import_order">匯入</button></td>
+                </tr>
+                <tr>
                     <td>股票名稱</td>
-                    <td><input id="" type="text" name=""></td>
+                    <td><input id="stock_name" type="text" name=""></td>
                     <td><button id="">匯入</button></td>
                     <td>方　式</td>
-                    <td><input id="" type="text" name=""></td>
+                    <td><input id="way" type="text" name=""></td>
                 </tr>
                 <tr>
                     <td>成交價格</td>
-                    <td><input id="" type="text" name=""></td>
+                    <td><input id="stock_price" type="text" name=""></td>
                     <td></td>
                     <td>張　數</td>
-                    <td><input id="" type="text" name=""></td>
-                </tr>
+                    <td><input id="stock_amount" type="text" name=""></td>
+                </tr>1
 
 
                 
@@ -75,7 +80,7 @@
                 </tr>
                 <tr>
                     <td>過戶日期</td>
-                    <td><input id="" type="text" name=""></td>
+                    <td><input id="transfer_date" type="date" name=""></td>
                 </tr>
                 <tr>
                     <td>匯款金額</td>
@@ -92,6 +97,33 @@
 </body>
 
 <script type="text/javascript">
+
+    $("#import_order").click(function() {
+        $.ajax({
+            type: "GET",
+            url: "<?=base_url()?>index.php/orders/import_order_info?order_id="+ $("#order_id").val(),
+            dataType: "json",
+            success: function(data) {
+                if (data.ID) {
+                    $("#stock_name").val(data.股票);
+                    if (data.買賣 == 1) {
+                        $("#way").val("買");
+                    } else {
+                        $("#way").val("賣");
+                    }
+                    $("#stock_price").val(data.成交價);
+                    $("#stock_amount").val(data.張數);
+                    $('#transfer_date').val(data.過戶日期);
+                } else {
+                    $("#createResult").html(data.msg);
+                }                   
+            },
+            error: function(jqXHR,data) {
+                // alert("發生錯誤: " + jqXHR.status);
+                alert(data);
+            }
+        })
+    })
 	
 	$("#import_dealer").click(function() {
         $.ajax({
