@@ -60,7 +60,7 @@
                     <td><input id="taxer_name" type="text" name=""></td>
                     <td><button id="import_taxer">匯入</button></td>
                     <td>　ID</td>
-                    <td><input id="" type="text" name=""></td>
+                    <td><input id="taxer_id" type="text" name=""></td>
                 </tr>
                 <tr>
                     <td>完稅地址</td>

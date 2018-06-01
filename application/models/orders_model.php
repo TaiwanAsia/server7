@@ -493,8 +493,7 @@ class Orders_model extends CI_Model {
                 $result[] = array(
                                 '匯款姓名'=>$row-> 完稅姓名,
                                 '匯款銀行'=>$row-> 匯款銀行,
-                                '匯款帳號'=>$row-> 匯款帳號,
-                                '匯款金額'=>$row-> 匯款金額,);
+                                '匯款帳號'=>$row-> 匯款帳號,);
             }
             return  $result;
         } else {
