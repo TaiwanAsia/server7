@@ -32,320 +32,324 @@
 <div class="t-form">
 <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
     <thead class="thead-light">
-        <tr>
+      <tr>
+      <th data-tablesaw-priority="0">編號</th>
+      <th data-tablesaw-priority="1" scope="col">成交日期</th>
+      <th data-tablesaw-priority="1">業務</th>
+      <th data-tablesaw-priority="1">客戶姓名</th>
+      <th data-tablesaw-priority="0">身分證字號</th>
+      <th data-tablesaw-priority="1">聯絡電話</th>
+      <th data-tablesaw-priority="0">聯絡人</th>
+      <th data-tablesaw-priority="0">聯絡住址</th>
+      <th data-tablesaw-priority="1">買賣</th>
+      <th data-tablesaw-priority="1">股票</th>
+      <th data-tablesaw-priority="1">張數</th>
+      <th data-tablesaw-priority="1">成交價</th>
+      <th data-tablesaw-priority="1">盤價</th>
+      <th data-tablesaw-priority="1">匯款/應收金額</th>
+      <th data-tablesaw-priority="0">匯款銀行</th>
+      <th data-tablesaw-priority="0">匯款分行</th>
+      <th data-tablesaw-priority="0">匯款戶名</th>
+      <th data-tablesaw-priority="0">匯款帳號</th>
+      <th data-tablesaw-priority="1">轉讓會員</th>
+      <th data-tablesaw-priority="1">完稅人</th>
+      <th data-tablesaw-priority="1">一審</th>
+      <th data-tablesaw-priority="1">二審</th>
+      <!-- <th>成交單狀態</th> -->
+      <th data-tablesaw-priority="0">新舊</th>
+      <th data-tablesaw-priority="0">自行應付</th>
+      <th data-tablesaw-priority="0">刻印</th>
+      <th data-tablesaw-priority="0">過戶費</th>
+      <th data-tablesaw-priority="0">媒合</th>
+      <th data-tablesaw-priority="1">收付款</th>
+      <th data-tablesaw-priority="0">過戶日期</th>
+      <th data-tablesaw-priority="1">通知查帳</th>
+      <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
+      <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
+      <th data-tablesaw-priority="1">上傳水</th>
+      <th data-tablesaw-priority="1">是否結案</th>
+      <th data-tablesaw-priority="persist"></th>
+      <th data-tablesaw-priority="persist"></th>
+    </tr>
+  </thead>
+   <tbody>
+    <?php if($orders) {
+        for($i=0; $i<count($orders); $i++) { ?>
 
-          <th data-tablesaw-priority="0">編號</th>
-          <th data-tablesaw-priority="1" scope="col">成交日期</th>
-          <th data-tablesaw-priority="1">業務</th>
-          <th data-tablesaw-priority="1">客戶姓名</th>
-          <th data-tablesaw-priority="0">身分證字號</th>
-          <th data-tablesaw-priority="1">聯絡電話</th>
-          <th data-tablesaw-priority="0">聯絡人</th>
-          <th data-tablesaw-priority="0">聯絡住址</th>
-          <th data-tablesaw-priority="1">買賣</th>
-          <th data-tablesaw-priority="1">股票</th>
-          <th data-tablesaw-priority="1">張數</th>
-          <th data-tablesaw-priority="1">成交價</th>
-          <th data-tablesaw-priority="1">盤價</th>
-          <th data-tablesaw-priority="1">匯款/應收金額</th>
-          <th data-tablesaw-priority="0">匯款銀行</th>
-          <th data-tablesaw-priority="0">匯款分行</th>
-          <th data-tablesaw-priority="0">匯款戶名</th>
-          <th data-tablesaw-priority="0">匯款帳號</th>
-          <th data-tablesaw-priority="1">轉讓會員</th>
-          <th data-tablesaw-priority="1">完稅人</th>
-          <th data-tablesaw-priority="1">一審</th>
-          <th data-tablesaw-priority="1">二審</th>
-          <!-- <th>成交單狀態</th> -->
-          <th data-tablesaw-priority="0">新舊</th>
-          <th data-tablesaw-priority="0">自行應付</th>
-          <th data-tablesaw-priority="0">刻印</th>
-          <th data-tablesaw-priority="0">過戶費</th>
-          <th data-tablesaw-priority="0">媒合</th>
-          <th data-tablesaw-priority="1">收付款</th>
-          <th data-tablesaw-priority="0">過戶日期</th>
-          <th data-tablesaw-priority="1">通知查帳</th>
-          <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
-          <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
-          <th data-tablesaw-priority="1">上傳水</th>
-          <th data-tablesaw-priority="1">是否結案</th>
-          <th data-tablesaw-priority="persist"></th>
-          <th data-tablesaw-priority="persist"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if($orders) {
-            for($i=0; $i<count($orders); $i++) { ?>
-        <tr class="<?php if($orders[$i]['媒合'] != 0 ) { echo "td-cs-1"; } ?>">
-            <!-- <td>
-              <?php if ($_SESSION['編輯權限']==1) { ?>
-              <form method="GET" action="go_edit">
-                <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
-                <button type="submit">編輯</button>
-              </form>
-              <?php } ?>
-            </td> -->
-            <!-- <td>
-              <?php if ($_SESSION['刪除權限']==1) { ?>
-                <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
-              <?php } ?>
-            </td> -->
-            <!-- <td>
-              <?php if ($_SESSION['刪除權限']==1) { ?>
-              <form method="POST" action="delete">
-                <button type="submit">刪除</button>
-                <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
-              </form>
-              <?php } ?>
-            </td> -->
-            <td><label id="mousemove<?php echo ($orders[$i]['ID']) ?>" onmouseout="changefont_back(<?php echo ($orders[$i]['ID']) ?>)" onmousemove="changefont(<?php echo ($orders[$i]['ID']) ?>)" onclick="showbonus(<?php echo ($orders[$i]['ID']) ?>)" style="cursor: pointer;"><?php echo ($orders[$i]['ID']) ?></label></td>
-            <td>
-              <?php echo ($orders[$i]['成交日期']) ?>
-              <input type="hidden" id="成交日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交日期']; ?>">
-            </td>
-            </td>
-            <td>
-              <a class="clickable_hint" href="javascript:location.href='
-                <?php
-                echo base_url()."index.php/orders/";
-                if ($orders[$i]['轉讓會員'] == '庫存') {
-                  echo "go_inventory?業務=".$orders[$i]['業務'];
-                } else if($orders[$i]['轉讓會員'] == 'KO') {
-                  echo "go_ko?業務=".$orders[$i]['業務'];
-                } else {
-                  echo "index?業務=".$orders[$i]['業務'];
-                }?>'"
-                title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
-            </td>
-            <td class="thd-s1">
-              <a class="clickable_hint" href="javascript:location.href='
-                <?php
-                echo base_url()."index.php/orders/";
-                if ($orders[$i]['轉讓會員'] == '庫存') {
-                  echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名'];
-                } else if($orders[$i]['轉讓會員'] == 'KO') {
-                  echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名'];
-                } else {
-                  echo "index?客戶姓名=".$orders[$i]['客戶姓名'];
-                }?>'"
-                title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
-              <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
-            </td>
-            <td>
-              <?php if($_SESSION['身分證字號權限']==1) {
-                echo ($orders[$i]['身分證字號']);
-              ?>
-              <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
-              <?php } ?>
-            </td>
-            <td>
-              <?php if($_SESSION['聯絡電話權限']==1) { ?>
-                <a class="clickable_hint" href="javascript:location.href='
-                  <?php
-                  echo base_url()."index.php/orders/";
-                  if ($orders[$i]['轉讓會員'] == '庫存') {
-                    echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話'];
-                  } else if($orders[$i]['轉讓會員'] == 'KO') {
-                    echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話'];
-                  } else {
-                    echo "index?聯絡電話=".$orders[$i]['聯絡電話'];
-                  }?>'"
-                  title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
-                <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
-              <?php } ?>
-            </td>
-            <td>
-              <?php if($_SESSION['聯絡人權限']==1) {
-                echo ($orders[$i]['聯絡人']);
-              } ?>
-            </td>
-            <td>
-              <?php if($_SESSION['聯絡地址權限']==1) {
-                echo ($orders[$i]['聯絡地址']);
-              ?>
-              <input type="hidden" id="address<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡地址']; ?>">
-              <?php } ?>
-            </td>
-            <td><?php
-            if($orders[$i]['買賣']==1){
-              echo '<p class="text-danger"><b>買</b>';
-              echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'" name="" value="1">';
-            } else {
-              echo '<p class="text-primary"><b>賣</b>';
-              echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'" name="" value="0">';
-            }
-            ?></p>
-           </td>
-            <td>
-              <a class="clickable_hint" href="javascript:location.href='
-                <?php
-                echo base_url()."index.php/orders/";
-                if ($orders[$i]['轉讓會員'] == '庫存') {
-                  echo "go_inventory?股票=".$orders[$i]['股票'];
-                } else if($orders[$i]['轉讓會員'] == 'KO') {
-                  echo "go_ko?股票=".$orders[$i]['股票'];
-                } else {
-                  echo "index?股票=".$orders[$i]['股票'];
-                }?>'"
-                title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
-              <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
-            </td>
-            <td>
-              <?php echo ($orders[$i]['張數']) ?>
-              <input type="hidden" id="amount<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['張數']; ?>">
-            </td>
-            <td>
-              <?php echo ($orders[$i]['成交價']) ?>
-              <input type="hidden" id="成交價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交價']; ?>">
-            </td>
-            <td>
-              <?php if($_SESSION['盤價權限']==1) {
-                echo ($orders[$i]['盤價']);
-              ?>
-              <input type="hidden" id="盤價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['盤價']; ?>">
-              <?php } ?>
-            </td>
-            <?php if ($_SESSION['匯款資訊權限']==1) { ?>
-            <td>
-              <?php echo ($orders[$i]['匯款金額應收帳款']) ?>
-              <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
-            </td>
-            <td>
-              <?php echo ($orders[$i]['匯款銀行']) ?>
-              <input type="hidden" id="匯款銀行<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款銀行']; ?>">
-            </td>
-            <td>
-              <?php echo ($orders[$i]['匯款分行']) ?>
-              <input type="hidden" id="匯款分行<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款分行']; ?>">
-            </td>
-            <td>
-              <?php echo ($orders[$i]['匯款戶名']) ?>
-              <input type="hidden" id="匯款戶名<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款戶名']; ?>">
-            </td>
-            <td>
-              <?php echo ($orders[$i]['匯款帳號']) ?>
-              <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
-            </td>
-            <?php } else {
-              echo "<td></td><td></td><td></td><td></td><td></td>";
-            } ?>
 
-            <td>
-              <?php if($_SESSION['轉讓會員權限']==1) {
-                echo ($orders[$i]['轉讓會員']);
-              ?>
-              <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
-              <?php } ?>
-            </td>
-            <td>
-              <?php echo ($orders[$i]['完稅人']) ?>
-              <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
-            </td>
+
+
+    <tr <?php if ($orders[$i]['媒合'] != 0 ) { ?>class="td-cs-1"<?php }?>>
+        <!-- <td>
+          <?php if ($_SESSION['編輯權限']==1) { ?>
+          <form method="GET" action="go_edit">
+            <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+            <button type="submit">編輯</button>
+          </form>
+          <?php } ?>
+        </td> -->
+        <!-- <td>
+          <?php if ($_SESSION['刪除權限']==1) { ?>
+            <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
+          <?php } ?>
+        </td> -->
+        <!-- <td>
+          <?php if ($_SESSION['刪除權限']==1) { ?>
+          <form method="POST" action="delete">
+            <button type="submit">刪除</button>
+            <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+          </form>
+          <?php } ?>
+        </td> -->
+        <td><label id="mousemove<?php echo ($orders[$i]['ID']) ?>" onmouseout="changefont_back(<?php echo ($orders[$i]['ID']) ?>)" onmousemove="changefont(<?php echo ($orders[$i]['ID']) ?>)" onclick="showbonus(<?php echo ($orders[$i]['ID']) ?>)" style="cursor: pointer;"><?php echo ($orders[$i]['ID']) ?></label></td>
+        <td>
+          <?php echo ($orders[$i]['成交日期']) ?>
+          <input type="hidden" id="成交日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交日期']; ?>">
+        </td>
+        </td>
+        <td>
+          <a class="clickable_hint" href="javascript:location.href='
             <?php
-            if ($_SESSION['一審權限']==1) {
-              if ($orders[$i]['成交單狀態']!='審核完成') {
-              //一審[未完]開始
-                if ($orders[$i]['買賣']==1) {
-                   //客戶賣, 大姊匯錢則不用再點一審進去, 改成點擊觸發成交單狀態為完成以及更改匯款日期&過戶日期 ?>
-                  <td>
-                    <button onclick="Buy_Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
-                  </td>
-                 <?php } else { ?>
+            echo base_url()."index.php/orders/";
+            if ($orders[$i]['轉讓會員'] == '庫存') {
+              echo "go_inventory?業務=".$orders[$i]['業務'];
+            } else if($orders[$i]['轉讓會員'] == 'KO') {
+              echo "go_ko?業務=".$orders[$i]['業務'];
+            } else {
+              echo "index?業務=".$orders[$i]['業務'];
+            }?>'"
+            title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
+        </td>
+        <td class="thd-s1">
+          <a class="clickable_hint" href="javascript:location.href='
+            <?php
+            echo base_url()."index.php/orders/";
+            if ($orders[$i]['轉讓會員'] == '庫存') {
+              echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名'];
+            } else if($orders[$i]['轉讓會員'] == 'KO') {
+              echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名'];
+            } else {
+              echo "index?客戶姓名=".$orders[$i]['客戶姓名'];
+            }?>'"
+            title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
+          <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
+        </td>
+        <td>
+        <?php if($_SESSION['身分證字號權限']==1) {
+          echo ($orders[$i]['身分證字號']);
+        ?>
+        <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
+        <?php } ?>
+      </td>
+      <td>
+        <?php if($_SESSION['聯絡電話權限']==1) { ?>
+          <a class="clickable_hint" href="javascript:location.href='
+            <?php
+            echo base_url()."index.php/orders/";
+            if ($orders[$i]['轉讓會員'] == '庫存') {
+              echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話'];
+            } else if($orders[$i]['轉讓會員'] == 'KO') {
+              echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話'];
+            } else {
+              echo "index?聯絡電話=".$orders[$i]['聯絡電話'];
+            }?>'"
+            title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
+          <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
+        <?php } ?>
+      </td>
+        <td>
+          <?php if($_SESSION['聯絡人權限']==1) {
+            echo ($orders[$i]['聯絡人']);
+          } ?>
+        </td>
+        <td>
+          <?php if($_SESSION['聯絡地址權限']==1) {
+            echo ($orders[$i]['聯絡地址']);
+          ?>
+          <input type="hidden" id="address<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡地址']; ?>">
+          <?php } ?>
+        </td>
+        <td><?php
+        if($orders[$i]['買賣']==1){
+          echo '<p class="text-danger"><b>買</b>';
+          echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'" name="" value="1">';
+        } else {
+          echo '<p class="text-primary"><b>賣</b>';
+          echo '<input type="hidden" id="買賣'.$orders[$i]['ID'].'" name="" value="0">';
+        }
+        ?></p>
+       </td>
+        <td>
+          <a class="clickable_hint" href="javascript:location.href='
+            <?php
+            echo base_url()."index.php/orders/";
+            if ($orders[$i]['轉讓會員'] == '庫存') {
+              echo "go_inventory?股票=".$orders[$i]['股票'];
+            } else if($orders[$i]['轉讓會員'] == 'KO') {
+              echo "go_ko?股票=".$orders[$i]['股票'];
+            } else {
+              echo "index?股票=".$orders[$i]['股票'];
+            }?>'"
+            title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
+          <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
+        </td>
+        <td>
+          <?php echo ($orders[$i]['張數']) ?>
+          <input type="hidden" id="amount<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['張數']; ?>">
+        </td>
+        <td>
+          <?php echo ($orders[$i]['成交價']) ?>
+          <input type="hidden" id="成交價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交價']; ?>">
+        </td>
+        <td>
+          <?php if($_SESSION['盤價權限']==1) {
+            echo ($orders[$i]['盤價']);
+          ?>
+          <input type="hidden" id="盤價<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['盤價']; ?>">
+          <?php } ?>
+        </td>
+        <?php if ($_SESSION['匯款資訊權限']==1) { ?>
+        <td>
+          <?php echo ($orders[$i]['匯款金額應收帳款']) ?>
+          <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
+        </td>
+        <td>
+          <?php echo ($orders[$i]['匯款銀行']) ?>
+          <input type="hidden" id="匯款銀行<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款銀行']; ?>">
+        </td>
+        <td>
+          <?php echo ($orders[$i]['匯款分行']) ?>
+          <input type="hidden" id="匯款分行<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款分行']; ?>">
+        </td>
+        <td>
+          <?php echo ($orders[$i]['匯款戶名']) ?>
+          <input type="hidden" id="匯款戶名<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款戶名']; ?>">
+        </td>
+        <td>
+          <?php echo ($orders[$i]['匯款帳號']) ?>
+          <input type="hidden" id="匯款帳號<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款帳號']; ?>">
+        </td>
+        <?php } else {
+          echo "<td></td><td></td><td></td><td></td><td></td>";
+        } ?>
+
+        <td>
+          <?php if($_SESSION['轉讓會員權限']==1) {
+            echo ($orders[$i]['轉讓會員']);
+          ?>
+          <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
+          <?php } ?>
+        </td>
+        <td>
+          <?php echo ($orders[$i]['完稅人']) ?>
+          <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
+        </td>
+        <?php
+        if ($_SESSION['一審權限']==1) {
+          if ($orders[$i]['成交單狀態']!='審核完成') {
+          //一審[未完]開始
+            if ($orders[$i]['買賣']==1) {
+               //客戶賣, 大姊匯錢則不用再點一審進去, 改成點擊觸發成交單狀態為完成以及更改匯款日期&過戶日期 ?>
               <td>
-                <!-- Trigger/Open The Modal -->
-                <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
+                <button onclick="Buy_Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
               </td>
-            <?php }
-              //一審[未完]結束
+             <?php } else { ?>
+          <td>
+            <!-- Trigger/Open The Modal -->
+            <button data-popup-open="popup-1" class="edit_btn1" onclick="Edit(<?php echo $orders[$i]['ID']; ?>)" >一審</button>
+          </td>
+        <?php }
+          //一審[未完]結束
+          } else {
+            //一審[完]開始
+              if ($orders[$i]['買賣']==0) {
+              //此筆客戶為賣方, 一審[審完]改成[已匯]
+              if ($_SESSION['權限名稱'] == '最高權限') {
+                echo '<td><p style="cursor: help;" class="text-primary" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>已匯</b></td>';
               } else {
-                //一審[完]開始
-                  if ($orders[$i]['買賣']==0) {
-                  //此筆客戶為賣方, 一審[審完]改成[已匯]
-                  if ($_SESSION['權限名稱'] == '最高權限') {
-                    echo '<td><p style="cursor: help;" class="text-primary" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>已匯</b></td>';
-                  } else {
-                    echo "<td><p class='text-primary'><b>已匯</b></td>";
-                  }
-                } else {
-                  if ($_SESSION['權限名稱'] == '最高權限') {
-                    echo '<td><p style="cursor: help;" class="text-danger" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>審完</b></td>';
-                  } else {
-                    echo "<td><p class='text-primary'><b>審完</b></td>";
-                  }
-                }
-                //一審[完]結束
+                echo "<td><p class='text-primary'><b>已匯</b></td>";
               }
             } else {
-              //沒有一二審權限
-              echo "<td></td>";
-            }
-            ?>
-            <?php
-            if ($_SESSION['二審權限']==1) {
-              if ($orders[$i]['二審']==0) {
-            ?>
-            <td>
-              <form method="GET" action="go_edit2">
-                <button type="submit">二審</button>
-                <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
-              </form>
-            </td>
-            <?php
+              if ($_SESSION['權限名稱'] == '最高權限') {
+                echo '<td><p style="cursor: help;" class="text-danger" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>審完</b></td>';
               } else {
-                if ($orders[$i]['買賣']==1) {
-                  echo "<td><p class='text-danger'><b>審完</b></td>";
-                } else {
-                  echo "<td><p class='text-primary'><b>審完</b></td>";
-                }
-                
+                echo "<td><p class='text-primary'><b>審完</b></td>";
               }
-            } else {
-              echo "<td></td>";
             }
-            ?>
-
-            <td>
-            <?php
-            if($orders[$i]['新舊']==1){
-              echo "新";
+            //一審[完]結束
+          }
+        } else {
+          //沒有一二審權限
+          echo "<td></td>";
+        }
+        ?>
+        <?php
+        if ($_SESSION['二審權限']==1) {
+          if ($orders[$i]['二審']==0) {
+        ?>
+        <td>
+          <form method="GET" action="go_edit2">
+            <button type="submit">二審</button>
+            <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
+          </form>
+        </td>
+        <?php
+          } else {
+            if ($orders[$i]['買賣']==1) {
+              echo "<td><p class='text-danger'><b>審完</b></td>";
             } else {
-              echo "舊";
+              echo "<td><p class='text-primary'><b>審完</b></td>";
             }
-            ?>
 
-            </td>
+          }
+        } else {
+          echo "<td></td>";
+        }
+        ?>
 
-            <td><?php echo ($orders[$i]['自行應付']) ?></td>
+        <td>
+        <?php
+        if($orders[$i]['新舊']==1){
+          echo "新";
+        } else {
+          echo "舊";
+        }
+        ?>
 
-            <td>
-              <?php echo ($orders[$i]['刻印']) ?>
-              <input type="hidden" id="刻印<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印']; ?>">
-            </td>
+        </td>
+
+        <td><?php echo ($orders[$i]['自行應付']) ?></td>
+
+        <td>
+          <?php echo ($orders[$i]['刻印']) ?>
+          <input type="hidden" id="刻印<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印']; ?>">
+        </td>
 
             <td><?php echo ($orders[$i]['過戶費']) ?></td>
 
-            <?php if ($_SESSION['媒合權限']==1) { ?>
-              <td style="min-width: 100px;">
-                <?php if($orders[$i]['媒合']==0){ ?>
-                  <form method="post" action="match">
-                    <select id="inputState" name="欲媒合對方ID" class="form-control">
-                        <option selected value="0">尚無</option>
-                        <?php
-                        for ($j=0; $j < count($all_orders); $j++) {
-                            if ($orders[$i]['股票'] == $all_orders[$j]['股票'] && $orders[$i]['買賣'] != $all_orders[$j]['買賣']) {
-                              echo "<option>".$all_orders[$j]['ID']."</option>";
-                            }
+        <?php if ($_SESSION['媒合權限']==1) { ?>
+          <td style="min-width: 100px;">
+            <?php if($orders[$i]['媒合']==0){ ?>
+              <form method="post" action="match">
+                <select id="inputState" name="欲媒合對方ID" class="form-control">
+                    <option selected value="0">尚無</option>
+                    <?php
+                    for ($j=0; $j < count($all_orders); $j++) {
+                        if ($orders[$i]['股票'] == $all_orders[$j]['股票'] && $orders[$i]['買賣'] != $all_orders[$j]['買賣']) {
+                          echo "<option>".$all_orders[$j]['ID']."</option>";
                         }
-                        ?>
-                    </select>
-                    <input type="hidden" name="欲媒合自身ID" value="<?php echo $orders[$i]['ID']?>">
-                    <button type="submit" id="" name="" class="">確認</button>
-                  </form>
-                <?php } else {
-                  echo "<u>".$orders[$i]['媒合']."</u>";
-                }
-                ?>
-              </td>
+                    }
+                    ?>
+                </select>
+                <input type="hidden" name="欲媒合自身ID" value="<?php echo $orders[$i]['ID']?>">
+                <button type="submit" id="" name="" class="">確認</button>
+              </form>
+            <?php } else {
+              echo "<u>".$orders[$i]['媒合']."</u>";
+            }
+            ?>
+          </td>
+
             <?php } else {
               if ($orders[$i]['媒合']==0) {
                 echo "<td>未媒合</td>";
@@ -469,8 +473,7 @@
               <?php if ($_SESSION['刪除權限']==1) { ?>
                 <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
               <?php } ?>
-            </td>
-
+          </td>
             <!-- 沒顯示出來的欄位 -->
             <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
             <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
@@ -479,9 +482,16 @@
             <!-- <input type="hidden" id="現金或匯款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['現金或匯款']; ?>"> -->
             <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
             <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
-
         </tr>
+          <?php if ($orders[$i]['備註'] > 0) { ?>
+            <tr class="note-row">
+              <td colspan="5">|備註內容:</td>
+              <td colspan="100"><?php echo $orders[$i]['備註']; ?></td>
+            </tr>
+          <?php } ?>
+
         <?php }} ?>
+
       </tbody>
       </table>
      </main>
