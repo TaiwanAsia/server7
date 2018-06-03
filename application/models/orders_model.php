@@ -530,7 +530,7 @@ class Orders_model extends CI_Model {
     //     $this->db->update('orders', $data2);
     // }
 
-    public function check_money_received($id, $成交單編號, $date, $money) {
+    public function check_money_received($id, $date, $money) {
         /*
         $data = array('通知查帳'=>'待確認');
         $this->db->where('ID', $成交單編號);
@@ -547,7 +547,7 @@ class Orders_model extends CI_Model {
         $this->db->update('check_money_record', $record);
     }
 
-    public function check_money_exported($id, $money) {
+    public function check_money_exported($id, $money, $date) {
         $data = array('已匯金額已收金額'=>$money, '通知查帳'=>$date);
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
@@ -572,7 +572,7 @@ class Orders_model extends CI_Model {
         }
         $this->db->insert('check_money_record', $data);
         $this->db->where('ID', $id);
-        $this->db->update('orders', array('通知查帳'=>'待對帳'));
+        $this->db->update('orders', array('通知查帳'=>'待對帳', '最後動作時間'=>$move_time));
     }
 
     // public function get_ready_to_check() {

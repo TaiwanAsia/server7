@@ -32,7 +32,7 @@
                                     <td></td>
                                     <td><label for="" class="">支付人</label></td>
                                     <td><input class="" type="text" name="支付人" id="支付人" value=""></td>
-                                    <td><button onclick="Set_payname('<?php echo $order[0]['客戶姓名']; ?>')">同客戶姓名</button></td>
+                                    <td><label style="text-decoration:underline; cursor: pointer;" onclick="Set_payname('<?php echo $order[0]['客戶姓名']; ?>')">同客戶姓名點我</label></td>
                                 </tr>
                                 <!-- <?php print_r($order);?> -->
                                 <tr>
