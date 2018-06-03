@@ -519,7 +519,7 @@ class Orders extends CI_Controller {
 		$result[0]['日期'] = $new_date;
 		$employees = $this->orders_model->get_employee();
 		$this->load->view('templates/header');
-		$this->load->view('pages/edit2_order_view',array('result' => $result,'employees' => $employees));
+		$this->load->view('pages/order_edit/edit2_order_view',array('result' => $result,'employees' => $employees));
 	}
 
 	//二審update
@@ -730,15 +730,14 @@ class Orders extends CI_Controller {
 				for ($j = 0; $j < count($datas); $j++) {
 		    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
 		    			//對帳完成
-		    			echo $datas[$j]['日期']." ".$orders_buy[$i]['id'].'<br>';
-		    			$this->orders_model->check_money_received($orders_buy[$i]['id'], $orders_buy[$i]['成交單編號'], date('Y-m-d H:i:s'), $money);
+		    			echo "交易日期".$datas[$j]['日期']." 轉入 ".$money." ".$orders_buy[$i]['id'].'<br>';
+		    			$this->orders_model->check_money_received($orders_buy[$i]['id'], date('Y-m-d H:i:s'), $money);
 		    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 		    			break;
 		    		}
 		    	}
 	    	}
 	    }
-
     	//對帳所有轉出匯款
     	if ($orders_sell != null && $datas != null) {
 	    	for ($i = 0; $i < count($orders_sell); $i++) {
@@ -751,8 +750,8 @@ class Orders extends CI_Controller {
 		    			for ($j = 0; $j < count($datas); $j++) {
 		    				if ($time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //一周內
 		    					//對帳完成
-		    					echo $datas[$j]['日期']." ".$orders_sell[$i]['ID'].'<br>';
-		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money);
+		    					echo "交易日期".$datas[$j]['日期']." 轉出 ".$money." ".$orders_sell[$i]['ID'].'<br>';
+		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, date('Y-m-d'));
 		    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 		    					break;
 		    				}
@@ -853,7 +852,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
 		$array = array('order' => $order);
-		$this->load->view('pages/inform_check_money',$array);
+		$this->load->view('pages/money/inform_check_money',$array);
 	}
 
 	//更改通知查帳
