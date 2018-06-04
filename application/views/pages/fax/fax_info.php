@@ -11,85 +11,87 @@
             		<td>
 						<form action="go_taxer" method="POST" class="t-form-t" name="">
 						<input type="submit" name="" value="完稅資料">
-					</form>
+					   </form>
             		</td>
             	</tr>
 
+                <form method="post" name="fax_info" action="fax_exported">
+                    <tr>
+                        <td>盤商名</td>
+                        <td><input id="dealer_name" type="text" name="dealer_name"></td>
+                        <td><button type="button" id="import_dealer">匯入</button></td>
+                    </tr>
+                    <tr>
+                        <td>傳　　真</td>
+                        <td><input id="dealer_fax" type="text" name="dealer_fax"></td>
+                        <td></td>
+                        <td>電　話</td>
+                        <td><input id="dealer_tel" type="text" name="dealer_tel"></td>
+                    </tr>
 
-                <tr>
-                    <td>盤商名</td>
-                    <td><input id="dealer_name" type="text" name=""></td>
-                    <td><button id="import_dealer">匯入</button></td>
-                </tr>
-                <tr>
-                    <td>傳　　真</td>
-                    <td><input id="dealer_fax" type="text" name=""></td>
-                    <td></td>
-                    <td>電　話</td>
-                    <td><input id="dealer_tel" type="text" name=""></td>
-                </tr>
+                    <tr>
+                        <td>成交交易明細</td>
+                    </tr>
 
-                <tr>
-                    <td>成交交易明細</td>
-                </tr>
-
-                <tr>
-                    <td>成交單編號</td>
-                    <td><input id="order_id" type="text" name=""></td>
-                    <td><button id="import_order">匯入</button></td>
-                </tr>
-                <tr>
-                    <td>股票名稱</td>
-                    <td><input id="stock_name" type="text" name=""></td>
-                    <td><button id="">匯入</button></td>
-                    <td>方　式</td>
-                    <td><input id="way" type="text" name=""></td>
-                </tr>
-                <tr>
-                    <td>成交價格</td>
-                    <td><input id="stock_price" type="text" name=""></td>
-                    <td></td>
-                    <td>張　數</td>
-                    <td><input id="stock_amount" type="text" name=""></td>
-                </tr>
+                    <tr>
+                        <td>成交單編號</td>
+                        <td><input id="order_id" type="text" name="order_id"></td>
+                        <td><button type="button" id="import_order">匯入</button></td>
+                    </tr>
+                    <tr>
+                        <td>股票名稱</td>
+                        <td><input id="stock_name" type="text" name="stock_name"></td>
+                        <td></td>
+                        <td>方　式</td>
+                        <td><input id="way" type="text" name="way"></td>
+                    </tr>
+                    <tr>
+                        <td>成交價格</td>
+                        <td><input id="stock_price" type="text" name="stock_price"></td>
+                        <td></td>
+                        <td>張　數</td>
+                        <td><input id="stock_amount" type="text" name="stock_amount"></td>
+                    </tr>
 
 
-                
-                <tr>
-                    <td>完稅姓名</td>
-                    <td><input id="taxer_name" type="text" name=""></td>
-                    <td><button id="import_taxer">匯入</button></td>
-                    <td>　ID</td>
-                    <td><input id="taxer_id" type="text" name=""></td>
-                </tr>
-                <tr>
-                    <td>完稅地址</td>
-                    <td><input id="taxer_address" type="text" name=""></td>
-                </tr>
-                <tr>
-                    <td>戶　　名</td>
-                    <td><input id="payer_name" type="text" name=""></td>
-                    <td><button id="import_payer">匯入</button></td>
-                </tr>
-                <tr>
-                    <td>匯款銀行</td>
-                    <td><input id="payer_bank" type="text" name=""></td>
-                    <td></td>
-                    <td>帳　號</td>
-                    <td><input id="payer_account" type="text" name=""></td>
-                </tr>
-                <tr>
-                    <td>過戶日期</td>
-                    <td><input id="transfer_date" type="date" name=""></td>
-                </tr>
-                <tr>
-                    <td>匯款金額</td>
-                    <td><input id="payer_amount" type="text" name=""></td>
-                </tr>
+                    
+                    <tr>
+                        <td>完稅姓名</td>
+                        <td><input id="taxer_name" type="text" name="taxer_name"></td>
+                        <td><button type="button" id="import_taxer">匯入</button></td>
+                        <td>　ID</td>
+                        <td><input id="taxer_id" type="text" name="taxer_id"></td>
+                    </tr>
+                    <tr>
+                        <td>完稅地址</td>
+                        <td><input id="taxer_address" type="text" name="taxer_address"></td>
+                    </tr>
+                    <tr>
+                        <td>戶　　名</td>
+                        <td><input id="payer_name" type="text" name="payer_name"></td>
+                        <td><button type="button" id="import_payer">匯入</button></td>
+                    </tr>
+                    <tr>
+                        <td>匯款銀行</td>
+                        <td><input id="payer_bank" type="text" name="payer_bank"></td>
+                        <td></td>
+                        <td>帳　號</td>
+                        <td><input id="payer_account" type="text" name="payer_account"></td>
+                    </tr>
+                    <tr>
+                        <td>過戶日期</td>
+                        <td><input id="transfer_date" type="date" name="transfer_date"></td>
+                    </tr>
+                    <tr>
+                        <td>匯款金額</td>
+                        <td><input id="payer_amount" type="text" name="payer_amount"></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" name="Fax_exported">產生檔案</button></td>
+                    </tr>
+                </form>
 			</table>
-            <div>
-                <button>產生檔案</button>
-            </div>
+            
 	   </div>
 	</main>
 
