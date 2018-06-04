@@ -37,6 +37,7 @@
                     <td>成交單編號</td>
                     <td><input id="order_id" type="text" name=""></td>
                     <td><button id="import_order">匯入</button></td>
+                    <td colspan="2"><p class="text-danger">★請先匯入成交單編號</p></td>
                 </tr>
                 <tr>
                     <td>股票名稱</td>
@@ -86,10 +87,19 @@
                     <td>匯款金額</td>
                     <td><input id="payer_amount" type="text" name=""></td>
                 </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p class="text-danger">★輸入完畢請點下方按鈕</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button>產生檔案</button>
+                    </td>
+                </tr>
 			</table>
-            <div>
-                <button>產生檔案</button>
-            </div>
 	   </div>
 	</main>
 
