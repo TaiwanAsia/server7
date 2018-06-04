@@ -646,7 +646,84 @@ class Orders extends CI_Controller {
 		$this->index();
 	}
 
-	public function import(){
+	public function fax_exported() {
+		// 引入函式庫
+		require_once "vendor/autoload.php";
+
+		if (isset($_POST["Fax_exported"])) {
+			//判斷content檔案存在與否，存在則刪除
+			//$file = 'C:\xampp\tmp\excel\content.csv';
+			$file = 'C:\xampp\tmp\excel\content.doc';
+			if(file_exists($file)){
+				unlink($file);
+			}
+
+			//建立暫存檔並將資料寫入
+			$phpWord = new \PhpOffice\PhpWord\PhpWord();
+			$section = $phpWord->createSection();
+			$section->addText("TO：".$_POST["dealer_name"]);
+			$section->addText("傳真：".$_POST["dealer_fax"]." "."電話：".$_POST["dealer_tel"]);
+			$section->addText(date('Y/m/d')." 成交交易明細");
+
+			$styleTable = ['borderSize' => 6, 'borderColor' => '999999'];
+			$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
+			$table = $section->addTable('Colspan Rowspan');
+
+			$row = $table->addRow();
+			$row->addCell()->addText('股票名稱');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_name"]);
+			$row->addCell()->addText('方式');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["way"]);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('成交價');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_price"]);
+			$row->addCell()->addText('張數');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_amount"]);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('完稅姓名');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_name"]);
+			$row->addCell()->addText('ID');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_id"]);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('完稅地址');
+			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["taxer_address"]);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('銀行機構');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_bank"]);
+			$row->addCell()->addText('銀行帳號');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_account"]);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('戶名');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_name"]);
+			$row->addCell()->addText('金額');
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_amount"]);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('交割日');
+			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["transfer_date"]);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('備註');
+			$row->addCell(null, ['gridSpan' => 5])->addText("");
+
+			//下載WORD檔
+			header("Content-type: application/vnd.ms-word");
+			header("Content-Disposition: attachment; filename=\"".date('Y-m-d').".doc\"");
+			header('Cache-Control: max-age=0');
+			$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+			$objWriter->save($file);//建立暫存檔並將資料寫入
+			$objWriter->save('php://output');	
+		}
+
+		$this->fax_info();
+	}
+
+	public function import() {
 		// 引入函式庫
 		require_once APPPATH."third_party\PHPExcel.php";
 
