@@ -115,7 +115,7 @@
                     $('#transfer_date').val(data.過戶日期);
                 } else {
                     $("#createResult").html(data.msg);
-                }                   
+                }
             },
             error: function(jqXHR,data) {
                 // alert("發生錯誤: " + jqXHR.status);
@@ -123,7 +123,7 @@
             }
         })
     })
-	
+
 	$("#import_dealer").click(function() {
         $.ajax({
             type: "GET",
@@ -136,7 +136,7 @@
                     // $("#createResult").html('盤商：' + data.盤商名稱 + '，匯入成功！');
                 } else {
                     $("#createResult").html(data.msg);
-                }                   
+                }
             },
             error: function(jqXHR,data) {
                 // alert("發生錯誤: " + jqXHR.status);
@@ -156,7 +156,7 @@
                     $("#taxer_address").val(data.完稅地址);
                 } else {
                     $("#createResult").html(data.msg);
-                }                   
+                }
             },
             error: function(jqXHR,data) {
                 alert("發生錯誤: " + jqXHR.status);
@@ -176,7 +176,7 @@
                     $("#payer_money").val(data.匯款金額應收帳款);
                 } else {
                     $("#createResult").html(data.msg);
-                }                   
+                }
             },
             error: function(jqXHR,data) {
                 alert("發生錯誤: " + jqXHR.status);
