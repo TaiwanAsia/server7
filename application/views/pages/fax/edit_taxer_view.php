@@ -1,14 +1,14 @@
 <body>
 
-
 <div id="container">
-	
-	<div id="body">
-
+ <div id="body">
+  <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
+		<h1 class="h2">編輯完稅資料</h1>
+	</div>
 		<form action="edit_taxer" method="GET" name="" style= "display:inline">
-
 			<div>
-				<table style="width:100%" border="1">
+				<table class="table table-md table-hover table-responsive fax-table">
+					<thead class="thead-light">
 					<tr>
 						<th nowrap="nowrap">盤商名</th>
 						<th nowrap="nowrap">完稅姓名</th>
@@ -16,8 +16,10 @@
 						<th nowrap="nowrap">完稅地址</th>
 						<th nowrap="nowrap">匯款姓名</th>
 						<th nowrap="nowrap">匯款銀行</th>
-						<th nowrap="nowrap">匯款帳號</th>
+						<th nowrap="nowrap" colspan="2">匯款帳號</th>
 					</tr>
+				</thead>
+				<tbody>
 					<tr>
 						<td>
 							<input type="hidden" name="id" value="<?php echo($data[0]['id']); ?>">
@@ -45,6 +47,7 @@
 							<input type="submit" name="" value="確認">
 						</td>
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</form>

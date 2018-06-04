@@ -484,7 +484,7 @@
             <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
         </tr>
           <?php if ($orders[$i]['備註'] > 0) { ?>
-            <tr class="note-row">
+            <tr class="note-row"  title="編輯備註" data-popup-open="popup-2">
               <td colspan="5" class="n-tds-1"></td>
               <td colspan="100" class="n-tds-2"><?php echo $orders[$i]['備註']; ?></td>
             </tr>
@@ -497,147 +497,160 @@
      </main>
     </div>
   </div>
-
-
-
-        <div class="s-modal" data-popup="popup-1">
-            <div class="modal-content">
-              <div class="modal-header">
-                <span class="s-close" data-popup-close="popup-1">&times;</span>
-                <h3>編輯成交單</h3>
-              </div>
-              <form method="post" name="edit_order_info" action="edit_order_status" >
-                <!-- 為修改成交單狀態,與edit_order不同 -->
-                <div class="modal-main">
-                  <table>
-                    <tr>
-                      <td><label>成交單編號</label></td>
-                      <td><input readonly type="text" name="ID" value="" id="edit_id"></td>
-                      <td><label>客戶姓名</label></td>
-                      <td><input type="text" name="客戶姓名" value="" id="edit_name"></td>
-                    </tr>
-                    <tr>
-                      <td><label>身分證字號</label></td>
-                      <td><input type="text" name="身分證字號" value="" id="edit_F"></td>
-                      <td><label>聯絡地址</label></td>
-                      <td><input type="text" name="聯絡地址" value="" id="edit_address"></td>
-                      <td><label>聯絡電話</label></td>
-                      <td><input type="text" name="聯絡電話" value="" id="edit_phone"></td>
-                    </tr>
-                    <tr>
-                      <td><label>成交日期</label></td>
-                      <td><input class="" type="date" name="成交日期" value="" id="edit_成交日期" required=""></td>
-                      <td><label>過戶日期</label></td>
-                      <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期"></td>
-                    </tr>
-                    <tr>
-                      <td><label>股票名稱</label></td>
-                      <td><input type="text" name="股票" value="" id="edit_company"></td>
-                      <td width="20px">
-                        <input type="radio" name="買賣" value="1" checked><label class="text-danger"><b>買</b></label>
-                        <input type="radio" name="買賣" value="0"><label class="text-primary"><b>賣</b></label>
-                      </td>
-                      <td></td>
-                      <td><label>張數</label></td>
-                      <td><input type="text" name="張數" value="" class="autochange" id="edit_amount"></td>
-                    </tr>
-                    <tr>
-                      <td><label>轉讓會員</label></td>
-                      <td>
-                        <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
-                          <!-- option></option -->
-                            <?php
-                            for ($j=0; $j < count($employees); $j++) {
-                                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
-                            }
-                            ?>
-                        </select>
-                      </td>
-                      <td><label>成交價</label></td>
-                      <td><input type="text" name="成交價" value="" class="autochange" id="edit_成交價"></td>
-                      <td><label>盤價</label></td>
-                      <td><input type="text" name="盤價" value="" id="edit_盤價"></td>
-                    </tr>
-                    <tr>
-                      <td><label>自行應付</label></td>
-                      <td>
-                        <input type="text" name="自行應付" value="" id="edit_自行應付">
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="">
-                  <label><h4>賣方需填</h4></label>
-                  <br>
-                  <table>
-                    <tr>
-                      <td><label>匯款銀行</label></td>
-                      <td><input type="text" name="匯款銀行" value="" id="edit_匯款銀行"></td>
-                      <td><label>匯款分行</label></td>
-                      <td><input type="text" name="匯款分行" value="" id="edit_匯款分行"></td>
-                      <td><label>匯款戶名</label></td>
-                      <td><input type="text" name="匯款戶名" value="" id="edit_匯款戶名"></td>
-                      <td><label>匯款帳號</label></td>
-                      <td><input type="text" name="匯款帳號" value="" id="edit_匯款帳號"></td>
-                    </tr>
-                    <tr>
-                      <td class="text-danger"><label><b>匯款/應收金額<b/></label></td>
-                      <td>
-                        <input type="text" name="匯款金額應收帳款" class="autochange" value="" id="edit_匯款金額應收帳款">
-                      </td>
-                      <!-- <td></td> -->
-                    </tr>
-                    <tr>
-                      <td><label>完稅人</label></td>
-                      <td>
-                        <input type="text" name="完稅人" value="" id="edit_完稅人" required="">
-                      </td>
-                      <td><label>過戶費</label></td>
-                      <td>
-                        <input type="text" name="過戶費" value="" id="edit_過戶費" required="">
-                      </td>
-                      <td><label>刻印</label></td>
-                      <td>
-                        <input type="text" name="刻印" value="" id="edit_刻印" required="">
-                      </td>
-                      <td><label>收送</label></td>
-                      <td>
-                        <input type="text" name="收送" class="autochange" value="" id="edit_收送">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><label>成交單狀態</label></td>
-                      <td>
-                        <input type="radio" name="成交單狀態" value="審核完成" checked><label class="text-primary">審核完成</label>
-                        <input type="radio" name="成交單狀態" value="審核中"><label class="text-success">審核中</label>
-                      </td>
-                    </tr>
-                    <!-- <tr>
-                      <td><label>現金或匯款</label></td>
-                      <td>
-                        <input type="radio" name="現金或匯款" value="現金"><label class="">現金</label>
-                        <input type="radio" name="現金或匯款" value="匯款" checked><label class="">匯款</label>
-                      </td>
-                    </tr> -->
-                    <tr>
-                      <td><label>匯款日期</label></td>
-                      <td>
-                        <input class="paydate" type="date" min='1899-01-01' max="2100-12-31" name="匯款日期" value="" id="edit_匯款日期">
-                        <button type="button" onclick="getdealdate()">同成交日期</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td><input class="" type="submit" name="修改完成" value="修改完成" id=""></td>
-                    </tr>
-                  </table>
-                </div>
-              </form>
-            </div>
+   <div class="s-modal" data-popup="popup-1">
+    <div class="modal-content">
+     <div class="modal-header">
+      <h3>編輯成交單</h3>
+      <span class="s-close" data-popup-close="popup-1">&times;</span>
+      </div>
+      <form method="post" name="edit_order_info" action="edit_order_status" >
+        <!-- 為修改成交單狀態,與edit_order不同 -->
+        <div class="modal-main">
+          <table>
+            <tr>
+              <td><label>成交單編號</label></td>
+              <td><input readonly type="text" name="ID" value="" id="edit_id"></td>
+              <td><label>客戶姓名</label></td>
+              <td><input type="text" name="客戶姓名" value="" id="edit_name"></td>
+            </tr>
+            <tr>
+              <td><label>身分證字號</label></td>
+              <td><input type="text" name="身分證字號" value="" id="edit_F"></td>
+              <td><label>聯絡地址</label></td>
+              <td><input type="text" name="聯絡地址" value="" id="edit_address"></td>
+              <td><label>聯絡電話</label></td>
+              <td><input type="text" name="聯絡電話" value="" id="edit_phone"></td>
+            </tr>
+            <tr>
+              <td><label>成交日期</label></td>
+              <td><input class="" type="date" name="成交日期" value="" id="edit_成交日期" required=""></td>
+              <td><label>過戶日期</label></td>
+              <td><input class="" type="date" name="過戶日期" value="" id="edit_過戶日期"></td>
+            </tr>
+            <tr>
+              <td><label>股票名稱</label></td>
+              <td><input type="text" name="股票" value="" id="edit_company"></td>
+              <td width="20px">
+                <input type="radio" name="買賣" value="1" checked><label class="text-danger"><b>買</b></label>
+                <input type="radio" name="買賣" value="0"><label class="text-primary"><b>賣</b></label>
+              </td>
+              <td></td>
+              <td><label>張數</label></td>
+              <td><input type="text" name="張數" value="" class="autochange" id="edit_amount"></td>
+            </tr>
+            <tr>
+              <td><label>轉讓會員</label></td>
+              <td>
+                <select id="edit_轉讓會員" name="轉讓會員" class="form-control" required>
+                  <!-- option></option -->
+                    <?php
+                    for ($j=0; $j < count($employees); $j++) {
+                        echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                    }
+                    ?>
+                </select>
+              </td>
+              <td><label>成交價</label></td>
+              <td><input type="text" name="成交價" value="" class="autochange" id="edit_成交價"></td>
+              <td><label>盤價</label></td>
+              <td><input type="text" name="盤價" value="" id="edit_盤價"></td>
+            </tr>
+            <tr>
+              <td><label>自行應付</label></td>
+              <td>
+                <input type="text" name="自行應付" value="" id="edit_自行應付">
+              </td>
+            </tr>
+          </table>
         </div>
+        <div class="">
+          <label><h4>賣方需填</h4></label>
+          <br>
+          <table>
+            <tr>
+              <td><label>匯款銀行</label></td>
+              <td><input type="text" name="匯款銀行" value="" id="edit_匯款銀行"></td>
+              <td><label>匯款分行</label></td>
+              <td><input type="text" name="匯款分行" value="" id="edit_匯款分行"></td>
+              <td><label>匯款戶名</label></td>
+              <td><input type="text" name="匯款戶名" value="" id="edit_匯款戶名"></td>
+              <td><label>匯款帳號</label></td>
+              <td><input type="text" name="匯款帳號" value="" id="edit_匯款帳號"></td>
+            </tr>
+            <tr>
+              <td class="text-danger"><label><b>匯款/應收金額<b/></label></td>
+              <td>
+                <input type="text" name="匯款金額應收帳款" class="autochange" value="" id="edit_匯款金額應收帳款">
+              </td>
+              <!-- <td></td> -->
+            </tr>
+            <tr>
+              <td><label>完稅人</label></td>
+              <td>
+                <input type="text" name="完稅人" value="" id="edit_完稅人" required="">
+              </td>
+              <td><label>過戶費</label></td>
+              <td>
+                <input type="text" name="過戶費" value="" id="edit_過戶費" required="">
+              </td>
+              <td><label>刻印</label></td>
+              <td>
+                <input type="text" name="刻印" value="" id="edit_刻印" required="">
+              </td>
+              <td><label>收送</label></td>
+              <td>
+                <input type="text" name="收送" class="autochange" value="" id="edit_收送">
+              </td>
+            </tr>
+            <tr>
+              <td><label>成交單狀態</label></td>
+              <td>
+                <input type="radio" name="成交單狀態" value="審核完成" checked><label class="text-primary">審核完成</label>
+                <input type="radio" name="成交單狀態" value="審核中"><label class="text-success">審核中</label>
+              </td>
+            </tr>
+            <!-- <tr>
+              <td><label>現金或匯款</label></td>
+              <td>
+                <input type="radio" name="現金或匯款" value="現金"><label class="">現金</label>
+                <input type="radio" name="現金或匯款" value="匯款" checked><label class="">匯款</label>
+              </td>
+            </tr> -->
+            <tr>
+              <td><label>匯款日期</label></td>
+              <td>
+                <input class="paydate" type="date" min='1899-01-01' max="2100-12-31" name="匯款日期" value="" id="edit_匯款日期">
+                <button type="button" onclick="getdealdate()">同成交日期</button>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><input class="" type="submit" name="修改完成" value="修改完成" id=""></td>
+            </tr>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
 
+  <!-- 備註modal -->
+  <div class="s-modal"data-popup="popup-2">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>編輯備註</h3>
+         <span class="s-close" data-popup-close="popup-2">&times;</span>
+      </div>
+      <form method="post" name="" action="" >
+        <div class="modal-main">
+          <!-- 再請修改,套參數 -->
+          <p>備註內容:</p>
+          <input type="" name="">
+        </div>
+    </div>
+  </div>
+<!-- End of 備註modal -->
 <!-- modal function assets/js/action.js -->
         <style type="text/css">
           .clickable_hint {

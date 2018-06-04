@@ -79,13 +79,15 @@
 
 	/* The Close Button */
 		.s-close {
-		    position: relative;
+		    position: absolute;
+		    top: 0;
+    		right: 14px;
 				color: #dc3545;
 		    float: right;
 		    font-size: 28px;
 		    font-weight: bold;
 		    &:hover{
-					 color: #000;
+					color: #000;
 			    text-decoration: none;
 			    cursor: pointer;
 		    }
@@ -175,6 +177,11 @@
 		}
 	}
 
+	.fax-table{
+		border: 1px solid #dee2e6;
+
+	}
+
 	.upload-files{
 		width: 300px;
 		display: inline-block;
@@ -220,6 +227,7 @@
 
 	tr.note-row{
 		background-color: rgb(54, 50, 50);
+		cursor: pointer;
 
 		td{
 			border: none;

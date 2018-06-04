@@ -65,7 +65,9 @@ th, td, form {
       .s-modal .modal-sec-1 table td {
         padding: 12px 24px; }
   .s-modal .s-close {
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 14px;
     color: #dc3545;
     float: right;
     font-size: 28px;
@@ -131,6 +133,9 @@ th, td, form {
 #receivTable label {
   margin: 0; }
 
+.fax-table {
+  border: 1px solid #dee2e6; }
+
 .upload-files {
   width: 300px;
   display: inline-block; }
@@ -169,7 +174,8 @@ input#receFileUpload {
   background-color: #EEF2FF; }
 
 tr.note-row {
-  background-color: #363232; }
+  background-color: #363232;
+  cursor: pointer; }
   tr.note-row td {
     border: none;
     letter-spacing: 1.2px;
