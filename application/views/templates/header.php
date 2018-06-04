@@ -104,7 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             if ($_SESSION['帳號設定權限']==1) { ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
-                                        帳號管理
+                                        帳號權限管理
                                     </a>
                                 </li>
                         <?php  }
