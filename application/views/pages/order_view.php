@@ -279,8 +279,12 @@
             //一審[完]結束
           }
         } else {
-          //沒有一二審權限
-          echo "<td></td>";
+          //沒有一二審權限,只能看審核狀態
+          if ($orders[$i]['成交單狀態']!='審核完成') {
+            echo "<td><p class='text-danger'><b>待審</b></td>";
+          } else {
+            echo "<td><p class='text-primary'><b>審完</b></td>";
+          }
         }
         ?>
         <?php
