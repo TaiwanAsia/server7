@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <meta name="author" content="">
         <link rel="icon" href="../../../../favicon.ico">
         <title>成交單</title>
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css?20180606">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/tablesaw.css">
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -62,7 +62,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <nav class="s-sidebar bg-light">
                 <div class="s-sidebar-1">
                     <ul class="nav flex-column">
-
+                        <li class="nav-item">
+                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/new_index">
+                                首頁<span class="sr-only"></span>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/index">
                             <!-- <span data-feather="home"></span> -->
@@ -91,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 文件下載
                             </a>
                         </li>
-                        
+
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="#">
                             <span data-feather="file-text"></span>
@@ -103,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <span data-feather="file-text"></span>
                             服務工單
                             </a>
-                        </li> 
+                        </li>
                         -->
                         <?php
                             if ($_SESSION['帳號設定權限']==1) { ?>

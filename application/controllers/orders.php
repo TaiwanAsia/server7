@@ -24,7 +24,7 @@ class Orders extends CI_Controller {
 
     public function new_index() {
     	$this->load->view('templates/header');
-		$this->load->view('pages/home');
+			$this->load->view('pages/home');
     }
 
     public function index()
@@ -69,10 +69,10 @@ class Orders extends CI_Controller {
 
 		$this->load->view('templates/header');
 		$this->load->view('pages/new_order', $arrayName);
-	}   
+	}
 
 	public function add_order()
-	{	
+	{
 		$thelast_id = $this->orders_model->get_last_id();
 		$today_y = date('Y');
 		$today_m = date('m');
@@ -173,12 +173,12 @@ class Orders extends CI_Controller {
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);
 	}
-	
+
 	public function checkbill() {
 		$orders = $this->orders_model->get_checkbill();
 		$total_receivable = 0;
 		$total_received = 0;
-		for ($i=0; $i < count($orders); $i++) { 
+		for ($i=0; $i < count($orders); $i++) {
 			$total_receivable = $total_receivable + $orders[$i]['匯款金額應收帳款'];
 			$total_received = $total_received + $orders[$i]['已匯金額已收金額'];
 		}
@@ -192,7 +192,7 @@ class Orders extends CI_Controller {
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,
 							'total_info' => $total_info,);
-		
+
 		$this->load->view('templates/header');
 		$this->load->view('pages/receivable_view', $arrayName);
 	}
@@ -281,7 +281,7 @@ class Orders extends CI_Controller {
 		$employees = $this->orders_model->get_employee();
 		// foreach ($result[0] as $key => $value) {
 		// 	echo $key.": ".$value."<br>";
-		// };  
+		// };
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 		$this->load->view('templates/header');
 		if ($_SESSION['權限名稱']=='最高權限') {
@@ -300,7 +300,7 @@ class Orders extends CI_Controller {
 		$employees = $this->orders_model->get_employee();
 		// foreach ($result[0] as $key => $value) {
 		// 	echo $key.": ".$value."<br>";
-		// };  
+		// };
 		$this->load->view('templates/header');
 		$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
 	}
@@ -448,7 +448,7 @@ class Orders extends CI_Controller {
 						'過戶費' => $_POST['過戶費'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
 		$effect = '';
-		for ($i=0; $i < count($title); $i++) { 
+		for ($i=0; $i < count($title); $i++) {
 			if ($original[0][$title[$i]] != $data[$title[$i]]) {
 				$effect = $effect."[".$title[$i]."]"."=>".$original[0][$title[$i]]."改為".$data[$title[$i]]."  ";
 			}
@@ -501,7 +501,7 @@ class Orders extends CI_Controller {
 						'已結案' => $_POST['已結案'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
 		$effect = '';
-		for ($i=0; $i < count($title); $i++) { 
+		for ($i=0; $i < count($title); $i++) {
 			if ($original[0][$title[$i]] != $data[$title[$i]]) {
 				$effect = $effect."[".$title[$i]."]"."=>".$original[0][$title[$i]]."改為".$data[$title[$i]]."  ";
 			}
@@ -556,7 +556,7 @@ class Orders extends CI_Controller {
 			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->index();
 		}
-		
+
 	}
 
 	public function export() {
@@ -723,7 +723,7 @@ class Orders extends CI_Controller {
             header('Cache-Control: max-age=0');
             $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
             $objWriter->save($file);//建立暫存檔並將資料寫入
-            $objWriter->save('php://output');    
+            $objWriter->save('php://output');
         }
 
         $this->fax_info();
@@ -755,16 +755,16 @@ class Orders extends CI_Controller {
 		                    die('Error loading file "'.pathinfo($filename[$i],PATHINFO_BASENAME).'": '.$e->getMessage());
 		                }
 
-		                $sheet         = $objPHPExcel->getSheet(0); 
-		                $highestRow    = $sheet->getHighestRow(); 
+		                $sheet         = $objPHPExcel->getSheet(0);
+		                $highestRow    = $sheet->getHighestRow();
 		                $highestColumn = $sheet->getHighestColumn();
-		                
+
 		                // Loop through each row of the worksheet in turn
 		                $rowData = array();
 		                $allrowData = array();
 		                $Data_size = 0;
 
-		                for ($row = 2; $row <= $highestRow; $row++){ 
+		                for ($row = 2; $row <= $highestRow; $row++){
 		                	// Read a row of data into an array
 		                    $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
 		                                                    NULL,
@@ -779,7 +779,7 @@ class Orders extends CI_Controller {
 		                    		'轉入' => $rowData[0][3],
 		                    		'帳號' => $rowData[0][6],
 		                    		'備註' => $rowData[0][7],
-		                    		'是否已對帳' => '0',		        
+		                    		'是否已對帳' => '0',
 		                    	);
 		                    }
 		                    $this->orders_model->add_bill($data);
@@ -801,11 +801,11 @@ class Orders extends CI_Controller {
 
     public function reconcile() {
     	//先抓欲對帳表
-    	//$orders = $this->orders_model->get_checkbill(); 
+    	//$orders = $this->orders_model->get_checkbill();
     	$orders_sell = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);	//2018.5.23 更新此處只處理賣
     	$orders_buy = $this->orders_model->get_check_record(null, '未查帳'); //2018.5.23 更新買從已通知查帳處理
     	$datas = $this->orders_model->get_bills();
-    	
+
     	//對帳通知未查帳
     	if ($orders_buy != null && $datas != NULL) {
 	    	for ($i = 0; $i < count($orders_buy); $i++) {
@@ -829,7 +829,7 @@ class Orders extends CI_Controller {
 	    		$time = $orders_sell[$i]['成交日期'];
 	    		$money = $orders_sell[$i]['匯款金額應收帳款'];
 	    		$inform = $orders_sell[$i]['通知查帳'];
-	    		
+
 		    	if ($orders_sell[$i]['買賣'] == '0') {	//已匯金額
 		    		if ($inform == '未通知' || $inform == '待對帳') {
 		    			for ($j = 0; $j < count($datas); $j++) {
@@ -901,7 +901,7 @@ class Orders extends CI_Controller {
 		} else {
 			echo "false";
 		}
-		
+
 	}
 
 	//傳真資料匯入成交單資料
@@ -1095,7 +1095,7 @@ class Orders extends CI_Controller {
 		} elseif ($_POST['type'] == '轉讓過戶申請書') {
 			force_download('download_folder/change_apply.jpg', NULL);
 		}
-		
+
 	}
 
 }
