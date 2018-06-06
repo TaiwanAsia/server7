@@ -489,7 +489,7 @@
             <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
             <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
         </tr>
-          <?php if ($orders[$i]['備註'] > 0) { ?>
+          <?php if (strlen($orders[$i]['備註']) > 0) { ?>
             <tr class="note-row"  title="編輯備註" data-popup-open="popup-2">
               <td colspan="5" class="n-tds-1"></td>
               <td colspan="100" class="n-tds-2"><?php echo $orders[$i]['備註']; ?></td>
