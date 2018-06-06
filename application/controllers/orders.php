@@ -22,6 +22,11 @@ class Orders extends CI_Controller {
 		// $this->load->view('templates/footer');
     }
 
+    public function new_index() {
+    	$this->load->view('templates/header');
+		$this->load->view('pages/home');
+    }
+
     public function index()
     {
 		if (!isset($_SESSION['ACCOUNT'])) {
