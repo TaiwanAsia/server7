@@ -656,6 +656,7 @@ class Orders extends CI_Controller {
         // 引入函式庫
         require_once "vendor/autoload.php";
 
+<<<<<<< HEAD
         if (isset($_POST["Fax_exported"])) {
             //判斷content檔案存在與否，存在則刪除
             //$file = 'C:\xampp\tmp\excel\content.csv';
@@ -725,11 +726,84 @@ class Orders extends CI_Controller {
             $objWriter->save($file);//建立暫存檔並將資料寫入
             $objWriter->save('php://output');
         }
+=======
+		if (isset($_POST["Fax_exported"])) {
+			//判斷content檔案存在與否，存在則刪除
+			//$file = 'C:\xampp\tmp\excel\content.csv';
+			$file = 'C:\xampp\tmp\word\content.doc';
+			if(file_exists($file)){
+				unlink($file);
+			}
+>>>>>>> 38f24b19fa75b84a84f1dbcb679001529d5dfd42
 
+			//建立暫存檔並將資料寫入
+			$phpWord = new \PhpOffice\PhpWord\PhpWord();
+			$section = $phpWord->createSection();
+			$fontStyle = array('size' => 20);
+
+			$section->addText("TO：".$_POST["dealer_name"], $fontStyle);
+			$section->addText("傳真：".$_POST["dealer_fax"]." "."電話：".$_POST["dealer_tel"], $fontStyle);
+			$section->addText(date("Y/m/d", strtotime($_POST["transaction_date"]))." 成交交易明細", $fontStyle);
+
+			$styleTable = ['borderSize' => 6, 'borderColor' => '999999'];
+			$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
+			$table = $section->addTable('Colspan Rowspan');
+
+			$row = $table->addRow();
+			$row->addCell()->addText('股票名稱', $fontStyle);
+			$row->addCell(2500, ['gridSpan' => 2])->addText($_POST["stock_name"], $fontStyle);
+			$row->addCell()->addText('方式', $fontStyle);
+			$row->addCell(2500, ['gridSpan' => 2])->addText($_POST["way"], $fontStyle);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('成交價', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_price"], $fontStyle);
+			$row->addCell()->addText('張數', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_amount"], $fontStyle);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('完稅姓名', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_name"], $fontStyle);
+			$row->addCell()->addText('ID', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_id"], $fontStyle);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('完稅地址', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["taxer_address"], $fontStyle);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('銀行機構', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_bank"], $fontStyle);
+			$row->addCell()->addText('銀行帳號', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_account"], $fontStyle);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('戶名', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_name"], $fontStyle);
+			$row->addCell()->addText('金額', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_amount"], $fontStyle);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('交割日', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 5])->addText(date("Y/m/d", strtotime($_POST["transfer_date"])), $fontStyle);
+
+			$row = $table->addRow();
+			$row->addCell()->addText('備註', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 5])->addText("", $fontStyle);
+
+			//下載WORD檔
+			header("Content-type: application/vnd.ms-word");
+			header("Content-Disposition: attachment; filename=\"".date('Y-m-d').".doc\"");
+			header('Cache-Control: max-age=0');
+			$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+			$objWriter->save($file);//建立暫存檔並將資料寫入
+			$objWriter->save('php://output');	
+		}
+		$array = array('盤商名稱' => $_POST['dealer_name'], '成交單編號' => $_POST['order_id'], '完稅姓名' => $_POST['taxer_name'], '匯款姓名' => $_POST['payer_name'], '金額' => $_POST['payer_amount']);
+		$id = $this->orders_model->insert_fax_info($array);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '下載傳真資料', $id, null);
         $this->fax_info();
     }
-
-
 
 	public function import(){
 		// 引入函式庫
@@ -1094,8 +1168,15 @@ class Orders extends CI_Controller {
 			force_download('download_folder/id_version.docx', NULL);
 		} elseif ($_POST['type'] == '轉讓過戶申請書') {
 			force_download('download_folder/change_apply.jpg', NULL);
+		} elseif ($_POST['type'] == '股票成交單') {
+			force_download('download_folder/pink.docx', NULL);
+		} elseif ($_POST['type'] == '委託掛單明細') {
+			force_download('download_folder/purple.docx', NULL);
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 38f24b19fa75b84a84f1dbcb679001529d5dfd42
 	}
 
 }

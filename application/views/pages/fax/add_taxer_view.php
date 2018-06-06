@@ -42,13 +42,10 @@
 						<td>
 							<input type="text" name="匯款帳號" value="">
 						</td>
-
-						<td>
-							<input type="submit" name="" value="確認">
-						</td>
 					</tr>
 				</tbody>
 			</table>
+			<input type="submit" name="" value="確認">
 
 		</form>
 

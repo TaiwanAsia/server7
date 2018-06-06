@@ -33,6 +33,7 @@
                     <td><input id="order_id" type="text" name="order_id"></td>
                     <td><button type="button" id="import_order">匯入</button></td>
                     <td colspan="2"><p class="text-danger">★請先匯入成交單編號</p></td>
+                    <input type="hidden" id="transaction_date" name="transaction_date" value="">
                 </tr>
                 <tr>
                     <td>股票名稱</td>
@@ -112,6 +113,7 @@
                     } else {
                         $("#way").val("賣");
                     }
+                    $("#transaction_date").val(data.成交日期);
                     $("#stock_price").val(data.成交價);
                     $("#stock_amount").val(data.張數);
                     $('#transfer_date').val(data.過戶日期);
