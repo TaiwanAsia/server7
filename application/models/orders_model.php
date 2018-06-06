@@ -684,6 +684,12 @@ class Orders_model extends CI_Model {
         $this->db->delete('taxer'); 
     }
 
+    public function insert_fax_info($data) {
+        $this->db->insert('orders_fax', $data);
+        $id = $this->db->insert_id();
+        return $id;
+    }
+
 
 }
 

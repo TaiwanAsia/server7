@@ -727,7 +727,9 @@ class Orders extends CI_Controller {
 			$objWriter->save($file);//建立暫存檔並將資料寫入
 			$objWriter->save('php://output');	
 		}
-
+		$array = array('盤商名稱' => $_POST['dealer_name'], '成交單編號' => $_POST['order_id'], '完稅姓名' => $_POST['taxer_name'], '匯款姓名' => $_POST['payer_name'], '金額' => $_POST['payer_amount']);
+		$id = $this->orders_model->insert_fax_info($array);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '下載傳真資料', $id, null);
         $this->fax_info();
     }
 
@@ -1094,8 +1096,11 @@ class Orders extends CI_Controller {
 			force_download('download_folder/id_version.docx', NULL);
 		} elseif ($_POST['type'] == '轉讓過戶申請書') {
 			force_download('download_folder/change_apply.jpg', NULL);
+		} elseif ($_POST['type'] == '股票成交單') {
+			force_download('download_folder/pink.docx', NULL);
+		} elseif ($_POST['type'] == '委託掛單明細') {
+			force_download('download_folder/purple.docx', NULL);
 		}
-		
 	}
 
 }
