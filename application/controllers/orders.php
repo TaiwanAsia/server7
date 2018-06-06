@@ -727,7 +727,9 @@ class Orders extends CI_Controller {
 			$objWriter->save($file);//建立暫存檔並將資料寫入
 			$objWriter->save('php://output');	
 		}
-
+		$array = array('盤商名稱' => $_POST['dealer_name'], '成交單編號' => $_POST['order_id'], '完稅姓名' => $_POST['taxer_name'], '匯款姓名' => $_POST['payer_name'], '金額' => $_POST['payer_amount']);
+		$id = $this->orders_model->insert_fax_info($array);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '下載傳真資料', $id, null);
         $this->fax_info();
     }
 
