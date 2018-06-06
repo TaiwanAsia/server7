@@ -654,7 +654,7 @@ class Orders extends CI_Controller {
 		if (isset($_POST["Fax_exported"])) {
 			//判斷content檔案存在與否，存在則刪除
 			//$file = 'C:\xampp\tmp\excel\content.csv';
-			$file = 'C:\xampp\tmp\excel\content.doc';
+			$file = 'C:\xampp\tmp\word\content.doc';
 			if(file_exists($file)){
 				unlink($file);
 			}
@@ -672,9 +672,9 @@ class Orders extends CI_Controller {
 
 			$row = $table->addRow();
 			$row->addCell()->addText('股票名稱');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_name"]);
+			$row->addCell(2000, ['gridSpan' => 2])->addText($_POST["stock_name"]);
 			$row->addCell()->addText('方式');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["way"]);
+			$row->addCell(2000, ['gridSpan' => 2])->addText($_POST["way"]);
 
 			$row = $table->addRow();
 			$row->addCell()->addText('成交價');
