@@ -667,55 +667,57 @@ class Orders extends CI_Controller {
 			//建立暫存檔並將資料寫入
 			$phpWord = new \PhpOffice\PhpWord\PhpWord();
 			$section = $phpWord->createSection();
-			$section->addText("TO：".$_POST["dealer_name"]);
-			$section->addText("傳真：".$_POST["dealer_fax"]." "."電話：".$_POST["dealer_tel"]);
-			$section->addText(date('Y/m/d')." 成交交易明細");
+			$fontStyle = array('size' => 20);
+
+			$section->addText("TO：".$_POST["dealer_name"], $fontStyle);
+			$section->addText("傳真：".$_POST["dealer_fax"]." "."電話：".$_POST["dealer_tel"], $fontStyle);
+			$section->addText(date('Y/m/d')." 成交交易明細", $fontStyle);
 
 			$styleTable = ['borderSize' => 6, 'borderColor' => '999999'];
 			$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
 			$table = $section->addTable('Colspan Rowspan');
 
 			$row = $table->addRow();
-			$row->addCell()->addText('股票名稱');
-			$row->addCell(2000, ['gridSpan' => 2])->addText($_POST["stock_name"]);
-			$row->addCell()->addText('方式');
-			$row->addCell(2000, ['gridSpan' => 2])->addText($_POST["way"]);
+			$row->addCell()->addText('股票名稱', $fontStyle);
+			$row->addCell(2500, ['gridSpan' => 2])->addText($_POST["stock_name"], $fontStyle);
+			$row->addCell()->addText('方式', $fontStyle);
+			$row->addCell(2500, ['gridSpan' => 2])->addText($_POST["way"], $fontStyle);
 
 			$row = $table->addRow();
-			$row->addCell()->addText('成交價');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_price"]);
-			$row->addCell()->addText('張數');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_amount"]);
+			$row->addCell()->addText('成交價', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_price"], $fontStyle);
+			$row->addCell()->addText('張數', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["stock_amount"], $fontStyle);
 
 			$row = $table->addRow();
-			$row->addCell()->addText('完稅姓名');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_name"]);
-			$row->addCell()->addText('ID');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_id"]);
+			$row->addCell()->addText('完稅姓名', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_name"], $fontStyle);
+			$row->addCell()->addText('ID', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["taxer_id"], $fontStyle);
 
 			$row = $table->addRow();
-			$row->addCell()->addText('完稅地址');
-			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["taxer_address"]);
+			$row->addCell()->addText('完稅地址', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["taxer_address"], $fontStyle);
 
 			$row = $table->addRow();
-			$row->addCell()->addText('銀行機構');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_bank"]);
-			$row->addCell()->addText('銀行帳號');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_account"]);
+			$row->addCell()->addText('銀行機構', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_bank"], $fontStyle);
+			$row->addCell()->addText('銀行帳號', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_account"], $fontStyle);
 
 			$row = $table->addRow();
-			$row->addCell()->addText('戶名');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_name"]);
-			$row->addCell()->addText('金額');
-			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_amount"]);
+			$row->addCell()->addText('戶名', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_name"], $fontStyle);
+			$row->addCell()->addText('金額', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 2])->addText($_POST["payer_amount"], $fontStyle);
 
 			$row = $table->addRow();
-			$row->addCell()->addText('交割日');
-			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["transfer_date"]);
+			$row->addCell()->addText('交割日', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["transfer_date"], $fontStyle);
 
 			$row = $table->addRow();
-			$row->addCell()->addText('備註');
-			$row->addCell(null, ['gridSpan' => 5])->addText("");
+			$row->addCell()->addText('備註', $fontStyle);
+			$row->addCell(null, ['gridSpan' => 5])->addText("", $fontStyle);
 
 			//下載WORD檔
 			header("Content-type: application/vnd.ms-word");
