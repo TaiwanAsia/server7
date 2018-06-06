@@ -66,17 +66,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="nav-item">
                             <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/index">
                             <!-- <span data-feather="home"></span> -->
-                            成交單管理<span class="sr-only">(current)</span>
+                                成交單管理<span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/checkbill">
-                            應收帳款
+                                應收帳款
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/fax_info">
-                            傳真資料
+                                傳真資料
                             </a>
                         </li>
                         <li class="nav-item">
@@ -85,6 +85,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                     動作紀錄
                                 </a>
                             <?php } ?>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/document_download_view">
+                                文件下載
+                            </a>
                         </li>
                         
                         <!-- <li class="nav-item">
@@ -104,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             if ($_SESSION['帳號設定權限']==1) { ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
-                                        帳號權限管理
+                                        帳號管理
                                     </a>
                                 </li>
                         <?php  }

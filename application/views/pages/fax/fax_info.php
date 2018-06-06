@@ -1,5 +1,5 @@
-	<main role="main" class="col-md-9 col-lg-10 px-4">
-		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
+    <main role="main" class="col-md-9 col-lg-10 px-4">
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
             <h1 class="h2">傳真資料</h1>
             <form action="go_dealer" method="POST" class="t-form-t" name="">
                 <input type="submit" name="" value="盤商資料" class="btn btn-sm btn-outline-secondary">
@@ -91,8 +91,10 @@
                     <td><button type="submit" name="Fax_exported">產生檔案</button></td>
                 </tr>
             </form>
-		</table>
-	</main>
+        </table>
+    </main>
+
+
 </body>
 
 <script type="text/javascript">

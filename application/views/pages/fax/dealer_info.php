@@ -6,7 +6,7 @@
 					<input type="submit" name="" value="新增" class="btn btn-sm btn-outline-secondary">
 				</form>
 
-			<input type ="button" onclick="history.back()" value="回到上一頁" class="btn btn-sm btn-outline-secondary">
+			<input type ="button" onclick="javascript:location.href='fax_info'" value="回到上一頁" class="btn btn-sm btn-outline-secondary">
 		</div>
 
 		<div class="t-form">

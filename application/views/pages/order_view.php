@@ -66,7 +66,9 @@
       <th data-tablesaw-priority="1">通知查帳</th>
       <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
       <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
-      <th data-tablesaw-priority="1">上傳水</th>
+      <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
+        <th data-tablesaw-priority="1">上傳水</th>
+      <?php } ?>
       <th data-tablesaw-priority="1">是否結案</th>
       <th data-tablesaw-priority="persist"></th>
       <th data-tablesaw-priority="persist"></th>
@@ -279,12 +281,8 @@
             //一審[完]結束
           }
         } else {
-          //沒有一二審權限,只能看審核狀態
-          if ($orders[$i]['成交單狀態']!='審核完成') {
-            echo "<td><p class='text-danger'><b>待審</b></td>";
-          } else {
-            echo "<td><p class='text-primary'><b>審完</b></td>";
-          }
+          //沒有一二審權限
+          echo "<td></td>";
         }
         ?>
         <?php
@@ -432,7 +430,9 @@
                 </form>
                 <?php } ?>
             </td>
-            <td>
+
+            <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
+              <td>
                 <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
                   ?>
                 <a class="clickable_hint" href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
@@ -445,7 +445,9 @@
                   </div>
                 </form>
                 <?php } ?>
-            </td>
+              </td>
+            <?php } ?>
+            
             <td>
               <?php
                 if($orders[$i]['已結案']==1){
@@ -487,7 +489,7 @@
             <input type="hidden" id="匯款日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款日期']; ?>">
             <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
         </tr>
-          <?php if ($orders[$i]['備註'] > 0) { ?>
+          <?php if (strlen($orders[$i]['備註']) > 0) { ?>
             <tr class="note-row"  title="編輯備註" data-popup-open="popup-2">
               <td colspan="5" class="n-tds-1"></td>
               <td colspan="100" class="n-tds-2"><?php echo $orders[$i]['備註']; ?></td>

@@ -22,6 +22,11 @@ class Orders extends CI_Controller {
 		// $this->load->view('templates/footer');
     }
 
+    public function new_index() {
+    	$this->load->view('templates/header');
+		$this->load->view('pages/home');
+    }
+
     public function index()
     {
 		if (!isset($_SESSION['ACCOUNT'])) {
@@ -648,8 +653,8 @@ class Orders extends CI_Controller {
 	}
 
 	public function fax_exported() {
-		// 引入函式庫
-		require_once "vendor/autoload.php";
+        // 引入函式庫
+        require_once "vendor/autoload.php";
 
 		if (isset($_POST["Fax_exported"])) {
 			//判斷content檔案存在與否，存在則刪除
@@ -721,10 +726,10 @@ class Orders extends CI_Controller {
 			$objWriter->save('php://output');	
 		}
 
-		$this->fax_info();
-	}
+        $this->fax_info();
+    }
 
-	public function import() {
+	public function import(){
 		// 引入函式庫
 		require_once APPPATH."third_party\PHPExcel.php";
 
@@ -1076,8 +1081,20 @@ class Orders extends CI_Controller {
 		$this->go_taxer();
 	}
 
+	public function document_download_view() {
+		$this->load->view('templates/header');
+		$this->load->view('pages/download/document_view');
+	}
 
-
+	public function document_download() {
+		$this->load->helper('download');
+		if ($_POST['type'] == '身分證') {
+			force_download('download_folder/id_version.docx', NULL);
+		} elseif ($_POST['type'] == '轉讓過戶申請書') {
+			force_download('download_folder/change_apply.jpg', NULL);
+		}
+		
+	}
 
 }
 

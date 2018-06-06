@@ -3,7 +3,9 @@
 		<div id="body">
 	  		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
 				<h1 class="h2">編輯盤商資料</h1>
+				<input type ="button" onclick="javascript:location.href='go_dealer'" value="回到上一頁" class="btn btn-sm btn-outline-secondary">
 			</div>
+
 			<form action="edit_dealer" method="GET" name="" style= "display:inline">
 				<div>
 				 	<table class="table table-md table-hover table-responsive fax-table">
