@@ -1094,8 +1094,11 @@ class Orders extends CI_Controller {
 			force_download('download_folder/id_version.docx', NULL);
 		} elseif ($_POST['type'] == '轉讓過戶申請書') {
 			force_download('download_folder/change_apply.jpg', NULL);
+		} elseif ($_POST['type'] == '股票成交單') {
+			force_download('download_folder/pink.docx', NULL);
+		} elseif ($_POST['type'] == '委託掛單明細') {
+			force_download('download_folder/purple.docx', NULL);
 		}
-		
 	}
 
 }

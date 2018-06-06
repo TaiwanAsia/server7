@@ -39,6 +39,26 @@
 							</form>
 						</td>
 					</tr>
+					<tr>
+						<td>2</td>
+						<td>股票成交單</td>
+						<td>
+							<form action="document_download" method="POST">
+								<input type="hidden" name="type" value="股票成交單">
+								<button type="submit">下載</button>
+							</form>
+						</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>委託掛單明細</td>
+						<td>
+							<form action="document_download" method="POST">
+								<input type="hidden" name="type" value="委託掛單明細">
+								<button type="submit">下載</button>
+							</form>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
