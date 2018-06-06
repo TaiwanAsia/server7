@@ -671,7 +671,7 @@ class Orders extends CI_Controller {
 
 			$section->addText("TO：".$_POST["dealer_name"], $fontStyle);
 			$section->addText("傳真：".$_POST["dealer_fax"]." "."電話：".$_POST["dealer_tel"], $fontStyle);
-			$section->addText($_POST["transaction_date"]." 成交交易明細", $fontStyle);
+			$section->addText(date("Y/m/d", strtotime($_POST["transaction_date"]))." 成交交易明細", $fontStyle);
 
 			$styleTable = ['borderSize' => 6, 'borderColor' => '999999'];
 			$phpWord->addTableStyle('Colspan Rowspan', $styleTable);
@@ -713,7 +713,7 @@ class Orders extends CI_Controller {
 
 			$row = $table->addRow();
 			$row->addCell()->addText('交割日', $fontStyle);
-			$row->addCell(null, ['gridSpan' => 5])->addText($_POST["transfer_date"], $fontStyle);
+			$row->addCell(null, ['gridSpan' => 5])->addText(date("Y/m/d", strtotime($_POST["transfer_date"])), $fontStyle);
 
 			$row = $table->addRow();
 			$row->addCell()->addText('備註', $fontStyle);
