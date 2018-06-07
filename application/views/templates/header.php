@@ -63,12 +63,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="s-sidebar-1">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/new_index">
+                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/index">
                                 首頁<span class="sr-only"></span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/index">
+                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/go_orders">
                             <!-- <span data-feather="home"></span> -->
                                 成交單管理<span class="sr-only">(current)</span>
                             </a>
@@ -83,13 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 傳真資料
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
-                                <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/move_record">
-                                    動作紀錄
-                                </a>
-                            <?php } ?>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/document_download_view">
                                 文件下載
@@ -109,13 +103,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         -->
-                        <?php
-                            if ($_SESSION['帳號設定權限']==1) { ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
-                                        帳號管理
-                                    </a>
-                                </li>
+                        <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/move_record">
+                                動作紀錄
+                            </a>
+                            <?php } ?>
+                        </li>
+                        <?php if ($_SESSION['帳號設定權限']==1) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">
+                                帳號管理
+                            </a>
+                        </li>
                         <?php  }
                         ?>
 

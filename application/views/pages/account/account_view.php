@@ -1,21 +1,33 @@
 
 	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+		<div>
 			<form action="go_add_account" method="POST" class="t-form-t" name="">
 				<input type="submit" name="" value="新增">
 			</form>
-			<div class="t-form">
+			<ul>
+				<li style="display:inline;">
+					<a href="account"><font size="4">帳號編輯</font></a>
+				</li>
+				<li style="display:inline;">
+					<a href="authority"><font size="4">權限編輯</font></a>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="t-form">
+			
 			<table class="table">
 				<thead class="thead-light">
-				<tr>
-					<th nowrap="nowrap">編號</th>
-					<th nowrap="nowrap">名稱</th>
-					<th nowrap="nowrap">帳號</th>
-					<th nowrap="nowrap">密碼</th>
-					<th nowrap="nowrap">權限</th>
-					<th nowrap="nowrap">趴數</th>
-					<th nowrap="nowrap"></th>
-					<th nowrap="nowrap"></th>
-				</tr>
+					<tr>
+						<th nowrap="nowrap">編號</th>
+						<th nowrap="nowrap">名稱</th>
+						<th nowrap="nowrap">帳號</th>
+						<th nowrap="nowrap">密碼</th>
+						<th nowrap="nowrap">權限</th>
+						<th nowrap="nowrap">趴數</th>
+						<th nowrap="nowrap"></th>
+						<th nowrap="nowrap"></th>
+					</tr>
 				</thead>
 				<tbody>
 				<?php
@@ -46,7 +58,7 @@
 				?>
 				</tbody>
 			</table>
-	</div>
+		</div>
 	</main>
 
 

@@ -45,6 +45,27 @@ class Login_model extends CI_Model {
             }
         }
 
+        //查看權限
+        function show_authority($name){
+            if (is_null($name)) {
+                $query = $this->db->get('account_type');
+            } else {
+                $query = $this->db->get_where('account_type', array('權限名稱'=>$name));
+            }
+            if($query->result()!=null){
+                foreach ($query->result() as $row) {
+                    $result[] = array('權限名稱'=>$row-> 權限名稱,
+                                    '帳號設定權限'=>$row-> 帳號設定權限,
+                                    '編輯權限'=>$row-> 編輯權限,
+                                    '刪除權限'=>$row-> 刪除權限,
+                                    '成交日期權限'=>$row-> 成交日期權限,
+                                    '業務權限'=>$row-> 業務權限,
+                                    '客戶姓名權限'=>$row-> 客戶姓名權限,);
+                }
+                return  $result;
+            }
+        }
+
         //刪除帳號
         function delete_account($delete_account){
             $this->db->delete('EMPLOYEE', array('ID' => $delete_account));
