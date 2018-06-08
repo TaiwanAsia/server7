@@ -36,10 +36,12 @@ class Login extends CI_Controller {
 		// if(isset($_SESSION['ACCOUNT'])){
 		// 	echo $_SESSION['ACCOUNT'];
 		// }
-		// if (isset($_SESSION['ACCOUNT'])) {
-		// 	redirect('http://localhost/server7/index.php/orders/index');
-		// } else {
-		// 	echo "string";
+		// echo $_SESSION['ACCOUNT'];
+		if (isset($_SESSION['ACCOUNT'])) {
+			echo $_SESSION['ACCOUNT'];
+			redirect('http://localhost/server7/index.php/orders/index');
+		} else {
+
 			if (isset($_POST['acct'])&&!is_null($_POST['acct'])) {
 				$error_message = '輸入錯誤，再試一次!';
 				$flag = $this->login_model->login($_POST['acct'], $_POST['pswd']);
@@ -82,7 +84,7 @@ class Login extends CI_Controller {
 				// $this->load->view('templates/header');
 				$this->load->view('pages/login_view',array('error_message' => $error_message));
 			}
-		// }
+		}
 	}
 
     //進入帳號設定

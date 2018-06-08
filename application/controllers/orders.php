@@ -32,12 +32,8 @@ class Orders extends CI_Controller {
     }
 
     public function index() {
-    	if (!isset($_SESSION['ACCOUNT'])) {
-    		redirect('index.php/login/index');
-    	} else {
-    		$this->load->view('templates/header');
-			$this->load->view('pages/home');
-    	}
+		$this->load->view('templates/header');
+		$this->load->view('pages/home');
     }
 
     public function go_orders()
