@@ -531,7 +531,7 @@ class Orders extends CI_Controller {
 	//二審update
 	public function edit2_order() {
 		if ($_POST['成交單狀態'] == '審核完成') {
-			// if (file_exists("upload/tax/".$_POST['ID'])&&file_exists("upload/contact/".$_POST['ID'])){
+			if (file_exists("upload/tax/".$_POST['ID'])&&file_exists("upload/contact/".$_POST['ID'])){
 				$data = array(
 							'ID' => $_POST['ID'],
 							'客戶姓名' => $_POST['客戶姓名'],
@@ -548,10 +548,10 @@ class Orders extends CI_Controller {
 			$this -> orders_model -> edit($data);
 			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
 			$this->index();
-			// } else {
-			// 	echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
-			// 	$this->index();
-			// }
+			} else {
+				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
+				$this->index();
+			}
 		} else {
 			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->index();
