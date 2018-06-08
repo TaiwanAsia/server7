@@ -1117,7 +1117,11 @@ class Orders extends CI_Controller {
 		} elseif ($_POST['type'] == '委託掛單明細') {
 			force_download('download_folder/purple.docx', NULL);
 		}
+	}
 
+	public function pay_error() {
+		$this->load->view('templates/header');
+		echo "轉出異常的成交單會出現在這(EX大姊匯了兩次)";
 	}
 
 }

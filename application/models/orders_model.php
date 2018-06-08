@@ -45,6 +45,7 @@ class Orders_model extends CI_Model {
                     '成交單狀態'=>$row-> 成交單狀態,
                     '二審'=>$row-> 二審,
                     '備註'=>$row-> 備註,
+                    '開發者'=>$row-> 開發者,
                     // '契約'=>$row-> 契約,
                     // '稅單'=>$row-> 稅單,
                     '已結案'=>$row-> 已結案,
@@ -299,12 +300,14 @@ class Orders_model extends CI_Model {
 
     public function add($data) {
 
-        $this->db->insert('orders',$data);
+        $this->db->insert('orders', $data);
         $id = $this->db->insert_id();
         if ($data['業務'] == 'JOY') {
-            $array = array('成交單狀態'=>'審核完成', '二審'=>1, '通知查帳'=>'待對帳');
+            $array = array('成交單狀態'=>'審核完成', '二審'=>1, '通知查帳'=>'待對帳', '匯款日期'=>date('Y-m-d'));
             $this->db->where('ID', $id);
             $this->db->update('orders', $array);
+            // $check_record = array('id'=>NULL, '成交單編號'=>$data['ID'], '轉出日期轉入日期'=>$data['成交日期'], '支付方式'=>'匯款', '支付人'=>$data['客戶姓名'], '匯款帳號末5碼'=>null, '待查帳金額'=>$data['匯款金額應收帳款'], '通知日期'=>date('Y-m-d H:i:s'), '最後動作時間'=>date('Y-m-d H:i:s'));
+            // $this->db->insert('check_money_record', $check_record);
         }
         return $id;
     }
