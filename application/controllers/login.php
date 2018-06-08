@@ -85,57 +85,64 @@ class Login extends CI_Controller {
 		// }
 	}
 
-	    //進入帳號設定
-		public function account() {
-			$data = $this->login_model->show_account(null);//撈資料
-			$this->load->view('templates/header');
-			$this->load->view('pages/account/account_view', array('data' => $data,));
-		}
-	
-		//刪除帳號
-		public function delete_account() {
-			$account_id = $_POST['account_id'];
-			$this->login_model->delete_account($account_id);
-			$this->account();
-		}
-	
-		//新增帳號頁面
-		public function go_add_account() {
-			$data = $this->login_model->show_account(null);//先撈account資料
-			$this->load->view('templates/header');
-			$this->load->view('pages/account/add_account_view', array('data' => $data,));
-		}
-	
-		//新增帳號
-		public function add_account() {
-			$data = array('NAME' => $_POST['name'],
-							'ACCOUNT' => $_POST['account'],
-							'PASSWORD' => $_POST['password'],
-							'權限名稱' => $_POST['權限名稱'],
-							'趴數' => $_POST['趴數'],);
-			$this->login_model->add_account($data);
-			$this->account();
-		}
-	
-		//編輯帳號頁面
-		public function go_edit_account() {
-			$account_id = $_POST['account_id'];
-			$data = $this->login_model->show_account($account_id); //撈欲編輯資料
-			$this->load->view('templates/header');
-			$this->load->view('pages/account/edit_account_view', array('data' => $data,));
-		}
-	
-		//編輯帳號
-		public function edit_account() {
-			$data = array('ID' => $_POST['id'],
-							'NAME' => $_POST['name'],
-							'ACCOUNT' => $_POST['account'],
-							'PASSWORD' => $_POST['password'],
-							'權限名稱' => $_POST['權限名稱'],
-							'趴數' => $_POST['趴數'],);
-			$this->login_model->edit_account($data);
-			$this->account();
-		}
+    //進入帳號設定
+	public function account() {
+		$data = $this->login_model->show_account(null);//撈資料
+		$this->load->view('templates/header');
+		$this->load->view('pages/account/account_view', array('data' => $data,));
+	}
+
+	//進入權限設定
+	public function authority() {
+		$data = $this->login_model->show_authority(null);//撈資料
+		$this->load->view('templates/header');
+		$this->load->view('pages/account/authority', array('data' => $data,));
+	}
+
+	//刪除帳號
+	public function delete_account() {
+		$account_id = $_POST['account_id'];
+		$this->login_model->delete_account($account_id);
+		$this->account();
+	}
+
+	//新增帳號頁面
+	public function go_add_account() {
+		$data = $this->login_model->show_account(null);//先撈account資料
+		$this->load->view('templates/header');
+		$this->load->view('pages/account/add_account_view', array('data' => $data,));
+	}
+
+	//新增帳號
+	public function add_account() {
+		$data = array('NAME' => $_POST['name'],
+						'ACCOUNT' => $_POST['account'],
+						'PASSWORD' => $_POST['password'],
+						'權限名稱' => $_POST['權限名稱'],
+						'趴數' => $_POST['趴數'],);
+		$this->login_model->add_account($data);
+		$this->account();
+	}
+
+	//編輯帳號頁面
+	public function go_edit_account() {
+		$account_id = $_POST['account_id'];
+		$data = $this->login_model->show_account($account_id); //撈欲編輯資料
+		$this->load->view('templates/header');
+		$this->load->view('pages/account/edit_account_view', array('data' => $data,));
+	}
+
+	//編輯帳號
+	public function edit_account() {
+		$data = array('ID' => $_POST['id'],
+						'NAME' => $_POST['name'],
+						'ACCOUNT' => $_POST['account'],
+						'PASSWORD' => $_POST['password'],
+						'權限名稱' => $_POST['權限名稱'],
+						'趴數' => $_POST['趴數'],);
+		$this->login_model->edit_account($data);
+		$this->account();
+	}
 
 	public function logout()
 	{

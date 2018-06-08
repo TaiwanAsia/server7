@@ -14,20 +14,33 @@ class Orders extends CI_Controller {
 		$this->load->model('orders_model');
 	}
 
+	public function session_check() {
+		if (!isset($_SESSION['ACCOUNT'])) {
+    		redirect('index.php/login/index');
+    	} else {
+    		return True;
+    	}
+	}
+
 	public function show($arr_data)
     {
-		$this->load->view('templates/header');
-		// $this->load->view('templates/sidebar');
-		$this->load->view('pages/order_view', $arr_data);
-		// $this->load->view('templates/footer');
+    	$boo = $this->session_check();
+    	if ($boo) {
+    		$this->load->view('templates/header');
+			$this->load->view('pages/order_view', $arr_data);
+    	}
     }
 
-    public function new_index() {
-    	$this->load->view('templates/header');
+    public function index() {
+    	if (!isset($_SESSION['ACCOUNT'])) {
+    		redirect('index.php/login/index');
+    	} else {
+    		$this->load->view('templates/header');
 			$this->load->view('pages/home');
+    	}
     }
 
-    public function index()
+    public function go_orders()
     {
 		if (!isset($_SESSION['ACCOUNT'])) {
 			redirect('index.php/login/index');
@@ -115,7 +128,7 @@ class Orders extends CI_Controller {
 					);
 		$insert_id = $this -> orders_model -> add($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
-		$this->index();
+		$this->go_orders();
 	}
 
 	public function copy() {
@@ -214,11 +227,11 @@ class Orders extends CI_Controller {
 			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
 			if (file_exists("upload/contact/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
-				$this->index();
+				$this->go_orders();
 			} else {
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
-				$this->index();
+				$this->go_orders();
 			}
 		}
 	}
@@ -235,11 +248,11 @@ class Orders extends CI_Controller {
 			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
 			if (file_exists("upload/tax/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
-				$this->index();
+				$this->go_orders();
 			} else {
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
-				$this->index();
+				$this->go_orders();
 			}
 		}
 	}
@@ -256,12 +269,12 @@ class Orders extends CI_Controller {
 			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
 			if (file_exists("upload/tax/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
-				$this->index();
+				$this->go_orders();
 			} else {
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/water/".$id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水', $id, null);
 				$this->orders_model->finish_order($id);
-				$this->index();
+				$this->go_orders();
 			}
 		}
 	}
@@ -269,7 +282,7 @@ class Orders extends CI_Controller {
 	public function match() {
 		// echo $_POST['欲媒合對方ID'].", ".$_POST['欲媒合自身ID']."<br>";
 		$this -> orders_model -> match($_POST['欲媒合自身ID'], $_POST['欲媒合對方ID']);
-		$this->index();
+		$this->go_orders();
 	}
 
 	//修改成交單資料
@@ -337,7 +350,7 @@ class Orders extends CI_Controller {
 			'最後動作時間' => date('Y-m-d H:i:s'),);
 		$this -> orders_model -> edit($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '一審', $_POST['ID'], null);
-		$this->index();
+		$this->go_orders();
 
 	}
 
@@ -455,7 +468,7 @@ class Orders extends CI_Controller {
 		}
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $_POST['ID'], $effect);
 		$this -> orders_model -> edit($data);
-		$this->index();
+		$this->go_orders();
 	}
 
 	//單純修改成交單內容admin(全部欄位都能修改)
@@ -508,7 +521,7 @@ class Orders extends CI_Controller {
 		}
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin修改', $_POST['ID'], $effect);
 		$this -> orders_model -> edit($data);
-		$this->index();
+		$this->go_orders();
 	}
 
 	//自動填入客戶資料
@@ -547,14 +560,21 @@ class Orders extends CI_Controller {
 							'最後動作時間' => date('Y-m-d H:i:s'),);
 			$this -> orders_model -> edit($data);
 			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
-			$this->index();
+
+			// } else {
+			// 	echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
+			// 	$this->index();
+			// }
+
+			// $this->go_orders();
 			} else {
 				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
-				$this->index();
+				$this->go_orders();
 			}
+
 		} else {
 			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
-				$this->index();
+				$this->go_orders();
 		}
 
 	}
@@ -649,7 +669,7 @@ class Orders extends CI_Controller {
 		} else {
 			echo '<span style="color:#FF0000;"><b>下載失敗</b></span>';
 		}
-		$this->index();
+		$this->go_orders();
 	}
 
 	public function fax_exported() {

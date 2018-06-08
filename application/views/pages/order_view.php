@@ -5,7 +5,7 @@
        <div class="btn-group mr-2">
         <!-- <button class="btn btn-sm btn-outline-secondary" id="new_order">新增成交單</button> -->
         <!-- <button class="btn btn-sm btn-outline-secondary">所有</button> -->
-        <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/index'" value="所有"></input>
+        <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/go_orders'" value="所有"></input>
         <form action="go_inventory" method="post">
           <button id="inventory" class="btn btn-sm btn-outline-secondary">庫存</button>
         </form>
@@ -118,7 +118,7 @@
             } else if($orders[$i]['轉讓會員'] == 'KO') {
               echo "go_ko?業務=".$orders[$i]['業務'];
             } else {
-              echo "index?業務=".$orders[$i]['業務'];
+              echo "go_orders?業務=".$orders[$i]['業務'];
             }?>'"
             title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
         </td>
@@ -131,7 +131,7 @@
             } else if($orders[$i]['轉讓會員'] == 'KO') {
               echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名'];
             } else {
-              echo "index?客戶姓名=".$orders[$i]['客戶姓名'];
+              echo "go_orders?客戶姓名=".$orders[$i]['客戶姓名'];
             }?>'"
             title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
           <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
@@ -153,7 +153,7 @@
             } else if($orders[$i]['轉讓會員'] == 'KO') {
               echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話'];
             } else {
-              echo "index?聯絡電話=".$orders[$i]['聯絡電話'];
+              echo "go_orders?聯絡電話=".$orders[$i]['聯絡電話'];
             }?>'"
             title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
           <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
@@ -190,7 +190,7 @@
             } else if($orders[$i]['轉讓會員'] == 'KO') {
               echo "go_ko?股票=".$orders[$i]['股票'];
             } else {
-              echo "index?股票=".$orders[$i]['股票'];
+              echo "go_orders?股票=".$orders[$i]['股票'];
             }?>'"
             title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
           <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
