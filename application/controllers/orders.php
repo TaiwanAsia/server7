@@ -32,8 +32,9 @@ class Orders extends CI_Controller {
     }
 
     public function index() {
+    	$employees = $this->orders_model->get_employee();
 		$this->load->view('templates/header');
-		$this->load->view('pages/home');
+		$this->load->view('pages/home', $employees);
     }
 
     public function go_orders()
