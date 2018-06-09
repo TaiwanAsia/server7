@@ -91,9 +91,19 @@
                       <input type="hidden" id="成交日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交日期']; ?>">
                     </td>
                     </td>
-                    <td><?php echo ($orders[$i]['業務']) ?></td>
                     <td>
-                      <?php echo ($orders[$i]['客戶姓名']) ?>
+                      <a class="clickable_hint" href="javascript:location.href='
+                        <?php
+                        echo base_url()."index.php/orders/checkbill?業務=".$orders[$i]['業務'];
+                        ?>'"
+                        title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>                      
+                    </td>
+                    <td>
+                      <a class="clickable_hint" href="javascript:location.href='
+                        <?php
+                        echo base_url()."index.php/orders/checkbill?客戶姓名=".$orders[$i]['客戶姓名'];
+                        ?>'"
+                        title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
                     </td>
                     <td>
@@ -101,7 +111,11 @@
                       <input type="hidden" id="F<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['身分證字號']; ?>">
                     </td>
                     <td>
-                      <?php echo ($orders[$i]['聯絡電話']) ?>
+                      <a class="clickable_hint" href="javascript:location.href='
+                        <?php
+                        echo base_url()."index.php/orders/checkbill?聯絡電話=".$orders[$i]['聯絡電話'];
+                        ?>'"
+                        title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
                       <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
                     </td>
                     <td>
@@ -122,7 +136,11 @@
                     ?></p>
                    </td>
                     <td>
-                      <?php echo ($orders[$i]['股票']) ?>
+                      <a class="clickable_hint" href="javascript:location.href='
+                        <?php
+                        echo base_url()."index.php/orders/checkbill?股票=".$orders[$i]['股票'];
+                        ?>'"
+                        title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
                       <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
                     </td>
                     <td>
