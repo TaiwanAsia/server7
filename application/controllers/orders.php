@@ -655,7 +655,8 @@ class Orders extends CI_Controller {
 			//填入符合條件之成交單資料
 			$row = 2;
 			for ($num = 0; $num < count($data); $num++) {
-				if (strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期'])) {
+				if (strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期']) &&
+					($_POST['業務'] == '所有業務' || $_POST['業務'] == $data[$num]['業務'])) {
 					for ($col = 1; $col <= count($title); $col++) {
 						if ($col <= 26) {
 							$sheet->setCellValue(chr($col + 64).$row, $data[$num][$title[$col - 1]]);
