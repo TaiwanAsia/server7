@@ -15,6 +15,16 @@
         <input class="btn btn-sm btn-outline-secondary" type="button" onclick="location.href='new_order';" value="新增成交單" />
 
         <form action="export" method="post">
+          <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" required>
+            <?php
+            echo "<option value=所有業務>所有業務</option>";
+            for ($j=0; $j < count($employees); $j++) {
+              if ($employees[$j]['權限名稱'] == '業務') {
+                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+              }
+            }
+            ?>
+          </select>
           <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="<?php echo date("Y-m-d");?>" required>
           <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="<?php echo date("Y-m-d");?>" required>
           <button name="Export" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
