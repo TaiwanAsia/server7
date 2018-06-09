@@ -41,7 +41,9 @@ class Orders extends CI_Controller {
 		if (!isset($_SESSION['ACCOUNT'])) {
 			redirect('index.php/login/index');
 		} else {
-			if (isset($_GET['股票'])) {
+			if (isset($_GET['date1']) && isset($_GET['date2']) && isset($_GET['業務'])) {
+				$orders = $this->orders_model->get_byDate($_SESSION['權限名稱'],$_GET['業務'],$_GET['date1'],$_GET['date2']);
+			} else if (isset($_GET['股票'])) {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'股票',$_GET['股票']);
 			} else if (isset($_GET['業務'])) {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'業務',$_GET['業務']);

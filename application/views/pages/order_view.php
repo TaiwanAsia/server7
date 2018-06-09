@@ -15,7 +15,7 @@
         <input class="btn btn-sm btn-outline-secondary" type="button" onclick="location.href='new_order';" value="新增成交單" />
 
         <form action="export" method="post">
-          <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" required>
+          <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" required onchange="selectByRange()">
             <?php
             echo "<option value=所有業務>所有業務</option>";
             for ($j=0; $j < count($employees); $j++) {
@@ -25,8 +25,8 @@
             }
             ?>
           </select>
-          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="<?php echo date("Y-m-d");?>" required>
-          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="<?php echo date("Y-m-d");?>" required>
+          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="<?php echo date("Y-m-d");?>" required onchange="selectByRange()">
+          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="<?php echo date("Y-m-d");?>" required onchange="selectByRange()">
           <button name="Export" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
         </form>
         <!-- <button class="btn btn-primary">匯出</button> -->
@@ -677,6 +677,10 @@
         </style>
 
         <script>
+
+          function selectByRange() {
+            document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
+          }
 
           function changefont(i) {
             document.getElementById("mousemove"+i).style.color="orange";
