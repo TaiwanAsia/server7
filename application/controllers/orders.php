@@ -123,6 +123,7 @@ class Orders extends CI_Controller {
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
+		$this->orders_model->add_payrecord($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 		$this->go_orders();
 	}
@@ -1122,6 +1123,11 @@ class Orders extends CI_Controller {
 	public function pay_error() {
 		$this->load->view('templates/header');
 		echo "轉出異常的成交單會出現在這(EX大姊匯了兩次)";
+	}
+
+	public function passrecord() {
+		$this->load->view('templates/header');
+		$this->load->view('pages/money/passrecord_view');
 	}
 
 }

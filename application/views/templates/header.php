@@ -74,6 +74,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/passrecord">
+                                轉讓紀錄
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/checkbill">
                                 應收帳款
                             </a>
