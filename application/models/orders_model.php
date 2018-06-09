@@ -727,6 +727,36 @@ class Orders_model extends CI_Model {
         return $id;
     }
 
+    public function get_need_model($keyword) {
+        if (is_null($keyword)) {
+            $this->db->order_by("最後動作時間", "desc"); 
+            $query = $this->db->get('need_board');
+        } else {
+
+        }
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                    $result[] = array('ID'=>$row-> ID,
+                    '需求者'=>$row-> 需求者,
+                    '股名'=>$row-> 股名,
+                    '買賣'=>$row-> 買賣,
+                    '價格'=>$row-> 價格,
+                    '張數'=>$row-> 張數,
+                    '委託到期日'=>$row-> 委託到期日,
+                    '把握度'=>$row-> 把握度,
+                    '進度'=>$row-> 進度,
+                    '建立日期'=>$row-> 建立日期,
+                    '最後動作時間'=>$row-> 最後動作時間);
+            }
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function add_need_model($data) {
+        $this->db->insert('need_board', $data);
+    }
 
 }
 

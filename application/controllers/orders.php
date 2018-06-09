@@ -33,8 +33,11 @@ class Orders extends CI_Controller {
 
     public function index() {
     	$employees = $this->orders_model->get_employee();
+    	$need = $this->orders_model->get_need_model(null);
+    	$arrayName = array('need' => $need,
+							'employees' => $employees,);
 		$this->load->view('templates/header');
-		$this->load->view('pages/home', $employees);
+		$this->load->view('pages/home', $arrayName);
     }
 
     public function go_orders()
@@ -1141,6 +1144,21 @@ class Orders extends CI_Controller {
 	public function passrecord() {
 		$this->load->view('templates/header');
 		$this->load->view('pages/money/passrecord_view');
+	}
+
+	public function add_need() {
+		$data = array('需求者'=>$_POST['需求者'],
+						'股名'=>$_POST['股名'],
+						'買賣'=>$_POST['買賣'],
+						'價格'=>$_POST['價格'],
+						'張數'=>$_POST['張數'],
+						'委託到期日'=>$_POST['委託到期日'],
+						'把握度'=>$_POST['把握度'],
+						'進度'=>$_POST['進度'],
+						'建立日期'=>date('Y-m-d'),
+						'最後動作時間'=>date('Y-m-d H:i:s'));
+		$this->orders_model->add_need_model($data);
+		$this->index();
 	}
 
 }

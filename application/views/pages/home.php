@@ -18,13 +18,19 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>小祿</td>
-									<td>廣達電子</td>
-									<td>23</td>
-									<td>30</td>
-									<td>2018/09/01</td>
-									<td>80%</td>
-									<td>50%</td>
+									<?php if ($need) {
+										for ($i=0; $i < count($need); $i++) { 
+											if ($need[$i]['買賣']==1) {
+												echo "<td>".$need[$i]['需求者']."</td>";
+												echo "<td>".$need[$i]['股名']."</td>";
+												echo "<td>".$need[$i]['價格']."</td>";
+												echo "<td>".$need[$i]['張數']."</td>";
+												echo "<td>".$need[$i]['委託到期日']."</td>";
+												echo "<td>".$need[$i]['把握度']."%</td>";
+												echo "<td>".$need[$i]['進度']."</td>";
+											}
+										}
+									} ?>
 								</tr>
 							</tbody>
 						</table>
@@ -32,7 +38,36 @@
 				</div>
 				<div class="col-xl-6">
 					<div class="note-sec">
-						<h1>備註區塊</h1>
+						<table>
+							<thead>
+								<tr>
+									<th>需求者</th>
+									<th>股名</th>
+									<th>賣價</th>
+									<th>張數</th>
+									<th>委託到期日</th>
+									<th>把握度</th>
+									<th>進度</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<?php if ($need) {
+										for ($i=0; $i < count($need); $i++) { 
+											if ($need[$i]['買賣']==0) {
+												echo "<td>".$need[$i]['需求者']."</td>";
+												echo "<td>".$need[$i]['股名']."</td>";
+												echo "<td>".$need[$i]['價格']."</td>";
+												echo "<td>".$need[$i]['張數']."</td>";
+												echo "<td>".$need[$i]['委託到期日']."</td>";
+												echo "<td>".$need[$i]['把握度']."%</td>";
+												echo "<td>".$need[$i]['進度']."</td>";
+											}
+										}
+									} ?>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -48,7 +83,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<p>請務必確實填寫<font>完整標的名稱</font>四個字 <font>與真實會員名稱</font>	</p>
+					<p>請務必確實填寫<font color="red">　完整標的名稱　</font>四個字</p>
 				</div>
 			</div>
 			<div class="row">
@@ -110,17 +145,11 @@
 		 			<h4>工單</h4>
 		 			<p>對象：</p>
 		 			<ul>
-		 				<li><input type="radio" name="工單" value="小祿">小祿</li>
-		 				<li><input type="radio" name="工單" value="JOY">JOY</li>
-		 				<li><input type="radio" name="工單" value="月珍">月珍</li>
-		 				<li><input type="radio" name="工單" value="卓大哥">卓大哥</li>
-		 				<li><input type="radio" name="工單" value="志霖">志霖</li>
-		 				<li><input type="radio" name="工單" value="吉翔">吉翔</li>
-		 				<li><input type="radio" name="工單" value="清木">清木</li>
-		 				<li><input type="radio" name="工單" value="亭妤">亭妤</li>
-		 				<li><input type="radio" name="工單" value="福泉">福泉</li>
-		 				<li><input type="radio" name="工單" value="KAN">KAN</li>
-		 				<li><input type="radio" name="工單" value="其他">其他</li>
+		 				<?php for ($i=0; $i < count($employees); $i++) { ?>
+		 					<li>
+		 						<input type="radio" name="工單" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+		 					</li>
+		 				<?php } ?>
 		 			</ul>
 		 		</div>
 
