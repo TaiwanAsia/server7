@@ -25,8 +25,11 @@
             }
             ?>
           </select>
-          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="<?php echo date("Y-m-d");?>" required onchange="selectByRange()">
-          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="<?php echo date("Y-m-d");?>" required onchange="selectByRange()">
+          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="" required onchange="selectByRange()">
+          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="" required onchange="selectByRange()">
+          <label id="dateselectorinfo"><?PHP if (isset($_GET['業務'])&&isset($_GET['date1'])&&isset($_GET['date2'])) {
+            echo $_GET['業務'].$_GET['date1']."~".$_GET['date2'];
+          }  ?></label>
           <button name="Export" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
         </form>
         <!-- <button class="btn btn-primary">匯出</button> -->
@@ -680,7 +683,13 @@
         <script>
 
           function selectByRange() {
-            document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
+            // alert($("#datePicker_2").val());
+            if ($("#datePicker_1").val() && $("#datePicker_2").val()) {
+              document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
+              
+            }
+            document.getElementById("dateselectorinfo").innerHTML = $("#datePicker_1").val()+'~'+$("#datePicker_2").val();
+            
           }
 
           function changefont(i) {
