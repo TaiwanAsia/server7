@@ -43,47 +43,48 @@
 <table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
     <thead class="thead-light">
       <tr>
-      <th data-tablesaw-priority="0">編號</th>
-      <th data-tablesaw-priority="1" scope="col">成交日期</th>
-      <th data-tablesaw-priority="1">業務</th>
-      <th data-tablesaw-priority="1">客戶姓名</th>
-      <th data-tablesaw-priority="0">身分證字號</th>
-      <th data-tablesaw-priority="1">聯絡電話</th>
-      <th data-tablesaw-priority="0">聯絡人</th>
-      <th data-tablesaw-priority="0">聯絡住址</th>
-      <th data-tablesaw-priority="1">買賣</th>
-      <th data-tablesaw-priority="1">股票</th>
-      <th data-tablesaw-priority="1">張數</th>
-      <th data-tablesaw-priority="1">成交價</th>
-      <th data-tablesaw-priority="1">盤價</th>
-      <th data-tablesaw-priority="1">匯款/應收金額</th>
-      <th data-tablesaw-priority="0">匯款銀行</th>
-      <th data-tablesaw-priority="0">匯款分行</th>
-      <th data-tablesaw-priority="0">匯款戶名</th>
-      <th data-tablesaw-priority="0">匯款帳號</th>
-      <th data-tablesaw-priority="1">轉讓會員</th>
-      <th data-tablesaw-priority="1">完稅人</th>
-      <th data-tablesaw-priority="1">一審</th>
-      <th data-tablesaw-priority="1">二審</th>
-      <!-- <th>成交單狀態</th> -->
-      <th data-tablesaw-priority="0">新舊</th>
-      <th data-tablesaw-priority="0">自行應付</th>
-      <th data-tablesaw-priority="0">刻印</th>
-      <th data-tablesaw-priority="0">過戶費</th>
-      <th data-tablesaw-priority="0">媒合</th>
-      <th data-tablesaw-priority="1">收付款</th>
-      <th data-tablesaw-priority="0">過戶日期</th>
-      <th data-tablesaw-priority="1">通知查帳</th>
-      <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
-      <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
-      <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
-        <th data-tablesaw-priority="1">上傳水</th>
-      <?php } ?>
-      <th data-tablesaw-priority="1">是否結案</th>
-      <th data-tablesaw-priority="persist"></th>
-      <th data-tablesaw-priority="persist"></th>
-    </tr>
-  </thead>
+        <th data-tablesaw-priority="persist"></th>
+        <th data-tablesaw-priority="0">編號</th>
+        <th data-tablesaw-priority="1" scope="col">成交日期</th>
+        <th data-tablesaw-priority="1">業務</th>
+        <th data-tablesaw-priority="1">客戶姓名</th>
+        <th data-tablesaw-priority="0">身分證字號</th>
+        <th data-tablesaw-priority="1">聯絡電話</th>
+        <th data-tablesaw-priority="0">聯絡人</th>
+        <th data-tablesaw-priority="0">聯絡住址</th>
+        <th data-tablesaw-priority="1">買賣</th>
+        <th data-tablesaw-priority="1">股票</th>
+        <th data-tablesaw-priority="1">張數</th>
+        <th data-tablesaw-priority="1">成交價</th>
+        <th data-tablesaw-priority="1">盤價</th>
+        <th data-tablesaw-priority="1">匯款/應收金額</th>
+        <th data-tablesaw-priority="0">匯款銀行</th>
+        <th data-tablesaw-priority="0">匯款分行</th>
+        <th data-tablesaw-priority="0">匯款戶名</th>
+        <th data-tablesaw-priority="0">匯款帳號</th>
+        <th data-tablesaw-priority="1">轉讓會員</th>
+        <th data-tablesaw-priority="1">完稅人</th>
+        <th data-tablesaw-priority="1">一審</th>
+        <th data-tablesaw-priority="1">二審</th>
+        <!-- <th>成交單狀態</th> -->
+        <th data-tablesaw-priority="0">新舊</th>
+        <th data-tablesaw-priority="0">自行應付</th>
+        <th data-tablesaw-priority="0">刻印</th>
+        <th data-tablesaw-priority="0">過戶費</th>
+        <th data-tablesaw-priority="0">媒合</th>
+        <th data-tablesaw-priority="1">收付款</th>
+        <th data-tablesaw-priority="0">過戶日期</th>
+        <th data-tablesaw-priority="1">通知查帳</th>
+        <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
+        <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
+        <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
+          <th data-tablesaw-priority="1">上傳水</th>
+        <?php } ?>
+        <th data-tablesaw-priority="1">是否結案</th>
+        <th data-tablesaw-priority="persist"></th>
+        <th data-tablesaw-priority="persist"></th>
+      </tr>
+    </thead>
    <tbody>
     <?php if($orders) {
         for($i=0; $i<count($orders); $i++) { ?>
@@ -92,14 +93,14 @@
 
 
     <tr <?php if ($orders[$i]['媒合'] != 0 ) { ?>class="td-cs-1"<?php }?>>
-        <!-- <td>
+        <td>
           <?php if ($_SESSION['編輯權限']==1) { ?>
           <form method="GET" action="go_edit">
             <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
-            <button type="submit">編輯</button>
+            <button type="submit">修改</button>
           </form>
           <?php } ?>
-        </td> -->
+        </td>
         <!-- <td>
           <?php if ($_SESSION['刪除權限']==1) { ?>
             <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
