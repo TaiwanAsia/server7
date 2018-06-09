@@ -842,7 +842,8 @@ class Orders extends CI_Controller {
 	    		$money = $orders_buy[$i]['待查帳金額'];
 
 				for ($j = 0; $j < count($datas); $j++) {
-		    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
+		    		if (($datas[$j]['帳號'] == null && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 || 
+		    			substr($datas[$j]['帳號'], -5) == $orders_buy[$i]['匯款帳號末5碼']) && $money == $datas[$j]['轉入']) { //一周內
 		    			//對帳完成
 		    			echo "交易日期".$datas[$j]['日期']." 轉入 ".$money." ".$orders_buy[$i]['id'].'<br>';
 		    			$this->orders_model->check_money_received($orders_buy[$i]['id'], date('Y-m-d H:i:s'), $money);
