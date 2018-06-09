@@ -28,7 +28,7 @@
           <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="" required onchange="selectByRange()">
           <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="" required onchange="selectByRange()">
           <label id="dateselectorinfo"><?PHP if (isset($_GET['業務'])&&isset($_GET['date1'])&&isset($_GET['date2'])) {
-            echo $_GET['業務'].$_GET['date1']."~".$_GET['date2'];
+            echo $_GET['業務']."：".$_GET['date1']."~".$_GET['date2'];
           }  ?></label>
           <button name="Export" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
         </form>

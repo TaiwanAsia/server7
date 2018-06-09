@@ -133,7 +133,7 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_byDate($權限名稱, $業務, $date1, $date2) {
+    public function get_byDate($權限名稱, $name, $業務, $date1, $date2) {
         $query = null;
         if($權限名稱=='最高權限') {
             if ($業務 != '所有業務') {
@@ -143,8 +143,8 @@ class Orders_model extends CI_Model {
             }
             $query = $this->db->query($sql);
         } elseif ($權限名稱=='業務') {
-            $this->db->order_by("最後動作時間", "desc");
-            $query = $this->db->get_where('ORDERS', array('業務' => $name));
+            $sql = "SELECT * FROM `ORDERS` WHERE `業務`='".$name."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+            $query = $this->db->query($sql);
         } else {
             $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
