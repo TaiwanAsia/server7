@@ -185,7 +185,17 @@ class Orders extends CI_Controller {
 	}
 
 	public function checkbill() {
-		$orders = $this->orders_model->get_checkbill();
+		if (isset($_GET['股票'])) {
+			$orders = $this->orders_model->get_checkbill('股票',$_GET['股票']);
+		} else if (isset($_GET['業務'])) {
+			$orders = $this->orders_model->get_checkbill('業務',$_GET['業務']);
+		} else if (isset($_GET['客戶姓名'])) {
+			$orders = $this->orders_model->get_checkbill('客戶姓名',$_GET['客戶姓名']);
+		} else if (isset($_GET['聯絡電話'])) {
+			$orders = $this->orders_model->get_checkbill('聯絡電話',$_GET['聯絡電話']);
+		} else {
+			$orders = $this->orders_model->get_checkbill(null,null);
+		}
 		$total_receivable = 0;
 		$total_received = 0;
 		for ($i=0; $i < count($orders); $i++) {

@@ -504,14 +504,48 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_checkbill() {
+    public function get_checkbill($type, $keyword) {
         $query = array();
-        if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
-            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') ORDER BY `最後動作時間` DESC";
-            $query = $this->db->query($sql);
-        } elseif ($_SESSION['權限名稱']=='業務') {
-            $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
-            $query = $this->db->query($sql);
+        if ($type == '股票') {
+            if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `股票`='".$keyword."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($_SESSION['權限名稱']=='業務') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `股票`='".$keyword."' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            }
+        } else if ($type == '業務') {
+            if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `業務`='".$keyword."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($_SESSION['權限名稱']=='業務') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `業務`='".$keyword."' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            }  
+        } else if ($type == '客戶姓名') {
+            if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `客戶姓名`='".$keyword."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($_SESSION['權限名稱']=='業務') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `客戶姓名`='".$keyword."' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            }      
+        } else if ($type == '聯絡電話') {
+            if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `聯絡電話`='".$keyword."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($_SESSION['權限名稱']=='業務') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `聯絡電話`='".$keyword."' AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            }      
+        } else {
+            if($_SESSION['權限名稱']=='最高權限'||$_SESSION['權限名稱']=='會計') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($_SESSION['權限名稱']=='業務') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `買賣`= '1' AND (`通知查帳` = '未通知' OR `通知查帳` = '待對帳' OR `通知查帳` = '待確認') AND `業務`='".$_SESSION['NAME']."' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            }
         }
         if($query->num_rows()>0) {
             $result = $this->transformer($query);
