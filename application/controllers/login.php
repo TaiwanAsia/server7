@@ -15,6 +15,7 @@ class Login extends CI_Controller {
 		$this->load->helper('array');
 		$this->load->library('form_validation');
 		$this->load->model('login_model');
+		$this->load->model('orders_model');
     }
 
     // public function index()
@@ -73,7 +74,7 @@ class Login extends CI_Controller {
                     $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
                     $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
 
-					// $this->login_model->login_move_record($_SESSION['name'],'login','login');
+					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
 					redirect('index.php/orders/index');
 				} else {
 					// $this->load->view('templates/header');
@@ -148,7 +149,7 @@ class Login extends CI_Controller {
 
 	public function logout()
 	{
-		// $this->login_model->login_move_record($_SESSION['name'],'login','logout');
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登出', null, null);
 		unset($_SESSION['ACCOUNT']);
 		unset($_SESSION['權限名稱']);
 		unset($_SESSION['NAME']);
