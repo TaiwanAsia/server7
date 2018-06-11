@@ -887,14 +887,16 @@ class Orders extends CI_Controller {
 	    		$money = $orders_buy[$i]['待查帳金額'];
 
 				for ($j = 0; $j < count($datas); $j++) {
-		    		if (($datas[$j]['帳號'] == null && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 || 
-		    			substr($datas[$j]['帳號'], -5) == $orders_buy[$i]['匯款帳號末5碼']) && $money == $datas[$j]['轉入']) { //一周內
-		    			//對帳完成
-		    			echo "交易日期".$datas[$j]['日期']." 轉入 ".$money." ".$orders_buy[$i]['id'].'<br>';
-		    			$this->orders_model->check_money_received($orders_buy[$i]['id'], date('Y-m-d H:i:s'), $money);
-		    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
-		    			break;
-		    		}
+					if ($datas[$j]['是否已對帳'] != '1') { //檢查明細是否對過
+			    		if (($datas[$j]['帳號'] == null && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 || 
+			    			substr($datas[$j]['帳號'], -5) == $orders_buy[$i]['匯款帳號末5碼']) && $money == $datas[$j]['轉入']) { //一周內
+			    			//對帳完成
+			    			echo "交易日期".$datas[$j]['日期']." 轉入 ".$money." ".$orders_buy[$i]['id'].'<br>';
+			    			$this->orders_model->check_money_received($orders_buy[$i]['id'], date('Y-m-d H:i:s'), $money);
+			    			$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+			    			break;
+			    		}
+			    	}
 		    	}
 	    	}
 	    }
@@ -910,16 +912,18 @@ class Orders extends CI_Controller {
 		    	if ($orders_sell[$i]['買賣'] == '0') {	//已匯金額
 		    		if ($inform == '未通知' || $inform == '待對帳') {
 		    			for ($j = 0; $j < count($datas); $j++) {
-		    				if (!$isCheckExported && $time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //當天
-		    					//對帳完成
-		    					echo "交易日期".$datas[$j]['日期']." 轉出 ".$money." ".$orders_sell[$i]['ID'].'<br>';
-		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, date('Y-m-d'));
-		    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
-		    					$isCheckExported = true;
-		    				} else if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉出']) { //一周內重複
-		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, '金額重複');
-		    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
-		    				}
+		    				if ($datas[$j]['是否已對帳'] != '1') { //檢查明細是否對過
+			    				if (!$isCheckExported && $time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //當天
+			    					//對帳完成
+			    					echo "交易日期".$datas[$j]['日期']." 轉出 ".$money." ".$orders_sell[$i]['ID'].'<br>';
+			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, date('Y-m-d'));
+			    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+			    					$isCheckExported = true;
+			    				} else if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉出']) { //一周內重複
+			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, '金額重複');
+			    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+			    				}
+			    			}
 		    			}
 		    		}
 	    		}
