@@ -898,22 +898,27 @@ class Orders extends CI_Controller {
 		    	}
 	    	}
 	    }
+
     	//對帳所有轉出匯款
     	if ($orders_sell != null && $datas != null) {
 	    	for ($i = 0; $i < count($orders_sell); $i++) {
 	    		$time = $orders_sell[$i]['成交日期'];
 	    		$money = $orders_sell[$i]['匯款金額應收帳款'];
 	    		$inform = $orders_sell[$i]['通知查帳'];
+	    		$isCheckExported = false;
 
 		    	if ($orders_sell[$i]['買賣'] == '0') {	//已匯金額
 		    		if ($inform == '未通知' || $inform == '待對帳') {
 		    			for ($j = 0; $j < count($datas); $j++) {
-		    				if ($time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //一周內
+		    				if (!$isCheckExported && $time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //當天
 		    					//對帳完成
 		    					echo "交易日期".$datas[$j]['日期']." 轉出 ".$money." ".$orders_sell[$i]['ID'].'<br>';
 		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, date('Y-m-d'));
 		    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
-		    					break;
+		    					$isCheckExported = true;
+		    				} else if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉出']) { //一周內重複
+		    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, '金額重複');
+		    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 		    				}
 		    			}
 		    		}
