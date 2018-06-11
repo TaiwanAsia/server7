@@ -581,7 +581,7 @@ class Orders_model extends CI_Model {
     }
 
     public function Buy_Edit_Model($id, $date, $date2) {
-        $data = array('成交單狀態'=>'審核完成', '匯款日期'=>$date, '過戶日期'=>$date2);
+        $data = array('成交單狀態'=>'審核完成', '匯款日期'=>$date, '過戶日期'=>$date2, '最後動作時間'=>date('Y-m-d H:i:s'));
         $this->db->where('ID', $id);
         $this->db->update('orders', $data);
     }

@@ -633,6 +633,12 @@
               </td>
             </tr>
             <tr>
+              <td></td>
+              <td>
+                <label class="text-danger">***記得選取成交單狀態***</label>
+              </td>
+            </tr>
+            <tr>
               <td><label>成交單狀態</label></td>
               <td>
                 <input type="radio" name="成交單狀態" value="審核完成" checked><label class="text-primary">審核完成</label>
@@ -699,7 +705,7 @@
           //   } 
           //   document.getElementById("dateselectorinfo").innerHTML = $("#datePicker_1").val()+'~'+$("#datePicker_2").val();
           // }
-          
+
           function selectByRange2() {
             if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
               document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val(); 
