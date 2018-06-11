@@ -147,7 +147,7 @@
 		 			<ul>
 		 				<?php for ($i=0; $i < count($employees); $i++) { ?>
 		 					<li>
-		 						<input type="radio" name="工單" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+		 						<input type="radio" name="工單對象" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 		 					</li>
 		 				<?php } ?>
 		 			</ul>

@@ -15,7 +15,7 @@
         <input class="btn btn-sm btn-outline-secondary" type="button" onclick="location.href='new_order';" value="新增成交單" />
 
         <form action="export" method="post">
-          <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" required onchange="selectByRange()">
+          <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" required onchange="">
             <?php
             echo "<option value=所有業務>所有業務</option>";
             for ($j=0; $j < count($employees); $j++) {
@@ -25,11 +25,14 @@
             }
             ?>
           </select>
-          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="" required onchange="selectByRange()">
-          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="" required onchange="selectByRange()">
+          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="" required onchange="">
+          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="" required onchange="">
           <label id="dateselectorinfo"><?PHP if (isset($_GET['業務'])&&isset($_GET['date1'])&&isset($_GET['date2'])) {
             echo $_GET['業務']."：".$_GET['date1']."~".$_GET['date2'];
+          } elseif(isset($_GET['業務']) && !isset($_GET['date2'])) {
+            echo $_GET['業務'];
           }  ?></label>
+          <button name="" type="button" class="btn btn-sm btn-outline-secondary" onclick="selectByRange2()">篩選</button>
           <button name="Export" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
         </form>
         <!-- <button class="btn btn-primary">匯出</button> -->
@@ -682,14 +685,23 @@
 
         <script>
 
-          function selectByRange() {
-            // alert($("#datePicker_2").val());
-            if ($("#datePicker_1").val() && $("#datePicker_2").val()) {
-              document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
-              
+          // function selectByRange() {
+          //   // alert($("#datePicker_2").val());
+          //   if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
+          //     document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val(); 
+          //   } 
+          //   document.getElementById("dateselectorinfo").innerHTML = $("#datePicker_1").val()+'~'+$("#datePicker_2").val();
+          // }
+
+          function selectByRange2() {
+            if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
+              document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val(); 
+            } else if ($("#datePicker_1").val() && $("#datePicker_2").val() && !$("#業務").val()) {
+              document.location.href = "date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
+            } else {
+              document.location.href = "go_orders?業務=" + $("#業務").val();
             }
-            document.getElementById("dateselectorinfo").innerHTML = $("#datePicker_1").val()+'~'+$("#datePicker_2").val();
-            
+            // document.getElementById("dateselectorinfo").innerHTML = $("#業務").val()+':'+$("#datePicker_1").val()+'~'+$("#datePicker_2").val();
           }
 
           function changefont(i) {
