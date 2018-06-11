@@ -597,8 +597,8 @@ class Orders extends CI_Controller {
 		require_once APPPATH."third_party\PHPExcel.php";
 
 		if (isset($_POST['Export'])) {
-			$date1 = $_POST['date1'];
-			$date2 = $_POST['date2'];
+			$date1 = $_POST['selected_datePicker_1'];
+			$date2 = $_POST['selected_datePicker_2'];
 
 			//判斷content檔案存在與否，存在則刪除
 			//$file = 'C:\xampp\tmp\excel\content.csv';
@@ -640,6 +640,8 @@ class Orders extends CI_Controller {
 	                       '通知查帳',
 	                       '成交單狀態',
 	                       '二審',
+	                       '備註',
+	                       '開發者',
 	                       '已結案',
 	                       '最後動作時間'
 	                    	);
@@ -661,7 +663,7 @@ class Orders extends CI_Controller {
 			$row = 2;
 			for ($num = 0; $num < count($data); $num++) {
 				if (strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期']) &&
-					($_POST['業務'] == '所有業務' || $_POST['業務'] == $data[$num]['業務'])) {
+					($_POST['selected_業務'] == '所有業務' || $_POST['selected_業務'] == $data[$num]['業務'])) {
 					for ($col = 1; $col <= count($title); $col++) {
 						if ($col <= 26) {
 							$sheet->setCellValue(chr($col + 64).$row, $data[$num][$title[$col - 1]]);
