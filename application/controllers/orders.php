@@ -630,9 +630,11 @@ class Orders extends CI_Controller {
 		require_once APPPATH."third_party\PHPExcel.php";
 
 		if (isset($_POST['Export'])) {
-			$date1 = $_POST['selected_datePicker_1'];
-			$date2 = $_POST['selected_datePicker_2'];
-
+			if (isset($_POST['selected_datePicker_1']) && isset($_POST['selected_datePicker_2'])) {
+				$date1 = $_POST['selected_datePicker_1'];
+				$date2 = $_POST['selected_datePicker_2'];
+				$isSelected = true;
+			}
 			//判斷content檔案存在與否，存在則刪除
 			//$file = 'C:\xampp\tmp\excel\content.csv';
 			$file = 'C:\xampp\tmp\excel\temp.xls';
@@ -694,17 +696,18 @@ class Orders extends CI_Controller {
 			}
 			//填入符合條件之成交單資料
 			$row = 2;
-			for ($num = 0; $num < count($data); $num++) {
-				if (strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期']) &&
-					($_POST['selected_業務'] == '所有業務' || $_POST['selected_業務'] == $data[$num]['業務'])) {
-					for ($col = 1; $col <= count($title); $col++) {
-						if ($col <= 26) {
-							$sheet->setCellValue(chr($col + 64).$row, $data[$num][$title[$col - 1]]);
-						} else {
-							$sheet->setCellValue('A'.chr($col + 64 - 26).$row, $data[$num][$title[$col - 1]]);
+			for ($num = 0; $num < count($data); $num++) {	
+				if ($_POST['selected_業務'] == '所有業務' || $_POST['selected_業務'] == $data[$num]['業務']) {
+					if (!$isSelected || $isSelected && strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期'])) {
+						for ($col = 1; $col <= count($title); $col++) {
+							if ($col <= 26) {
+								$sheet->setCellValue(chr($col + 64).$row, $data[$num][$title[$col - 1]]);
+							} else {
+								$sheet->setCellValue('A'.chr($col + 64 - 26).$row, $data[$num][$title[$col - 1]]);
+							}
 						}
+						$row++;
 					}
-					$row++;
 				}
 			}
 			$PHPExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');//匯出成xls檔
