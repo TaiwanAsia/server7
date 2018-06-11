@@ -26,13 +26,13 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">金額</label></td>
-                                    <td><input class="" type="text" name="待查帳金額" id="" value="" required></td>
+                                    <td><input class="" type="text" name="待查帳金額" id="金額" value="" required></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">支付人</label></td>
                                     <td><input class="" type="text" name="支付人" id="支付人" value=""></td>
-                                    <td><label style="text-decoration:underline; cursor: pointer;" onclick="Set_payname('<?php echo $order[0]['客戶姓名']; ?>')">同客戶姓名點我</label></td>
+                                    <td><label style="text-decoration:underline; cursor: pointer;" onclick="Set_payname('<?php echo $order[0]['客戶姓名']; ?>', '<?php echo $order[0]['匯款金額應收帳款']; ?>')">匯入金額與支付人</label></td>
                                 </tr>
                                 <!-- <?php print_r($order);?> -->
                                 <tr>
@@ -56,9 +56,10 @@
         </div>
     </div>    
     <script>
-        function Set_payname(name) {
+        function Set_payname(name, money) {
             var n = name;
             document.getElementById("支付人").value = n;
+            document.getElementById("金額").value = money;
         }
     </script>
 </body>

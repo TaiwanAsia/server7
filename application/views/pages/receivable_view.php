@@ -204,10 +204,10 @@
                             </form>
                     <?php
                         } elseif ($orders[$i]['通知查帳']=='待對帳') { ?>
-                            <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
+                            <img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40">
                     <?php
                         } elseif ($orders[$i]['通知查帳']=='待確認') { ?>
-                            <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40"></a>
+                            <p>sss</p><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40">
                     <?php
                         } else { ?>
                             <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
