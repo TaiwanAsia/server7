@@ -55,6 +55,7 @@
     <thead class="thead-light">
       <tr>
         <th data-tablesaw-priority="persist"></th>
+        <th data-tablesaw-priority="persist"></th>
         <th data-tablesaw-priority="0">編號</th>
         <th data-tablesaw-priority="1" scope="col">成交日期</th>
         <th data-tablesaw-priority="1">業務</th>
@@ -93,7 +94,7 @@
         <?php } ?>
         <th data-tablesaw-priority="1">是否結案</th>
         <th data-tablesaw-priority="persist"></th>
-        <th data-tablesaw-priority="persist"></th>
+        
       </tr>
     </thead>
    <tbody>
@@ -104,6 +105,11 @@
 
 
     <tr <?php if ($orders[$i]['媒合'] != 0 ) { ?>class="td-cs-1"<?php }?>>
+        <td>
+              <?php if ($_SESSION['刪除權限']==1) { ?>
+                <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
+              <?php } ?>
+          </td>
         <td>
           <?php if ($_SESSION['編輯權限']==1) { ?>
           <form method="GET" action="go_edit">
@@ -497,11 +503,7 @@
           <td>
             <button onclick="Copy(<?php echo $orders[$i]['ID']; ?>)">複製</button>
           </td>
-          <td>
-              <?php if ($_SESSION['刪除權限']==1) { ?>
-                <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
-              <?php } ?>
-          </td>
+          
             <!-- 沒顯示出來的欄位 -->
             <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
             <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
