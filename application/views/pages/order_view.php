@@ -699,13 +699,7 @@
           //   } 
           //   document.getElementById("dateselectorinfo").innerHTML = $("#datePicker_1").val()+'~'+$("#datePicker_2").val();
           // }
-
-          function exp() {
-            document.getElementById("selected_業務").value = $("#業務").val();
-            document.getElementById("selected_datePicker_1").value = $("#datePicker_1").val();
-            document.getElementById("selected_datePicker_2").value = $("#datePicker_2").val();
-          }
-
+          
           function selectByRange2() {
             if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
               document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val(); 
@@ -752,7 +746,7 @@
           function Buy_Edit(i) {
             var id = i;
             url = "<?=base_url()?>index.php/orders/Buy_Edit";
-            go = "<?=base_url()?>index.php/orders/index";
+            go = "<?=base_url()?>index.php/orders/go_orders";
             $.ajax({
               url: url,
               type: 'post',
@@ -802,7 +796,7 @@
             if (str=prompt("確認複製成交單編號["+id+"]請輸入 y或Y ","")) {
               if (str=='Y'||str=='y') {
                 url = "<?=base_url()?>index.php/orders/copy";
-                go = "<?=base_url()?>index.php/orders/index";
+                go = "<?=base_url()?>index.php/orders/go_orders";
                 $.ajax({
                   url: url,
                   type: 'post',
@@ -830,7 +824,7 @@
             if (str=prompt("確認刪除成交單編號["+id+"]請輸入 y或Y ","")) {
               if (str=='Y'||str=='y') {
                 url = "<?=base_url()?>index.php/orders/delete";
-                go = "<?=base_url()?>index.php/orders/index";
+                go = "<?=base_url()?>index.php/orders/go_orders";
                 $.ajax({
                   url: url,
                   type: 'post',

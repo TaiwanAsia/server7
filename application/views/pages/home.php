@@ -185,6 +185,10 @@
 		 						<input type="radio" name="工單屬性" value="收送過戶">
 		 						收送過戶
 							</label>
+							<label>
+		 						<input type="radio" name="工單屬性" value="公告事項">
+		 						公告事項
+							</label>
 		 				</li>
 		 			</ul>
 		 		</div>

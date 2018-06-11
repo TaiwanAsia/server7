@@ -15,7 +15,7 @@
 		</div>
 		
 		<div class="t-form">
-			
+			<h2>尚未完成</h2>
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
