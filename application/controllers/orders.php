@@ -129,7 +129,7 @@ class Orders extends CI_Controller {
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
-		$this->orders_model->add_payrecord($data);
+		// $this->orders_model->add_payrecord($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 		$this->go_orders();
 	}
