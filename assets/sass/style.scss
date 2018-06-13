@@ -44,17 +44,21 @@
 			background-color: #eee;
  	  }
  	 ul{
+ 	 	display: flex;
+ 	 	flex-wrap:wrap;
  	 	list-style: none;
  	 	li{
  	 		display: inline-block;
- 	 		padding-right: 12px;
+ 	 		padding: 0 12px 12px 6px;
  	 	}
  	 }
  }
 
-
- th, td, form {
-	 white-space: nowrap;
+	input{
+		border: 1px solid #eee;
+	}
+	.input-ty1{
+		width: 8vw;
 	}
 
 	#upload {
@@ -74,6 +78,7 @@
     	color: #fff;
     }
 	}
+
 
 	.s-modal {
 		display: none;
@@ -212,21 +217,8 @@
 			}
 		}
 
-	#receivTable {
-		.function-r th{
-			border-top: none;
-			vertical-align: middle;
-			padding: 1em;
-		}
-			label{
-			margin: 0;
-		}
-	}
 
-	.fax-table{
-		border: 1px solid #dee2e6;
 
-	}
 
 	.upload-files{
 		width: 300px;
@@ -238,6 +230,7 @@
 			padding-right: 10vw;
 		}
 	}
+
 	input#receFileUpload{
 		display: none;
 	}
@@ -263,6 +256,12 @@
 		}
 	}
 
+	// table style
+
+	th, td, form {
+	 white-space: nowrap;
+	}
+
 	#table1{
 		border: 1px solid #999;
 	}
@@ -274,6 +273,22 @@
 	.td-cs-1{
 		background-color: #EEF2FF;
 	}
+
+	.fax-table{
+		border: 1px solid #dee2e6;
+	}
+
+		#receivTable {
+		.function-r th{
+			border-top: none;
+			vertical-align: middle;
+			padding: 1em;
+		}
+			label{
+			margin: 0;
+		}
+	}
+
 
 	tr.note-row{
 		background-color: rgb(54, 50, 50);

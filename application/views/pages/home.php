@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-xl-6">
 					<div class="note-sec">
-						<table>
+						<table class="table-responsive">
 							<thead>
 								<tr>
 									<th>需求者</th>
@@ -19,7 +19,7 @@
 							<tbody>
 								<tr>
 									<?php if ($need) {
-										for ($i=0; $i < count($need); $i++) { 
+										for ($i=0; $i < count($need); $i++) {
 											if ($need[$i]['買賣']==1) {
 												echo "<td>".$need[$i]['需求者']."</td>";
 												echo "<td>".$need[$i]['股名']."</td>";
@@ -38,7 +38,7 @@
 				</div>
 				<div class="col-xl-6">
 					<div class="note-sec">
-						<table>
+						<table class="table-responsive">
 							<thead>
 								<tr>
 									<th>需求者</th>
@@ -53,7 +53,7 @@
 							<tbody>
 								<tr>
 									<?php if ($need) {
-										for ($i=0; $i < count($need); $i++) { 
+										for ($i=0; $i < count($need); $i++) {
 											if ($need[$i]['買賣']==0) {
 												echo "<td>".$need[$i]['需求者']."</td>";
 												echo "<td>".$need[$i]['股名']."</td>";
@@ -98,7 +98,7 @@
 								<th>張數</th>
 								<th>委託到期日</th>
 								<th>把握度(0~100%)</th>
-								<th>進度</th>
+								<th colspan="2">進度</th>
 							</thead>
 							<tbody>
 								<td>
@@ -110,12 +110,14 @@
 								</td>
 								<td>
 									<input type="radio" name="買賣" value="1">
-					                <label class="text-danger"><b>買</b></label>
-					                <input type="radio" name="買賣" value="0">
-					                <label class="text-primary"><b>賣</b></label>
+	                <label class="text-danger"><b>買</b></label>
+	                <input type="radio" name="買賣" value="0">
+	                <label class="text-primary"><b>賣</b></label>
 								</td>
 								<td>
-									<input type="text" name="價格">
+									<input type="text" class="input-ty1" name="價格">
+									<input type="checkbox">
+									<label class="text-primary"><b>可議價</b></label>
 								</td>
 								<td>
 									<input type="text" name="張數">
@@ -196,7 +198,7 @@
 		 			<h4>工單內容</h4>
 		 			<div class="note-sec">
 						<textarea cols="120" rows="5" name="工單內容">
-							
+
 						</textarea>
 						<button type="submit" form="assign">送出</button>
 		 			</div>
