@@ -29,12 +29,12 @@
           <th nowrap="nowrap">查帳狀態</th>
 					<th nowrap="nowrap"></th>
 				</tr>
-        
+
 				<?php
 				if ($data) {
 					for ($i=0; $i<count($data); $i++) { ?>
             <input type="hidden" id="o_id<?php echo $data[$i]['id']; ?>" value="<?php echo $data[$i]['id']; ?>">
-				<?php	
+				<?php
             echo "<tr>";
   						echo "<td>".$data[$i]['成交單編號']."</td>";
               echo "<td>".$data[$i]['支付方式']."</td>";
@@ -65,48 +65,48 @@
 		</div>
 	</main>
 	<div class="s-modal" data-popup="popup-2">
-            <div class="modal-content-2">
-            	<form action="check_end" method="post">
-            	<span class="s-close" data-popup-close="popup-2">&times;</span>
-              <div class="modal-header">
-                <h3>待查帳</h3>
-              </div>
-              <div class="modal-main">
-              	<div class="modal-sec-1">
-								<table>
-									<tbody>
-                    <tr>
-                      <td>成交單編號</td>
-                      <td><input readonly type="text" name="成交單編號" value="" id="t_order_id"></td>
-                      <td><input type="hidden" name="id" id="id" value=""></td>
-                    </tr>
-  									<tr>
-  										<td><h6>確認日期</h6></td>
-  										<td>
-  											<input type="date" id="date" name="確認日期">
-  										</td>
-                      <td><button type="button" onclick="gettoday()">今天</button></td>
-  									</tr>
-                    <tr>
-                      <td><h6>金額</h6></td>
-                      <td>
-                        <input type="text" id="t_money" name="money">
-                      </td>
-                    </tr>
-								</tbody>
-								</table>
-              </div>
-						</div>
-						<div class="modal-footer">
-							<input type="submit" value="submit">
-						</div>
-						</form>
-            </div>
+        <div class="modal-content-2">
+          <span class="s-close" data-popup-close="popup-2">&times;</span>
+        	<form action="check_end" method="post">
+          <div class="modal-header">
+            <h3>待查帳</h3>
+          </div>
+          <div class="modal-main">
+          	<div class="modal-sec-1">
+						<table>
+							<tbody>
+                <tr>
+                  <td>成交單編號</td>
+                  <td><input readonly type="text" name="成交單編號" value="" id="t_order_id"></td>
+                  <td><input type="hidden" name="id" id="id" value=""></td>
+                </tr>
+								<tr>
+									<td><h6>確認日期</h6></td>
+									<td>
+										<input type="date" id="date" name="確認日期">
+									</td>
+                  <td><button type="button" onclick="gettoday()">今天</button></td>
+								</tr>
+                <tr>
+                  <td><h6>金額</h6></td>
+                  <td>
+                    <input type="text" id="t_money" name="money">
+                  </td>
+                </tr>
+						</tbody>
+						</table>
+          </div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" value="submit">
+				</div>
+				</form>
         </div>
-    </body>
+    </div>
+</body>
 
     <script>
-      
+
       function Check(order_id, id) {
         var order_id = order_id;
         document.getElementById('t_order_id').value = order_id;

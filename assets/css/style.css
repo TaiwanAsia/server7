@@ -91,6 +91,10 @@ th, td, form {
     padding: 20px;
     border: 1px solid #888;
     width: 50%; }
+    .s-modal .modal-content-2 .s-close {
+      position: relative;
+      top: 0;
+      right: 0; }
   .s-modal .modal-sec-1 {
     margin: 5em auto; }
     .s-modal .modal-sec-1 table {

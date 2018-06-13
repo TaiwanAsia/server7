@@ -25,11 +25,11 @@
             }
             ?>
           </select>
-          
+
           <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="" onchange="">
           <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="" onchange="">
           <label id="dateselectorinfo"><?PHP if (isset($_GET['業務'])&&isset($_GET['date1'])&&isset($_GET['date2'])) {
-            echo $_GET['業務']."：".$_GET['date1']."~".$_GET['date2']; 
+            echo $_GET['業務']."：".$_GET['date1']."~".$_GET['date2'];
             echo '<input type="hidden" name="selected_業務" id="" value="'.$_GET['業務'].'">';
             echo '<input type="hidden" name="selected_datePicker_1" id="" value="'.$_GET['date1'].'">';
             echo '<input type="hidden" name="selected_datePicker_2" id="" value="'.$_GET['date2'].'">';
@@ -94,7 +94,7 @@
         <?php } ?>
         <th data-tablesaw-priority="1">是否結案</th>
         <th data-tablesaw-priority="persist"></th>
-        
+
       </tr>
     </thead>
    <tbody>
@@ -475,7 +475,7 @@
                 <?php } ?>
               </td>
             <?php } ?>
-            
+
             <td>
               <?php
                 if($orders[$i]['已結案']==1){
@@ -503,7 +503,7 @@
           <td>
             <button onclick="Copy(<?php echo $orders[$i]['ID']; ?>)">複製</button>
           </td>
-          
+
             <!-- 沒顯示出來的欄位 -->
             <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">
             <input type="hidden" id="匯款金額應收帳款<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['匯款金額應收帳款']; ?>">
@@ -701,14 +701,14 @@
           // function selectByRange() {
           //   // alert($("#datePicker_2").val());
           //   if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
-          //     document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val(); 
-          //   } 
+          //     document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
+          //   }
           //   document.getElementById("dateselectorinfo").innerHTML = $("#datePicker_1").val()+'~'+$("#datePicker_2").val();
           // }
 
           function selectByRange2() {
             if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
-              document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val(); 
+              document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
             } else if ($("#datePicker_1").val() && $("#datePicker_2").val() && !$("#業務").val()) {
               document.location.href = "date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
             } else {
