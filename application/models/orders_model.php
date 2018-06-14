@@ -788,6 +788,45 @@ class Orders_model extends CI_Model {
         $this->db->insert('need_board', $data);
     }
 
+    public function add_payrecord($data) {
+        $this->db->insert('pay_record', $data);
+    }
+
+    public function get_pay_record() {
+        $this->db->where('業務', $_SESSION['NAME']);
+        $query = $this->db->get('pay_record');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                    $result[] = array('ID'=>$row-> ID,
+                    '日期'=>$row-> 日期,
+                    '姓名'=>$row-> 姓名,
+                    '買賣'=>$row-> 買賣,
+                    '業務'=>$row-> 業務,
+                    '標的名稱'=>$row-> 標的名稱,
+                    '張數'=>$row-> 張數,
+                    '成交價'=>$row-> 成交價,
+                    '盤價'=>$row-> 盤價,
+                    '價差'=>$row-> 價差,
+                    '稅金'=>$row-> 稅金,
+                    '過戶費'=>$row-> 過戶費,
+                    '金額'=>$row-> 金額,
+                    '自得比率'=>$row-> 自得比率,
+                    '自行應付'=>$row-> 自行應付,
+                    '扣款利息'=>$row-> 扣款利息,
+                    '個人實得'=>$row-> 個人實得,
+                    '營業支出'=>$row-> 營業支出,
+                    '公司'=>$row-> 公司,
+                    '匯款日期'=>$row-> 匯款日期,
+                    '狀態'=>$row-> 狀態,
+                    '轉讓會員'=>$row-> 轉讓會員,
+                    '備註'=>$row-> 備註,
+                    '最後動作時間'=>$row-> 最後動作時間);
+            }
+            return $result;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

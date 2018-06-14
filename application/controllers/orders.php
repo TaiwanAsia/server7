@@ -129,9 +129,48 @@ class Orders extends CI_Controller {
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
-		// $this->orders_model->add_payrecord($data);
+		$pay_record_info = $this -> record_info($data);
+		// print_r($pay_record_info);
+		$this->orders_model->add_payrecord($pay_record_info);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 		$this->go_orders();
+	}
+
+	public function record_info($data) {
+		if ($data['買賣'] == 1) {
+			//客戶買方 成>盤
+			$價差 = $data['成交價'] - $data['盤價'];
+			$稅金 = $data['成交價']*$data['張數']*1000*0.003;
+		} else {
+			//客戶賣方 盤>成
+			$價差 = $data['盤價'] - $data['成交價'];
+			$稅金 = $data['盤價']*$data['張數']*1000*0.003;
+		}
+		
+		$result = array( 'ID' => $data['ID'],
+						'日期' => $data['成交日期'],
+						'姓名' => $data['客戶姓名'],
+						'買賣' => $data['買賣'],
+						'業務' => $data['業務'],
+						'標的名稱' => $data['股票'],
+						'張數' => $data['張數'],
+						'成交價' => $data['成交價'],
+						'盤價' => $data['盤價'],
+						'價差' => $價差,
+						'稅金' => $稅金,
+						'過戶費' => $data['過戶費'],
+						'金額' => $data['匯款金額應收帳款'],
+						'自得比率' => $_SESSION['趴數'],
+						'自行應付' => $data['自行應付'],
+						// '扣款利息' => $_POST['扣款利息'],
+						// '個人實得' => $_POST['個人實得'],
+						// '營業支出' => $_POST['營業支出'],
+						// '公司' => $_POST['公司'],
+						'匯款日期' => $data['匯款日期'],
+						'轉讓會員' => $data['轉讓會員'],
+						'備註' => $data['備註'],
+						'最後動作時間' => date('Y-m-d H:i:s'));
+		return $result;
 	}
 
 	public function copy() {
@@ -1191,8 +1230,9 @@ class Orders extends CI_Controller {
 	}
 
 	public function passrecord() {
+		$data = $this->orders_model->get_pay_record();
 		$this->load->view('templates/header');
-		$this->load->view('pages/money/passrecord_view');
+		$this->load->view('pages/money/passrecord_view', array('data'=>$data));
 	}
 
 	public function add_need() {
