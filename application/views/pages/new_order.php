@@ -98,7 +98,7 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">匯款日期</label></td>
-            <td><input class="" type="date" id="匯款日期" name="匯款日期" value="" id="" required></td>
+            <td><input class="" type="date" id="匯款日期" name="匯款日期" value="" id=""></td>
             <td><button type="button" onclick="getdealdate()">同成交日期</button></td>
         </tr>
         <tr>

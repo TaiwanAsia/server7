@@ -1231,6 +1231,7 @@ class Orders extends CI_Controller {
 
 	public function passrecord() {
 		$data = $this->orders_model->get_pay_record();
+		// print_r($data);
 		$this->load->view('templates/header');
 		$this->load->view('pages/money/passrecord_view', array('data'=>$data));
 	}

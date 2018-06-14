@@ -34,7 +34,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (count($data)>1) { 
+					<?php if (count($data)>=1) { 
 					for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
 						<td>

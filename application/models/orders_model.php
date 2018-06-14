@@ -793,8 +793,14 @@ class Orders_model extends CI_Model {
     }
 
     public function get_pay_record() {
-        $this->db->where('業務', $_SESSION['NAME']);
-        $query = $this->db->get('pay_record');
+        if ($_SESSION['權限名稱'] == '最高權限') {
+            $query = $this->db->get('pay_record');
+        } else {
+            $this->db->where('業務', $_SESSION['NAME']);
+            $query = $this->db->get('pay_record');
+        }
+        
+        
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                     $result[] = array('ID'=>$row-> ID,

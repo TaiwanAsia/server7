@@ -18,11 +18,16 @@
           <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" onchange="">
             <?php
             echo "<option value=所有業務>所有業務</option>";
-            for ($j=0; $j < count($employees); $j++) {
-              if ($employees[$j]['權限名稱'] == '業務') {
-                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+            if ($_SESSION['權限名稱']=='最高權限') {
+              for ($j=0; $j < count($employees); $j++) {
+                if ($employees[$j]['權限名稱'] == '業務') {
+                  echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                }
               }
+            } else {
+              echo "<option value=".$_SESSION['NAME'].">".$_SESSION['NAME']."</option>";
             }
+            
             ?>
           </select>
 
