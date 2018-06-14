@@ -515,13 +515,17 @@
             <input type="hidden" id="趴數<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $_SESSION['趴數']; ?>">
         </tr>
           <?php if (strlen($orders[$i]['備註']) > 0) { ?>
-            <tr class="note-row"  title="編輯備註" data-popup-open="popup-2">
+            <tr class="note-row" onclick="js_edit_note(<?php echo $orders[$i]['ID']?>)" title="編輯備註" data-popup-open="popup-2">
               <td colspan="5" class="n-tds-1"></td>
-              <td colspan="100" class="n-tds-2"><?php echo $orders[$i]['備註']; ?></td>
+              <td colspan="100" class="n-tds-2">
+                <?php echo $orders[$i]['備註']; ?>
+                <input type="hidden" value="<?php echo $orders[$i]['備註']; ?>" id="<?php echo '備註'.$orders[$i]['ID']?>">
+              </td>
             </tr>
           <?php } ?>
 
-        <?php }} ?>
+        <?php }
+      } ?>
 
       </tbody>
       </table>
@@ -679,12 +683,16 @@
         <h3>編輯備註</h3>
          <span class="s-close" data-popup-close="popup-2">&times;</span>
       </div>
-      <form method="post" name="" action="" >
+      <form method="post" name="" action="edit_note" id="編輯備註">
         <div class="modal-main">
           <!-- 再請修改,套參數 -->
           <p>備註內容:</p>
-          <input type="" name="">
+          <textarea id="edit_備註" name="edit_備註" cols="50" rows="5"></textarea>
+          <input type="hidden" name="note_id" id="note_id" value="">
+          <!-- <input type="text" id="edit_備註" name="edit_備註"> -->
+          <button type="submit" form="編輯備註">送出</button>
         </div>
+      </form>
     </div>
   </div>
 <!-- End of 備註modal -->
@@ -785,6 +793,13 @@
             });
           }
 
+          //編輯備註
+          function js_edit_note(i) {
+            var source = document.getElementById('備註'+i).value;
+            // alert(source);
+            document.getElementById('edit_備註').value = source;
+            document.getElementById('note_id').value = i;
+          }
 
           //編輯成交單
           function Edit(i){

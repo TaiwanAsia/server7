@@ -351,7 +351,7 @@ class Orders_model extends CI_Model {
 
     public function move_record($name, $time, $move, $result, $effect) {
         $query = null;
-        if ($move == '修改' || $move == 'admin修改') {
+        if ($move == '修改' || $move == 'admin修改' || $move == '修改備註') {
             $result = $result." ".$effect;
         }
         $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$result, );
@@ -826,6 +826,12 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    public function edit_note_model($id, $note) {
+        $this->db->where('ID', $id);
+        $data = array('備註' => $note);
+        $this->db->update('orders', $data);
     }
 }
 

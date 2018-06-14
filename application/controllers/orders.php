@@ -1255,6 +1255,16 @@ class Orders extends CI_Controller {
 		return json_encode($data);
 	}
 
+	public function edit_note() {
+		$original_data = $this->orders_model->get($_POST['note_id'],null,null,null,null);
+		$diff = "[更改前]".$original_data[0]['備註']."[更改後]".$_POST['edit_備註'];
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改備註', $_POST['note_id'], $diff);
+
+		$this->orders_model->edit_note_model($_POST['note_id'] , $_POST['edit_備註']);
+		
+		$this->go_orders();
+	}
+
 }
 
 
