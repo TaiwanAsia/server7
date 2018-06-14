@@ -147,11 +147,13 @@
 		 			<h4>工單</h4>
 		 			<p>對象：</p>
 		 			<ul>
-		 				<?php for ($i=0; $i < count($employees); $i++) { ?>
+		 				<?php for ($i=0; $i < count($employees); $i++) { 
+		 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存') { ?>
 		 					<li>
 		 						<input type="radio" name="工單對象" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 		 					</li>
-		 				<?php } ?>
+		 				<?php	}
+		 				} ?>
 		 			</ul>
 		 		</div>
 
@@ -187,6 +189,8 @@
 		 						<input type="radio" name="工單屬性" value="收送過戶">
 		 						收送過戶
 							</label>
+						</li>
+						<li>
 							<label>
 		 						<input type="radio" name="工單屬性" value="公告事項">
 		 						公告事項

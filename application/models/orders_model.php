@@ -391,8 +391,13 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data2);
     }
 
-    public function get_employee() {
-        $query = $this->db->get('EMPLOYEE');
+    public function get_employee($name) {
+        if (is_null($name)) {
+            $query = $this->db->get('EMPLOYEE');
+        } else {
+            $this->db->where('NAME', $name);
+            $query = $this->db->get('EMPLOYEE');
+        }
         if($query->result()!=null){
             foreach ($query->result() as $row) {
                 $result[] = array('ID'=>$row-> ID,

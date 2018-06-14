@@ -56,7 +56,7 @@
       <tr>
         <th data-tablesaw-priority="persist"></th>
         <th data-tablesaw-priority="persist"></th>
-        <th data-tablesaw-priority="0">編號</th>
+        <th data-tablesaw-priority="1">編號</th>
         <th data-tablesaw-priority="1" scope="col">成交日期</th>
         <th data-tablesaw-priority="1">業務</th>
         <th data-tablesaw-priority="1">客戶姓名</th>
@@ -87,7 +87,7 @@
         <th data-tablesaw-priority="1">收付款</th>
         <th data-tablesaw-priority="0">過戶日期</th>
         <th data-tablesaw-priority="1">通知查帳</th>
-        <th data-tablesaw-priority="0">上傳契約-要記得選擇檔案</th>
+        <th data-tablesaw-priority="1">上傳契約-要記得選擇檔案</th>
         <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
         <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
           <th data-tablesaw-priority="1">上傳水</th>
@@ -149,6 +149,7 @@
               echo "go_orders?業務=".$orders[$i]['業務'];
             }?>'"
             title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
+            <input type="hidden" id="業務<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['業務']; ?>">
         </td>
         <td class="thd-s1">
           <a class="clickable_hint" href="javascript:location.href='
@@ -734,18 +735,35 @@
             var 張數 = document.getElementById('amount'+id).value;
             var 過戶費 = document.getElementById('過戶費'+id).value;
             var 自行應付 = document.getElementById('自行應付'+id).value
-            var 趴數 = document.getElementById('趴數'+id).value;
-            var 買賣 = 0;
+            // var 趴數 = document.getElementById('趴數'+id).value;
+            // var employee = document.getElementById('業務'+id).value;
+            // alert(employee);
+            // url = "<?=base_url()?>index.php/orders/get_employee_byname";
+            // $.ajax({
+            //   url: url,
+            //   type: 'post',
+            //   data: {employee:employee},
+            //   dataType: "json",
+            //   success: function(data){
+            //     alert("success");
+            //     var 趴數 = data.趴數;
+            //   },
+            //   error:function(xhr, ajaxOptions, thrownError){
+            //     alert("error");
+            //   }
+            // });
+
             var 稅金 = 0;
-            if (document.getElementById('買賣'+id).value==0) {
-              買賣 = '賣';
+            // alert(document.getElementById('買賣'+id).value);
+            if (document.getElementById('買賣'+id).value==1) {
+              var 買賣 = '買';
             } else {
-              買賣 = '買';
+              var 買賣 = '賣';
             }
-            if (買賣='賣') {
+            if (買賣=='賣') {
               稅金 = 成交價*張數*1000*0.003;
             }
-            alert('成交價 '+成交價+'\n盤價 '+盤價+'\n張數 '+張數+'\n'+買賣+'\n稅金 '+稅金+'\n過戶費 '+過戶費+'\n自行應付 '+自行應付+'\n趴數 '+趴數);
+            alert('成交價 '+成交價+'\n盤價 '+盤價+'\n張數 '+張數+'\n'+買賣+'\n稅金 '+稅金+'\n過戶費 '+過戶費+'\n自行應付 '+自行應付);
           }
 
           //大姊一鍵將客戶為買的一審改為已匯

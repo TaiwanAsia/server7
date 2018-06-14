@@ -32,7 +32,7 @@ class Orders extends CI_Controller {
     }
 
     public function index() {
-    	$employees = $this->orders_model->get_employee();
+    	$employees = $this->orders_model->get_employee(null);
     	$need = $this->orders_model->get_need_model(null);
     	$arrayName = array('need' => $need,
 							'employees' => $employees,);
@@ -59,7 +59,7 @@ class Orders extends CI_Controller {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 			}
 			$all_orders = $orders;
-			$employees = $this->orders_model->get_employee();
+			$employees = $this->orders_model->get_employee(null);
 			$arrayName = array('orders' => $orders,
 								'all_orders' => $all_orders,
 								'employees' => $employees,);
@@ -69,7 +69,7 @@ class Orders extends CI_Controller {
 
 	public function search() {
 		$orders = $this->orders_model->get($_GET['keyword'],$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,);
 		$this->show($arrayName);
@@ -78,7 +78,7 @@ class Orders extends CI_Controller {
 	public function new_order()
     {
 		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,);
 
@@ -213,7 +213,7 @@ class Orders extends CI_Controller {
 							'total_received' => $total_received,
 							'total_left' => $total_left,);
 
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,
@@ -304,7 +304,7 @@ class Orders extends CI_Controller {
 		// $old_date_timestamp = strtotime($result[0]['成交日期']);
 		// $new_date = date('Y/m/d', $old_date_timestamp);
 		// $result[0]['日期'] = $new_date;
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 		// foreach ($result[0] as $key => $value) {
 		// 	echo $key.": ".$value."<br>";
 		// };
@@ -323,7 +323,7 @@ class Orders extends CI_Controller {
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 		// foreach ($result[0] as $key => $value) {
 		// 	echo $key.": ".$value."<br>";
 		// };
@@ -582,7 +582,7 @@ class Orders extends CI_Controller {
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 		$this->load->view('templates/header');
 		$this->load->view('pages/order_edit/edit2_order_view',array('result' => $result,'employees' => $employees));
 	}
@@ -612,7 +612,7 @@ class Orders extends CI_Controller {
 			// 	$this->index();
 			// }
 
-			// $this->go_orders();
+			$this->go_orders();
 			} else {
 				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->go_orders();
@@ -947,7 +947,7 @@ class Orders extends CI_Controller {
 			$orders = $this->orders_model->get_inventory(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 		}
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
 							'all_orders' => $all_orders,
 							'employees' => $employees,);
@@ -968,7 +968,7 @@ class Orders extends CI_Controller {
 			$orders = $this->orders_model->get_ko(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 		}
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
-		$employees = $this->orders_model->get_employee();
+		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
 							'all_orders' => $all_orders,
 							'employees' => $employees,);
@@ -1208,6 +1208,11 @@ class Orders extends CI_Controller {
 						'最後動作時間'=>date('Y-m-d H:i:s'));
 		$this->orders_model->add_need_model($data);
 		$this->index();
+	}
+
+	public function get_employee_byname() {
+		$data = $this->orders_model->get_employee($_POST['$name']);
+		return json_encode($data);
 	}
 
 }
