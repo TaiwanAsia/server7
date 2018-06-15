@@ -340,9 +340,15 @@ class Orders_model extends CI_Model {
     public function delete($id) {
         $query = $this->db->get_where('orders', array('ID' => $id));
         $i = $this->transformer($query);
-        // $this->db->insert('deleted_orders', $i[0]);
+        $this->db->insert('deleted_orders', $i[0]);
         $this->db->where('ID', $id);
         $this->db->delete('orders');
+    }
+
+    public function go_deleted_model() {
+        $query = $this->db->get('deleted_orders');
+        $result = $this->transformer($query);
+        return $result;
     }
 
     public function add_bill($data) {

@@ -118,8 +118,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/move_record">
                                 動作紀錄
                             </a>
-                            <?php } ?>
                         </li>
+                        <li>
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/go_deleted">
+                                被刪成交單
+                            </a>
+                        </li>
+                        <?php } ?>
                         <?php if ($_SESSION['帳號設定權限']==1) { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/login/account">

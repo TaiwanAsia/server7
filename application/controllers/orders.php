@@ -229,6 +229,12 @@ class Orders extends CI_Controller {
 		print_r($myJSON);
 	}
 
+	public function go_deleted() {
+		$orders = $this->orders_model->go_deleted_model();
+		$this->load->view('templates/header');
+		$this->load->view('pages/deleted_view', array('orders'=>$orders));
+	}
+
 	public function checkbill() {
 		if (isset($_GET['股票'])) {
 			$orders = $this->orders_model->get_checkbill('股票',$_GET['股票']);
