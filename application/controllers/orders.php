@@ -359,6 +359,12 @@ class Orders extends CI_Controller {
 		}
 	}
 
+	public function admin_order_end() {
+		$this->orders_model->finish_order($_POST['id']);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '結案', $id, null);
+		$this->go_orders();
+	}
+
 	public function match() {
 		// echo $_POST['欲媒合對方ID'].", ".$_POST['欲媒合自身ID']."<br>";
 		$this -> orders_model -> match($_POST['欲媒合自身ID'], $_POST['欲媒合對方ID']);

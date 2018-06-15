@@ -465,22 +465,37 @@
                 <?php } ?>
             </td>
 
-            <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
-              <td>
-                <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
+            <?php if ($_SESSION['權限名稱'] == '最高權限') {
+              if ($orders[$i]['業務'] == 'JOY') { 
+                if ($orders[$i]['已結案'] == 0) {
                   ?>
-                <a class="clickable_hint" href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
-                <?php  } else {?>
-                <form method="post" action="upload_water" enctype="multipart/form-data">
-                  <div class="form-group">
-                      <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
+                 <td>
+                   <form action="admin_order_end" method="post" id="admin_end">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
-                      <button type="submit" id="" name="" class="">上傳</button>
-                  </div>
-                </form>
-                <?php } ?>
-              </td>
-            <?php } ?>
+                      <button type="submit" form="admin_end">結案</button>
+                   </form>
+                 </td>
+              <?php } else { ?>
+                <td>
+                  
+                </td>
+            <?php  }
+            } else { ?>
+                <td>
+                  <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
+                    ?>
+                  <a class="clickable_hint" href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
+                  <?php  } else {?>
+                  <form method="post" action="upload_water" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
+                        <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
+                        <button type="submit" id="" name="" class="">上傳</button>
+                    </div>
+                  </form>
+                  <?php } ?>
+                </td>
+            <?php }} ?>
 
             <td>
               <?php
