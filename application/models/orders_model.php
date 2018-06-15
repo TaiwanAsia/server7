@@ -352,7 +352,16 @@ class Orders_model extends CI_Model {
     }
 
     public function add_bill($data) {
-        $this->db->insert('bills', $data);
+        //check duplicated
+        $query = $this->db->get_where('bills', array(
+                                            '日期' => $data['日期'],
+                                            '轉出' => $data['轉出'], 
+                                            '轉入' => $data['轉入'], 
+                                            '帳號' => $data['帳號'], 
+                                            '備註' => $data['備註']));
+        if($query->num_rows() == 0) {
+            $this->db->insert('bills', $data);
+        }
     }
 
     public function move_record($name, $time, $move, $result, $effect) {
