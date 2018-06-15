@@ -127,7 +127,7 @@
             <td>
                 <select id="轉讓會員" name="轉讓會員" class="form-control" required onchange="myFunction()">
                     <?php
-                    for ($j=0; $j < count($employees); $j++) {
+                    for ($j=1; $j < count($employees); $j++) {
                         echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
                     }
                     ?>

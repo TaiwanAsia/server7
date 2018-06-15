@@ -839,6 +839,44 @@ class Orders_model extends CI_Model {
         $data = array('備註' => $note);
         $this->db->update('orders', $data);
     }
+
+    public function add_assign_model($data) {
+
+        for ($i=0; $i < count($data['工單對象']); $i++) {
+            $result = array('工單對象' => $data['工單對象'][$i],
+                            '工單屬性' => $_POST['工單屬性'],
+                            '工單內容' => $_POST['工單內容'],
+                            '建立者' => $_SESSION['NAME'],
+                            '建立時間' => date('Y-m-d H:i:s'));
+            $this->db->insert('assigns', $result);
+            // echo $data['工單對象'][$i]." ".$_POST['工單屬性']." ".$_POST['工單內容'];
+        }
+    }
+
+    public function get_assign() {
+        if ($_SESSION['權限名稱'] == '最高權限') {
+            $this->db->order_by("建立時間", "desc");
+            $query = $this->db->get('assigns');
+        } else {
+            $this->db->where('工單對象', $_SESSION['NAME']);
+            $this->db->or_where('建立者', $_SESSION['NAME']); 
+            $this->db->order_by("建立時間", "desc"); 
+            $query = $this->db->get('assigns');
+        }
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = array('ID'=>$row-> ID,
+                        '工單對象'=>$row-> 工單對象,
+                        '工單屬性'=>$row-> 工單屬性,
+                        '工單內容'=>$row-> 工單內容,
+                        '建立者'=>$row-> 建立者,
+                        '建立時間'=>$row-> 建立時間,);
+            }
+            return $result;
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>

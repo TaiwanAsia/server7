@@ -1310,6 +1310,22 @@ class Orders extends CI_Controller {
 		$this->go_orders();
 	}
 
+	public function go_assign() {
+		$data = $this->orders_model->get_assign();
+		$this->load->view('templates/header');
+		$this->load->view('pages/assign_view', array('data'=>$data));
+	}
+
+	public function add_assign() {
+		$工單對象 = $_POST['工單對象'];
+		$data = array('工單對象'=>$工單對象,
+						'工單屬性'=>$_POST['工單屬性'],
+						'工單內容'=>$_POST['工單內容']);
+		$this->orders_model->add_assign_model($data);
+		// $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '增加工單', $_POST['note_id'], $diff);
+		$this->go_assign();
+	}
+
 }
 
 

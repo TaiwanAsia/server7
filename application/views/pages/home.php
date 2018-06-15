@@ -150,7 +150,7 @@
 		 				<?php for ($i=0; $i < count($employees); $i++) { 
 		 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存') { ?>
 		 					<li>
-		 						<input type="radio" name="工單對象" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+		 						<input type="checkbox" name="工單對象[]" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 		 					</li>
 		 				<?php	}
 		 				} ?>
@@ -201,9 +201,7 @@
 		 		<div class="sec-content">
 		 			<h4>工單內容</h4>
 		 			<div class="note-sec">
-						<textarea cols="120" rows="5" name="工單內容">
-
-						</textarea>
+						<textarea cols="120" rows="5" name="工單內容"></textarea>
 						<button type="submit" form="assign">送出</button>
 		 			</div>
 		 		</div>

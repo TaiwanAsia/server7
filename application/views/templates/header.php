@@ -68,6 +68,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/go_assign">
+                                公佈欄<span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/go_orders">
                             <!-- <span data-feather="home"></span> -->
                                 成交單管理<span class="sr-only">(current)</span>
