@@ -1,25 +1,50 @@
 
 	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
-	<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
-     <h1 class="h2">文件下載</h1>
-			<!-- <form action="go_add_taxer" method="POST" class="t-form-t" name="">
-				<input type="submit" name="" value="新增" class="btn btn-sm btn-outline-secondary">
-			</form>
- -->
-			<input type ="button" onclick="history.back()" value="回到上一頁" class="btn btn-sm btn-outline-secondary">
+		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
+			<table>
+				<tr>
+					<h1 class="h2">文件下載</h1>
+				</tr>
+				<tr>
+					<td>
+						<input type ="button" onclick="history.back()" value="回到上一頁" class="btn btn-sm btn-outline-secondary">
+
+					</td>
+
+					<td>
+						<form method="post" action="upload_document" enctype="multipart/form-data" id="upload">
+			              	<div class="form-group">
+				                <input type="file" name="file" class="" id="exampleFormControlFile1">
+				                <button type="submit" id="" name="" class="" form="upload">上傳</button>
+			              	</div>
+			            </form>
+					</td>
+				</tr>
+			</table>
 		</div>
 
 		<div class="t-form">
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
-						<th nowrap="nowrap">文件編號</th>
+						<!-- <th nowrap="nowrap">文件編號</th> -->
 						<th nowrap="nowrap">文件名稱</th>
 						<th nowrap="nowrap">下載</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<?php for ($i=0; $i < count($file_info); $i++) { ?>
+						<tr>
+							<td><?php echo $file_info[$i]; ?></td>
+							<td>
+								<form action="document_download" method="POST">
+									<input type="hidden" name="type" value="<?php echo $file_info[$i]; ?>">
+									<button type="submit">下載</button>
+								</form>
+							</td>
+						</tr>
+					<?php } ?>
+					<!-- <tr>
 						<td>1</td>
 						<td>身分證版本</td>
 						<td>
@@ -58,7 +83,7 @@
 								<button type="submit">下載</button>
 							</form>
 						</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 		</div>

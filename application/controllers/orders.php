@@ -267,6 +267,34 @@ class Orders extends CI_Controller {
 	// 	$this->index();
 	// }
 
+	public function upload_document() {
+		$dir_info = scandir('upload/document');
+		$dir_count = count($dir_info);
+		$next_dir_index = $dir_count + 1;
+		if ($_FILES["file"]["error"] > 0){
+			echo "Error: " . $_FILES["file"]["error"];
+		} else {
+			// echo "編號: " . $id."<br>";
+			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
+			// echo mb_detect_encoding($_FILES["file"]["name"]);
+			$name = iconv("UTF-8", "BIG5", $_FILES["file"]["name"]);
+			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
+			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
+			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+			if (file_exists("upload/document/" . $name)){
+				echo "<h2><font color='red'>檔案已經存在，請勿重覆上傳相同檔案</font></h2><br>";
+				$this->document_download_view();
+			} else {
+				$target_path = "upload/document/";
+				$target_path .= $_FILES['file']['name']; //上傳檔案名稱
+				move_uploaded_file($_FILES['file']['tmp_name'],iconv("UTF-8", "big5", $target_path ));
+				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳文件', $_FILES['file']['name'], null);
+				echo "<h2><font color='red'>檔案".$_FILES["file"]["name"]."上傳成功</font></h2><br>";
+				$this->document_download_view();
+			}
+		}
+	}
+
 	public function upload_contact() {
 		$id = $_POST['id'];
 		if ($_FILES["file"]["error"] > 0){
@@ -1208,21 +1236,30 @@ class Orders extends CI_Controller {
 	}
 
 	public function document_download_view() {
+		// if ($dh = opendir("upload/document")) {
+	 //        while (($file = readdir($dh)) !== false) {
+	 //            echo $file;
+	 //            echo "<br />";
+	 //        }
+		// }
+		$dir_info = scandir('upload/document');
+		// print_r($dir_info);
+		$file_info = array();
+		for ($i=2; $i < count($dir_info); $i++) { 
+			array_push($file_info, iconv("BIG5", "UTF-8", $dir_info[$i]));
+		}
+		// print_r($file_info);
+		// echo "</br>".iconv("BIG5", "UTF-8", $dir_info[6])."可以秀中文阿";
 		$this->load->view('templates/header');
-		$this->load->view('pages/download/document_view');
+		$this->load->view('pages/download/document_view', array('file_info' => $file_info));
 	}
 
 	public function document_download() {
 		$this->load->helper('download');
-		if ($_POST['type'] == '身分證') {
-			force_download('download_folder/id_version.docx', NULL);
-		} elseif ($_POST['type'] == '轉讓過戶申請書') {
-			force_download('download_folder/change_apply.jpg', NULL);
-		} elseif ($_POST['type'] == '股票成交單') {
-			force_download('download_folder/pink.docx', NULL);
-		} elseif ($_POST['type'] == '委託掛單明細') {
-			force_download('download_folder/purple.docx', NULL);
-		}
+		// echo mb_detect_encoding($_POST['type']);
+		$file_big5 = iconv("UTF-8", "BIG5", $_POST['type']);
+		force_download('upload/document/'.$file_big5, NULL);
+		$this->document_download_view();
 	}
 
 	public function pay_error() {
