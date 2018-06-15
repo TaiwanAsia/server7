@@ -669,9 +669,10 @@ class Orders extends CI_Controller {
 		require_once APPPATH."third_party\PHPExcel.php";
 
 		if (isset($_POST['Export'])) {
-			if (isset($_POST['selected_datePicker_1']) && isset($_POST['selected_datePicker_2'])) {
-				$date1 = $_POST['selected_datePicker_1'];
-				$date2 = $_POST['selected_datePicker_2'];
+			$isSelected = false;
+			if ($_POST['date1'] != null && $_POST['date2'] != null) {
+				$date1 = $_POST['date1'];
+				$date2 = $_POST['date2'];
 				$isSelected = true;
 			}
 			//判斷content檔案存在與否，存在則刪除
@@ -736,7 +737,7 @@ class Orders extends CI_Controller {
 			//填入符合條件之成交單資料
 			$row = 2;
 			for ($num = 0; $num < count($data); $num++) {	
-				if ($_POST['selected_業務'] == '所有業務' || $_POST['selected_業務'] == $data[$num]['業務']) {
+				if ($_POST['業務'] == '所有業務' || $_POST['業務'] == $data[$num]['業務']) {
 					if (!$isSelected || $isSelected && strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期'])) {
 						for ($col = 1; $col <= count($title); $col++) {
 							if ($col <= 26) {
