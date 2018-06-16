@@ -129,9 +129,6 @@ class Orders extends CI_Controller {
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
 		$insert_id = $this -> orders_model -> add($data);
-		$pay_record_info = $this -> record_info($data);
-		// print_r($pay_record_info);
-		$this->orders_model->add_payrecord($pay_record_info);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 		$this->go_orders();
 	}
@@ -141,10 +138,12 @@ class Orders extends CI_Controller {
 			//客戶買方 成>盤
 			$價差 = $data['成交價'] - $data['盤價'];
 			$稅金 = $data['成交價']*$data['張數']*1000*0.003;
+			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'])*$_SESSION['趴數'];
 		} else {
 			//客戶賣方 盤>成
 			$價差 = $data['盤價'] - $data['成交價'];
 			$稅金 = $data['盤價']*$data['張數']*1000*0.003;
+			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'])*$_SESSION['趴數'];
 		}
 		
 		$result = array( 'ID' => $data['ID'],
@@ -163,7 +162,7 @@ class Orders extends CI_Controller {
 						'自得比率' => $_SESSION['趴數'],
 						'自行應付' => $data['自行應付'],
 						// '扣款利息' => $_POST['扣款利息'],
-						// '個人實得' => $_POST['個人實得'],
+						'個人實得' => $個人實得,
 						// '營業支出' => $_POST['營業支出'],
 						// '公司' => $_POST['公司'],
 						'匯款日期' => $data['匯款日期'],
@@ -306,15 +305,17 @@ class Orders extends CI_Controller {
 		if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-			echo "編號: " . $id."<br>";
-			echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
-			echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
-			echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
-			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+			// echo "編號: " . $id."<br>";
+			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
+			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
+			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
+			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+
 			if (file_exists("upload/contact/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
 				$this->go_orders();
 			} else {
+				echo "<h2><font color='red'><b>成交單編號:".$id."契約已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
 				$this->go_orders();
@@ -327,15 +328,16 @@ class Orders extends CI_Controller {
 		if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-			echo "編號: " . $id."<br>";
-			echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
-			echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
-			echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
-			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+			// echo "編號: " . $id."<br>";
+			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
+			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
+			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
+			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
 			if (file_exists("upload/tax/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
 				$this->go_orders();
 			} else {
+				echo "<h2><font color='red'><b>成交單編號:".$id."稅單已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
 				$this->go_orders();
@@ -348,15 +350,16 @@ class Orders extends CI_Controller {
 		if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-			echo "編號: " . $id."<br>";
-			echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
-			echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
-			echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
-			echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
+			// echo "編號: " . $id."<br>";
+			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
+			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
+			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
+			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
 			if (file_exists("upload/tax/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
 				$this->go_orders();
 			} else {
+				echo "<h2><font color='red'><b>成交單編號:".$id."水單已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/water/".$id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水', $id, null);
 				$this->orders_model->finish_order($id);
@@ -683,18 +686,19 @@ class Orders extends CI_Controller {
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
-			$this -> orders_model -> edit($data);
-			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
+				$this -> orders_model -> edit($data);
+				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
+				$origin_data = $this->orders_model->get($data['ID']);
+				$pass_record_info = $this -> record_info($origin_data[0]);
+				$this->orders_model->add_passrecord($pass_record_info);
 
-			// } else {
-			// 	echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
-			// 	$this->index();
-			// }
-
-			$this->go_orders();
+				$this->go_orders();
 			} else {
+				// $url = 'index.php/orders/go_edit2?id='.$_POST['ID'];
+				// redirect($url);
 				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->go_orders();
+				
 			}
 
 		} else {
@@ -1280,7 +1284,7 @@ class Orders extends CI_Controller {
 	}
 
 	public function passrecord() {
-		$data = $this->orders_model->get_pay_record();
+		$data = $this->orders_model->get_pass_record();
 		// print_r($data);
 		$this->load->view('templates/header');
 		$this->load->view('pages/money/passrecord_view', array('data'=>$data));
