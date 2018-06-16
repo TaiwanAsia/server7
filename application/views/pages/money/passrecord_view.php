@@ -5,6 +5,7 @@
 			
 			<table class="table">
 				<thead class="thead-light">
+					<?php if ($_SESSION['NAME'] == '小祿' || $_SESSION['NAME'] == 'Anthony') { ?>
 					<tr>
 						<td>
 							<form action="turn_passrecord" method="post" id="turn_passrecord">
@@ -12,6 +13,7 @@
 							</form>
 						</td>
 					</tr>
+					<?php } ?>
 					<tr>
 						<th nowrap="nowrap">成交單編號</th>
 						<th nowrap="nowrap">日期</th>
