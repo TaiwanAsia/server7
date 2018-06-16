@@ -5,14 +5,12 @@
        <div class="btn-group mr-2">
         <!-- <button class="btn btn-sm btn-outline-secondary" id="new_order">新增成交單</button> -->
         <!-- <button class="btn btn-sm btn-outline-secondary">所有</button> -->
-        <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/go_orders'" value="所有"></input>
-        <form action="go_inventory" method="post">
-          <button id="inventory" class="btn btn-sm btn-outline-secondary">庫存</button>
-        </form>
-        <form action="go_ko" method="post">
-          <button id="inventory" class="btn btn-sm btn-outline-secondary">KO</button>
-        </form>
-        <input class="btn btn-sm btn-outline-secondary" type="button" onclick="location.href='new_order';" value="新增成交單" />
+        <div class="btn-group-s">
+        <a href="<?php echo base_url(); ?>index.php/orders/go_orders" class="btn btn-sm btn-outline-secondary">所有</a>
+        <a href="<?php echo base_url(); ?>index.php/orders/go_inventory" class="btn btn-sm btn-outline-secondary">庫存</a>
+        <a href="<?php echo base_url(); ?>index.php/orders/go_ko" class="btn btn-sm btn-outline-secondary">KO</a>
+        <a href="<?php echo base_url(); ?>index.php/orders/new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+        </div>
 
         <form action="export" method="post">
           <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" onchange="">
@@ -27,7 +25,7 @@
             } else {
               echo "<option value=".$_SESSION['NAME'].">".$_SESSION['NAME']."</option>";
             }
-            
+
             ?>
           </select>
 
@@ -466,7 +464,7 @@
             </td>
 
             <?php if ($_SESSION['權限名稱'] == '最高權限') {
-              if ($orders[$i]['業務'] == 'JOY') { 
+              if ($orders[$i]['業務'] == 'JOY') {
                 if ($orders[$i]['已結案'] == 0) {
                   ?>
                  <td>
@@ -477,7 +475,7 @@
                  </td>
               <?php } else { ?>
                 <td>
-                  
+
                 </td>
             <?php  }
             } else { ?>
