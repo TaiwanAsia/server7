@@ -58,7 +58,7 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get($keyword,$權限名稱,$name,$type,$keyword2) {
+    public function get($keyword=null,$權限名稱=null,$name=null,$type=null,$keyword2=null) {
         $query = null;
         if(is_null($keyword)) {
             if ($type == '股票') {
@@ -420,7 +420,10 @@ class Orders_model extends CI_Model {
                                 'PASSWORD'=>$row-> PASSWORD,
                                 'NAME'=>$row-> NAME,
                                 '權限名稱'=>$row-> 權限名稱,
-                                '趴數'=>$row-> 趴數,);
+                                '趴數'=>$row-> 趴數,
+                                '勞保'=>$row-> 勞保,
+                                '健保'=>$row-> 健保,
+                                '勞退'=>$row-> 勞退,);
             }
             return  $result;
         } else {
@@ -836,16 +839,18 @@ class Orders_model extends CI_Model {
         $this->db->insert('need_board', $data);
     }
 
-    public function add_payrecord($data) {
-        $this->db->insert('pay_record', $data);
+    public function add_passrecord($data) {
+        $this->db->insert('pass_record', $data);
     }
 
-    public function get_pay_record() {
+    public function get_pass_record() {
         if ($_SESSION['權限名稱'] == '最高權限') {
-            $query = $this->db->get('pay_record');
+            $this->db->order_by("最後動作時間", "desc");
+            $query = $this->db->get('pass_record');
         } else {
             $this->db->where('業務', $_SESSION['NAME']);
-            $query = $this->db->get('pay_record');
+            $this->db->order_by("最後動作時間", "desc");
+            $query = $this->db->get('pass_record');
         }
         
         
@@ -924,6 +929,12 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    public function turn_passrecord_model() {
+        $query = $this->db->get_where('orders', array('二審'=>1));
+        $result = $this->transformer($query);
+        return $result;
     }
 }
 

@@ -51,6 +51,9 @@ class Login extends CI_Controller {
 					$_SESSION['權限名稱'] = $flag['權限名稱'];
 					$_SESSION['NAME'] = $flag['NAME'];
 					$_SESSION['趴數'] = $flag['趴數'];
+					$_SESSION['勞保'] = $flag['勞保'];
+					$_SESSION['健保'] = $flag['健保'];
+					$_SESSION['勞退'] = $flag['勞退'];
 					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
 
 					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
@@ -106,6 +109,7 @@ class Login extends CI_Controller {
 	public function delete_account() {
 		$account_id = $_POST['account_id'];
 		$this->login_model->delete_account($account_id);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '刪除', $account_id, null);
 		$this->account();
 	}
 
@@ -122,8 +126,12 @@ class Login extends CI_Controller {
 						'ACCOUNT' => $_POST['account'],
 						'PASSWORD' => $_POST['password'],
 						'權限名稱' => $_POST['權限名稱'],
-						'趴數' => $_POST['趴數'],);
-		$this->login_model->add_account($data);
+						'趴數' => $_POST['趴數'],
+						'勞保' => $_POST['勞保'],
+						'健保' => $_POST['健保'],
+						'勞退' => $_POST['勞退'],);
+		$id = $this->login_model->add_account($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增帳號', $id, null);
 		$this->account();
 	}
 
@@ -142,8 +150,12 @@ class Login extends CI_Controller {
 						'ACCOUNT' => $_POST['account'],
 						'PASSWORD' => $_POST['password'],
 						'權限名稱' => $_POST['權限名稱'],
-						'趴數' => $_POST['趴數'],);
+						'趴數' => $_POST['趴數'],
+						'勞保' => $_POST['勞保'],
+						'健保' => $_POST['健保'],
+						'勞退' => $_POST['勞退'],);
 		$this->login_model->edit_account($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '編輯帳號', $_POST['id'], null);
 		$this->account();
 	}
 

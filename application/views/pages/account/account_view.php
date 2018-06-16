@@ -25,6 +25,9 @@
 						<th nowrap="nowrap">密碼</th>
 						<th nowrap="nowrap">權限</th>
 						<th nowrap="nowrap">趴數</th>
+						<th nowrap="nowrap">勞保</th>
+						<th nowrap="nowrap">健保</th>
+						<th nowrap="nowrap">勞退</th>
 						<th nowrap="nowrap"></th>
 						<th nowrap="nowrap"></th>
 					</tr>
@@ -40,6 +43,9 @@
 						echo '<td nowrap="nowrap">'.$data[$i]['PASSWORD']."</td>";
 						echo "<td>".$data[$i]['權限名稱']."</td>";
 						echo "<td>".$data[$i]['趴數']."</td>";
+						echo "<td>".$data[$i]['勞保']."</td>";
+						echo "<td>".$data[$i]['健保']."</td>";
+						echo "<td>".$data[$i]['勞退']."</td>";
 						echo '<td>
 							<form action="delete_account" method="POST" name="" style= "display:inline">
 							<input type="hidden" name="account_id" value="'.$data[$i]['ID'].'">
