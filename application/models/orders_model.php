@@ -420,7 +420,10 @@ class Orders_model extends CI_Model {
                                 'PASSWORD'=>$row-> PASSWORD,
                                 'NAME'=>$row-> NAME,
                                 '權限名稱'=>$row-> 權限名稱,
-                                '趴數'=>$row-> 趴數,);
+                                '趴數'=>$row-> 趴數,
+                                '勞保'=>$row-> 勞保,
+                                '健保'=>$row-> 健保,
+                                '勞退'=>$row-> 勞退,);
             }
             return  $result;
         } else {
@@ -893,6 +896,12 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    public function turn_passrecord_model() {
+        $query = $this->db->get_where('orders', array('二審'=>1));
+        $result = $this->transformer($query);
+        return $result;
     }
 }
 

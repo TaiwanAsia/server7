@@ -138,12 +138,12 @@ class Orders extends CI_Controller {
 			//客戶買方 成>盤
 			$價差 = $data['成交價'] - $data['盤價'];
 			$稅金 = $data['成交價']*$data['張數']*1000*0.003;
-			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'])*$_SESSION['趴數'];
+			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'] - $data['自行應付'])*$_SESSION['趴數'];
 		} else {
 			//客戶賣方 盤>成
 			$價差 = $data['盤價'] - $data['成交價'];
 			$稅金 = $data['盤價']*$data['張數']*1000*0.003;
-			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'])*$_SESSION['趴數'];
+			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'] - $data['自行應付'])*$_SESSION['趴數'];
 		}
 		
 		$result = array( 'ID' => $data['ID'],
@@ -1334,6 +1334,12 @@ class Orders extends CI_Controller {
 		$this->orders_model->add_assign_model($data);
 		// $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '增加工單', $_POST['note_id'], $diff);
 		$this->go_assign();
+	}
+
+	public function turn_passrecord() {
+		$data = $this->orders_model->turn_passrecord_model();
+		echo count($data)."</br>";
+		print_r($data);
 	}
 
 }

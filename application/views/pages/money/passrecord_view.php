@@ -6,6 +6,13 @@
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
+						<td>
+							<form action="turn_passrecord" method="post" id="turn_passrecord">
+								<button type="submit" form="turn_passrecord">補齊轉讓紀錄</button>
+							</form>
+						</td>
+					</tr>
+					<tr>
 						<th nowrap="nowrap">成交單編號</th>
 						<th nowrap="nowrap">日期</th>
 						<th nowrap="nowrap">姓名</th>

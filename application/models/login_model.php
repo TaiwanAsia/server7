@@ -16,7 +16,10 @@ class Login_model extends CI_Model {
                                 'ACCOUNT'=>$row-> ACCOUNT,
                                 'PASSWORD'=>$row-> PASSWORD,
                                 '權限名稱'=>$row-> 權限名稱,
-                                '趴數'=>$row-> 趴數,);
+                                '趴數'=>$row-> 趴數,
+                                '勞保'=>$row-> 勞保,
+                                '健保'=>$row-> 健保,
+                                '勞退'=>$row-> 勞退,);
             }
             return $result;
         }
@@ -39,7 +42,10 @@ class Login_model extends CI_Model {
                                     'PASSWORD'=>$row-> PASSWORD,
                                     'NAME'=>$row-> NAME,
                                     '權限名稱'=>$row-> 權限名稱,
-                                    '趴數'=>$row-> 趴數,);
+                                    '趴數'=>$row-> 趴數,
+                                    '勞保'=>$row-> 勞保,
+                                    '健保'=>$row-> 健保,
+                                    '勞退'=>$row-> 勞退,);
                 }
                 return  $result;
             }
@@ -74,6 +80,8 @@ class Login_model extends CI_Model {
         //增加帳號
         function add_account($data){
             $this->db->insert('EMPLOYEE',$data);
+            $id = $this->db->insert_id();
+            return $id;
         }
 
         //編輯帳號

@@ -13,6 +13,9 @@
 						<th nowrap="nowrap">密碼</th>
 						<th nowrap="nowrap">權限</th>
 						<th nowrap="nowrap">趴數</th>
+						<th nowrap="nowrap">勞保</th>
+						<th nowrap="nowrap">健保</th>
+						<th nowrap="nowrap">勞退</th>
 					</tr>
 					<tr>
 						<td>
@@ -37,6 +40,15 @@
 						</td>
 						<td>
 							<input type="text" name="趴數" value="">
+						</td>
+						<td>
+							<input type="text" name="勞保" value="">
+						</td>
+						<td>
+							<input type="text" name="健保" value="">
+						</td>
+						<td>
+							<input type="text" name="勞退" value="">
 						</td>
 						<td>
 							<input type="submit" name="" value="確認">
