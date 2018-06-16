@@ -53,6 +53,9 @@ input {
 #upload {
   width: 100px; }
 
+.btn-group-s {
+  margin-right: 3px; }
+
 .btn--s1 {
   background-color: #989aff !important;
   color: #fff !important;
