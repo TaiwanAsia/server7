@@ -446,6 +446,23 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function get_bills_out() {
+         $query = $this->db->get('bills_out');
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array('id'=>$row-> id,
+                                '日期'=>$row-> 日期,
+                                '轉出'=>$row-> 轉出,
+                                '轉入'=>$row-> 轉入,
+                                '帳號'=>$row-> 帳號,
+                                '備註'=>$row-> 備註);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
+    }
+
     public function get_customer_info($name) {
         $sql = "SELECT * FROM `orders` WHERE `客戶姓名` = '".$name."' LIMIT 1";
         $query = $this->db->query($sql);
@@ -639,6 +656,22 @@ class Orders_model extends CI_Model {
         $data = array('是否已對帳'=>'1');
         $this->db->where('id', $id);
         $this->db->update('bills', $data);
+    }
+
+    public function add_bill_error($id) {
+        $query = $this->db->get_where('bills', array('id' => $id));
+
+        if($query->num_rows() == 0) {
+            foreach ($query->result() as $row) {
+                $result[] = array(
+                                '日期'=>$row-> 日期,
+                                '轉出'=>$row-> 轉出,
+                                '轉入'=>$row-> 轉入,
+                                '帳號'=>$row-> 帳號,
+                                '備註'=>$row-> 備註);
+            }
+            $this->db->insert('bills_out', $result);
+        }
     }
 
     public function inform_check_money_model($id, $way, $date, $name, $last5, $待查帳金額, $move_time) {

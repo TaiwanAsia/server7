@@ -988,6 +988,7 @@ class Orders extends CI_Controller {
 	    		$money = $orders_sell[$i]['匯款金額應收帳款'];
 	    		$inform = $orders_sell[$i]['通知查帳'];
 	    		$isCheckExported = false;
+	    		$isError = false;
 
 		    	if ($orders_sell[$i]['買賣'] == '0') {	//已匯金額
 		    		if ($inform == '未通知' || $inform == '待對帳') {
@@ -999,11 +1000,17 @@ class Orders extends CI_Controller {
 			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, date('Y-m-d'));
 			    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 			    					$isCheckExported = true;
+			    					$error_id = $datas[$j]['id'];
 			    				} else if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉出']) { //一周內重複
 			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, '金額重複');
 			    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
+			    					$this->orders_model->add_bill_error($datas[$j]['id']);
+			    					$isError = true;
 			    				}
 			    			}
+		    			}
+		    			if ($isError) {
+		    				$this->orders_model->add_bill_error($error_id);
 		    			}
 		    		}
 	    		}
@@ -1275,8 +1282,10 @@ class Orders extends CI_Controller {
 	}
 
 	public function pay_error() {
+		$data = $this->orders_model->get_bills_out();
 		$this->load->view('templates/header');
-		echo "轉出異常的成交單會出現在這(EX大姊匯了兩次)";
+		$this->load->view('pages/money/error_view', array('data'=>$data));
+		//echo "轉出異常的成交單會出現在這(EX大姊匯了兩次)";
 	}
 
 	public function passrecord() {
