@@ -36,6 +36,26 @@ $("#receFileUpload").change(function(){
 	console.log("fileName" + fileName);
   });
 
+
+// 公布欄 table row expand
+	$(function() {
+    $("#billboardTable td[colspan=4]").find("p").hide();
+
+
+
+    $("#billboardTable").click(function(event) {
+        event.stopPropagation();
+        var $target = $(event.target);
+        if ( $target.closest("td").attr("colspan") > 1 ) {
+            $target.slideUp();
+        } else {
+            $target.closest("tr").next().find("p").slideToggle();
+        }
+    });
+});
+
+
+
 });
 
 
