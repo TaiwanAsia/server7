@@ -30,8 +30,7 @@
 							<?php echo $data[$i]['建立者']; ?>
 						</td>
 						<td class="bb-btn">
-							<span class="btn-pl">+</span>
-    					<span class="btn-mi hide">-</span>
+							<span class="btn-pl"></span>
 						</td>
 					</tr>
 					<tr class="ex-t-row">

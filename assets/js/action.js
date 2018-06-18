@@ -41,9 +41,8 @@ $("#receFileUpload").change(function(){
 	$(function() {
     $("#billboardTable td[colspan=4]").find("p").hide();
 
-
-
-    $("#billboardTable").click(function(event) {
+    $("#billboardTable .bb-btn span").click(function(event) {
+			$(this).toggleClass('btn-mi');
         event.stopPropagation();
         var $target = $(event.target);
         if ( $target.closest("td").attr("colspan") > 1 ) {
@@ -51,6 +50,7 @@ $("#receFileUpload").change(function(){
         } else {
             $target.closest("tr").next().find("p").slideToggle();
         }
+        console.log(this);
     });
 });
 
