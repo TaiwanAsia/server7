@@ -43,7 +43,7 @@
               </span>
             </div>
 
-              <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳">
+              <!-- <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"> -->
           <?php } ?>
 
         </div>

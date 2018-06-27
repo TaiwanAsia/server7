@@ -8,19 +8,18 @@
 			<table id="billboardTable" class="table">
 				<thead class="thead-light">
 					<tr>
-						<th nowrap="nowrap">建立時間</th>
 						<th nowrap="nowrap">對象</th>
 						<th nowrap="nowrap">屬性</th>
-						<th nowrap="nowrap">內文</th>
-						<th nowrap="nowrap" colspan="2">建立者</th>
+						<!-- <th nowrap="nowrap">內文</th> -->
+						<th nowrap="nowrap" colspan="">建立者</th>
+						<th nowrap="nowrap">建立時間</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
-						<td>
-							<?php echo $data[$i]['建立時間']; ?>
-						</td>
+						
 						<td>
 							<?php echo $data[$i]['工單對象']; ?>
 						</td>
@@ -28,10 +27,10 @@
 							<?php echo $data[$i]['工單屬性']; ?>
 						</td>
 						<td>
-							<?php echo $data[$i]['工單內容']; ?>
+							<?php echo $data[$i]['建立者']; ?>
 						</td>
 						<td>
-							<?php echo $data[$i]['建立者']; ?>
+							<?php echo $data[$i]['建立時間']; ?>
 						</td>
 						<td class="bb-btn">
 							<span class="btn-pl"></span>
@@ -39,9 +38,9 @@
 					</tr>
 					<tr class="ex-t-row">
 						<td colspan="6"><p>
-							<?php echo $data[$i]['工單屬性']; ?>
+							<!-- <?php echo $data[$i]['工單屬性']; ?> -->
 							<?php echo $data[$i]['工單內容']; ?>
-							<?php echo $data[$i]['建立者']; ?>
+							<!-- <?php echo $data[$i]['建立者']; ?> -->
 						</p></td>
 					</tr>
 					<?php } ?>

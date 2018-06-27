@@ -1359,8 +1359,36 @@ class Orders extends CI_Controller {
 
 	public function turn_passrecord() {
 		$data = $this->orders_model->turn_passrecord_model();
+		
 		echo count($data)."</br>";
-		print_r($data);
+		for ($i=0; $i < count($data); $i++) {
+			$insert_data[$i]['姓名'] = $data[$i]['客戶姓名'];
+			$insert_data[$i]['買賣'] = $data[$i]['買賣'];
+			$insert_data[$i]['業務'] = $data[$i]['業務'];
+			$insert_data[$i]['標的名稱'] = $data[$i]['股票'];
+			$insert_data[$i]['張數'] = $data[$i]['張數'];
+			$insert_data[$i]['成交價'] = $data[$i]['成交價'];
+			$insert_data[$i]['盤價'] = $data[$i]['盤價'];
+			// $insert_data[$i]['價差'] = $data[$i]['價差'];
+			// $insert_data[$i]['稅金'] = $data[$i]['客戶姓名'];
+			$insert_data[$i]['過戶費'] = $data[$i]['過戶費'];
+			$insert_data[$i]['金額'] = $data[$i]['匯款金額應收帳款'];
+			$employees = $this->orders_model->get_employee($data[$i]['業務']);
+			$insert_data[$i]['自得比率'] = $employees[0]['趴數'];
+			$insert_data[$i]['自行應付'] = $data[$i]['自行應付'];
+			// $insert_data[$i]['扣款利息'] = $data[$i]['客戶姓名'];
+			// $insert_data[$i]['個人實得'] = $data[$i]['客戶姓名'];
+			// $insert_data[$i]['營業'] = $data[$i]['客戶姓名'];
+			// $insert_data[$i]['公司'] = $data[$i]['客戶姓名'];
+			$insert_data[$i]['匯款日期'] = $data[$i]['匯款日期'];
+			$insert_data[$i]['狀態'] = '未完成';
+			$insert_data[$i]['轉讓會員'] = $data[$i]['轉讓會員'];
+			$insert_data[$i]['備註'] = $data[$i]['備註'];
+			$insert_data[$i]['動作時間'] = date('Y-m-d H:i:s');
+			echo "<br>";
+			print_r($insert_data[$i]);
+			echo "<br>";
+		}
 	}
 
 	public function show_bank() {
@@ -1368,6 +1396,11 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/show_bank_view', array('data'=>$data));
+	}
+
+	public function show_test() {
+		$this->load->view('pages/money/testing');
+
 	}
 
 }

@@ -2,8 +2,10 @@
 	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 
 		<div class="t-form">
+
+			<!-- <table id="tblEditor"></table> -->
 			
-			<table class="table">
+			<table class="table" id="tblEditor">
 				<thead class="thead-light">
 					<?php if ($_SESSION['NAME'] == '小祿' || $_SESSION['NAME'] == 'Anthony') { ?>
 					<tr>
@@ -128,6 +130,18 @@
 		</div>
 	</main>
 
+	
+	<style type="text/css">
+        #tblEditor { width: 300px; height: 300px; }
+        #tblEditor td { border: 1px solid #444444; text-align: center; width: 25%; }
+        td.cell-editor { background-color: #ddffdd; }
+        td.cell-editor input { 
+            width: 90%; border: 0px none black; background-color: #ddffdd; 
+        }
+        .ch,.rh { background-color: #dddddd; }
+    </style>
+
+	
 
 </body>
 </html>

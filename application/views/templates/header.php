@@ -31,12 +31,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <!-- <link href="dashboard.css" rel="stylesheet"> -->
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
-
+        
+        <!-- <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.js" 
+             type="text/javascript"></script> -->
     </head>
 
     <script type="text/javascript">
         function gettoday() {
             document.getElementById("date").valueAsDate = new Date();
+        }
+
+
+        
+        $("td.cell").live("dblclick", function () {
+            //若已有其他欄位在編輯中，強制結束
+            if (window.$currEditing)
+                finishEditing($currEditing);
+            var $cell = $(this);
+            var $inp = $("<input type='text' />");
+            $inp.val($cell.text());
+            $cell.addClass("cell-editor").html("").append($inp);
+            $inp[0].select();
+            window.$currEditing = $inp;
+        }).live("click", function () {
+            //點選其他格子，強制結束目前的編輯欄
+            if (window.$currEditing
+                //排除點選目前編輯欄位的情況
+                && $currEditing.parent()[0] != this)
+                finishEditing($currEditing);
+        });
+        //加上按Enter/Tab切回原來Text的事件
+        $("td.cell-editor input").live("keydown", function (e) {
+            if (e.which == 13 || e.which == 9)
+                finishEditing($(this));
+        });
+        //結束編輯模式
+        function finishEditing($inp) {
+            $inp.parent().removeClass("cell-editor").text($inp.val());
+            window.$currEditing = null;
         }
     </script>
 
