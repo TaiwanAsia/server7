@@ -42,19 +42,28 @@ class Orders extends CI_Controller {
 
     public function go_orders()
     {
+    	// The following code define the actions when a 'clickable' table element
+    	// is clicked.
 		if (!isset($_SESSION['ACCOUNT'])) {
+			// If not logged in, redirect to 'login/index'
 			redirect('index.php/login/index');
 		} else {
+			// Handles queries on orders between 'date1' and 'date2'
 			if (isset($_GET['date1']) && isset($_GET['date2']) && isset($_GET['業務'])) {
 				$orders = $this->orders_model->get_byDate($_SESSION['權限名稱'],$_SESSION['NAME'],$_GET['業務'],$_GET['date1'],$_GET['date2']);
+			// Handles 'click' on 股票
 			} else if (isset($_GET['股票'])) {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'股票',$_GET['股票']);
+			// Handles 'click' on 業務
 			} else if (isset($_GET['業務'])) {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'業務',$_GET['業務']);
+			// Handles 'click' on 客戶姓名
 			} else if (isset($_GET['客戶姓名'])) {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'客戶姓名',$_GET['客戶姓名']);
+			// Handles 'click' on 連絡電話
 			} else if (isset($_GET['聯絡電話'])) {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'聯絡電話',$_GET['聯絡電話']);
+			// Default handlers for unhandled actions
 			} else {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 			}
@@ -264,6 +273,7 @@ class Orders extends CI_Controller {
 							'total_info' => $total_info,);
 
 		$this->load->view('templates/header');
+		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/receivable_view', $arrayName);
 	}
 
@@ -698,7 +708,6 @@ class Orders extends CI_Controller {
 				// redirect($url);
 				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->go_orders();
-				
 			}
 
 		} else {
@@ -1112,7 +1121,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
 		$array = array('order' => $order);
-		$this->load->view('pages/money/inform_check_money',$array);
+		$this->load->view('pages/money/inform_check_money_view',$array);
 	}
 
 	//更改通知查帳
@@ -1127,6 +1136,7 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_check_record(null, '未查帳');
 		$arrayName = array('data' => $data);
 		$this->load->view('templates/header');
+		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/ready_to_check',$arrayName);
 	}
 
@@ -1140,6 +1150,7 @@ class Orders extends CI_Controller {
 	public function check_record() {
 		$data = $this->orders_model->get_check_record(null, '已查帳');
 		$this->load->view('templates/header');
+		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/check_record', array('data'=>$data));
 	}
 
@@ -1288,6 +1299,7 @@ class Orders extends CI_Controller {
 	public function pay_error() {
 		$data = $this->orders_model->get_bills_out();
 		$this->load->view('templates/header');
+		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/error_view', array('data'=>$data));
 		//echo "轉出異常的成交單會出現在這(EX大姊匯了兩次)";
 	}
@@ -1349,6 +1361,13 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->turn_passrecord_model();
 		echo count($data)."</br>";
 		print_r($data);
+	}
+
+	public function show_bank() {
+		$data = $this->orders_model->show_bank_model();
+		$this->load->view('templates/header');
+		$this->load->view('templates/receivable_header');
+		$this->load->view('pages/money/show_bank_view', array('data'=>$data));
 	}
 
 }

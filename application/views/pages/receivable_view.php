@@ -1,5 +1,5 @@
 
-                <main role="main" style="flex: 1 0 auto;" >
+                <!-- <main role="main" style="flex: 1 0 auto;" >
                   <div class="t-form-h">
                     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
                         <h1 class="h2">應收帳款</h1>
@@ -13,7 +13,7 @@
                                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/pay_error'" value="轉出異常"></input>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
         <div class="t-form-t">
           <?php if ($_SESSION['權限名稱']=='最高權限') { ?>

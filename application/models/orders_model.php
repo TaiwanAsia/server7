@@ -8,7 +8,7 @@ class Orders_model extends CI_Model {
                     $result[] = array('ID'=>$row-> ID,
                     '成交日期'=>$row-> 成交日期,
                     '業務'=>$row-> 業務,
-                    '客戶姓名'=>$row->客戶姓名,
+                    '客戶姓名'=>$row-> 客戶姓名,
                     '身分證字號'=>$row-> 身分證字號,
                     '聯絡電話'=>$row-> 聯絡電話,
                     '聯絡人'=>$row-> 聯絡人,
@@ -60,7 +60,9 @@ class Orders_model extends CI_Model {
 
     public function get($keyword=null,$權限名稱=null,$name=null,$type=null,$keyword2=null) {
         $query = null;
+        // The following code sections define the query handlers
         if(is_null($keyword)) {
+            // Query all 股票 satisfying 股票 == $keyword2
             if ($type == '股票') {
                 if($權限名稱=='最高權限') {
                     $sql = "SELECT * FROM `ORDERS` WHERE `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
@@ -842,6 +844,7 @@ class Orders_model extends CI_Model {
     public function add_passrecord($data) {
         $this->db->insert('pass_record', $data);
     }
+    
 
     public function get_pass_record() {
         if ($_SESSION['權限名稱'] == '最高權限') {
@@ -935,6 +938,25 @@ class Orders_model extends CI_Model {
         $query = $this->db->get_where('orders', array('二審'=>1));
         $result = $this->transformer($query);
         return $result;
+    }
+
+    public function show_bank_model() {
+        $this->db->order_by('日期','desc');
+        $query = $this->db->get('bills');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = array('id'=>$row-> id,
+                        '日期'=>$row-> 日期,
+                        '轉出'=>$row-> 轉出,
+                        '轉入'=>$row-> 轉入,
+                        '帳號'=>$row-> 帳號,
+                        '備註'=>$row-> 備註,
+                        '是否已對帳'=>$row-> 是否已對帳,);
+            }
+            return $result;
+        } else {
+            return false;
+        }
     }
 }
 
