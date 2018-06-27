@@ -39,7 +39,7 @@ $("#receFileUpload").change(function(){
 
 // 公布欄 table row expand
 	$(function() {
-    $("#billboardTable td[colspan=4]").find("p").hide();
+    $("#billboardTable .billtd").find("p").hide();
 
     $("#billboardTable .bb-btn span").click(function(event) {
 			$(this).toggleClass('btn-mi');

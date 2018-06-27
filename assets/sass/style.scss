@@ -362,3 +362,15 @@
     display: flex;
     flex-direction: column-reverse;
 	}
+
+	#tblEditor{
+      td.cell-editor {
+        input {
+            width: 110%;
+            border: 0px none black;
+            background-color: #ddffdd;
+        }
+		}
+}
+
+

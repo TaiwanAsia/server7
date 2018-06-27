@@ -11,8 +11,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../../../favicon.ico">
-        <title>成交單</title>
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css?20180606">
+        <title>Server7</title>
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css?123">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/tablesaw.css">
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -25,14 +25,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <!-- Graphs -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
         <!-- <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
         <!-- Custom styles for this template -->
         <!-- <link href="dashboard.css" rel="stylesheet"> -->
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
-        
-        <!-- <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.js" 
+
+        <!-- <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.js"
              type="text/javascript"></script> -->
     </head>
 
@@ -42,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
 
-        
+
         $("td.cell").live("dblclick", function () {
             //若已有其他欄位在編輯中，強制結束
             if (window.$currEditing)
@@ -125,7 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 傳真資料
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/document_download_view">
                                 文件下載
