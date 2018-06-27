@@ -365,7 +365,7 @@ class Orders extends CI_Controller {
 			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
 			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
 			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
-			if (file_exists("upload/tax/" . $id)){
+			if (file_exists("upload/water/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
 				$this->go_orders();
 			} else {

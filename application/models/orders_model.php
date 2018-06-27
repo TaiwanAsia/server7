@@ -355,6 +355,7 @@ class Orders_model extends CI_Model {
 
     public function add_bill($data) {
         //check duplicated
+        print_r($data);
         $query = $this->db->get_where('bills', array(
                                             '日期' => $data['日期'],
                                             '轉出' => $data['轉出'], 
@@ -773,6 +774,8 @@ class Orders_model extends CI_Model {
 
     public function finish_order($id) {
         $sql = "UPDATE `orders` SET `已結案`= 1 WHERE `ID` = ".$id;
+        $query = $this->db->query($sql);
+        $sql = "UPDATE `pass_record` SET `狀態`= '已結案' WHERE `ID` = ".$id;
         $query = $this->db->query($sql);
     }
 
