@@ -1,15 +1,15 @@
 
 	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
-
+		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
+     		<h1 class="h2">轉讓紀錄</h1>
+		</div>
 		<div class="t-form">
 
-			<!-- <table id="tblEditor"></table> -->
-			
 			<table class="table" id="tblEditor">
 				<thead class="thead-light">
 					<?php if ($_SESSION['NAME'] == '小祿' || $_SESSION['NAME'] == 'Anthony') { ?>
 					<tr>
-						<td>
+						<td class="cell">
 							<form action="turn_passrecord" method="post" id="turn_passrecord">
 								<button type="submit" form="turn_passrecord">補齊轉讓紀錄</button>
 							</form>
@@ -45,82 +45,36 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (count($data)>=1) { 
+					<?php if (count($data)>=1) {
 					for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
-						<td>
-							<?php echo $data[$i]['ID']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['日期']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['姓名']; ?>
-						</td>
-						<td>
-							<?php if ($data[$i]['買賣'] == 1) {
+						<td class="cell"><?php echo $data[$i]['ID']; ?></td>
+						<td class="cell"><?php echo $data[$i]['日期']; ?></td>
+						<td class="cell"><?php echo $data[$i]['姓名']; ?></td>
+						<td class="cell"><?php if ($data[$i]['買賣'] == 1) {
 								echo "買";
 							} elseif($data[$i]['買賣'] == 0) {
-								echo "賣"; 
-							} ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['業務']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['標的名稱']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['張數']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['成交價']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['盤價']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['價差']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['稅金']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['過戶費']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['金額']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['自得比率']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['自行應付']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['扣款利息']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['個人實得']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['營業支出']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['公司']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['匯款日期']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['轉讓會員']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['備註']; ?>
-						</td>
-						<td>
-							<?php echo $data[$i]['狀態']; ?>
-						</td>
+								echo "賣";
+							} ?></td>
+						<td class="cell"><?php echo $data[$i]['業務']; ?></td>
+						<td class="cell"><?php echo $data[$i]['標的名稱']; ?></td>
+						<td class="cell"><?php echo $data[$i]['張數']; ?></td>
+						<td class="cell"><?php echo $data[$i]['成交價']; ?></td>
+						<td class="cell"><?php echo $data[$i]['盤價']; ?></td>
+						<td class="cell"><?php echo $data[$i]['價差']; ?></td>
+						<td class="cell"><?php echo $data[$i]['稅金']; ?></td>
+						<td class="cell"><?php echo $data[$i]['過戶費']; ?></td>
+						<td class="cell"><?php echo $data[$i]['金額']; ?></td>
+						<td class="cell"><?php echo $data[$i]['自得比率']; ?></td>
+						<td class="cell"><?php echo $data[$i]['自行應付']; ?></td>
+						<td class="cell"><?php echo $data[$i]['扣款利息']; ?></td>
+						<td class="cell"><?php echo $data[$i]['個人實得']; ?></td>
+						<td class="cell"><?php echo $data[$i]['營業支出']; ?></td>
+						<td class="cell"><?php echo $data[$i]['公司']; ?></td>
+						<td class="cell"><?php echo $data[$i]['匯款日期']; ?></td>
+						<td class="cell"><?php echo $data[$i]['轉讓會員']; ?></td>
+						<td class="cell"><?php echo $data[$i]['備註']; ?></td>
+						<td class="cell"><?php echo $data[$i]['狀態']; ?></td>
 					</tr>
 
 					<?php }
@@ -130,18 +84,41 @@
 		</div>
 	</main>
 
-	
-	<style type="text/css">
-        #tblEditor { width: 300px; height: 300px; }
-        #tblEditor td { border: 1px solid #444444; text-align: center; width: 25%; }
-        td.cell-editor { background-color: #ddffdd; }
-        td.cell-editor input { 
-            width: 90%; border: 0px none black; background-color: #ddffdd; 
-        }
-        .ch,.rh { background-color: #dddddd; }
-    </style>
+ <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.js"></script>
+ <script> var jq161 = jQuery.noConflict(true); </script>
 
-	
+ <script type="text/javascript">
+        jq161(function($){
 
+            //加上點選進入編輯模式的事件
+            $("td.cell").live("dblclick", function () {
+                //若已有其他欄位在編輯中，強制結束
+                if (window.$currEditing)
+                    finishEditing($currEditing);
+                var $cell = $(this);
+                var $inp = $("<input type='text' />");
+                $inp.val($cell.text());
+                $cell.addClass("cell-editor").html("").append($inp);
+                $inp[0].select();
+                window.$currEditing = $inp;
+            }).live("click", function () {
+                //點選其他格子，強制結束目前的編輯欄
+                if (window.$currEditing
+                    //排除點選目前編輯欄位的情況
+                    && $currEditing.parent()[0] != this)
+                    finishEditing($currEditing);
+            });
+            //加上按Enter/Tab切回原來Text的事件
+            $("td.cell-editor input").live("keydown", function (e) {
+                if (e.which == 13 || e.which == 9)
+                    finishEditing($(this));
+            });
+            //結束編輯模式
+            function finishEditing($inp) {
+                $inp.parent().removeClass("cell-editor").text($inp.val());
+                window.$currEditing = null;
+            }
+        });
+    </script>
 </body>
 </html>

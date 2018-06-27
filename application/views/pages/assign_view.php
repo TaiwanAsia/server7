@@ -19,7 +19,7 @@
 				<tbody>
 					<?php for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
-						
+
 						<td>
 							<?php echo $data[$i]['工單對象']; ?>
 						</td>
@@ -37,7 +37,8 @@
 						</td>
 					</tr>
 					<tr class="ex-t-row">
-						<td colspan="6"><p>
+						<td colspan="6" class="billtd">
+							<p>
 							<!-- <?php echo $data[$i]['工單屬性']; ?> -->
 							<?php echo $data[$i]['工單內容']; ?>
 							<!-- <?php echo $data[$i]['建立者']; ?> -->
