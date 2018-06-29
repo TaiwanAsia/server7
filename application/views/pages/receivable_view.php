@@ -26,22 +26,27 @@
                 <button type="submit" id="submit" name="Import" class="btn btn-sm btn-outline-secondary">上傳</button>
               </form>
               <div class="total-zone">
-              <span>
-                  <?php if ($_SESSION['權限名稱']=='最高權限') {
-                    echo "總應收: ".$total_info['total_receivable'];
-                    } ?>
-              </span>
-              <span>
-                  <?php if ($_SESSION['權限名稱']=='最高權限') {
-                    echo "總已收:".$total_info['total_received'];
-                    } ?>
-              </span>
-              <span>
-                  <?php if ($_SESSION['權限名稱']=='最高權限') {
-                    echo "總尚餘:".$total_info['total_left'];
-                    } ?>
-              </span>
-            </div>
+                <span>
+                  <?php if ($_SESSION['權限名稱'] == '最高權限') {
+                    echo "目前範圍 <font color='red' size='4'>".$first_dateofdata."~".$last_dateofdata."</font";
+                  } ?>
+                </span>
+                <span>
+                    <?php if ($_SESSION['權限名稱']=='最高權限') {
+                      echo "總應收: ".$total_info['total_receivable'];
+                      } ?>
+                </span>
+                <span>
+                    <?php if ($_SESSION['權限名稱']=='最高權限') {
+                      echo "總已收:".$total_info['total_received'];
+                      } ?>
+                </span>
+                <span>
+                    <?php if ($_SESSION['權限名稱']=='最高權限') {
+                      echo "總尚餘:".$total_info['total_left'];
+                      } ?>
+                </span>
+              </div>
 
               <!-- <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"> -->
           <?php } ?>

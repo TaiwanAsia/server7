@@ -139,6 +139,12 @@ class Orders extends CI_Controller {
 					);
 		$insert_id = $this -> orders_model -> add($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
+		//大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
+		if ($_SESSION['NAME'] == '小祿') {
+			$pass_record_info = $this -> record_info($data);
+			$this->orders_model->add_passrecord($pass_record_info);
+		}
+		
 		$this->go_orders();
 	}
 
@@ -268,9 +274,15 @@ class Orders extends CI_Controller {
 
 		$employees = $this->orders_model->get_employee(null);
 
+		$bank_data = $this->orders_model->show_bank_model();
+		$first_dateofdata = $bank_data[count($bank_data)-1]['日期'];
+		$last_dateofdata = $bank_data[0]['日期'];
+
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,
-							'total_info' => $total_info,);
+							'total_info' => $total_info,
+							'first_dateofdata' => $first_dateofdata,
+							'last_dateofdata' => $last_dateofdata,);
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/receivable_header');
