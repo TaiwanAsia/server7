@@ -81,7 +81,7 @@ class Orders_model extends CI_Model {
                     $query = $this->db->query($sql);
                 } elseif ($權限名稱=='業務') {
                     $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name, '業務' => $keyword2));
+                    $query = $this->db->get_where('ORDERS', array('業務' => $name));
                 } else {
                     $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
                     $this->db->where('業務', $keyword2);
