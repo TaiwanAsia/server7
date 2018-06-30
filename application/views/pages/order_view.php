@@ -9,7 +9,12 @@
         <a href="<?php echo base_url(); ?>index.php/orders/go_orders" class="btn btn-sm btn-outline-secondary">所有</a>
         <a href="<?php echo base_url(); ?>index.php/orders/go_inventory" class="btn btn-sm btn-outline-secondary">庫存</a>
         <a href="<?php echo base_url(); ?>index.php/orders/go_ko" class="btn btn-sm btn-outline-secondary">KO</a>
+        <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
+          <a href="<?php echo base_url(); ?>index.php/orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+        <?php } else if($add_quene) { ?>
         <a href="<?php echo base_url(); ?>index.php/orders/new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+        <?php } ?>
+
         </div>
 
         <form action="export" method="post">
@@ -60,6 +65,7 @@
         <th data-tablesaw-priority="persist"></th>
         <th data-tablesaw-priority="persist"></th>
         <th data-tablesaw-priority="1">編號</th>
+        <th data-tablesaw-priority="0">ID</th>
         <th data-tablesaw-priority="1" scope="col">成交日期</th>
         <th data-tablesaw-priority="1">業務</th>
         <th data-tablesaw-priority="1">客戶姓名</th>
@@ -86,7 +92,7 @@
         <th data-tablesaw-priority="0">自行應付</th>
         <th data-tablesaw-priority="0">刻印</th>
         <th data-tablesaw-priority="0">過戶費</th>
-        <th data-tablesaw-priority="0">媒合</th>
+        <!-- <th data-tablesaw-priority="0">媒合</th> -->
         <th data-tablesaw-priority="1">收付款</th>
         <th data-tablesaw-priority="0">過戶日期</th>
         <th data-tablesaw-priority="1">通知查帳</th>
@@ -107,7 +113,7 @@
 
 
 
-    <tr <?php if ($orders[$i]['媒合'] != 0 ) { ?>class="td-cs-1"<?php }?>>
+    <tr <?php if ($orders[$i]['媒合'] != 0 ) { ?>class=""<?php }?>>
         <td>
               <?php if ($_SESSION['刪除權限']==1) { ?>
                 <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
@@ -134,7 +140,13 @@
           </form>
           <?php } ?>
         </td> -->
-        <td><label id="mousemove<?php echo ($orders[$i]['ID']) ?>" onmouseout="changefont_back(<?php echo ($orders[$i]['ID']) ?>)" onmousemove="changefont(<?php echo ($orders[$i]['ID']) ?>)" onclick="showbonus(<?php echo ($orders[$i]['ID']) ?>)" style="cursor: pointer;"><?php echo ($orders[$i]['ID']) ?></label></td>
+        <td>
+          <?php echo ($orders[$i]['媒合']) ?>
+          <input type="hidden" id="媒合<?php echo $orders[$i]['ID']; ?>" name="媒合" value="<?php echo $orders[$i]['媒合']; ?>">
+        </td>
+        <td>
+          <label id="mousemove<?php echo ($orders[$i]['ID']) ?>" onmouseout="changefont_back(<?php echo ($orders[$i]['ID']) ?>)" onmousemove="changefont(<?php echo ($orders[$i]['ID']) ?>)" onclick="showbonus(<?php echo ($orders[$i]['ID']) ?>)" style="cursor: pointer;"><?php echo ($orders[$i]['ID']) ?></label>
+        </td>
         <td>
           <?php echo ($orders[$i]['成交日期']) ?>
           <input type="hidden" id="成交日期<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['成交日期']; ?>">
@@ -368,7 +380,7 @@
 
             <td><?php echo ($orders[$i]['過戶費']) ?></td>
 
-        <?php if ($_SESSION['媒合權限']==1) { ?>
+<!--         <?php if ($_SESSION['媒合權限']==1) { ?>
           <td style="min-width: 100px;">
             <?php if($orders[$i]['媒合']==0){ ?>
               <form method="post" action="match">
@@ -397,7 +409,7 @@
               } else {
                 echo "<td><u>".$orders[$i]['媒合']."</u></td>";
               }
-             }?>
+             }?> -->
 
             <td><?php echo ($orders[$i]['匯款日期']) ?></td>
 

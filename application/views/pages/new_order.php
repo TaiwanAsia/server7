@@ -2,15 +2,19 @@
   <div>
    <form method="post" name="new_order_info" action="add_order" >
     <div class="offset-md-1">
+        <?php //echo($add_quene['id']) ?>
+        <input type="hidden" name="add_quene編號" value="<?php echo($add_quene['id']) ?>">
      <table>
         <tr>
             <td class="text-danger"><p><b>☝紅色為必填欄位　　</b></p></td>
             <td><label for="" class="text-danger">成交日期</label></td>
-            <td><input class="" type="date" id="成交日期" name="成交日期" value="" id="date" required></td>
+            <td><input class="" type="date" id="成交日期" name="成交日期" value="<?php echo($add_quene['成交日期']) ?>" id="date" required></td>
             <td><button type="button" onclick="gettoday()">今天</button></td>
         </tr>
         <tr>
-            <td></td>
+            <td>
+                <input type="hidden" name="媒合" value="<?php echo($add_quene['媒合編號']) ?>">
+            </td>
             <td><label for="" class="">業務</label></td>
             <td><input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id=""></td>
         </td>
@@ -53,7 +57,7 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">股票</label></td>
-            <td><input class="" type="text" name="股票" value="" id="股票" required></td>
+            <td><input class="" type="text" name="股票" value="<?php echo($add_quene['股票名稱']) ?>" id="股票" required></td>
             <td><p class="text-danger"><b>***名稱必須與本公司網站的該公司名稱一樣***</b></p></td>
             <td><a href="http://www.kcc668.com/">本公司網站</a></td>
         </tr>
@@ -84,8 +88,8 @@
         <tr>
             <td></td>
             <td></td>
-            <!-- <td></td> -->
-            <td colspan="2" id="order_info" class="text-danger">
+            <td></td>
+            <td colspan="" id="order_info" class="text-danger">
                 <p class="text-danger"><b>★客戶賣出 / 買進股票，按一下驗算匯款金額圖示，系統會幫你自動驗算喔！</b></p>
             </td>
         </tr>

@@ -3,6 +3,7 @@
                     <form method="post" name="edit_order_info" action="edit_order" >
                         <div class="offset-md-1">
                             <table>
+                                <input type="hidden" name="媒合" value="<?php echo $result[0]['媒合'] ?>">
                                 <tr>
                                     <td></td>
                                     <td>

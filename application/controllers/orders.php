@@ -67,11 +67,13 @@ class Orders extends CI_Controller {
 			} else {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 			}
+			$add_quene = $this->orders_model->get_add_quene($_SESSION['NAME']);
 			$all_orders = $orders;
 			$employees = $this->orders_model->get_employee(null);
 			$arrayName = array('orders' => $orders,
 								'all_orders' => $all_orders,
-								'employees' => $employees,);
+								'employees' => $employees,
+								'add_quene' => $add_quene,);
 			$this->show($arrayName);
 		}
 	}
@@ -86,13 +88,43 @@ class Orders extends CI_Controller {
 
 	public function new_order()
     {
+    	$add_quene = $this->orders_model->get_add_quene($_SESSION['NAME']);
+
 		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
-							'employees' => $employees,);
-
+							'employees' => $employees,
+							'add_quene' => $add_quene[0],);
 		$this->load->view('templates/header');
 		$this->load->view('pages/new_order', $arrayName);
+	}
+
+	public function admin_new_order() {
+		$quene = $this->orders_model->get_add_quene();
+		$employees = $this->orders_model->get_employee('業務');
+		if ($quene) {
+			$新媒合編號 = $quene[count($quene)-1]['媒合編號']+1;
+		} else {
+			$新媒合編號 = 1;
+		}
+		$arrayName = array(
+							'新媒合編號' => $新媒合編號,
+							'employees' => $employees,);
+		$this->load->view('templates/header');
+		$this->load->view('pages/admin_new_order', $arrayName);
+	}
+
+	public function add_order_ID() {
+		for ($i=0; $i < count($_POST['業務']); $i++) { 
+			$array = array('媒合編號' => $_POST['媒合編號'],
+							'成交日期' => $_POST['成交日期'],
+							'股票名稱' => $_POST['股票名稱'],
+							'業務' => $_POST['業務'][$i],);
+			$this->orders_model->insert_add_quene($array);
+		}
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin新增成交單', '媒合編號'.$_POST['媒合編號'], null);
+		
+		$this->go_orders();
 	}
 
 	public function add_order()
@@ -108,6 +140,7 @@ class Orders extends CI_Controller {
 			$insert_id = $today_y.$today_m."0001";
 		}
 		$data = array(	'ID' => $insert_id,
+						'媒合' => $_POST['媒合'],
 						'成交日期' => $_POST['成交日期'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
@@ -144,6 +177,8 @@ class Orders extends CI_Controller {
 			$pass_record_info = $this -> record_info($data);
 			$this->orders_model->add_passrecord($pass_record_info);
 		}
+		$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
+		$this->orders_model->delete_add_quene($_POST['add_quene編號']);
 		
 		$this->go_orders();
 	}
@@ -587,6 +622,7 @@ class Orders extends CI_Controller {
 		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
 		$data = array('成交日期' => $_POST['成交日期'],
 						'ID' => $_POST['ID'],
+						'媒合' => $_POST['媒合'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
 						'身分證字號' => $_POST['身分證字號'],
@@ -617,6 +653,7 @@ class Orders extends CI_Controller {
 			}
 		}
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $_POST['ID'], $effect);
+		$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
 		$this -> orders_model -> edit($data);
 		$this->go_orders();
 	}
@@ -1132,10 +1169,13 @@ class Orders extends CI_Controller {
 
 	//頁面進入通知查帳頁面
 	public function salesman_check_money() {
-		$this->load->view('templates/header');
 		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
-		$array = array('order' => $order);
-		$this->load->view('pages/money/inform_check_money_view',$array);
+		if ($order[0]['買賣'] == 1) {
+			$array = array('order' => $order);
+			$this->load->view('templates/header');
+			$this->load->view('pages/money/inform_check_money_view',$array);
+		}
+		
 	}
 
 	//更改通知查帳

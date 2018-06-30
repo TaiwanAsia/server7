@@ -12,7 +12,7 @@
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">支付日期</label></td>
-                                    <td><input class="" type="date" name="轉出日期轉入日期" id="" value=""></td>
+                                    <td><input class="" type="date" name="轉出日期轉入日期" id="支付日期" value=""></td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -32,7 +32,7 @@
                                     <td></td>
                                     <td><label for="" class="">支付人</label></td>
                                     <td><input class="" type="text" name="支付人" id="支付人" value=""></td>
-                                    <td><label style="text-decoration:underline; cursor: pointer;" onclick="Set_payname('<?php echo $order[0]['客戶姓名']; ?>', '<?php echo $order[0]['匯款金額應收帳款']; ?>')">匯入金額與支付人</label></td>
+                                    <td><label style="text-decoration:underline; cursor: pointer;" onclick="Set_payname('<?php echo $order[0]['客戶姓名']; ?>', '<?php echo $order[0]['匯款金額應收帳款']; ?>', '<?php echo $order[0]['成交日期']; ?>')">匯入日期、金額與支付人</label></td>
                                 </tr>
                                 <!-- <?php print_r($order);?> -->
                                 <tr>
@@ -56,10 +56,11 @@
         </div>
     </div>    
     <script>
-        function Set_payname(name, money) {
+        function Set_payname(name, money, date) {
             var n = name;
             document.getElementById("支付人").value = n;
             document.getElementById("金額").value = money;
+            document.getElementById("支付日期").value = date;
         }
     </script>
 </body>

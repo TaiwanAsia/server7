@@ -6,6 +6,7 @@ class Orders_model extends CI_Model {
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                     $result[] = array('ID'=>$row-> ID,
+                    '媒合'=>$row-> 媒合,
                     '成交日期'=>$row-> 成交日期,
                     '業務'=>$row-> 業務,
                     '客戶姓名'=>$row-> 客戶姓名,
@@ -37,7 +38,6 @@ class Orders_model extends CI_Model {
                     '收送'=>$row-> 收送,
                     '過戶日期'=>$row-> 過戶日期,
                     '過戶費'=>$row-> 過戶費,
-                    '媒合'=>$row-> 媒合,
                     // '收付款'=>$row-> 收付款,
                     // '現金或匯款'=>$row-> 現金或匯款,
                     '匯款日期'=>$row-> 匯款日期,
@@ -325,6 +325,40 @@ class Orders_model extends CI_Model {
         $sql = '';
     }
 
+    public function insert_add_quene($data) {
+        $this->db->insert('add_quene', $data);
+    }
+
+    public function get_add_quene($keyword=null) {
+        if (is_null($keyword)) {
+            $query = $this->db->get('add_quene');
+        } else {
+            $this->db->where('業務', $keyword);
+            $query = $this->db->get('add_quene');
+        }
+        if($query->result()!=null){
+            foreach ($query->result() as $row) {
+                $result[] = array('id'=>$row-> id,
+                                '媒合編號'=>$row-> 媒合編號,
+                                '成交日期'=>$row-> 成交日期,
+                                '股票名稱'=>$row-> 股票名稱,
+                                '業務'=>$row-> 業務,);
+            }
+            return  $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_samequene_movetime($媒合編號, $time) {
+        $this->db->where('媒合', $媒合編號);
+        $this->db->update('orders', array('最後動作時間'=>$time));
+    }
+
+    public function delete_add_quene($id) {
+        $this->db->delete('add_quene', array('id' => $id));
+    }
+
     public function add($data) {
 
         $this->db->insert('orders', $data);
@@ -335,6 +369,12 @@ class Orders_model extends CI_Model {
             $this->db->update('orders', $array);
             // $check_record = array('id'=>NULL, '成交單編號'=>$data['ID'], '轉出日期轉入日期'=>$data['成交日期'], '支付方式'=>'匯款', '支付人'=>$data['客戶姓名'], '匯款帳號末5碼'=>null, '待查帳金額'=>$data['匯款金額應收帳款'], '通知日期'=>date('Y-m-d H:i:s'), '最後動作時間'=>date('Y-m-d H:i:s'));
             // $this->db->insert('check_money_record', $check_record);
+        }
+        //客戶為賣，大姊要轉出金額，則通知查帳直接為待對帳
+        else if ($data['買賣'] == 0) {
+            $array = array('通知查帳'=>'待對帳');
+            $this->db->where('ID', $id);
+            $this->db->update('orders', $array);
         }
         return $id;
     }
@@ -409,11 +449,12 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data2);
     }
 
-    public function get_employee($name) {
-        if (is_null($name)) {
+    public function get_employee($keyword=null) {
+        if (is_null($keyword)) {
             $query = $this->db->get('EMPLOYEE');
         } else {
-            $this->db->where('NAME', $name);
+            $this->db->where('NAME', $keyword);
+            $this->db->or_where('權限名稱', $keyword);
             $query = $this->db->get('EMPLOYEE');
         }
         if($query->result()!=null){
