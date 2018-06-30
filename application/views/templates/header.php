@@ -122,6 +122,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/checkbillout">
+                                應匯帳款
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/fax_info">
                                 傳真資料
                             </a>

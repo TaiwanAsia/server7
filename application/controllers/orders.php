@@ -286,15 +286,15 @@ class Orders extends CI_Controller {
 
 	public function checkbill() {
 		if (isset($_GET['股票'])) {
-			$orders = $this->orders_model->get_checkbill('股票',$_GET['股票']);
+			$orders = $this->orders_model->get_checkbill('in','股票',$_GET['股票']);
 		} else if (isset($_GET['業務'])) {
-			$orders = $this->orders_model->get_checkbill('業務',$_GET['業務']);
+			$orders = $this->orders_model->get_checkbill('in','業務',$_GET['業務']);
 		} else if (isset($_GET['客戶姓名'])) {
-			$orders = $this->orders_model->get_checkbill('客戶姓名',$_GET['客戶姓名']);
+			$orders = $this->orders_model->get_checkbill('in','客戶姓名',$_GET['客戶姓名']);
 		} else if (isset($_GET['聯絡電話'])) {
-			$orders = $this->orders_model->get_checkbill('聯絡電話',$_GET['聯絡電話']);
+			$orders = $this->orders_model->get_checkbill('in','聯絡電話',$_GET['聯絡電話']);
 		} else {
-			$orders = $this->orders_model->get_checkbill(null,null);
+			$orders = $this->orders_model->get_checkbill('in',null,null);
 		}
 		$total_receivable = 0;
 		$total_received = 0;
@@ -328,6 +328,46 @@ class Orders extends CI_Controller {
 	// 	$this->orders_model->pushinto_checkbill($_POST['成交單編號'], date('Y-m-d H:i:s'));
 	// 	$this->index();
 	// }
+
+	public function checkbillout() {
+		if (isset($_GET['股票'])) {
+			$orders = $this->orders_model->get_checkbill('out','股票',$_GET['股票']);
+		} else if (isset($_GET['業務'])) {
+			$orders = $this->orders_model->get_checkbill('out','業務',$_GET['業務']);
+		} else if (isset($_GET['客戶姓名'])) {
+			$orders = $this->orders_model->get_checkbill('out','客戶姓名',$_GET['客戶姓名']);
+		} else if (isset($_GET['聯絡電話'])) {
+			$orders = $this->orders_model->get_checkbill('out','聯絡電話',$_GET['聯絡電話']);
+		} else {
+			$orders = $this->orders_model->get_checkbill('out',null,null);
+		}
+		$total_transferable = 0;
+		$total_transfered = 0;
+		for ($i=0; $i < count($orders); $i++) {
+			$total_transferable = $total_transferable + $orders[$i]['匯款金額應收帳款'];
+			$total_transfered = $total_transfered + $orders[$i]['已匯金額已收金額'];
+		}
+		$total_left = $total_transferable - $total_transfered;
+		$total_info = array('total_transferable' => $total_transferable,
+							'total_transfered' => $total_transfered,
+							'total_left' => $total_left,);
+
+		$employees = $this->orders_model->get_employee(null);
+
+		$bank_data = $this->orders_model->show_bank_model();
+		$first_dateofdata = $bank_data[count($bank_data)-1]['日期'];
+		$last_dateofdata = $bank_data[0]['日期'];
+
+		$arrayName = array('orders' => $orders,
+							'employees' => $employees,
+							'total_info' => $total_info,
+							'first_dateofdata' => $first_dateofdata,
+							'last_dateofdata' => $last_dateofdata,);
+
+		$this->load->view('templates/header');
+		$this->load->view('templates/transferable_header');
+		$this->load->view('pages/transferable_view', $arrayName);
+	}
 
 	public function upload_document() {
 		$dir_info = scandir('upload/document');
