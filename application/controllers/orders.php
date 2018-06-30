@@ -704,6 +704,7 @@ class Orders extends CI_Controller {
 		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
 		$data = array(
 						'ID' => $_POST['ID'],
+						'媒合' => $_POST['媒合'],
 						'成交日期' => $_POST['成交日期'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
@@ -747,6 +748,7 @@ class Orders extends CI_Controller {
 			}
 		}
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin修改', $_POST['ID'], $effect);
+		$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
 		$this -> orders_model -> edit($data);
 		$this->go_orders();
 	}

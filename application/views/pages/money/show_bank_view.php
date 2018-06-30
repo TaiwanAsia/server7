@@ -27,10 +27,10 @@
                       <?php echo ($data[$i]['日期']) ?>
                     </td>
                     <td>
-                      <?php echo ($data[$i]['轉出']) ?>          
+                      <font color="blue"><?php echo ($data[$i]['轉出']) ?> </font>
                     </td>
                     <td>
-                      <?php echo ($data[$i]['轉入']) ?>
+                      <font color="red"><?php echo ($data[$i]['轉入']) ?> </font>
                     </td>
                     <td>
                       <?php echo ($data[$i]['帳號']) ?>

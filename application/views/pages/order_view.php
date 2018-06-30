@@ -64,7 +64,7 @@
       <tr>
         <th data-tablesaw-priority="persist"></th>
         <th data-tablesaw-priority="persist"></th>
-        <th data-tablesaw-priority="1">編號</th>
+        <th data-tablesaw-priority="0">編號</th>
         <th data-tablesaw-priority="0">ID</th>
         <th data-tablesaw-priority="1" scope="col">成交日期</th>
         <th data-tablesaw-priority="1">業務</th>

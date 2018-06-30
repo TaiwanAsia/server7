@@ -191,10 +191,16 @@
                                 </tr>
                                 <tr>
                                     <td></td>
+                                    <td><label for="" class="">匯款日期</label></td>
+                                    <td><input class="" type="date" name="匯款日期" value="<?php echo $result[0]['匯款日期'] ?>" id="p_date" ></td>
+                                    <td><input type="hidden" id="" value="<?php echo $result[0]['匯款日期'] ?>"></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" id="" value="<?php echo $result[0]['過戶費']; ?>" ></td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">媒合</label></td>
                                     <td>
@@ -210,7 +216,7 @@
                                         </select>
                                     </td>
                                     <td><p class="text-info">★請確認所選無誤</p></td>
-                                </tr>
+                                </tr> -->
                                 <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">匯款日期</label></td>
