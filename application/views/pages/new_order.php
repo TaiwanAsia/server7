@@ -81,7 +81,7 @@
         </tr>
         <tr>
             <td></td>
-            <td><label for="" class="text-danger">匯款/應收金額</label></td>
+            <td><label for="" class="text-danger">金額</label></td>
             <td><input class="" type="text" name="匯款金額應收帳款" value="" id="" required=""></td>
             <td><button type="button" onclick="accounting()">驗算金額</button></td>
         </tr>
@@ -190,7 +190,8 @@
         <tr>
             <td></td>
             <td><label for="" class="">過戶費</label></td>
-            <td><input class="" type="text" name="過戶費" value="" id=""></td>
+            <td><input class="" type="text" name="過戶費" value="500" id=""></td>
+            <td><p class="text-danger"> ★請記得填寫過戶費</p></td>
         </tr>
         <tr>
             <td></td>

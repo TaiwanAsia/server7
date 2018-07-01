@@ -734,7 +734,7 @@ class Orders extends CI_Controller {
 						'刻印' => $_POST['刻印'],
 						'過戶日期' => $_POST['過戶日期'],
 						'過戶費' => $_POST['過戶費'],
-						'媒合' => $_POST['媒合'],
+						// '媒合' => $_POST['媒合'],
 						// '匯款日期' => $_POST['匯款日期'],
 						'通知查帳' => $_POST['通知查帳'],
 						'成交單狀態' => $_POST['成交單狀態'],
@@ -1075,7 +1075,7 @@ class Orders extends CI_Controller {
 			    		//if (($datas[$j]['帳號'] == null && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 || 
 			    		//	substr($datas[$j]['帳號'], -5) == $orders_buy[$i]['匯款帳號末5碼']) && $money == $datas[$j]['轉入']) { //一周內\
 
-			    		if (($datas[$j]['帳號'] == null && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7) && $money == $datas[$j]['轉入']) { //一周內
+			    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
 			    			//對帳完成
 			    			echo "交易日期".$datas[$j]['日期']." 轉入 ".$money." ".$orders_buy[$i]['id'].'<br>';
 			    			$this->orders_model->check_money_received($orders_buy[$i]['id'], date('Y-m-d H:i:s'), $money);
@@ -1123,7 +1123,7 @@ class Orders extends CI_Controller {
 	    	}
 	    }
 
-    	$this->checkbill();
+    	$this->boss_check_money();
     }
 
 	//進入庫存頁面

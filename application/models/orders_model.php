@@ -351,8 +351,8 @@ class Orders_model extends CI_Model {
     }
 
     public function update_samequene_movetime($媒合編號, $time) {
-        $this->db->where('媒合', $媒合編號);
-        $this->db->update('orders', array('最後動作時間'=>$time));
+        // $this->db->where('媒合', $媒合編號);
+        // $this->db->update('orders', array('最後動作時間'=>$time));
     }
 
     public function delete_add_quene($id) {

@@ -84,14 +84,17 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label for="" class="">匯款/應收金額</label></td>
+                                    <td><label for="" class="">金額</label></td>
                                     <td><input class="" type="text" name="匯款金額應收帳款" id="" value="<?php echo $result[0]['匯款金額應收帳款']; ?>"></td>
                                 </tr>
-                                <tr>
+
+                                <input class="" type="hidden" name="已匯金額已收金額" id="" value="<?php echo $result[0]['已匯金額已收金額']; ?>">
+                                
+                                <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">已匯/已收金額</label></td>
-                                    <td><input class="" type="text" name="已匯金額已收金額" id="" value="<?php echo $result[0]['已匯金額已收金額']; ?>"></td>
-                                </tr>
+                                    <td><input class="" type="hidden" name="已匯金額已收金額" id="" value="<?php echo $result[0]['已匯金額已收金額']; ?>"></td>
+                                </tr> -->
                                 <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">待查帳金額</label></td>
@@ -200,6 +203,7 @@
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" id="" value="<?php echo $result[0]['過戶費']; ?>" ></td>
                                 </tr>
+                                <input type="hidden" name="媒合" value="<?php echo $result[0]['媒合']; ?>">
                                 <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">媒合</label></td>
