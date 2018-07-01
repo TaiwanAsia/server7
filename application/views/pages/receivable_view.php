@@ -60,6 +60,7 @@
                 <th data-tablesaw-priority="1" scope="col">成交日期</th>
                 <th data-tablesaw-priority="1">業務</th>
                 <th data-tablesaw-priority="1">客戶姓名</th>
+                <th data-tablesaw-priority="1">股票</th>
                 <th data-tablesaw-priority="0">身分證字號</th>
                 <th data-tablesaw-priority="0">聯絡電話</th>
                 <th data-tablesaw-priority="0">聯絡人</th>
@@ -110,6 +111,14 @@
                         ?>'"
                         title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
+                    </td>
+                    <td>
+                      <a class="clickable_hint" href="javascript:location.href='
+                        <?php
+                        echo base_url()."index.php/orders/checkbill?股票=".$orders[$i]['股票'];
+                        ?>'"
+                        title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
+                      <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
                     </td>
                     <td>
                       <?php echo ($orders[$i]['身分證字號']) ?>

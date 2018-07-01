@@ -1028,6 +1028,10 @@ class Orders_model extends CI_Model {
         return $result;
     }
 
+    public function insert_passrecord_model($data) {
+        $this->db->insert('pass_record', $data);
+    }
+
     public function show_bank_model() {
         $this->db->order_by('日期','desc');
         $query = $this->db->get('bills');

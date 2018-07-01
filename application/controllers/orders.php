@@ -1455,9 +1455,8 @@ class Orders extends CI_Controller {
 
 	public function turn_passrecord() {
 		$data = $this->orders_model->turn_passrecord_model();
-		
-		echo count($data)."</br>";
 		for ($i=0; $i < count($data); $i++) {
+			$insert_data[$i]['日期'] = $data[$i]['成交日期'];
 			$insert_data[$i]['姓名'] = $data[$i]['客戶姓名'];
 			$insert_data[$i]['買賣'] = $data[$i]['買賣'];
 			$insert_data[$i]['業務'] = $data[$i]['業務'];
@@ -1485,11 +1484,10 @@ class Orders extends CI_Controller {
 			$insert_data[$i]['狀態'] = '未完成';
 			$insert_data[$i]['轉讓會員'] = $data[$i]['轉讓會員'];
 			$insert_data[$i]['備註'] = $data[$i]['備註'];
-			$insert_data[$i]['動作時間'] = date('Y-m-d H:i:s');
-			echo "<br>";
-			print_r($insert_data[$i]);
-			echo "<br>";
+			$insert_data[$i]['最後動作時間'] = date('Y-m-d H:i:s');
+			$this->orders_model->insert_passrecord_model($insert_data[$i]);
 		}
+		$this->passrecord();
 	}
 
 	public function show_bank() {
