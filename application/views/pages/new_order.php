@@ -247,13 +247,13 @@
         }
 
         if (買賣方 == '買') {
-            if (張數 > 1) {
+            if (張數 >= 1) {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) = '+張數*1000*成交價;
             } else {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.9(零股) = '+張數*1000*成交價*0.9;
             }
         } else {
-            if (張數 > 1) {
+            if (張數 >= 1) {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 = '+(張數*1000*成交價)*0.997;
             } else {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 * 0.9(零股) = '+(張數*1000*成交價)*0.997*0.9;

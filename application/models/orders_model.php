@@ -495,6 +495,11 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data);
     }
 
+    public function edit_before0701($data) {
+        $this->db->where('id', $data['ID']);
+        $this->db->update('orders_before0701', $data);
+    }
+
     public function edit2($data) {
         $sql = '';
     }

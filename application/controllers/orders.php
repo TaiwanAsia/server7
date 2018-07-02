@@ -555,9 +555,9 @@ class Orders extends CI_Controller {
 		$all_orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
 		$this->load->view('templates/header');
 		if ($_SESSION['權限名稱']=='最高權限') {
-			$this->load->view('pages/order_edit/admin_edit_order_view',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
+			$this->load->view('pages/order_edit/admin_edit_order_view_before0701',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
 		} else {
-			$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
+			$this->load->view('pages/order_edit/edit_order_view_before0701',array('result' => $result,'employees' => $employees,));
 		}
 	}
 
@@ -764,6 +764,48 @@ class Orders extends CI_Controller {
 		$this->go_orders();
 	}
 
+	//單純修改成交單內容
+	public function edit_order_before0701() {
+		$title = $this->get_title('非admin');
+		$original = $this->orders_model->get_before0701($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
+		$data = array('成交日期' => $_POST['成交日期'],
+						'ID' => $_POST['ID'],
+						'媒合' => $_POST['媒合'],
+						'業務' => $_POST['業務'],
+						'客戶姓名' => $_POST['客戶姓名'],
+						'身分證字號' => $_POST['身分證字號'],
+						'聯絡電話' => $_POST['聯絡電話'],
+						'聯絡人' => $_POST['聯絡人'],
+						'聯絡地址' => $_POST['聯絡地址'],
+						'買賣' => $_POST['買賣'],
+						'股票' => $_POST['股票'],
+						'張數' => $_POST['張數'],
+						'成交價' => $_POST['成交價'],
+						'盤價' => $_POST['盤價'],
+						'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
+						'匯款銀行' => $_POST['匯款銀行'],
+						'匯款分行' => $_POST['匯款分行'],
+						'匯款帳號' => $_POST['匯款帳號'],
+						'匯款戶名' => $_POST['匯款戶名'],
+						'轉讓會員' => $_POST['轉讓會員'],
+						'完稅人' => $_POST['完稅人'],
+						'新舊' => $_POST['新舊'],
+						'自行應付' => $_POST['自行應付'],
+						'刻印' => $_POST['刻印'],
+						'過戶費' => $_POST['過戶費'],
+						'最後動作時間' => date('Y-m-d H:i:s'),);
+		$effect = '';
+		for ($i=0; $i < count($title); $i++) {
+			if ($original[0][$title[$i]] != $data[$title[$i]]) {
+				$effect = $effect."[".$title[$i]."]"."=>".$original[0][$title[$i]]."改為".$data[$title[$i]]."  ";
+			}
+		}
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改', $_POST['ID'], $effect);
+		$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
+		$this -> orders_model -> edit_before0701($data);
+		$this->go_orders_before0701();
+	}
+
 	//單純修改成交單內容admin(全部欄位都能修改)
 	public function admin_edit_order() {
 		$title = $this->get_title('admin');
@@ -806,6 +848,7 @@ class Orders extends CI_Controller {
 						'成交單狀態' => $_POST['成交單狀態'],
 						'二審' => $_POST['二審'],
 						'已結案' => $_POST['已結案'],
+						'備註' => $_POST['備註'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
 		$effect = '';
 		for ($i=0; $i < count($title); $i++) {
@@ -819,6 +862,62 @@ class Orders extends CI_Controller {
 		$this->go_orders();
 	}
 
+	//單純修改成交單內容admin(全部欄位都能修改)
+	public function admin_edit_order_before0701() {
+		$title = $this->get_title('admin');
+		$original = $this->orders_model->get($_POST['ID'], $_SESSION['權限名稱'], $_SESSION['NAME'],null,null);
+		$data = array(
+						'ID' => $_POST['ID'],
+						'媒合' => $_POST['媒合'],
+						'成交日期' => $_POST['成交日期'],
+						'業務' => $_POST['業務'],
+						'客戶姓名' => $_POST['客戶姓名'],
+						'身分證字號' => $_POST['身分證字號'],
+						'聯絡電話' => $_POST['聯絡電話'],
+						'聯絡人' => $_POST['聯絡人'],
+						'聯絡地址' => $_POST['聯絡地址'],
+						'買賣' => $_POST['買賣'],
+						'股票' => $_POST['股票'],
+						'張數' => $_POST['張數'],
+						'成交價' => $_POST['成交價'],
+						'盤價' => $_POST['盤價'],
+						'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
+						'已匯金額已收金額' => $_POST['已匯金額已收金額'],
+						// '待查帳金額' => $_POST['待查帳金額'],
+						// '轉出日期轉入日期' => $_POST['轉出日期轉入日期'],
+						// '匯款人' => $_POST['匯款人'],
+						'匯款銀行' => $_POST['匯款銀行'],
+						'匯款分行' => $_POST['匯款分行'],
+						'匯款帳號' => $_POST['匯款帳號'],
+						// '匯款帳號末5碼' => $_POST['匯款帳號末5碼'],
+						'匯款戶名' => $_POST['匯款戶名'],
+						'轉讓會員' => $_POST['轉讓會員'],
+						'完稅人' => $_POST['完稅人'],
+						'新舊' => $_POST['新舊'],
+						'自行應付' => $_POST['自行應付'],
+						'刻印' => $_POST['刻印'],
+						'過戶日期' => $_POST['過戶日期'],
+						'過戶費' => $_POST['過戶費'],
+						// '媒合' => $_POST['媒合'],
+						// '匯款日期' => $_POST['匯款日期'],
+						'通知查帳' => $_POST['通知查帳'],
+						'成交單狀態' => $_POST['成交單狀態'],
+						'二審' => $_POST['二審'],
+						'已結案' => $_POST['已結案'],
+						'備註' => $_POST['備註'],
+						'最後動作時間' => date('Y-m-d H:i:s'),);
+		$effect = '';
+		for ($i=0; $i < count($title); $i++) {
+			if ($original[0][$title[$i]] != $data[$title[$i]]) {
+				$effect = $effect."[".$title[$i]."]"."=>".$original[0][$title[$i]]."改為".$data[$title[$i]]."  ";
+			}
+		}
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin修改', $_POST['ID'], $effect);
+		$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
+		$this -> orders_model -> edit_before0701($data);
+		$this->go_orders_before0701();
+	}
+
 	//自動填入客戶資料
 	public function autofill() {
 		$cus_info = $this -> orders_model -> get_cus_info($_POST['name']);
@@ -828,17 +927,6 @@ class Orders extends CI_Controller {
 	//二審表格
 	public function go_edit2() {
 		$result = $this -> orders_model -> get($_GET['id'],null,null,null,null);
-		$old_date_timestamp = strtotime($result[0]['成交日期']);
-		$new_date = date('Y/m/d', $old_date_timestamp);
-		$result[0]['日期'] = $new_date;
-		$employees = $this->orders_model->get_employee(null);
-		$this->load->view('templates/header');
-		$this->load->view('pages/order_edit/edit2_order_view',array('result' => $result,'employees' => $employees));
-	}
-
-	//二審表格
-	public function go_edit2_before0701() {
-		$result = $this -> orders_model -> get_before0701($_GET['id'],null,null,null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
