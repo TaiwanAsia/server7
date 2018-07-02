@@ -54,6 +54,14 @@ $("#receFileUpload").change(function(){
     });
 });
 
+$(function(){
+    var $gotop = $('#goTop') ,
+        goSpeed = 800 ;
+
+    $gotop.click(function(e) {
+        $('html , body').animate({scrollTop:0} , goSpeed);
+    });
+});
 
 
 });
