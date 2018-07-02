@@ -31,6 +31,15 @@ class Orders extends CI_Controller {
     	}
     }
 
+    public function show_before0701($arr_data)
+    {
+    	$boo = $this->session_check();
+    	if ($boo) {
+    		$this->load->view('templates/header');
+			$this->load->view('pages/order_view_before0701', $arr_data);
+    	}
+    }
+
     public function index() {
     	$employees = $this->orders_model->get_employee(null);
     	$need = $this->orders_model->get_need_model(null);
@@ -75,6 +84,43 @@ class Orders extends CI_Controller {
 								'employees' => $employees,
 								'add_quene' => $add_quene,);
 			$this->show($arrayName);
+		}
+	}
+
+	public function go_orders_before0701() {
+		// The following code define the actions when a 'clickable' table element
+    	// is clicked.
+		if (!isset($_SESSION['ACCOUNT'])) {
+			// If not logged in, redirect to 'login/index'
+			redirect('index.php/login/index');
+		} else {
+			// Handles queries on orders between 'date1' and 'date2'
+			if (isset($_GET['date1']) && isset($_GET['date2']) && isset($_GET['業務'])) {
+				$orders = $this->orders_model->get_byDate_before0701($_SESSION['權限名稱'],$_SESSION['NAME'],$_GET['業務'],$_GET['date1'],$_GET['date2']);
+			// Handles 'click' on 股票
+			} else if (isset($_GET['股票'])) {
+				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'股票',$_GET['股票']);
+			// Handles 'click' on 業務
+			} else if (isset($_GET['業務'])) {
+				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'業務',$_GET['業務']);
+			// Handles 'click' on 客戶姓名
+			} else if (isset($_GET['客戶姓名'])) {
+				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'客戶姓名',$_GET['客戶姓名']);
+			// Handles 'click' on 連絡電話
+			} else if (isset($_GET['聯絡電話'])) {
+				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'聯絡電話',$_GET['聯絡電話']);
+			// Default handlers for unhandled actions
+			} else {
+				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
+			}
+			$add_quene = $this->orders_model->get_add_quene($_SESSION['NAME']);
+			$all_orders = $orders;
+			$employees = $this->orders_model->get_employee(null);
+			$arrayName = array('orders' => $orders,
+								'all_orders' => $all_orders,
+								'employees' => $employees,
+								'add_quene' => $add_quene,);
+			$this->show_before0701($arrayName);
 		}
 	}
 
@@ -496,6 +542,26 @@ class Orders extends CI_Controller {
 		}
 	}
 
+	//修改成交單資料
+	public function go_edit_before0701() {
+		$result = $this -> orders_model -> get_before0701($_GET['id'],null,null,null,null);
+		// $old_date_timestamp = strtotime($result[0]['成交日期']);
+		// $new_date = date('Y/m/d', $old_date_timestamp);
+		// $result[0]['日期'] = $new_date;
+		$employees = $this->orders_model->get_employee(null);
+		// foreach ($result[0] as $key => $value) {
+		// 	echo $key.": ".$value."<br>";
+		// };
+		$all_orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
+		$this->load->view('templates/header');
+		if ($_SESSION['權限名稱']=='最高權限') {
+			$this->load->view('pages/order_edit/admin_edit_order_view',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
+		} else {
+			$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
+		}
+	}
+
+
 	//管理者修改成交單資料
 	public function admin_go_edit() {
 		$result = $this -> orders_model -> get($_GET['id'],null,null,null,null);
@@ -762,6 +828,17 @@ class Orders extends CI_Controller {
 	//二審表格
 	public function go_edit2() {
 		$result = $this -> orders_model -> get($_GET['id'],null,null,null,null);
+		$old_date_timestamp = strtotime($result[0]['成交日期']);
+		$new_date = date('Y/m/d', $old_date_timestamp);
+		$result[0]['日期'] = $new_date;
+		$employees = $this->orders_model->get_employee(null);
+		$this->load->view('templates/header');
+		$this->load->view('pages/order_edit/edit2_order_view',array('result' => $result,'employees' => $employees));
+	}
+
+	//二審表格
+	public function go_edit2_before0701() {
+		$result = $this -> orders_model -> get_before0701($_GET['id'],null,null,null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;
@@ -1145,6 +1222,27 @@ class Orders extends CI_Controller {
 							'all_orders' => $all_orders,
 							'employees' => $employees,);
 		$this->show($arrayName);
+	}
+
+	//進入庫存頁面
+	public function go_inventory_before0701() {
+		if (isset($_GET['股票'])) {
+			$orders = $this->orders_model->get_inventory_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'股票',$_GET['股票']);
+		} else if (isset($_GET['業務'])) {
+			$orders = $this->orders_model->get_inventory_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'業務',$_GET['業務']);
+		} else if (isset($_GET['客戶姓名'])) {
+			$orders = $this->orders_model->get_inventory_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'客戶姓名',$_GET['客戶姓名']);
+		} else if (isset($_GET['聯絡電話'])) {
+			$orders = $this->orders_model->get_inventory_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'聯絡電話',$_GET['聯絡電話']);
+		} else {
+			$orders = $this->orders_model->get_inventory_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
+		}
+		$all_orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
+		$employees = $this->orders_model->get_employee(null);
+		$arrayName = array('orders' => $orders,
+							'all_orders' => $all_orders,
+							'employees' => $employees,);
+		$this->show_before0701($arrayName);
 	}
 
 	//進入KO頁面

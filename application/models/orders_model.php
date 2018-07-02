@@ -135,20 +135,122 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function get_before0701($keyword=null,$權限名稱=null,$name=null,$type=null,$keyword2=null) {
+        $query = null;
+        // The following code sections define the query handlers
+        if(is_null($keyword)) {
+            // Query all 股票 satisfying 股票 == $keyword2
+            if ($type == '股票') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name, '股票' => $keyword2));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+                    $this->db->where('股票', $keyword2);
+                    $query = $this->db->query($sql);
+                }
+            } else if ($type == '業務') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+                    $this->db->where('業務', $keyword2);
+                    $query = $this->db->query($sql);
+                }
+            } else if ($type == '客戶姓名') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name, '客戶姓名' => $keyword2));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+                    $this->db->where('客戶姓名', $keyword2);
+                    $query = $this->db->query($sql);
+                }
+            } else if ($type == '聯絡電話') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name, '聯絡電話' => $keyword2));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+                    $this->db->where('聯絡電話', $keyword2);
+                    $query = $this->db->query($sql);
+                }
+            } else {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                }
+            }
+        } else {
+            $query = $this->db->get_where('ORDERS_before0701', array('id' => $keyword));
+        }
+
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function get_byDate($權限名稱, $name, $業務, $date1, $date2) {
         $query = null;
         if($權限名稱=='最高權限') {
             if ($業務 != '所有業務') {
-                $sql = "SELECT * FROM `ORDERS` WHERE `業務`='".$業務."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+                $sql = "SELECT * FROM `ORDERS_before0701` WHERE `業務`='".$業務."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
             } else {
-                $sql = "SELECT * FROM `ORDERS` WHERE `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+                $sql = "SELECT * FROM `ORDERS_before0701` WHERE `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
             }
             $query = $this->db->query($sql);
         } elseif ($權限名稱=='業務') {
-            $sql = "SELECT * FROM `ORDERS` WHERE `業務`='".$name."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS_before0701` WHERE `業務`='".$name."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         } else {
-            $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+            $query = $this->db->query($sql);
+        }
+
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_byDate_before0701($權限名稱, $name, $業務, $date1, $date2) {
+        $query = null;
+        if($權限名稱=='最高權限') {
+            if ($業務 != '所有業務') {
+                $sql = "SELECT * FROM `ORDERS_before0701` WHERE `業務`='".$業務."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+            } else {
+                $sql = "SELECT * FROM `ORDERS_before0701` WHERE `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+            }
+            $query = $this->db->query($sql);
+        } elseif ($權限名稱=='業務') {
+            $sql = "SELECT * FROM `ORDERS_before0701` WHERE `業務`='".$name."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+            $query = $this->db->query($sql);
+        } else {
+            $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         }
 
@@ -222,6 +324,78 @@ class Orders_model extends CI_Model {
             }
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
+        }
+
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_inventory_before0701($keyword,$權限名稱,$name,$type,$keyword2) {
+        $query = null;
+        if(is_null($keyword)) {
+            if ($type == '股票') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name,'轉讓會員' => '庫存', '股票' => $keyword2));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                }
+            } else if ($type == '業務') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name,'轉讓會員' => '庫存'));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                }
+            } else if ($type == '客戶姓名') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name,'轉讓會員' => '庫存', '客戶姓名' => $keyword2));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                }
+            } else if ($type == '聯絡電話') {
+                if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name,'轉讓會員' => '庫存', '聯絡電話' => $keyword2));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' AND `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                }
+            } else {
+               if($權限名稱=='最高權限') {
+                    $sql = "SELECT * FROM `ORDERS_before0701` WHERE `轉讓會員`='庫存' ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } elseif ($權限名稱=='業務') {
+                    $this->db->order_by("最後動作時間", "desc");
+                    $query = $this->db->get_where('ORDERS_before0701', array('業務' => $name,'轉讓會員' => '庫存'));
+                } else {
+                    $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+                    $this->db->where('轉讓會員', '庫存');
+                    $query = $this->db->query($sql);
+                }
+            }
+        } else {
+            $query = $this->db->get_where('ORDERS_before0701', array('id' => $keyword));
         }
 
         if($query->num_rows()>0) {
@@ -351,8 +525,8 @@ class Orders_model extends CI_Model {
     }
 
     public function update_samequene_movetime($媒合編號, $time) {
-        // $this->db->where('媒合', $媒合編號);
-        // $this->db->update('orders', array('最後動作時間'=>$time));
+        $this->db->where('媒合', $媒合編號);
+        $this->db->update('orders', array('最後動作時間'=>$time));
     }
 
     public function delete_add_quene($id) {
@@ -373,6 +547,11 @@ class Orders_model extends CI_Model {
         //客戶為賣，大姊要轉出金額，則通知查帳直接為待對帳
         else if ($data['買賣'] == 0) {
             $array = array('通知查帳'=>'待對帳');
+            $this->db->where('ID', $id);
+            $this->db->update('orders', $array);
+        }
+        if ($data['買賣'] == 1) {
+            $array = array('成交單狀態'=>'審核完成');
             $this->db->where('ID', $id);
             $this->db->update('orders', $array);
         }

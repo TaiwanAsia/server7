@@ -112,6 +112,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/go_orders_before0701">
+                            <!-- <span data-feather="home"></span> -->
+                                七月前成交單<span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/passrecord">
                                 轉讓紀錄
                             </a>
