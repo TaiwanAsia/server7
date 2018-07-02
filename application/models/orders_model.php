@@ -521,7 +521,10 @@ class Orders_model extends CI_Model {
                                 '媒合編號'=>$row-> 媒合編號,
                                 '成交日期'=>$row-> 成交日期,
                                 '股票名稱'=>$row-> 股票名稱,
-                                '業務'=>$row-> 業務,);
+                                '業務'=>$row-> 業務,
+                                '買賣'=>$row-> 買賣,
+                                '張數'=>$row-> 張數,
+                                '主要'=>$row-> 主要,);
             }
             return  $result;
         } else {
@@ -1115,6 +1118,11 @@ class Orders_model extends CI_Model {
 
     public function add_passrecord($data) {
         $this->db->insert('pass_record', $data);
+    }
+
+    public function update_orders_movetime($id) {
+        $this->db->where('ID', $id);
+        $this->db->update('最後動作時間', date("Y-m-d H:i:s"));
     }
     
 

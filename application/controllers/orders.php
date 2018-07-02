@@ -160,14 +160,76 @@ class Orders extends CI_Controller {
 		$this->load->view('pages/admin_new_order', $arrayName);
 	}
 
-	public function add_order_ID() {
-		for ($i=0; $i < count($_POST['業務']); $i++) { 
+	public function add_order_id() {
+		// for ($i=0; $i < count($_POST['客戶賣']); $i++) { 
+		// 	$array = array('媒合編號' => $_POST['媒合編號'],
+		// 					'成交日期' => $_POST['成交日期'],
+		// 					'股票名稱' => $_POST['股票名稱'],
+		// 					'買賣' => '0',
+		// 					'業務' => $_POST['客戶賣'][$i],);
+		// 	$this->orders_model->insert_add_quene($array);
+		// }
+		// for ($i=0; $i < count($_POST['客戶買']); $i++) { 
+		// 	$array = array('媒合編號' => $_POST['媒合編號'],
+		// 					'成交日期' => $_POST['成交日期'],
+		// 					'股票名稱' => $_POST['股票名稱'],
+		// 					'買賣' => '1',
+		// 					'業務' => $_POST['客戶買'][$i],);
+		// 	$this->orders_model->insert_add_quene($array);
+		// }
+		$array = array('媒合編號' => $_POST['媒合編號'],
+							'成交日期' => $_POST['成交日期'],
+							'股票名稱' => $_POST['股票名稱'],
+							'買賣' => '0',
+							'業務' => $_POST['客戶主賣'],
+							'張數' => $_POST['主賣張數'],
+							'主要' => '1',);
+		$this->orders_model->insert_add_quene($array);
+		if ($_POST['副賣張數']>0) {
 			$array = array('媒合編號' => $_POST['媒合編號'],
 							'成交日期' => $_POST['成交日期'],
 							'股票名稱' => $_POST['股票名稱'],
-							'業務' => $_POST['業務'][$i],);
+							'買賣' => '0',
+							'業務' => $_POST['客戶副賣'],
+							'張數' => $_POST['副賣張數'],
+							'主要' => '0',);
 			$this->orders_model->insert_add_quene($array);
 		}
+		$array = array('媒合編號' => $_POST['媒合編號'],
+							'成交日期' => $_POST['成交日期'],
+							'股票名稱' => $_POST['股票名稱'],
+							'買賣' => '1',
+							'業務' => $_POST['客戶主買'],
+							'張數' => $_POST['主買張數'],
+							'主要' => '1',);
+		$this->orders_model->insert_add_quene($array);
+		if ($_POST['副買張數']>0) {
+			$array = array('媒合編號' => $_POST['媒合編號'],
+							'成交日期' => $_POST['成交日期'],
+							'股票名稱' => $_POST['股票名稱'],
+							'買賣' => '1',
+							'業務' => $_POST['客戶副買'],
+							'張數' => $_POST['副買張數'],
+							'主要' => '0',);
+			$this->orders_model->insert_add_quene($array);
+		}
+
+		$買賣張數差 = ($_POST['主賣張數']+$_POST['副賣張數']) - ($_POST['主買張數']+$_POST['副買張數']);
+		if ($買賣張數差 > 0) {
+			$副賣業務進庫存數量 = $買賣張數差;
+		}
+		$array = array('媒合編號' => $_POST['媒合編號'],
+							'成交日期' => $_POST['成交日期'],
+							'股票名稱' => $_POST['股票名稱'],
+							'買賣' => '0',
+							'業務' => $_POST['客戶副賣'],
+							'張數' => $買賣張數差,
+							'主要' => '2',);
+		//[主要]為2則進庫存
+		$this->orders_model->insert_add_quene($array);
+
+
+
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin新增成交單', '媒合編號'.$_POST['媒合編號'], null);
 		
 		$this->go_orders();
@@ -460,6 +522,7 @@ class Orders extends CI_Controller {
 			} else {
 				echo "<h2><font color='red'><b>成交單編號:".$id."契約已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$id);
+				$this->orders_model->update_orders_movetime($id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
 				$this->go_orders();
 			}
@@ -482,6 +545,7 @@ class Orders extends CI_Controller {
 			} else {
 				echo "<h2><font color='red'><b>成交單編號:".$id."稅單已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
+				$this->orders_model->update_orders_movetime($id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
 				$this->go_orders();
 			}
@@ -504,6 +568,7 @@ class Orders extends CI_Controller {
 			} else {
 				echo "<h2><font color='red'><b>成交單編號:".$id."水單已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/water/".$id);
+				$this->orders_model->update_orders_movetime($id);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水', $id, null);
 				$this->orders_model->finish_order($id);
 				$this->go_orders();

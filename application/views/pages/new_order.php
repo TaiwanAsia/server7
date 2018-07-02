@@ -48,9 +48,9 @@
             <td></td>
             <td><label for="" class="text-danger">買賣</label></td>
             <td>
-                <input type="radio" name="買賣" value="1" checked>
+                <input type="radio" name="買賣" value="1" checked readonly="">
                 <label class="text-danger"><b>買</b></label>
-                <input type="radio" name="買賣" value="0">
+                <input type="radio" name="買賣" value="0" readonly="" <?php if($add_quene['買賣']==0) {echo "checked";} ?>>
                 <label class="text-primary"><b>賣</b></label>
             </td>
         </tr>
@@ -64,7 +64,12 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">張數</label></td>
-            <td><input class="" type="text" name="張數" value="" id="張數" required></td>
+            <td><input class="" type="text" name="張數" value="<?php echo($add_quene['張數']) ?>" id="張數" required></td>
+            <!-- <?php if($add_quene['買賣']==0) { ?>
+                <td><input class="" type="text" name="張數" value="<?php echo($add_quene['賣張數']) ?>" id="張數" required></td>
+            <?php } else { ?>
+                <td><input class="" type="text" name="張數" value="" id="張數" required></td>
+            <?php } ?> -->
             <td><p class="text-info">★低於1000股 / 張，請再新增零股部分成交單</p></td>
         </tr>
         <tr>
@@ -82,8 +87,9 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">金額</label></td>
-            <td><input class="" type="text" name="匯款金額應收帳款" value="" id="" required=""></td>
+            <td><input class="" type="text" onchange="count_selfpay()" name="匯款金額應收帳款" value="" id="填寫金額" required=""></td>
             <td><button type="button" onclick="accounting()">驗算金額</button></td>
+            <td><input type="hidden" id="驗算金額" value=""></td>
         </tr>
         <tr>
             <td></td>
@@ -162,7 +168,7 @@
         <tr>
             <td></td>
             <td><label for="" class="">自行應付</label></td>
-            <td><input class="" type="text" name="自行應付" value="" id=""></td>
+            <td><input class="" readonly="" type="text" name="自行應付" value="" id="自行應付"></td>
             <td><p class="text-danger"><b>★由業務全額支付</b></p></td>
         </tr>
         <tr>
@@ -249,17 +255,29 @@
         if (買賣方 == '買') {
             if (張數 >= 1) {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) = '+張數*1000*成交價;
+                document.getElementById("驗算金額").value = 張數*1000*成交價;
             } else {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.9(零股) = '+張數*1000*成交價*0.9;
+                document.getElementById("驗算金額").value = 張數*1000*成交價*0.9;
             }
         } else {
             if (張數 >= 1) {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 = '+(張數*1000*成交價)*0.997;
+                document.getElementById("驗算金額").value = (張數*1000*成交價)*0.997;
             } else {
                 document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 * 0.9(零股) = '+(張數*1000*成交價)*0.997*0.9;
+                document.getElementById("驗算金額").value = (張數*1000*成交價)*0.997*0.9;
             }
 
         }
+    }
+
+    function count_selfpay() {
+        var 填寫金額 = document.getElementById("填寫金額").value;
+        var 驗算金額 = document.getElementById("驗算金額").value;
+        var 自行應付 = 填寫金額 - 驗算金額;
+        // alert(填寫金額+'-'+驗算金額+'='+自行應付);
+        document.getElementById("自行應付").value = 自行應付;
     }
 
     Date.prototype.addDays = function(days) {
