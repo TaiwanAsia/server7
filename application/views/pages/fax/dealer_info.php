@@ -1,5 +1,5 @@
 
-	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+	<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
   		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
      		<h1 class="h2">盤商資料</h1>
 				<form action="go_add_dealer" method="POST" class="t-form-t" name="">
