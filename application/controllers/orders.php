@@ -169,22 +169,6 @@ class Orders extends CI_Controller {
 	}
 
 	public function add_order_id() {
-		// for ($i=0; $i < count($_POST['客戶賣']); $i++) {
-		// 	$array = array('媒合編號' => $_POST['媒合編號'],
-		// 					'成交日期' => $_POST['成交日期'],
-		// 					'股票名稱' => $_POST['股票名稱'],
-		// 					'買賣' => '0',
-		// 					'業務' => $_POST['客戶賣'][$i],);
-		// 	$this->orders_model->insert_add_quene($array);
-		// }
-		// for ($i=0; $i < count($_POST['客戶買']); $i++) {
-		// 	$array = array('媒合編號' => $_POST['媒合編號'],
-		// 					'成交日期' => $_POST['成交日期'],
-		// 					'股票名稱' => $_POST['股票名稱'],
-		// 					'買賣' => '1',
-		// 					'業務' => $_POST['客戶買'][$i],);
-		// 	$this->orders_model->insert_add_quene($array);
-		// }
 		$array = array('媒合編號' => $_POST['媒合編號'],
 							'成交日期' => $_POST['成交日期'],
 							'股票名稱' => $_POST['股票名稱'],
@@ -222,21 +206,25 @@ class Orders extends CI_Controller {
 			$this->orders_model->insert_add_quene($array);
 		}
 
-		$買賣張數差 = ($_POST['主賣張數']+$_POST['副賣張數']) - ($_POST['主買張數']+$_POST['副買張數']);
-		if ($買賣張數差 > 0) {
-			$副賣業務進庫存數量 = $買賣張數差;
+		if ($_POST['副賣張數'] > 0) {
+			$買賣張數差 = ($_POST['主賣張數']+$_POST['副賣張數']) - ($_POST['主買張數']+$_POST['副買張數']);
+			if ($買賣張數差 > 0) {
+				if ($_POST['主賣張數'] > $_POST['副賣張數']) {
+					$進庫存數量 = $_POST['主賣張數'];
+				} else {
+					$進庫存數量 = $_POST['副賣張數'];
+				}
+				$array = array('媒合編號' => $_POST['媒合編號'],
+									'成交日期' => $_POST['成交日期'],
+									'股票名稱' => $_POST['股票名稱'],
+									'買賣' => '0',
+									'業務' => $_POST['客戶副賣'],
+									'張數' => $進庫存數量,
+									'主要' => '2',);
+				//[主要]為2則進庫存
+				$this->orders_model->insert_add_quene($array);
+			}
 		}
-		$array = array('媒合編號' => $_POST['媒合編號'],
-							'成交日期' => $_POST['成交日期'],
-							'股票名稱' => $_POST['股票名稱'],
-							'買賣' => '0',
-							'業務' => $_POST['客戶副賣'],
-							'張數' => $買賣張數差,
-							'主要' => '2',);
-		//[主要]為2則進庫存
-		$this->orders_model->insert_add_quene($array);
-
-
 
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin新增成交單', '媒合編號'.$_POST['媒合編號'], null);
 
