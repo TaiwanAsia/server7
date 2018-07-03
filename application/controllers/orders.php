@@ -26,8 +26,9 @@ class Orders extends CI_Controller {
     {
     	$boo = $this->session_check();
     	if ($boo) {
-    		$this->load->view('templates/header');
+    	$this->load->view('templates/header');
 			$this->load->view('pages/order_view', $arr_data);
+			$this->load->view('templates/footer');
     	}
     }
 
@@ -35,8 +36,9 @@ class Orders extends CI_Controller {
     {
     	$boo = $this->session_check();
     	if ($boo) {
-    		$this->load->view('templates/header');
+    	$this->load->view('templates/header');
 			$this->load->view('pages/order_view_before0701', $arr_data);
+			$this->load->view('templates/footer');
     	}
     }
 
@@ -47,6 +49,7 @@ class Orders extends CI_Controller {
 							'employees' => $employees,);
 		$this->load->view('templates/header');
 		$this->load->view('pages/home', $arrayName);
+		$this->load->view('templates/footer');
     }
 
     public function go_orders()
@@ -143,6 +146,7 @@ class Orders extends CI_Controller {
 							'add_quene' => $add_quene[0],);
 		$this->load->view('templates/header');
 		$this->load->view('pages/new_order', $arrayName);
+		$this->load->view('templates/footer');
 	}
 
 	public function admin_new_order() {
@@ -158,10 +162,11 @@ class Orders extends CI_Controller {
 							'employees' => $employees,);
 		$this->load->view('templates/header');
 		$this->load->view('pages/admin_new_order', $arrayName);
+		$this->load->view('templates/footer');
 	}
 
 	public function add_order_id() {
-		// for ($i=0; $i < count($_POST['客戶賣']); $i++) { 
+		// for ($i=0; $i < count($_POST['客戶賣']); $i++) {
 		// 	$array = array('媒合編號' => $_POST['媒合編號'],
 		// 					'成交日期' => $_POST['成交日期'],
 		// 					'股票名稱' => $_POST['股票名稱'],
@@ -169,7 +174,7 @@ class Orders extends CI_Controller {
 		// 					'業務' => $_POST['客戶賣'][$i],);
 		// 	$this->orders_model->insert_add_quene($array);
 		// }
-		// for ($i=0; $i < count($_POST['客戶買']); $i++) { 
+		// for ($i=0; $i < count($_POST['客戶買']); $i++) {
 		// 	$array = array('媒合編號' => $_POST['媒合編號'],
 		// 					'成交日期' => $_POST['成交日期'],
 		// 					'股票名稱' => $_POST['股票名稱'],
@@ -231,7 +236,7 @@ class Orders extends CI_Controller {
 
 
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin新增成交單', '媒合編號'.$_POST['媒合編號'], null);
-		
+
 		$this->go_orders();
 	}
 
@@ -287,7 +292,7 @@ class Orders extends CI_Controller {
 		}
 		$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
 		$this->orders_model->delete_add_quene($_POST['add_quene編號']);
-		
+
 		$this->go_orders();
 	}
 
@@ -303,7 +308,7 @@ class Orders extends CI_Controller {
 			$稅金 = $data['盤價']*$data['張數']*1000*0.003;
 			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'] - $data['自行應付'])*$_SESSION['趴數'];
 		}
-		
+
 		$result = array( 'ID' => $data['ID'],
 						'日期' => $data['成交日期'],
 						'姓名' => $data['客戶姓名'],
@@ -390,6 +395,7 @@ class Orders extends CI_Controller {
 		$orders = $this->orders_model->go_deleted_model();
 		$this->load->view('templates/header');
 		$this->load->view('pages/deleted_view', array('orders'=>$orders));
+		$this->load->view('templates/footer');
 	}
 
 	public function checkbill() {
@@ -430,6 +436,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/receivable_view', $arrayName);
+		$this->load->view('templates/footer');
 	}
 
 	// public function pushinto_checkbill() {
@@ -475,6 +482,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/transferable_header');
 		$this->load->view('pages/transferable_view', $arrayName);
+		$this->load->view('templates/footer');
 	}
 
 	public function upload_document() {
@@ -605,6 +613,7 @@ class Orders extends CI_Controller {
 		} else {
 			$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
 		}
+		$this->load->view('templates/footer');
 	}
 
 	//修改成交單資料
@@ -624,6 +633,7 @@ class Orders extends CI_Controller {
 		} else {
 			$this->load->view('pages/order_edit/edit_order_view_before0701',array('result' => $result,'employees' => $employees,));
 		}
+		$this->load->view('templates/footer');
 	}
 
 
@@ -639,6 +649,7 @@ class Orders extends CI_Controller {
 		// };
 		$this->load->view('templates/header');
 		$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
+		$this->load->view('templates/footer');
 	}
 
 	//改成交單狀態(一審)
@@ -998,6 +1009,7 @@ class Orders extends CI_Controller {
 		$employees = $this->orders_model->get_employee(null);
 		$this->load->view('templates/header');
 		$this->load->view('pages/order_edit/edit2_order_view',array('result' => $result,'employees' => $employees));
+		$this->load->view('templates/footer');
 	}
 
 	//二審update
@@ -1110,7 +1122,7 @@ class Orders extends CI_Controller {
 			}
 			//填入符合條件之成交單資料
 			$row = 2;
-			for ($num = 0; $num < count($data); $num++) {	
+			for ($num = 0; $num < count($data); $num++) {
 				if ($_POST['業務'] == '所有業務' || $_POST['業務'] == $data[$num]['業務']) {
 					if (!$isSelected || $isSelected && strtotime($date1) <= strtotime($data[$num]['成交日期']) && strtotime($date2) >= strtotime($data[$num]['成交日期'])) {
 						for ($col = 1; $col <= count($title); $col++) {
@@ -1211,7 +1223,7 @@ class Orders extends CI_Controller {
 			header('Cache-Control: max-age=0');
 			$objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
 			$objWriter->save($file);//建立暫存檔並將資料寫入
-			$objWriter->save('php://output');	
+			$objWriter->save('php://output');
 		}
 		$array = array('盤商名稱' => $_POST['dealer_name'], '成交單編號' => $_POST['order_id'], '完稅姓名' => $_POST['taxer_name'], '匯款姓名' => $_POST['payer_name'], '金額' => $_POST['payer_amount']);
 		$id = $this->orders_model->insert_fax_info($array);
@@ -1302,7 +1314,7 @@ class Orders extends CI_Controller {
 
 				for ($j = 0; $j < count($datas); $j++) {
 					if ($datas[$j]['是否已對帳'] != '1') { //檢查明細是否對過
-			    		//if (($datas[$j]['帳號'] == null && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 || 
+			    		//if (($datas[$j]['帳號'] == null && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 ||
 			    		//	substr($datas[$j]['帳號'], -5) == $orders_buy[$i]['匯款帳號末5碼']) && $money == $datas[$j]['轉入']) { //一周內\
 
 			    		if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉入']) { //一周內
@@ -1468,7 +1480,7 @@ class Orders extends CI_Controller {
 			$this->load->view('templates/header');
 			$this->load->view('pages/money/inform_check_money_view',$array);
 		}
-		
+		$this->load->view('templates/footer');
 	}
 
 	//更改通知查帳
@@ -1485,6 +1497,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/ready_to_check',$arrayName);
+		$this->load->view('templates/footer');
 	}
 
 	//大姊確認帳款
@@ -1499,6 +1512,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/check_record', array('data'=>$data));
+		$this->load->view('templates/footer');
 	}
 
 	//查看動作紀錄
@@ -1506,12 +1520,14 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_move_record();
 		$this->load->view('templates/header');
 		$this->load->view('pages/admin/move_record', array('data'=>$data));
+		$this->load->view('templates/footer');
 	}
 
 	//進入傳真資料
 	public function fax_info() {
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/fax_info');
+		$this->load->view('templates/footer');
 	}
 
 	//進入盤商資料
@@ -1519,6 +1535,7 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_dealer_info(1, NULL);
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/dealer_info', array('data'=>$data));
+		$this->load->view('templates/footer');
 	}
 
 	//進入完稅人資料
@@ -1526,18 +1543,21 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_taxer_info(1, NULL);
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/taxer_info', array('data'=>$data));
+		$this->load->view('templates/footer');
 	}
 
 	//新增盤商頁面
 	public function go_add_dealer() {
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/add_dealer_view');
+		$this->load->view('templates/footer');
 	}
 
 	//新增完稅人頁面
 	public function go_add_taxer() {
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/add_taxer_view');
+		$this->load->view('templates/footer');
 	}
 
 	//新增盤商
@@ -1568,6 +1588,7 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_dealer_info(2, $dealer_id); //撈欲編輯資料
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/edit_dealer_view', array('data' => $data,));
+		$this->load->view('templates/footer');
 	}
 
 	//編輯完稅人頁面
@@ -1576,6 +1597,7 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_taxer_info(2, $taxer_id); //撈欲編輯資料
 		$this->load->view('templates/header');
 		$this->load->view('pages/fax/edit_taxer_view', array('data' => $data,));
+		$this->load->view('templates/footer');
 	}
 
 	//編輯盤商
@@ -1626,13 +1648,14 @@ class Orders extends CI_Controller {
 		$dir_info = scandir('upload/document');
 		// print_r($dir_info);
 		$file_info = array();
-		for ($i=2; $i < count($dir_info); $i++) { 
+		for ($i=2; $i < count($dir_info); $i++) {
 			array_push($file_info, iconv("BIG5", "UTF-8", $dir_info[$i]));
 		}
 		// print_r($file_info);
 		// echo "</br>".iconv("BIG5", "UTF-8", $dir_info[6])."可以秀中文阿";
 		$this->load->view('templates/header');
 		$this->load->view('pages/download/document_view', array('file_info' => $file_info));
+		$this->load->view('templates/footer');
 	}
 
 	public function document_download() {
@@ -1649,6 +1672,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/error_view', array('data'=>$data));
 		//echo "轉出異常的成交單會出現在這(EX大姊匯了兩次)";
+		$this->load->view('templates/footer');
 	}
 
 	public function passrecord() {
@@ -1656,6 +1680,7 @@ class Orders extends CI_Controller {
 		// print_r($data);
 		$this->load->view('templates/header');
 		$this->load->view('pages/money/passrecord_view', array('data'=>$data));
+		$this->load->view('templates/footer');
 	}
 
 	public function add_need() {
@@ -1684,7 +1709,7 @@ class Orders extends CI_Controller {
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改備註', $_POST['note_id'], $diff);
 
 		$this->orders_model->edit_note_model($_POST['note_id'] , $_POST['edit_備註']);
-		
+
 		$this->go_orders();
 	}
 
@@ -1692,6 +1717,7 @@ class Orders extends CI_Controller {
 		$data = $this->orders_model->get_assign();
 		$this->load->view('templates/header');
 		$this->load->view('pages/assign_view', array('data'=>$data));
+		$this->load->view('templates/footer');
 	}
 
 	public function add_assign() {
@@ -1746,6 +1772,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('templates/receivable_header');
 		$this->load->view('pages/money/show_bank_view', array('data'=>$data));
+		$this->load->view('templates/footer');
 	}
 
 	public function show_test() {

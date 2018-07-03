@@ -1,14 +1,29 @@
+	.s-pull-1{
+		position: relative;
+    max-width: 1800px;
+    margin-left: auto;
+    margin-right: auto;
+	}
+
+	#header{
+		position: fixed;
+		width: 100%;
+		background-color: #fff;
+		z-index: 1000;
+	}
 	.s-sidebar{
-		-webkit-box-flex: 0;
-    -ms-flex: 0 0 12.5%;
-    flex: 0 0 12.5%;
+		position: fixed;
+    top: auto;
+    float: none!important;
+    z-index: 999;
     max-width: 12.5%;
     	.s-sidebar-1{
     		 margin: 12px auto 0 auto;
     	}
 
   	}
-
+ #mainSection{padding-left: 125px!important;}
+ .container-fluid{padding-top: 65px;}
  .show{display: block;}
  .hide{display: none;}
  .note-sec{
@@ -325,6 +340,11 @@
 	}
 
 	// table style
+	.sticky-header {
+	  position: fixed;
+	  top: 36px;
+	  width: 100%;
+	}
 
 	th, td, form {
 	 white-space: nowrap;

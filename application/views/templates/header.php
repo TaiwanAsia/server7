@@ -73,13 +73,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
     </script>
 
-  <body>
-    <?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱'];
+ <body>
+  <header id="header">
+    <div class="s-pull-1">
+    <span><?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱'];
     // echo '帳號設定權限: '.$_SESSION['帳號設定權限'];
-     ?>
+     ?></span>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
-
           <input form="search" class="form-control form-control-dark w-100" type="text" placeholder="Ex : 2018050001" aria-label="Search" name="keyword">
 
         <ul class="navbar-nav px-3">
@@ -88,6 +89,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </li>
         </ul>
     </nav>
+  </div>
+ </header>
     <form method="get" name="search" action="search" id="search">
     </form>
     <div class="container-fluid">

@@ -1,5 +1,4 @@
-  <main role="main" style="flex: 1 0 auto;" >
-    <span id="goTop">gotop</span>
+  <main id="mainSection" role="main" style="flex: 1 0 auto;" >
     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
      <h1 class="h2">成交單</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
@@ -60,7 +59,7 @@
 
 
 <div class="t-form">
-<table id="eoTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
+<table id="eoTable" class="table table-md table-hover table-responsive table-fixed" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
     <thead class="thead-light">
       <tr>
         <th data-tablesaw-priority="persist"></th>
@@ -978,5 +977,4 @@
           feather.replace()
 
         </script>
-    </body>
-</html>
+
