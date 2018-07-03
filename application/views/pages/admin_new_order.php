@@ -21,7 +21,7 @@
 					<tr>
 						<th nowrap="nowrap">股票</th>
 						<td>
-							<input type="text" name="股票名稱" value="">
+							<input required="" type="text" name="股票名稱" value="">
 						</td>
 					</tr>
 					<tr>
@@ -34,7 +34,7 @@
 						<td colspan="">
 			 				<?php for ($i=0; $i < count($employees); $i++) { 
 			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
-			 					<input class="" type="radio" name="客戶主賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+			 					<input required="" class="" type="radio" name="客戶主賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 			 				<?php	}
 			 				} ?>
 						</td>
