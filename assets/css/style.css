@@ -1,7 +1,6 @@
 .s-pull-1 {
   position: relative;
   max-width: 1800px;
-  margin-left: auto;
   margin-right: auto; }
 
 #header {
@@ -17,13 +16,16 @@
   z-index: 999;
   max-width: 12.5%; }
   .s-sidebar .s-sidebar-1 {
-    margin: 12px auto 0 auto; }
+    margin: 12px auto 0 auto;
+    height: 5000px;
+    top: auto;
+    bottom: auto; }
 
 #mainSection {
-  padding-left: 125px !important; }
+  padding-left: 136px !important; }
 
 .container-fluid {
-  padding-top: 65px; }
+  padding-top: 64px; }
 
 .show {
   display: block; }
@@ -243,9 +245,15 @@ input {
   transition: none; }
 
 .t-form-t {
-  margin: 12px; }
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  z-index: 1000; }
   .t-form-t h1 {
     margin: 12px; }
+
+.t-form {
+  padding-top: 100px; }
 
 .upload-files {
   width: 300px;

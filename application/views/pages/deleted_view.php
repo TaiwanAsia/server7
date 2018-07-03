@@ -1,5 +1,5 @@
 
-                <main role="main" style="flex: 1 0 auto;" >
+<main id="mainSection" role="main" style="flex: 1 0 auto;" >
                   <div class="t-form-h">
                     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
 <!--                         <h1 class="h2">刪除成交單</h1>
@@ -60,7 +60,7 @@
                         <?php
                         echo base_url()."index.php/orders/go_deleted?業務=".$orders[$i]['業務'];
                         ?>'"
-                        title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>                      
+                        title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
                     </td>
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='

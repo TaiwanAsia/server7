@@ -1,4 +1,4 @@
-<main role="main">
+<main id="mainSection" role="main">
 	<div class="container">
  		<div class="sec-one sec-s">
 			<div class="row">
@@ -147,7 +147,7 @@
 		 			<h4>工單</h4>
 		 			<p>對象：</p>
 		 			<ul>
-		 				<?php for ($i=0; $i < count($employees); $i++) { 
+		 				<?php for ($i=0; $i < count($employees); $i++) {
 		 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存') { ?>
 		 					<li>
 		 						<input type="checkbox" name="工單對象[]" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>

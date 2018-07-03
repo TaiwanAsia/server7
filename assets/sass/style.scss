@@ -1,7 +1,6 @@
 	.s-pull-1{
 		position: relative;
     max-width: 1800px;
-    margin-left: auto;
     margin-right: auto;
 	}
 
@@ -18,12 +17,14 @@
     z-index: 999;
     max-width: 12.5%;
     	.s-sidebar-1{
-    		 margin: 12px auto 0 auto;
+    		margin: 12px auto 0 auto;
+    		height: 5000px;
+		    top: auto;
+		    bottom: auto;
     	}
-
   	}
- #mainSection{padding-left: 125px!important;}
- .container-fluid{padding-top: 65px;}
+ #mainSection{padding-left: 136px!important;}
+ .container-fluid{padding-top: 64px;}
  .show{display: block;}
  .hide{display: none;}
  .note-sec{
@@ -294,11 +295,17 @@
 	}
 
 	.t-form-t{
-			margin:12px;
+			position: fixed;
+			width: 100%;
+			background-color: #fff;
+			z-index: 1000;
 			h1{
 				margin:12px;
 			}
 		}
+	.t-form{
+		padding-top: 100px;
+	}
 
 
 

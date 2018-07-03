@@ -1,5 +1,5 @@
 
-	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+	<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 		<div>
 			<form action="go_add_account" method="POST" class="t-form-t" name="">
 				<input type="submit" name="" value="新增">
@@ -13,7 +13,7 @@
 				</li>
 			</ul>
 		</div>
-		
+
 		<div class="t-form">
 			<h2>尚未完成</h2>
 			<table class="table">
@@ -30,7 +30,7 @@
 				</thead>
 				<tbody>
 				<?php //print_r($data);
-				if (isset($data)) { 
+				if (isset($data)) {
 					for ($i=0; $i < count($data); $i++) { ?>
 						<tr>
 							<td>
