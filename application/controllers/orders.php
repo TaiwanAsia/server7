@@ -66,21 +66,24 @@ class Orders extends CI_Controller {
 			} else {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 			}
-			foreach ($orders as $key => $value) {
-				if (isset($_GET['股票']) && $_GET['股票'] != $value['股票']) {
-					unset($orders[$key]);
+			if ($orders != null) {
+				foreach ($orders as $key => $value) {
+					if (isset($_GET['股票']) && $_GET['股票'] != $value['股票']) {
+						unset($orders[$key]);
+					}
+					if (isset($_GET['業務']) && $_GET['業務'] != $value['業務'] && $_GET['業務'] != '所有業務') {
+						unset($orders[$key]);
+					}
+					if (isset($_GET['客戶姓名']) && $_GET['客戶姓名'] != $value['客戶姓名']) {
+						unset($orders[$key]);
+					}
+					if (isset($_GET['聯絡電話']) && $_GET['聯絡電話'] != $value['聯絡電話']) {
+						unset($orders[$key]);
+					}
 				}
-				if (isset($_GET['業務']) && $_GET['業務'] != $value['業務'] && $_GET['業務'] != '所有業務') {
-					unset($orders[$key]);
-				}
-				if (isset($_GET['客戶姓名']) && $_GET['客戶姓名'] != $value['客戶姓名']) {
-					unset($orders[$key]);
-				}
-				if (isset($_GET['聯絡電話']) && $_GET['聯絡電話'] != $value['聯絡電話']) {
-					unset($orders[$key]);
-				}
+				$orders = array_values($orders);
 			}
-			$orders = array_values($orders);
+			
 
 			$add_quene = $this->orders_model->get_add_quene($_SESSION['NAME']);
 			$all_orders = $orders;
