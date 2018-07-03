@@ -1,5 +1,9 @@
 
-	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+	<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+		 <div class="t-form-t">
+		 	<h1>動作紀錄</h1>
+		 </div>
+		 <div class="t-form">
 			<table class="table">
 				<thead class="thead-light">
 				<tr>
@@ -28,8 +32,5 @@
 				?>
 				</tbody>
 			</table>
+			</div>
 	</main>
-
-
-</body>
-</html>

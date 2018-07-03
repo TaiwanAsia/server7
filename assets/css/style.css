@@ -61,7 +61,9 @@
     margin: -7px 0 0 -10px;
     border-style: solid;
     border-width: 0 10px 15px 10px;
-    border-color: transparent transparent #333 transparent; }
+    border-color: transparent transparent #fff transparent; }
+  #goTop:hover {
+    opacity: 0.6; }
 
 .row-s-1 {
   background-color: #383d41;
@@ -251,6 +253,10 @@ input {
   z-index: 1000; }
   .t-form-t h1 {
     margin: 12px; }
+
+.t-form-t-2 {
+  margin-top: 24px;
+  padding: 12px; }
 
 .t-form {
   padding-top: 100px; }
