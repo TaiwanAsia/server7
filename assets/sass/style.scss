@@ -23,7 +23,12 @@
 		    bottom: auto;
     	}
   	}
- #mainSection{padding-left: 136px!important;}
+
+ #mainSection{
+ 	padding-left: 128px!important;
+ 	padding-top: 0!important;
+
+ }
  .container-fluid{padding-top: 64px;}
  .show{display: block;}
  .hide{display: none;}

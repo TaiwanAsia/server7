@@ -22,7 +22,8 @@
     bottom: auto; }
 
 #mainSection {
-  padding-left: 136px !important; }
+  padding-left: 128px !important;
+  padding-top: 0 !important; }
 
 .container-fluid {
   padding-top: 64px; }
