@@ -156,13 +156,25 @@
         <td>
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            echo base_url()."index.php/orders/";
+            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
-              echo "go_inventory?業務=".$orders[$i]['業務'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_inventory?業務=".$orders[$i]['業務'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['業務']) === false) {
+                echo "go_inventory?".$_SERVER['QUERY_STRING']."&業務=".$orders[$i]['業務'];
+              }
             } else if($orders[$i]['轉讓會員'] == 'KO') {
-              echo "go_ko?業務=".$orders[$i]['業務'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_ko?業務=".$orders[$i]['業務'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['業務']) === false) {
+                echo "go_ko?".$_SERVER['QUERY_STRING']."&業務=".$orders[$i]['業務'];
+              }
             } else {
-              echo "go_orders?業務=".$orders[$i]['業務'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_orders?業務=".$orders[$i]['業務'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['業務']) === false) {
+                echo "go_orders?".$_SERVER['QUERY_STRING']."&業務=".$orders[$i]['業務'];
+              }
             }?>'"
             title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>
             <input type="hidden" id="業務<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['業務']; ?>">
@@ -170,13 +182,25 @@
         <td class="thd-s1">
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            echo base_url()."index.php/orders/";
+            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
-              echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['客戶姓名']) === false) {
+                echo "go_inventory?".$_SERVER['QUERY_STRING']."&客戶姓名=".$orders[$i]['客戶姓名'];
+              }
             } else if($orders[$i]['轉讓會員'] == 'KO') {
-              echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_ko?客戶姓名=".$orders[$i]['客戶姓名'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['客戶姓名']) === false) {
+                echo "go_ko?".$_SERVER['QUERY_STRING']."&客戶姓名=".$orders[$i]['客戶姓名'];
+              }
             } else {
-              echo "go_orders?客戶姓名=".$orders[$i]['客戶姓名'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_orders?客戶姓名=".$orders[$i]['客戶姓名'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['客戶姓名']) === false) {
+                echo "go_orders?".$_SERVER['QUERY_STRING']."&客戶姓名=".$orders[$i]['客戶姓名'];
+              }
             }?>'"
             title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
           <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
@@ -192,13 +216,25 @@
         <?php if($_SESSION['聯絡電話權限']==1) { ?>
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            echo base_url()."index.php/orders/";
+            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
-              echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['聯絡電話']) === false) {
+                echo "go_inventory?".$_SERVER['QUERY_STRING']."&聯絡電話=".$orders[$i]['聯絡電話'];
+              }
             } else if($orders[$i]['轉讓會員'] == 'KO') {
-              echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_ko?聯絡電話=".$orders[$i]['聯絡電話'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['聯絡電話']) === false) {
+                echo "go_ko?".$_SERVER['QUERY_STRING']."&聯絡電話=".$orders[$i]['聯絡電話'];
+              }
             } else {
-              echo "go_orders?聯絡電話=".$orders[$i]['聯絡電話'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_orders?聯絡電話=".$orders[$i]['聯絡電話'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['聯絡電話']) === false) {
+                echo "go_orders?".$_SERVER['QUERY_STRING']."&聯絡電話=".$orders[$i]['聯絡電話'];
+              }
             }?>'"
             title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
           <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
@@ -229,13 +265,25 @@
         <td>
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            echo base_url()."index.php/orders/";
+            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
-              echo "go_inventory?股票=".$orders[$i]['股票'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_inventory?股票=".$orders[$i]['股票'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['股票']) === false) {
+                echo "go_inventory?".$_SERVER['QUERY_STRING']."&股票=".$orders[$i]['股票'];
+              }
             } else if($orders[$i]['轉讓會員'] == 'KO') {
-              echo "go_ko?股票=".$orders[$i]['股票'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_ko?股票=".$orders[$i]['股票'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['股票']) === false) {
+                echo "go_ko?".$_SERVER['QUERY_STRING']."&股票=".$orders[$i]['股票'];
+              }
             } else {
-              echo "go_orders?股票=".$orders[$i]['股票'];
+              if ($_SERVER['QUERY_STRING'] == null) {
+                echo "go_orders?股票=".$orders[$i]['股票'];
+              } else if (strpos($_SERVER['QUERY_STRING'],$orders[$i]['股票']) === false) {
+                echo "go_orders?".$_SERVER['QUERY_STRING']."&股票=".$orders[$i]['股票'];
+              }
             }?>'"
             title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
           <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
