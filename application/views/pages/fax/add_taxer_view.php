@@ -1,12 +1,9 @@
-<body>
-
-
-<div id="container">
-	<div id="body">
-	 	<form action="add_taxer" method="POST" name="" style= "display:inline">
-		 	<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
+<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+	<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
 		 		<h1 class="h2">新增完稅資料</h1>
 		 	</div>
+		 	<div class="t-form">
+	 	<form action="add_taxer" method="POST" name="" style= "display:inline">
 			<table class="table table-md table-hover table-responsive fax-table">
 				<thead class="thead-light">
 					<tr>
@@ -48,9 +45,5 @@
 			<input type="submit" name="" value="確認">
 
 		</form>
-
 	</div>
-</div>
-
-</body>
-</html>
+</main>

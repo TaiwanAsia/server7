@@ -58,70 +58,19 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get($keyword=null,$權限名稱=null,$name=null,$type=null,$keyword2=null) {
+    public function get($keyword=null,$權限名稱=null,$name=null) {
         $query = null;
         // The following code sections define the query handlers
         if(is_null($keyword)) {
-            // Query all 股票 satisfying 股票 == $keyword2
-            if ($type == '股票') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name, '股票' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $this->db->where('股票', $keyword2);
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '業務') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $this->db->where('業務', $keyword2);
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '客戶姓名') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name, '客戶姓名' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $this->db->where('客戶姓名', $keyword2);
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '聯絡電話') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name, '聯絡電話' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $this->db->where('聯絡電話', $keyword2);
-                    $query = $this->db->query($sql);
-                }
+            if($權限名稱=='最高權限') {
+                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($權限名稱=='業務') {
+                $this->db->order_by("最後動作時間", "desc");
+                $query = $this->db->get_where('ORDERS', array('業務' => $name));
             } else {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
+                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
             }
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
@@ -262,65 +211,19 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_inventory($keyword,$權限名稱,$name,$type,$keyword2) {
+    public function get_inventory($keyword,$權限名稱,$name) {
         $query = null;
         if(is_null($keyword)) {
-            if ($type == '股票') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => '庫存', '股票' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '業務') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => '庫存'));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '客戶姓名') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => '庫存', '客戶姓名' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '聯絡電話') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => '庫存', '聯絡電話' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' AND `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
+            if($權限名稱=='最高權限') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($權限名稱=='業務') {
+                $this->db->order_by("最後動作時間", "desc");
+                $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => '庫存'));
             } else {
-               if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => '庫存'));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $this->db->where('轉讓會員', '庫存');
-                    $query = $this->db->query($sql);
-                }
+                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
+                $this->db->where('轉讓會員', '庫存');
+                $query = $this->db->query($sql);
             }
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
@@ -406,65 +309,19 @@ class Orders_model extends CI_Model {
         }
     }
 
-    public function get_ko($keyword,$權限名稱,$name,$type,$keyword2) {
+    public function get_ko($keyword,$權限名稱,$name) {
         $query = null;
         if(is_null($keyword)) {
-            if ($type == '股票') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => 'KO', '股票' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `股票`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '業務') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => 'KO'));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `業務`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '客戶姓名') {
-                if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => 'KO', '客戶姓名' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `客戶姓名`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
-            } else if ($type == '聯絡電話') {
-               if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => 'KO', '聯絡電話' => $keyword2));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' AND `聯絡電話`='".$keyword2."' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                }
+            if($權限名稱=='最高權限') {
+                $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' ORDER BY `最後動作時間` DESC";
+                $query = $this->db->query($sql);
+            } elseif ($權限名稱=='業務') {
+                $this->db->order_by("最後動作時間", "desc");
+                $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => 'KO'));
             } else {
-               if($權限名稱=='最高權限') {
-                    $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='KO' ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } elseif ($權限名稱=='業務') {
-                    $this->db->order_by("最後動作時間", "desc");
-                    $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => 'KO'));
-                } else {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $this->db->where('轉讓會員', 'KO');
-                    $query = $this->db->query($sql);
-                }
+                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
+                $this->db->where('轉讓會員', 'KO');
+                $query = $this->db->query($sql);
             }
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));

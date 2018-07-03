@@ -1,6 +1,3 @@
-<body>
-
-
 <div id="container">
 	<div id="body">
 		<form action="add_account" method="POST" name="" style= "display:inline">

@@ -54,15 +54,16 @@ $("#receFileUpload").change(function(){
     });
 });
 
-$(function(){
-    var $gotop = $('#goTop') ,
-        goSpeed = 800 ;
+    var tableFixed = $(".table-fixed");
+    var sticky = tableFixed.offsetTop;
 
-    $gotop.click(function(e) {
-        $('html , body').animate({scrollTop:0} , goSpeed);
+    tableFixed.scroll(function(){
+     if (window.pageYOffset > sticky) {
+        tableFixed.classList.add("sticky-header");
+      } else {
+        tableFixed.classList.remove("sticky-header");
+      }
     });
-});
-
 
 });
 

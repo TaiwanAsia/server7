@@ -1,8 +1,5 @@
-<body>
-
-
 <div id="container">
-	
+
 	<div id="body">
 
 		<form action="edit_account" method="POST" name="" style= "display:inline">
@@ -70,6 +67,3 @@
 
 	</div>
 </div>
-
-</body>
-</html>

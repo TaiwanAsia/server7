@@ -1,6 +1,7 @@
 
-	<main role="main" class="col-md-9 col-lg-10 pt-3 px-4">
-		<div>
+	<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+		<div class="t-form-t">
+			<h1>帳號管理</h1>
 			<form action="go_add_account" method="POST" class="t-form-t" name="">
 				<input type="submit" name="" value="新增">
 			</form>
@@ -13,9 +14,8 @@
 				</li>
 			</ul>
 		</div>
-		
+
 		<div class="t-form">
-			
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
@@ -66,7 +66,3 @@
 			</table>
 		</div>
 	</main>
-
-
-</body>
-</html>

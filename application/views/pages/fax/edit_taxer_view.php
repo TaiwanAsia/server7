@@ -1,6 +1,4 @@
-<body>
-
-	<div id="container">
+	<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 	 	<div id="body">
 	  		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
 				<h1 class="h2">編輯完稅資料</h1>
@@ -52,7 +50,4 @@
 			</form>
 
 		</div>
-	</div>
-
-</body>
-</html>
+	</main>
