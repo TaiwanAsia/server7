@@ -70,7 +70,7 @@ class Orders extends CI_Controller {
 				if (isset($_GET['股票']) && $_GET['股票'] != $value['股票']) {
 					unset($orders[$key]);
 				}
-				if (isset($_GET['業務']) && $_GET['業務'] != $value['業務']) {
+				if (isset($_GET['業務']) && $_GET['業務'] != $value['業務'] && $_GET['業務'] != '所有業務') {
 					unset($orders[$key]);
 				}
 				if (isset($_GET['客戶姓名']) && $_GET['客戶姓名'] != $value['客戶姓名']) {

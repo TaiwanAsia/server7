@@ -165,16 +165,16 @@ class Orders_model extends CI_Model {
         $query = null;
         if($權限名稱=='最高權限') {
             if ($業務 != '所有業務') {
-                $sql = "SELECT * FROM `ORDERS_before0701` WHERE `業務`='".$業務."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+                $sql = "SELECT * FROM `ORDERS` WHERE `業務`='".$業務."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
             } else {
-                $sql = "SELECT * FROM `ORDERS_before0701` WHERE `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+                $sql = "SELECT * FROM `ORDERS` WHERE `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
             }
             $query = $this->db->query($sql);
         } elseif ($權限名稱=='業務') {
-            $sql = "SELECT * FROM `ORDERS_before0701` WHERE `業務`='".$name."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS` WHERE `業務`='".$name."' AND `成交日期` BETWEEN '".$date1."' AND '".$date2."' ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         } else {
-            $sql = "SELECT * FROM `ORDERS_before0701` ORDER BY `最後動作時間` DESC";
+            $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
             $query = $this->db->query($sql);
         }
 
