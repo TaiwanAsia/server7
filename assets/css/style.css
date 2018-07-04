@@ -37,7 +37,9 @@
 .note-sec {
   border: 1px solid #999;
   background-color: #f7f7f7;
-  padding: 12px; }
+  height: 36vh;
+  overflow-x: scroll;
+  overflow-y: scroll; }
 
 #goTop {
   position: fixed;
@@ -350,3 +352,20 @@ tr.note-row {
   width: 110%;
   border: 0px none black;
   background-color: #ddffdd; }
+
+.note-table {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: scroll; }
+  .note-table .thead-s1 {
+    background-color: #e81655; }
+  .note-table .thead-s2 {
+    background-color: #204c9c; }
+  .note-table th {
+    color: #fff; }
+
+.note-table::-webkit-scrollbar:vertical {
+  width: 12px; }
+
+.note-table::-webkit-scrollbar:horizontal {
+  height: 12px; }

@@ -1,11 +1,10 @@
 <main id="mainSection" role="main">
-	<div class="container">
  		<div class="sec-one sec-s">
 			<div class="row">
 				<div class="col-xl-6">
 					<div class="note-sec">
-						<table class="table-responsive">
-							<thead>
+						<table class="note-table">
+							<thead class="thead-s1">
 								<tr>
 									<th>需求者</th>
 									<th>標的</th>
@@ -36,8 +35,8 @@
 				</div>
 				<div class="col-xl-6">
 					<div class="note-sec">
-						<table class="table-responsive">
-							<thead>
+						<table class="note-table">
+							<thead class="thead-s2">
 								<tr>
 									<th>需求者</th>
 									<th>股名</th>
@@ -207,5 +206,4 @@
 		 		</div>
 			</form>
 	 	</div>
-	</div>
 </main>
