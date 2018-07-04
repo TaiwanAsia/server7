@@ -1864,8 +1864,6 @@ class Orders extends CI_Controller {
 						'價格'=>$_POST['價格'],
 						'張數'=>$_POST['張數'],
 						'委託到期日'=>$_POST['委託到期日'],
-						'把握度'=>$_POST['把握度'],
-						'進度'=>$_POST['進度'],
 						'建立日期'=>date('Y-m-d'),
 						'最後動作時間'=>date('Y-m-d H:i:s'));
 		$this->orders_model->add_need_model($data);

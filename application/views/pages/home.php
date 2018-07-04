@@ -15,20 +15,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<?php if ($need) {
-										for ($i=0; $i < count($need); $i++) {
-											if ($need[$i]['買賣']==1) {
-												echo "<td>".$need[$i]['需求者']."</td>";
-												echo "<td>".$need[$i]['股名']."</td>";
-												echo "<td>".$need[$i]['價格']."</td>";
-												echo "<td>".$need[$i]['張數']."</td>";
-												echo "<td>".$need[$i]['委託到期日']."</td>";
-												echo "<td>".$need[$i]['進度']."</td>";
-											}
-										}
-									} ?>
-								</tr>
+								<?php if ($need) { 
+									for ($i=0; $i < count($need); $i++) { ?>
+									<tr>
+										<?php if ($need[$i]['買賣']==1) {
+											echo "<td>".$need[$i]['需求者']."</td>";
+											echo "<td>".$need[$i]['股名']."</td>";
+											echo "<td>".$need[$i]['價格']."</td>";
+											echo "<td>".$need[$i]['張數']."</td>";
+											echo "<td>".$need[$i]['委託到期日']."</td>";
+											echo "<td>".$need[$i]['進度']."</td>";
+										} ?>
+									</tr>
+								<?php	}
+								} ?>
 							</tbody>
 						</table>
 					</div>
@@ -47,20 +47,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<?php if ($need) {
-										for ($i=0; $i < count($need); $i++) {
-											if ($need[$i]['買賣']==0) {
-												echo "<td>".$need[$i]['需求者']."</td>";
-												echo "<td>".$need[$i]['股名']."</td>";
-												echo "<td>".$need[$i]['價格']."</td>";
-												echo "<td>".$need[$i]['張數']."</td>";
-												echo "<td>".$need[$i]['委託到期日']."</td>";
-												echo "<td>".$need[$i]['進度']."</td>";
-											}
-										}
-									} ?>
-								</tr>
+								
+								<?php if ($need) { 
+									for ($i=0; $i < count($need); $i++) { ?>
+									<tr>
+										<?php if ($need[$i]['買賣']==0) {
+											echo "<td>".$need[$i]['需求者']."</td>";
+											echo "<td>".$need[$i]['股名']."</td>";
+											echo "<td>".$need[$i]['價格']."</td>";
+											echo "<td>".$need[$i]['張數']."</td>";
+											echo "<td>".$need[$i]['委託到期日']."</td>";
+											echo "<td>".$need[$i]['進度']."</td>";
+										} ?>
+									</tr>
+								<?php	}
+								} ?>
+								
 							</tbody>
 						</table>
 					</div>
