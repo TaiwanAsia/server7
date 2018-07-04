@@ -16,18 +16,13 @@
           </div>
       </div>
     </div> -->
-
-    <!-- <div class="t-form-t"> -->
-      
+		<div class="t-form">
+			<div class="t-form-h">
       <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
         <font color="red" size="5">對帳請按</font>
         <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳">
       <?php } ?>
-    <!-- </div> -->
-
-
-		<div>
-			<br><br>
+    </div>
 			<table  id="eoTable" class="table table-md table-hover table-responsive" >
 				<tr>
           <th nowrap="nowrap">成交單編號</th>
