@@ -8,11 +8,10 @@
 							<thead>
 								<tr>
 									<th>需求者</th>
-									<th>股名</th>
+									<th>標的</th>
 									<th>買價</th>
 									<th>張數</th>
 									<th>委託到期日</th>
-									<th>把握度</th>
 									<th>進度</th>
 								</tr>
 							</thead>
@@ -26,7 +25,6 @@
 												echo "<td>".$need[$i]['價格']."</td>";
 												echo "<td>".$need[$i]['張數']."</td>";
 												echo "<td>".$need[$i]['委託到期日']."</td>";
-												echo "<td>".$need[$i]['把握度']."%</td>";
 												echo "<td>".$need[$i]['進度']."</td>";
 											}
 										}
@@ -46,7 +44,6 @@
 									<th>賣價</th>
 									<th>張數</th>
 									<th>委託到期日</th>
-									<th>把握度</th>
 									<th>進度</th>
 								</tr>
 							</thead>
@@ -60,7 +57,6 @@
 												echo "<td>".$need[$i]['價格']."</td>";
 												echo "<td>".$need[$i]['張數']."</td>";
 												echo "<td>".$need[$i]['委託到期日']."</td>";
-												echo "<td>".$need[$i]['把握度']."%</td>";
 												echo "<td>".$need[$i]['進度']."</td>";
 											}
 										}
@@ -96,9 +92,10 @@
 								<th>買或賣</th>
 								<th>價格</th>
 								<th>張數</th>
+								<th>客戶姓名</th>
+								<th>手機</th>
 								<th>委託到期日</th>
-								<th>把握度(0~100%)</th>
-								<th colspan="2">進度</th>
+								<!-- <th colspan="2">進度</th> -->
 							</thead>
 							<tbody>
 								<td>
@@ -123,14 +120,17 @@
 									<input type="text" name="張數">
 								</td>
 								<td>
+									<input type="text" name="客戶姓名">
+								</td>
+								<td>
+									<input type="text" name="手機">
+								</td>
+								<td>
 									<input type="date" name="委託到期日">
 								</td>
-								<td>
-									<input type="text" name="把握度">
-								</td>
-								<td>
+								<!-- <td>
 									<input type="text" name="進度">
-								</td>
+								</td> -->
 								<td>
 									<button type="submit" form="need">送出</button>
 								</td>
