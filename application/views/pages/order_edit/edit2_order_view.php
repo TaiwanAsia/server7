@@ -1,4 +1,4 @@
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <main id="mainSection" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <div>
                     <form method="post" name="edit_order_info" action="edit2_order" >
                         <div class="offset-md-1">
@@ -11,7 +11,7 @@
                                     <td>
                                         <label for="" class="">編號</label>
                                         <input type="hidden" name="ID" value="<?php echo $result[0]['ID'] ?>">
-                                    </td>       
+                                    </td>
                                     <td><h3><label for="" class="text-success"><?php echo $result[0]['ID'] ?></label></h3></td>
                                 </td>
                                 <tr>
@@ -76,7 +76,7 @@
                                             }
                                             ?>
                                         </select>
-                                    </td> 
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -124,6 +124,6 @@
                 </div>
             </main>
         </div>
-    </div>    
+    </div>
 </body>
 

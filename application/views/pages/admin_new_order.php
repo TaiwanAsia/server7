@@ -1,7 +1,5 @@
-<body>
 
-
-<div id="container">
+<main id="mainSection" role="main" style="flex: 1 0 auto;" >
 	<div id="body">
 		<form action="add_order_id" method="POST" name="" style= "display:inline;" >
 			<div>
@@ -32,14 +30,14 @@
 					<tr>
 						<td></td>
 						<td colspan="">
-			 				<?php for ($i=0; $i < count($employees); $i++) { 
+			 				<?php for ($i=0; $i < count($employees); $i++) {
 			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
 			 					<input required="" class="" type="radio" name="客戶主賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 			 				<?php	}
 			 				} ?>
 						</td>
 						<td colspan="">
-			 				<?php for ($i=0; $i < count($employees); $i++) { 
+			 				<?php for ($i=0; $i < count($employees); $i++) {
 			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
 			 					<input class="" type="radio" name="客戶主買" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 			 				<?php	}
@@ -73,14 +71,14 @@
 					<tr>
 						<td></td>
 						<td>
-			 				<?php for ($i=0; $i < count($employees); $i++) { 
+			 				<?php for ($i=0; $i < count($employees); $i++) {
 			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
 			 					<input class="" type="radio" name="客戶副賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 			 				<?php	}
 			 				} ?>
 						</td>
 						<td>
-			 				<?php for ($i=0; $i < count($employees); $i++) { 
+			 				<?php for ($i=0; $i < count($employees); $i++) {
 			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
 			 					<input class="" type="radio" name="客戶副買" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 			 				<?php	}
@@ -113,7 +111,7 @@
 		</form>
 
 	</div>
-</div>
+</main>
 
 <script type="text/javascript">
 	var limit = 2;
@@ -123,6 +121,3 @@
 	   }
 	});
 </script>
-
-</body>
-</html>

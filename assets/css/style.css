@@ -262,6 +262,9 @@ input {
 .t-form {
   padding-top: 100px; }
 
+.t-form-2 {
+  padding-top: 18px; }
+
 .upload-files {
   width: 300px;
   display: inline-block; }

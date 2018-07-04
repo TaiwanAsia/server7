@@ -1,4 +1,4 @@
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <main id="mainSection" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <div>
                     <form method="post" name="" action="inform_check_money" >
                         <div class="offset-md-1">
@@ -40,7 +40,7 @@
                                     <td><label for="" class="">匯款帳號末5碼</label></td>
                                     <td><input class="" type="text" name="匯款帳號末5碼" id="" value=""></td>
                                 </tr>
-                                
+
 
                                 <tr></tr>
                                 <tr>
@@ -54,7 +54,7 @@
                 </div>
             </main>
         </div>
-    </div>    
+    </div>
     <script>
         function Set_payname(name, money, date) {
             var n = name;
