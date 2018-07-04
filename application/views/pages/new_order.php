@@ -2,7 +2,8 @@
   <div>
    <form method="post" name="new_order_info" action="add_order" >
     <div class="offset-md-1">
-        <?php //echo($add_quene['id']) ?>
+        <?php //print_r($add_quene); ?>
+        <?php //echo "<br>";print_r($媒合對象) ?>
         <input type="hidden" name="add_quene編號" value="<?php echo($add_quene['id']) ?>">
      <table>
         <tr>
@@ -14,6 +15,7 @@
         <tr>
             <td>
                 <input type="hidden" name="媒合" value="<?php echo($add_quene['媒合編號']) ?>">
+                <input type="hidden" name="主要" value="<?php echo($add_quene['主要']) ?>">
             </td>
             <td><label for="" class="">業務</label></td>
             <td><input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id=""></td>
@@ -81,8 +83,8 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">盤價</label></td>
-            <td><input class="" type="text" name="盤價" value="" id=""></td>
-            <td><p class="text-info">★交易成本 / 庫存成本</p></td>
+            <td><input readonly="" class="" type="text" name="盤價" value="" id=""></td>
+            <td><p class="text-info">★系統自動運算</p></td>
         </tr>
         <tr>
             <td></td>
@@ -137,8 +139,16 @@
             <td>
                 <select id="轉讓會員" name="轉讓會員" class="form-control" required onchange="myFunction()">
                     <?php
-                    for ($j=1; $j < count($employees); $j++) {
-                        echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                    if ($add_quene['主要']==2) {
+                        for ($j=1; $j < count($employees); $j++) {
+                            if ($employees[$j]['NAME'] == '庫存') {
+                                echo "<option value=".$employees[$j]['NAME']." selected>".$employees[$j]['NAME']."</option>";
+                            }
+                        }
+                    } else {
+                        for ($j=1; $j < count($employees); $j++) {
+                            echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                        }
                     }
                     ?>
                 </select>
@@ -148,7 +158,7 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">完稅人</label></td>
-            <td><input class="" type="text" name="完稅人" value="" id="" required></td>
+            <td><input class="" type="text" name="完稅人" value="鄧喬尹" id="" required></td>
         </tr>
         <tr>
             <td></td>
@@ -202,8 +212,13 @@
         <tr>
             <td></td>
             <td><label for="noteField">備註</label></td>
-            <!-- <td><input type="text" name="備註" id="noteField"></td> -->
-            <td colspan="2"><textarea rows="4" cols="70" name="備註" id="noteField"></textarea></td>
+            <td colspan="2">
+                <?php if ($add_quene['主要']==1) { ?>
+                <textarea rows="4" cols="70" name="備註" id="noteField">主要</textarea>
+                <?php } else { ?>
+                <textarea rows="4" cols="70" name="備註" id="noteField"></textarea>
+                <?php } ?>
+            </td>
         </tr>
         <tr></tr>
         <tr>

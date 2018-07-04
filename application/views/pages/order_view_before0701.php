@@ -9,11 +9,11 @@
         <a href="<?php echo base_url(); ?>index.php/orders/go_orders_before0701" class="btn btn-sm btn-outline-secondary">所有</a>
         <a href="<?php echo base_url(); ?>index.php/orders/go_inventory_before0701" class="btn btn-sm btn-outline-secondary">庫存</a>
         <a href="<?php echo base_url(); ?>index.php/orders/go_ko_before0701" class="btn btn-sm btn-outline-secondary">KO</a>
-        <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
+        <!-- <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
           <a href="<?php echo base_url(); ?>index.php/orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
-        <?php } else if($add_quene) { ?>
+        <?php } else if($add_quene != null) { ?>
         <a href="<?php echo base_url(); ?>index.php/orders/new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
-        <?php } ?>
+        <?php } ?> -->
 
         </div>
 

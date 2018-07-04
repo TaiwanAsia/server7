@@ -84,6 +84,16 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function get_order_媒合對象($媒合編號) {
+        $query = $this->db->get_where('ORDERS', array('媒合' => $媒合編號));
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function get_max_媒合() {
         $sql = "SELECT * FROM `orders` WHERE `媒合` = (SELECT MAX(`媒合`) FROM `orders`)";
         $query = $this->db->query($sql);
@@ -368,21 +378,21 @@ class Orders_model extends CI_Model {
         $this->db->update('orders_before0701', $data);
     }
 
-    public function edit2($data) {
-        $sql = '';
-    }
-
     public function insert_add_quene($data) {
         $this->db->insert('add_quene', $data);
     }
 
-    public function get_add_quene($keyword=null) {
-        if (is_null($keyword)) {
+    public function get_add_quene($type=null, $keyword=null) {
+        if ($type == 0) {
             $query = $this->db->get('add_quene');
-        } else {
+        } elseif ($type == 1) {
             $this->db->where('業務', $keyword);
             $query = $this->db->get('add_quene');
+        } elseif ($type == 2) {
+            $this->db->where('媒合編號', $keyword);
+            $query = $this->db->get('add_quene');
         }
+
         if($query->result()!=null){
             foreach ($query->result() as $row) {
                 $result[] = array('id'=>$row-> id,
@@ -398,6 +408,7 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
+        echo ($result[0]);
     }
 
     public function update_samequene_movetime($媒合編號, $time) {
