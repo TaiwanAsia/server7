@@ -374,7 +374,6 @@ class Orders extends CI_Controller {
 		}
 		$data = array(	'ID' => $insert_id,
 						'媒合' => $_POST['媒合'],
-						'主要' => $_POST['主要'],
 						'成交日期' => $_POST['成交日期'],
 						'業務' => $_POST['業務'],
 						'客戶姓名' => $_POST['客戶姓名'],
@@ -404,28 +403,53 @@ class Orders extends CI_Controller {
 						'備註' => $_POST['備註'],
 						'最後動作時間' => date('Y-m-d H:i:s'),
 					);
-
-		$quene裡所有媒合對象 = $this->orders_model->get_add_quene(2, $data['媒合']);
-		$order裡所有媒合對象 = $this->orders_model->get_order_媒合對象($data['媒合']);
-		
-		if (count($quene裡所有媒合對象)==1) {
-			if ($data['主要']==2) {
-			//進庫存,
-					for ($i=0; $i < count($order裡所有媒合對象); $i++) { 
-		    		
-		    	}
-			}
-		}
     	
-		// $insert_id = $this -> orders_model -> add($data);
-		// $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
+    	//新增進orders
+		$insert_id = $this -> orders_model -> add($data);
+		//動作紀錄
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 		//大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
 		if ($data['業務'] == 'JOY') {
 			$pass_record_info = $this->record_info($data);
 			$this->orders_model->add_passrecord($pass_record_info);
 		}
-		// $this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
-		// $this->orders_model->delete_add_quene($_POST['add_quene編號']);
+		//此單為庫存
+		if ($_POST['主要']==2) {
+			//沒有媒合編號,不用修改orders裡的最後動作時間
+		} else {
+			$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
+		}
+		$this->orders_model->delete_add_quene($_POST['add_quene編號']);
+
+		$quene裡所有媒合對象 = $this->orders_model->get_add_quene(2, $data['媒合']);
+		$order裡所有媒合對象 = $this->orders_model->get_order_媒合對象($data['媒合']);
+		$總賣張數 = 0;
+		$總賣張數 = 0;
+
+		$總賣價 = 0;
+		$總買價 = 0;
+		if (is_bool($quene裡所有媒合對象) === false) {
+			for ($i=0; $i < count($order裡所有媒合對象); $i++) { 
+	    		print_r($order裡所有媒合對象[$i]);
+	    		echo "string";
+	    		if ($order裡所有媒合對象[$i]['買賣'] == 0) {
+	    			$總賣張數 = $總賣張數 + $order裡所有媒合對象[$i]['張數'];
+	    			$總賣價 = $總賣價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
+	    		} else {
+	    			$總買張數 = $總買張數 + $order裡所有媒合對象[$i]['張數'];
+	    			$總買價 = $總買價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
+	    		}
+	    	}
+	    	$一股賣均 = $總賣價 / $總賣張數 / 1000;
+	    	$一股買均 = $總買價 / $總買張數 / 1000;
+	    	$總均 = ($一股賣均 + $一股買均)/2;
+	    	for ($i=0; $i < count($order裡所有媒合對象); $i++) { 
+	    		$arrayName = array('ID' => $order裡所有媒合對象[$i]['ID'],
+	    							'盤價' => $總均,	);
+	    		$this->orders_model->edit($arrayName);
+	    	}
+		}
+		
 
 		$this->go_orders();
 	}

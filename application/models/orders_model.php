@@ -408,7 +408,6 @@ class Orders_model extends CI_Model {
         } else {
             return false;
         }
-        echo ($result[0]);
     }
 
     public function update_samequene_movetime($媒合編號, $time) {
@@ -461,7 +460,6 @@ class Orders_model extends CI_Model {
 
     public function add_bill($data) {
         //check duplicated
-        print_r($data);
         $query = $this->db->get_where('bills', array(
                                             '日期' => $data['日期'],
                                             '轉出' => $data['轉出'], 
