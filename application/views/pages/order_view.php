@@ -375,7 +375,7 @@
         } else {
           //沒有一二審權限
           // CHECKPOINT
-          echo "<td class='debug_ongoing'>On Debug</td>";
+          // echo "<td class='debug_ongoing'>On Debug</td>";
           // The following code need the 'correct' value to show
           echo "<td class='debug_ongoing'>".$orders[$i]['成交單狀態']."</td>";
           // echo "<script type='text/javascript'>

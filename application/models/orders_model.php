@@ -84,6 +84,17 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function get_max_媒合() {
+        $sql = "SELECT * FROM `orders` WHERE `媒合` = (SELECT MAX(`媒合`) FROM `orders`)";
+        $query = $this->db->query($sql);
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function get_before0701($keyword=null,$權限名稱=null,$name=null,$type=null,$keyword2=null) {
         $query = null;
         // The following code sections define the query handlers

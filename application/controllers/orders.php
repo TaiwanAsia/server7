@@ -157,11 +157,12 @@ class Orders extends CI_Controller {
 
 	public function admin_new_order() {
 		$quene = $this->orders_model->get_add_quene();
+		$order_max_媒合 = $this->orders_model->get_max_媒合();
 		$employees = $this->orders_model->get_employee('業務');
-		if ($quene) {
+		if ($quene != null) {
 			$新媒合編號 = $quene[count($quene)-1]['媒合編號']+1;
 		} else {
-			$新媒合編號 = 1;
+			$新媒合編號 = $order_max_媒合[0]['媒合']+1;
 		}
 		$arrayName = array(
 							'新媒合編號' => $新媒合編號,

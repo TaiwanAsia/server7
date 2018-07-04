@@ -57,14 +57,14 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">股票</label></td>
-            <td><input class="" type="text" name="股票" value="<?php echo($add_quene['股票名稱']) ?>" id="股票" required></td>
+            <td><input readonly="" class="" type="text" name="股票" value="<?php echo($add_quene['股票名稱']) ?>" id="股票" required></td>
             <td><p class="text-danger"><b>***名稱必須與本公司網站的該公司名稱一樣***</b></p></td>
             <td><a href="http://www.kcc668.com/">本公司網站</a></td>
         </tr>
         <tr>
             <td></td>
             <td><label for="" class="text-danger">張數</label></td>
-            <td><input class="" type="text" name="張數" value="<?php echo($add_quene['張數']) ?>" id="張數" required></td>
+            <td><input readonly="" class="" type="text" name="張數" value="<?php echo($add_quene['張數']) ?>" id="張數" required></td>
             <!-- <?php if($add_quene['買賣']==0) { ?>
                 <td><input class="" type="text" name="張數" value="<?php echo($add_quene['賣張數']) ?>" id="張數" required></td>
             <?php } else { ?>
