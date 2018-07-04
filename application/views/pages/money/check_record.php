@@ -18,7 +18,7 @@
       </div>
     </div>
  -->
-		<div>
+		<div class="t-form-2">
 			<br><br>
 			<table  id="eoTable" class="table table-md table-hover table-responsive" >
 				<tr>
@@ -59,7 +59,7 @@
     </body>
 
     <script>
-      
+
 
 
     </script>

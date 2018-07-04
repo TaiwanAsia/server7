@@ -1,4 +1,4 @@
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <main id="mainSection" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <div>
                     <form method="post" name="edit_order_info" action="admin_edit_order_before0701" >
                         <div class="offset-md-1">
@@ -8,7 +8,7 @@
                                     <td>
                                         <label for="" class="">編號</label>
                                         <input type="hidden" name="ID" value="<?php echo $result[0]['ID'] ?>">
-                                    </td>       
+                                    </td>
                                     <td><h3><label for="" class="text-success"><?php echo $result[0]['ID'] ?></label></h3></td>
                                 </td>
                                 <tr>
@@ -19,7 +19,7 @@
                                 </tr>
                                 <tr>
                                     <td><?php echo form_error('業務'); ?></td>
-                                    <td><label for="" class="">業務</label></td>       
+                                    <td><label for="" class="">業務</label></td>
                                     <td><input type="text" name="業務" value="<?php echo $result[0]['業務'] ?>" id=""></td>
                                 </td>
                                 <tr>
@@ -211,7 +211,7 @@
                                         <select id="inputState" name="媒合" class="form-control">
                                             <option selected value="0">尚無媒合</option>
                                             <?php
-                                            for ($i=0; $i < count($all_orders); $i++) { 
+                                            for ($i=0; $i < count($all_orders); $i++) {
                                                 if ($result[0]['股票'] == $all_orders[$i]['股票'] && $result[0]['買賣'] != $all_orders[$i]['買賣']) {
                                                     echo "<option>".$all_orders[$i]['ID']."</option>";
                                                 }
@@ -284,7 +284,7 @@
                 </div>
             </main>
         </div>
-    </div>    
+    </div>
 </body>
 
 <script type="text/javascript">
