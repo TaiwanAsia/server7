@@ -284,17 +284,17 @@ class Orders extends CI_Controller {
 								'股票名稱' => $_POST['股票名稱'],
 								'買賣' => '0',
 								'業務' => $_POST['客戶副賣'],
-								'張數' => $_POST['主買張數'] - $_POST['主賣張數'],
+								'張數' => ($_POST['主買張數'] - $_POST['主賣張數'])+$_POST['副買張數'],
 								'主要' => '0',);
 				$this->orders_model->insert_add_quene($array);
-				$array = array('媒合編號' => $_POST['媒合編號'],
-								'成交日期' => $_POST['成交日期'],
-								'股票名稱' => $_POST['股票名稱'],
-								'買賣' => '0',
-								'業務' => $_POST['客戶副賣'],
-								'張數' => $_POST['副買張數'],
-								'主要' => '0',);
-				$this->orders_model->insert_add_quene($array);
+				// $array = array('媒合編號' => $_POST['媒合編號'],
+				// 				'成交日期' => $_POST['成交日期'],
+				// 				'股票名稱' => $_POST['股票名稱'],
+				// 				'買賣' => '0',
+				// 				'業務' => $_POST['客戶副賣'],
+				// 				'張數' => $_POST['副買張數'],
+				// 				'主要' => '0',);
+				// $this->orders_model->insert_add_quene($array);
 				$array = array('媒合編號' => '',
 								'成交日期' => $_POST['成交日期'],
 								'股票名稱' => $_POST['股票名稱'],
@@ -416,6 +416,11 @@ class Orders extends CI_Controller {
 		$insert_id = $this -> orders_model -> add($data);
 		//動作紀錄
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
+
+		//大姊的單直接通知查帳
+		if ($data['業務'] == 'JOY') {
+			$this->orders_model->inform_check_money_model($data['ID'], '匯款', $data['匯款日期'], $data['客戶姓名'], null, $data['匯款金額應收帳款'], date('Y-m-d H:i:s'));
+		}
 		//大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
 		if ($data['業務'] == 'JOY') {
 			$pass_record_info = $this->record_info($data);
@@ -437,7 +442,7 @@ class Orders extends CI_Controller {
 		$總賣價 = 0;
 		$總買價 = 0;
 
-		if ($quene裡所有媒合對象 == false && $_POST['主要']!=2) {
+		if ($quene裡所有媒合對象 == false) {
 			for ($i=0; $i < count($order裡所有媒合對象); $i++) {
 	    		if ($order裡所有媒合對象[$i]['買賣'] == 0) {
 	    			$總賣張數 = $總賣張數 + $order裡所有媒合對象[$i]['張數'];
@@ -1668,6 +1673,7 @@ class Orders extends CI_Controller {
 	public function inform_check_money() {
 		$this->orders_model->inform_check_money_model($_POST['ID'], $_POST['支付方式'], $_POST['轉出日期轉入日期'], $_POST['支付人'], $_POST['匯款帳號末5碼'], $_POST['待查帳金額'], date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '通知查帳', $_POST['ID'], null);
+		$this->orders_model->update_samequene_movetime($_POST['媒合'], date('Y-m-d H:i:s'));
 		$this->checkbill();
 	}
 

@@ -8,6 +8,7 @@
     <td><label for="" class=""><b>成交單編號</b></label></td>
     <td><label for="" class="text-danger"><?php echo $order[0]['ID']; ?></label></td>
     <td><input class="" type="hidden" name="ID" id="" value="<?php echo $order[0]['ID']; ?>"></td>
+    <td><input type="hidden" name="媒合" value="<?php echo $order[0]['媒合']; ?>"></td>
 </tr>
 <tr>
     <td></td>
@@ -18,7 +19,7 @@
     <td></td>
     <td><label for="" class="">支付方式</label></td>
     <td>
-        <input type="radio" name="支付方式" value="匯款"><label class="text-danger"><b>匯款</b></label>
+        <input type="radio" name="支付方式" value="匯款" checked=""><label class="text-danger"><b>匯款</b></label>
         <input type="radio" name="支付方式" value="現金"><label class="text-primary"><b>現金</b></label>
     </td>
     <td><label for="" class="text-info">★匯款請填匯款人及帳號末5碼</label></td>

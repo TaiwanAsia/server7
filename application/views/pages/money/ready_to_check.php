@@ -26,6 +26,7 @@
 			<table  id="eoTable" class="table table-md table-hover table-responsive" >
 				<tr>
           <th nowrap="nowrap">成交單編號</th>
+          <th nowrap="nowrap">股票</th>
           <th nowrap="nowrap">支付方式</th>
           <th nowrap="nowrap">支付人</th>
           <th nowrap="nowrap">匯款帳號末5碼</th>
@@ -42,6 +43,7 @@
 				<?php
             echo "<tr>";
   						echo "<td>".$data[$i]['成交單編號']."</td>";
+              echo "<td>".$data[$i]['股票']."</td>";
               echo "<td>".$data[$i]['支付方式']."</td>";
   						echo "<td>".$data[$i]['支付人']."</td>";
   						echo "<td>".$data[$i]['匯款帳號末5碼']."</td>";

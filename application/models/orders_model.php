@@ -833,28 +833,17 @@ class Orders_model extends CI_Model {
         $query = $this->db->get_where('ORDERS', array('ID' => $id));
         $result = $this->transformer($query);
         if ($way == '匯款') {
-            $data = array('id'=>null, '成交單編號'=>$id, '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
+            $data = array('id'=>null, '成交單編號'=>$id, '股票'=>$result[0]['股票'], '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
         } else {
             //現金
             // $sql = "INSERT INTO `check_money_record`(`id`, `成交單編號`, `支付方式`, `支付人`, `匯款帳號末5碼`, `轉出日期轉入日期`, `待查帳金額`, `已匯金額已收金額`, `通知日期`, `查帳日期`, `最後動作時間`) VALUES (,'".$id."','".$way."','".$name.",null,".$date."','".$待查帳金額.",0,".$move_time."',,'".$move_time."')";
             // $this->db->query($sql);
-            $data = array('id'=>NULL, '成交單編號'=>$id, '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>null, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
+            $data = array('id'=>NULL, '成交單編號'=>$id, '股票'=>$result[0]['股票'], '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>null, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
         }
         $this->db->insert('check_money_record', $data);
         $this->db->where('ID', $id);
         $this->db->update('orders', array('通知查帳'=>'待對帳', '最後動作時間'=>$move_time));
     }
-
-    // public function get_ready_to_check() {
-    //     $sql = "SELECT * FROM `check_money_record`";
-    //     $query = $this->db->query($sql);
-    //     if($query->num_rows()>0) {
-    //         $result = $this->transformer($query);
-    //         return $result;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 
     public function check_end_model($id, $成交單編號, $money, $date, $move_time) {
         $order = $this->get($成交單編號, $_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
@@ -904,6 +893,7 @@ class Orders_model extends CI_Model {
             foreach ($query->result() as $row) {
                     $result[] = array('id'=>$row-> id,
                     '成交單編號'=>$row-> 成交單編號,
+                    '股票'=>$row-> 股票,
                     '支付方式'=>$row-> 支付方式,
                     '支付人'=>$row-> 支付人,
                     '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
