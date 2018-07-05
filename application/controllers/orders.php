@@ -284,7 +284,15 @@ class Orders extends CI_Controller {
 								'股票名稱' => $_POST['股票名稱'],
 								'買賣' => '0',
 								'業務' => $_POST['客戶副賣'],
-								'張數' => $_POST['副買張數'] - $買賣張數差,
+								'張數' => $_POST['主買張數'] - $_POST['主賣張數'],
+								'主要' => '0',);
+				$this->orders_model->insert_add_quene($array);
+				$array = array('媒合編號' => $_POST['媒合編號'],
+								'成交日期' => $_POST['成交日期'],
+								'股票名稱' => $_POST['股票名稱'],
+								'買賣' => '0',
+								'業務' => $_POST['客戶副賣'],
+								'張數' => $_POST['副買張數'],
 								'主要' => '0',);
 				$this->orders_model->insert_add_quene($array);
 				$array = array('媒合編號' => '',
@@ -423,15 +431,14 @@ class Orders extends CI_Controller {
 
 		$quene裡所有媒合對象 = $this->orders_model->get_add_quene(2, $data['媒合']);
 		$order裡所有媒合對象 = $this->orders_model->get_order_媒合對象($data['媒合']);
-		$總賣張數 = 0;
-		$總賣張數 = 0;
 
+		$總賣張數 = 0;
+		$總買張數 = 0;
 		$總賣價 = 0;
 		$總買價 = 0;
-		if (is_bool($quene裡所有媒合對象) === false) {
-			for ($i=0; $i < count($order裡所有媒合對象); $i++) { 
-	    		print_r($order裡所有媒合對象[$i]);
-	    		echo "string";
+
+		if ($quene裡所有媒合對象 == false && $_POST['主要']!=2) {
+			for ($i=0; $i < count($order裡所有媒合對象); $i++) {
 	    		if ($order裡所有媒合對象[$i]['買賣'] == 0) {
 	    			$總賣張數 = $總賣張數 + $order裡所有媒合對象[$i]['張數'];
 	    			$總賣價 = $總賣價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
