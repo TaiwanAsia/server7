@@ -410,7 +410,7 @@ class Orders extends CI_Controller {
 						'過戶費' => $_POST['過戶費'],
 						'備註' => $_POST['備註'],
 						'最後動作時間' => date('Y-m-d H:i:s'),
-					);
+		);
     	
     	//新增進orders
 		$insert_id = $this -> orders_model -> add($data);
@@ -418,14 +418,10 @@ class Orders extends CI_Controller {
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 
 		//大姊的單直接通知查帳
-		if ($data['業務'] == 'JOY') {
+		if ($data['業務'] == 'JOY' || $data['業務'] == '卓志鴻') {
 			$this->orders_model->inform_check_money_model($data['ID'], '匯款', $data['匯款日期'], $data['客戶姓名'], null, $data['匯款金額應收帳款'], date('Y-m-d H:i:s'));
 		}
-		//大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
-		if ($data['業務'] == 'JOY') {
-			$pass_record_info = $this->record_info($data);
-			$this->orders_model->add_passrecord($pass_record_info);
-		}
+		
 		//此單為庫存
 		if ($_POST['主要']==2) {
 			//沒有媒合編號,不用修改orders裡的最後動作時間
@@ -460,8 +456,16 @@ class Orders extends CI_Controller {
 	    							'盤價' => $總均,	);
 	    		$this->orders_model->edit($arrayName);
 	    	}
+
+	    	//等盤價算出來後重抓，大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
+	    	$order裡所有媒合對象_有盤價 = $this->orders_model->get_order_媒合對象($data['媒合']);
+	    	for ($i=0; $i < count($order裡所有媒合對象_有盤價); $i++) { 
+				if ($order裡所有媒合對象_有盤價[$i]['業務'] == 'JOY' || $order裡所有媒合對象_有盤價[$i]['業務'] == '卓志鴻') {
+					$pass_record_info = $this->record_info($order裡所有媒合對象_有盤價[$i]);
+					$this->orders_model->add_passrecord($pass_record_info);
+				}
+			}
 		}
-		
 
 		$this->go_orders();
 	}
@@ -756,7 +760,7 @@ class Orders extends CI_Controller {
 
 	public function admin_order_end() {
 		$this->orders_model->finish_order($_POST['id']);
-		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '結案', $id, null);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '結案', $_POST['id'], null);
 		$this->go_orders();
 	}
 
@@ -1512,7 +1516,7 @@ class Orders extends CI_Controller {
 		    		if ($inform == '未通知' || $inform == '待對帳') {
 		    			for ($j = 0; $j < count($datas); $j++) {
 		    				if ($datas[$j]['是否已對帳'] != '1') { //檢查明細是否對過
-			    				if (!$isCheckExported && $time == $datas[$j]['日期'] && $money == $datas[$j]['轉出']) { //當天
+			    				if (!$isCheckExported && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*3 && ($money/0.997) == $datas[$j]['轉出']) { //當天
 			    					//對帳完成
 			    					echo "交易日期".$datas[$j]['日期']." 轉出 ".$money." ".$orders_sell[$i]['ID'].'<br>';
 			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, date('Y-m-d'));
