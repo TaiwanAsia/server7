@@ -484,6 +484,7 @@ class Orders extends CI_Controller {
 		}
 
 		$result = array( 'ID' => $data['ID'],
+						'媒合' => $data['媒合'],
 						'日期' => $data['成交日期'],
 						'姓名' => $data['客戶姓名'],
 						'買賣' => $data['買賣'],
@@ -704,7 +705,8 @@ class Orders extends CI_Controller {
 			} else {
 				echo "<h2><font color='red'><b>成交單編號:".$id."契約已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$id);
-				$this->orders_model->update_orders_movetime($id);
+				$data = $this->orders_model->get($_POST['id']);
+				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
 				$this->go_orders();
 			}
@@ -727,7 +729,8 @@ class Orders extends CI_Controller {
 			} else {
 				echo "<h2><font color='red'><b>成交單編號:".$id."稅單已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
-				$this->orders_model->update_orders_movetime($id);
+				$data = $this->orders_model->get($_POST['id']);
+				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
 				$this->go_orders();
 			}
@@ -750,7 +753,8 @@ class Orders extends CI_Controller {
 			} else {
 				echo "<h2><font color='red'><b>成交單編號:".$id."水單已上傳成功。</b></font></h2>";
 				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/water/".$id);
-				$this->orders_model->update_orders_movetime($id);
+				$data = $this->orders_model->get($_POST['id']);
+				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水', $id, null);
 				$this->orders_model->finish_order($id);
 				$this->go_orders();
@@ -760,6 +764,8 @@ class Orders extends CI_Controller {
 
 	public function admin_order_end() {
 		$this->orders_model->finish_order($_POST['id']);
+		$data = $this->orders_model->get($_POST['id']);
+		$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '結案', $_POST['id'], null);
 		$this->go_orders();
 	}

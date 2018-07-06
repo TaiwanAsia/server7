@@ -1007,6 +1007,7 @@ class Orders_model extends CI_Model {
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                     $result[] = array('ID'=>$row-> ID,
+                    '媒合'=>$row-> 媒合,
                     '日期'=>$row-> 日期,
                     '姓名'=>$row-> 姓名,
                     '買賣'=>$row-> 買賣,

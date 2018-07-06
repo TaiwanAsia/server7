@@ -16,7 +16,7 @@
 					</tr>
 					<?php } ?>
 					<tr>
-						<th nowrap="nowrap">成交單編號</th>
+						<th nowrap="nowrap">媒合編號</th>
 						<th nowrap="nowrap">日期</th>
 						<th nowrap="nowrap">姓名</th>
 						<th nowrap="nowrap">買賣</th>
@@ -44,17 +44,26 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (count($data)>=1) {
+					<?php if ($data) {
 					for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
-						<td class="cell"><?php echo $data[$i]['ID']; ?></td>
+						<!-- <td class="cell"><?php echo $data[$i]['ID']; ?></td> -->
+						<td class="cell"><?php echo $data[$i]['媒合']; ?></td>
 						<td class="cell"><?php echo $data[$i]['日期']; ?></td>
 						<td class="cell"><?php echo $data[$i]['姓名']; ?></td>
-						<td class="cell"><?php if ($data[$i]['買賣'] == 1) {
+						<!-- <td class="cell"><?php if ($data[$i]['買賣'] == 1) {
 								echo "買";
 							} elseif($data[$i]['買賣'] == 0) {
 								echo "賣";
-							} ?></td>
+							} ?>	
+						</td> -->
+						<?php
+						if ($data[$i]['買賣'] == 1 ) {
+				          	echo "<td class='text-danger'><b>買</b></td>";
+				        } else {
+				          	echo "<td class='text-primary'><b>賣</b></td>";
+				        }
+						?>
 						<td class="cell"><?php echo $data[$i]['業務']; ?></td>
 						<td class="cell"><?php echo $data[$i]['標的名稱']; ?></td>
 						<td class="cell"><?php echo $data[$i]['張數']; ?></td>
@@ -73,7 +82,24 @@
 						<td class="cell"><?php echo $data[$i]['匯款日期']; ?></td>
 						<td class="cell"><?php echo $data[$i]['轉讓會員']; ?></td>
 						<td class="cell"><?php echo $data[$i]['備註']; ?></td>
-						<td class="cell"><?php echo $data[$i]['狀態']; ?></td>
+						<!-- <td class="cell"><?php echo $data[$i]['狀態']; ?></td> -->
+						<?php
+						if ($data[$i]['狀態'] == '已結案') {
+							if ($data[$i]['買賣'] == 1 ) {
+					          	echo "<td class='text-danger'><b>已結案</b></td>";
+					        } else {
+					          	echo "<td class='text-primary'><b>已結案</b></td>";
+					        }
+						} else {
+							if ($data[$i]['買賣'] == 1 ) {
+					          	echo "<td class='text-danger'><b>未結案</b></td>";
+					        } else {
+					          	echo "<td class='text-primary'><b>未結案</b></td>";
+					        }
+						}
+						
+						?>
+
 					</tr>
 
 					<?php }

@@ -374,14 +374,17 @@
           }
         } else {
           //沒有一二審權限
-          // CHECKPOINT
-          // echo "<td class='debug_ongoing'>On Debug</td>";
-          // The following code need the 'correct' value to show
-          echo "<td class='debug_ongoing'>".$orders[$i]['成交單狀態']."</td>";
-          // echo "<script type='text/javascript'>
-          // $('.debug_ongoing').css('color','red');
-          // console.log('".$orders[$i]['ID']." 成交單狀態: ".$orders[$i]['成交單狀態']."')
-          // </script>";
+          echo "<td></td>";
+          // if ($orders[$i]['成交單狀態'] == '審核完成') {
+          //   if ($orders[$i]['買賣'] == 1 ) {
+          //     echo "<td class='text-danger'><b>審完</b></td>";
+          //   } else {
+          //     echo "<td class='text-primary'><b>審完</b></td>";
+          //   }
+          // } else {
+          //   echo "<td'>".$orders[$i]['成交單狀態']."</td>";
+          // }
+          
         }
         ?>
         <?php
