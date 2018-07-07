@@ -438,7 +438,7 @@ class Orders extends CI_Controller {
 		$總賣價 = 0;
 		$總買價 = 0;
 
-		if ($quene裡所有媒合對象 == false) {
+		if ($quene裡所有媒合對象 == false && $_POST['主要']!=2) {
 			for ($i=0; $i < count($order裡所有媒合對象); $i++) {
 	    		if ($order裡所有媒合對象[$i]['買賣'] == 0) {
 	    			$總賣張數 = $總賣張數 + $order裡所有媒合對象[$i]['張數'];
@@ -768,6 +768,16 @@ class Orders extends CI_Controller {
 		$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '結案', $_POST['id'], null);
 		$this->go_orders();
+	}
+
+	public function transferable_order_end() {
+		$arrayName = array('ID' => $_POST['id'],
+							'通知查帳' => date('Y-m-d'),);
+		$this->orders_model->edit($arrayName);
+		$data = $this->orders_model->get($_POST['id']);
+		$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '確定轉出', $_POST['id'], null);
+		$this->checkbillout();
 	}
 
 	public function match() {
@@ -1214,6 +1224,8 @@ class Orders extends CI_Controller {
 				$origin_data = $this->orders_model->get($data['ID']);
 				$pass_record_info = $this -> record_info($origin_data[0]);
 				$this->orders_model->add_passrecord($pass_record_info);
+				$data2 = $this->orders_model->get($data['ID']);
+				$this->orders_model->update_samequene_movetime($data2[0]['媒合'], date('Y-m-d H:i:s'));
 
 				$this->go_orders();
 			} else {
@@ -1701,6 +1713,8 @@ class Orders extends CI_Controller {
 	public function check_end() {
 		$this->orders_model->check_end_model($_POST['id'], $_POST['成交單編號'], $_POST['money'], $_POST['確認日期'], date('Y-m-d H:i:s'));
 		$this->boss_check_money();
+		$data = $this->orders_model->get($_POST['id']);
+				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 	}
 
 	//查看匯款紀錄

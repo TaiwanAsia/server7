@@ -52,7 +52,7 @@
 					<tr>
 						<td></td>
 						<td>
-							<input type="text" name="主賣張數">
+							<input required type="text" name="主賣張數">
 						</td>
 						<td>
 							<input type="text" name="主買張數">

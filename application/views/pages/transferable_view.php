@@ -31,35 +31,36 @@
             <table id="receivTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
               <thead class="thead-light">
                 <tr>
-                <th data-tablesaw-priority="1">編號</th>
-                <th data-tablesaw-priority="1" scope="col">成交日期</th>
-                <th data-tablesaw-priority="1">業務</th>
-                <th data-tablesaw-priority="1">客戶姓名</th>
-                <th data-tablesaw-priority="1">股票</th>
-                <th data-tablesaw-priority="0">身分證字號</th>
-                <th data-tablesaw-priority="0">聯絡電話</th>
-                <th data-tablesaw-priority="0">聯絡人</th>
-                <th data-tablesaw-priority="0">聯絡住址</th>
-                <th data-tablesaw-priority="0">買賣</th>
-                <th data-tablesaw-priority="0">股票</th>
-                <th data-tablesaw-priority="1">張數</th>
-                <th data-tablesaw-priority="1">成交價</th>
-                <th data-tablesaw-priority="0">盤價</th>
-                <th data-tablesaw-priority="1">應匯金額</th>
-                <th data-tablesaw-priority="1">已匯金額</th>
-                <th data-tablesaw-priority="1">尚餘應匯</th>
-                <!-- <th data-tablesaw-priority="1">待查帳金額</th> -->
-                <th data-tablesaw-priority="0">匯款戶名</th>
-                <th data-tablesaw-priority="0">匯款帳號</th>
-                <th data-tablesaw-priority="0">轉讓會員</th>
-                <th data-tablesaw-priority="1">完稅人</th>
-                <th data-tablesaw-priority="1">過戶日期</th>
-                <!-- <th data-tablesaw-priority="1">匯款日期</th> -->
-                <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
-                <th data-tablesaw-priority="1">查帳狀態</th>
-                <?php } else { ?>
-                <th data-tablesaw-priority="1">通知查帳</th>
-                <?php } ?>
+                  <th data-tablesaw-priority="1">編號</th>
+                  <th data-tablesaw-priority="1" scope="col">成交日期</th>
+                  <th data-tablesaw-priority="1">業務</th>
+                  <th data-tablesaw-priority="1">客戶姓名</th>
+                  <th data-tablesaw-priority="1">股票</th>
+                  <th data-tablesaw-priority="0">身分證字號</th>
+                  <th data-tablesaw-priority="0">聯絡電話</th>
+                  <th data-tablesaw-priority="0">聯絡人</th>
+                  <th data-tablesaw-priority="0">聯絡住址</th>
+                  <th data-tablesaw-priority="0">買賣</th>
+                  <th data-tablesaw-priority="0">股票</th>
+                  <th data-tablesaw-priority="1">張數</th>
+                  <th data-tablesaw-priority="1">成交價</th>
+                  <th data-tablesaw-priority="0">盤價</th>
+                  <th data-tablesaw-priority="1">應匯金額</th>
+                  <th data-tablesaw-priority="1">已匯金額</th>
+                  <th data-tablesaw-priority="1">尚餘應匯</th>
+                  <!-- <th data-tablesaw-priority="1">待查帳金額</th> -->
+                  <th data-tablesaw-priority="0">匯款戶名</th>
+                  <th data-tablesaw-priority="0">匯款帳號</th>
+                  <th data-tablesaw-priority="0">轉讓會員</th>
+                  <th data-tablesaw-priority="1">完稅人</th>
+                  <th data-tablesaw-priority="1">過戶日期</th>
+                  <!-- <th data-tablesaw-priority="1">匯款日期</th> -->
+                  <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
+                  <th data-tablesaw-priority="1">查帳狀態</th>
+                  <?php } else { ?>
+                  <th data-tablesaw-priority="1">通知查帳</th>
+                  <?php } ?>
+                  <th></th>
                 </tr>
               </thead>
             <tbody>
@@ -204,30 +205,12 @@
                     ?>
                     </td>
 
-                    <!-- <td class="text-danger">
-                      <?php
-                        if($orders[$i]['已結案']==1){
-                          echo "已結";
-                        } else {
-                          echo "未結";
-                        }
-                      ?>
-
-                      <?php
-                      //秦不知道成交單狀態要放哪，先放這。
-                      if($orders[$i]['成交單狀態']=='審核完成'){
-                        // echo '<p class="text-primary"><b>審完</b>';
-                        echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核完成">';
-                      } elseif ($orders[$i]['成交單狀態']=='審核中') {
-                        // echo '<p class="text-success"><b>審核中</b>';
-                        echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核中">';
-                      } else {
-                        // echo '<p class="text-danger"><b>審核不通過</b>';
-                        echo '<input type="hidden" id="成交單狀態'.$orders[$i]['ID'].'" name="" value="審核不通過">';
-                      }
-                      ?>
-
-                    </td> -->
+                    <td>
+                      <form action="transferable_order_end" method="post" id="transferable_order_end">
+                        <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
+                        <button type="submit" form="transferable_order_end">確認</button>
+                     </form>
+                    </td>
 
                     <!-- 沒顯示出來的欄位 -->
                     <input type="hidden" id="自行應付<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['自行應付']; ?>">

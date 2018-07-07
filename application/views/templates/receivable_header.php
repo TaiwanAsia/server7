@@ -8,8 +8,10 @@
                     <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/boss_check_money'" value="尚未對帳"></input>
                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/check_record'" value="紀錄"></input>
                 <?php } ?>
+                <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/pay_error'" value="轉出異常"></input>
                 <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/show_bank'" value="銀行明細"></input>
+                <?php } ?>
             </div>
         </div>
     </div>

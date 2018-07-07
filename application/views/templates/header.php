@@ -126,15 +126,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/boss_check_money">
+                            <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
+                                <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/boss_check_money">
+                                應收帳款
+                                </a>
+                            <?php } else {?>
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/checkbill">
                                 應收帳款
                             </a>
+                        <?php } ?>
                         </li>
+                        <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/checkbillout">
                                 應匯帳款
                             </a>
                         </li>
+                        <?php } ?>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/fax_info">
                                 傳真資料

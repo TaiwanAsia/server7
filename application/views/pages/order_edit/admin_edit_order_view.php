@@ -203,7 +203,13 @@
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" id="" value="<?php echo $result[0]['過戶費']; ?>" ></td>
                                 </tr>
-                                <input type="hidden" name="媒合" value="<?php echo $result[0]['媒合']; ?>">
+                                
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">媒合</label></td>
+                                    <td><input class="" type="text" name="媒合" id="" value="<?php echo $result[0]['媒合']; ?>" ></td>
+                                    <!-- <input type="hidden" name="媒合" value="<?php echo $result[0]['媒合']; ?>"> -->
+                                </tr>
                                 <!-- <tr>
                                     <td></td>
                                     <td><label for="" class="">媒合</label></td>

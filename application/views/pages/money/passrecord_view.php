@@ -86,9 +86,9 @@
 						<?php
 						if ($data[$i]['狀態'] == '已結案') {
 							if ($data[$i]['買賣'] == 1 ) {
-					          	echo "<td class='text-danger'><b>已結案</b></td>";
+					          	echo "<td class='text-danger'><b>已結</b></td>";
 					        } else {
-					          	echo "<td class='text-primary'><b>已結案</b></td>";
+					          	echo "<td class='text-primary'><b>已結</b></td>";
 					        }
 						} else {
 							if ($data[$i]['買賣'] == 1 ) {
@@ -107,12 +107,14 @@
 				</tbody>
 			</table>
 		</div>
+		<!-- <div title="【双击可直接修改】" class="changeSort" id="{$id}">{$sort}</div> -->
 	</main>
 
  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.1.js"></script>
  <script> var jq161 = jQuery.noConflict(true); </script>
 
  <script type="text/javascript">
+
         jq161(function($){
 
             //加上點選進入編輯模式的事件
@@ -121,8 +123,10 @@
                 if (window.$currEditing)
                     finishEditing($currEditing);
                 var $cell = $(this);
-                var $inp = $("<input type='text' />");
+                var $inp = $("<input type='text' id=editing/>");
+                var $after = $("<input type='text' />");
                 $inp.val($cell.text());
+                alert($inp.val());
                 $cell.addClass("cell-editor").html("").append($inp);
                 $inp[0].select();
                 window.$currEditing = $inp;
@@ -139,11 +143,38 @@
                     finishEditing($(this));
             });
             //結束編輯模式
+
             function finishEditing($inp) {
+            	alert($inp.val());
+            	var data = $inp.val();
+		        // $.ajax({
+		        //     type: "POST",
+		        //     data: {id:id},
+		        //     url: "<?=base_url()?>index.php/orders/import_customer_info?customer_name="+ $("#customer_name").val(),
+		        //     dataType: "json",
+		        //     success: function(data) {
+		        //         if (data.客戶姓名) {
+		        //             $("#customer_id").val(data.身分證字號);
+		        //             $("#customer_tel").val(data.聯絡電話);
+		        //             $("#customer_man").val(data.聯絡人);
+		        //             $("#customer_address").val(data.聯絡地址);
+		        //             $("#createResult").html('');
+		        //         } else {
+		        //             $("#createResult").html('未成交過此客戶！');
+		        //         }
+		        //     },
+		        //     error: function(jqXHR,data) {
+		        //         alert("發生錯誤: " + jqXHR.status);
+		        //     }
+		        // })
                 $inp.parent().removeClass("cell-editor").text($inp.val());
                 window.$currEditing = null;
+
             }
         });
+
+
+
     </script>
 </body>
 </html>
