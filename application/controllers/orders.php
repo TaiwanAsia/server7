@@ -155,8 +155,9 @@ class Orders extends CI_Controller {
 	public function admin_new_order() {
 		$quene = $this->orders_model->get_add_quene(0);
 		$order_max_媒合 = $this->orders_model->get_max_媒合();
+		// print_r($order_max_媒合);
 		$employees = $this->orders_model->get_employee('業務');
-		if ($quene != null) {
+		if ($quene != null && $quene[count($quene)-1]['媒合編號']!=0) {
 			$新媒合編號 = $quene[count($quene)-1]['媒合編號']+1;
 		} else {
 			$新媒合編號 = $order_max_媒合[0]['媒合']+1;
@@ -177,30 +178,41 @@ class Orders extends CI_Controller {
 			//沒有副賣, 主賣剩餘張數直接進庫存
 			if ($_POST['副賣張數']==null && $_POST['副買張數']==null) {
 				// echo "1:1";
-				$array = array('媒合編號' => $_POST['媒合編號'],
+				if ($_POST['主買張數']=='') {
+					$array = array('媒合編號' => '',
 								'成交日期' => $_POST['成交日期'],
 								'股票名稱' => $_POST['股票名稱'],
 								'買賣' => '0',
 								'業務' => $_POST['客戶主賣'],
-								'張數' => $_POST['主買張數'],
-								'主要' => '1',);
-				$this->orders_model->insert_add_quene($array);
-				$array = array('媒合編號' => '',
-								'成交日期' => $_POST['成交日期'],
-								'股票名稱' => $_POST['股票名稱'],
-								'買賣' => '0',
-								'業務' => $_POST['客戶主賣'],
-								'張數' => $買賣張數差,
+								'張數' => $_POST['主賣張數'],
 								'主要' => '2',);
-				$this->orders_model->insert_add_quene($array);
-				$array = array('媒合編號' => $_POST['媒合編號'],
-								'成交日期' => $_POST['成交日期'],
-								'股票名稱' => $_POST['股票名稱'],
-								'買賣' => '1',
-								'業務' => $_POST['客戶主買'],
-								'張數' => $_POST['主買張數'],
-								'主要' => '1',);
-				$this->orders_model->insert_add_quene($array);
+					$this->orders_model->insert_add_quene($array);
+				} else {
+					$array = array('媒合編號' => $_POST['媒合編號'],
+									'成交日期' => $_POST['成交日期'],
+									'股票名稱' => $_POST['股票名稱'],
+									'買賣' => '0',
+									'業務' => $_POST['客戶主賣'],
+									'張數' => $_POST['主買張數'],
+									'主要' => '1',);
+					$this->orders_model->insert_add_quene($array);
+					$array = array('媒合編號' => '',
+									'成交日期' => $_POST['成交日期'],
+									'股票名稱' => $_POST['股票名稱'],
+									'買賣' => '0',
+									'業務' => $_POST['客戶主賣'],
+									'張數' => $買賣張數差,
+									'主要' => '2',);
+					$this->orders_model->insert_add_quene($array);
+					$array = array('媒合編號' => $_POST['媒合編號'],
+									'成交日期' => $_POST['成交日期'],
+									'股票名稱' => $_POST['股票名稱'],
+									'買賣' => '1',
+									'業務' => $_POST['客戶主買'],
+									'張數' => $_POST['主買張數'],
+									'主要' => '1',);
+					$this->orders_model->insert_add_quene($array);
+				}
 			} elseif($_POST['副賣張數']==null && $_POST['副買張數']!=null) {
 				// echo "1:2";
 				$array = array('媒合編號' => $_POST['媒合編號'],
@@ -380,94 +392,138 @@ class Orders extends CI_Controller {
 		} else {
 			$insert_id = $today_y.$today_m."0001";
 		}
-		$data = array(	'ID' => $insert_id,
-						'媒合' => $_POST['媒合'],
-						'成交日期' => $_POST['成交日期'],
-						'業務' => $_POST['業務'],
-						'客戶姓名' => $_POST['客戶姓名'],
-						'身分證字號' => $_POST['身分證字號'],
-						'聯絡電話' => $_POST['聯絡電話'],
-						'聯絡人' => $_POST['聯絡人'],
-						'聯絡地址' => $_POST['聯絡地址'],
-						'買賣' => $_POST['買賣'],
-						'股票' => $_POST['股票'],
-						'張數' => $_POST['張數'],
-						'成交價' => $_POST['成交價'],
-						'盤價' => $_POST['盤價'],
-						'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
-						'匯款日期' => $_POST['匯款日期'],
-						'匯款銀行' => $_POST['匯款銀行'],
-						'匯款分行' => $_POST['匯款分行'],
-						'匯款戶名' => $_POST['匯款戶名'],
-						'匯款帳號' => $_POST['匯款帳號'],
-						'轉讓會員' => $_POST['轉讓會員'],
-						'完稅人' => $_POST['完稅人'],
-						'新舊' => $_POST['新舊'],
-						'自行應付' => $_POST['自行應付'],
-						'刻印' => $_POST['刻印'],
-						'收送' => $_POST['收送'],
-						'過戶日期' => $_POST['過戶日期'],
-						'過戶費' => $_POST['過戶費'],
-						'備註' => $_POST['備註'],
-						'最後動作時間' => date('Y-m-d H:i:s'),
-		);
-    	
-    	//新增進orders
-		$insert_id = $this -> orders_model -> add($data);
-		//動作紀錄
-		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 
-		//大姊的單直接通知查帳
-		if ($data['業務'] == 'JOY' || $data['業務'] == '卓志鴻') {
-			$this->orders_model->inform_check_money_model($data['ID'], '匯款', $data['匯款日期'], $data['客戶姓名'], null, $data['匯款金額應收帳款'], date('Y-m-d H:i:s'));
-		}
-		
-		//此單為庫存
-		if ($_POST['主要']==2) {
-			//沒有媒合編號,不用修改orders裡的最後動作時間
+		if ($_POST['轉讓會員2'] == null) {
+			$data = array(	'ID' => $insert_id,
+							'媒合' => $_POST['媒合'],
+							'成交日期' => $_POST['成交日期'],
+							'業務' => $_POST['業務'],
+							'客戶姓名' => $_POST['客戶姓名'],
+							'身分證字號' => $_POST['身分證字號'],
+							'聯絡電話' => $_POST['聯絡電話'],
+							'聯絡人' => $_POST['聯絡人'],
+							'聯絡地址' => $_POST['聯絡地址'],
+							'買賣' => $_POST['買賣'],
+							'股票' => $_POST['股票'],
+							'張數' => $_POST['張數'],
+							'成交價' => $_POST['成交價'],
+							// '盤價' => $_POST['盤價'],
+							'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
+							'匯款日期' => $_POST['匯款日期'],
+							'匯款銀行' => $_POST['匯款銀行'],
+							'匯款分行' => $_POST['匯款分行'],
+							'匯款戶名' => $_POST['匯款戶名'],
+							'匯款帳號' => $_POST['匯款帳號'],
+							'轉讓會員' => $_POST['轉讓會員'],
+							// '轉讓會員2' => $_POST['轉讓會員2'],
+							'完稅人' => $_POST['完稅人'],
+							'新舊' => $_POST['新舊'],
+							'自行應付' => $_POST['自行應付'],
+							'刻印' => $_POST['刻印'],
+							'收送' => $_POST['收送'],
+							'過戶日期' => $_POST['過戶日期'],
+							'過戶費' => $_POST['過戶費'],
+							'備註' => $_POST['備註'],
+							'最後動作時間' => date('Y-m-d H:i:s'),
+			);
 		} else {
-			$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
+			$data = array(	'ID' => $insert_id,
+							'媒合' => $_POST['媒合'],
+							'成交日期' => $_POST['成交日期'],
+							'業務' => $_POST['業務'],
+							'客戶姓名' => $_POST['客戶姓名'],
+							'身分證字號' => $_POST['身分證字號'],
+							'聯絡電話' => $_POST['聯絡電話'],
+							'聯絡人' => $_POST['聯絡人'],
+							'聯絡地址' => $_POST['聯絡地址'],
+							'買賣' => $_POST['買賣'],
+							'股票' => $_POST['股票'],
+							'張數' => $_POST['張數'],
+							'成交價' => $_POST['成交價'],
+							// '盤價' => $_POST['盤價'],
+							'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
+							'匯款日期' => $_POST['匯款日期'],
+							'匯款銀行' => $_POST['匯款銀行'],
+							'匯款分行' => $_POST['匯款分行'],
+							'匯款戶名' => $_POST['匯款戶名'],
+							'匯款帳號' => $_POST['匯款帳號'],
+							'轉讓會員' => $_POST['轉讓會員'],
+							'轉讓會員2' => $_POST['轉讓會員2'],
+							'完稅人' => $_POST['完稅人'],
+							'新舊' => $_POST['新舊'],
+							'自行應付' => $_POST['自行應付'],
+							'刻印' => $_POST['刻印'],
+							'收送' => $_POST['收送'],
+							'過戶日期' => $_POST['過戶日期'],
+							'過戶費' => $_POST['過戶費'],
+							'備註' => $_POST['備註'],
+							'最後動作時間' => date('Y-m-d H:i:s'),
+			);
 		}
-		$this->orders_model->delete_add_quene($_POST['add_quene編號']);
 
-		$quene裡所有媒合對象 = $this->orders_model->get_add_quene(2, $data['媒合']);
-		$order裡所有媒合對象 = $this->orders_model->get_order_媒合對象($data['媒合']);
 
-		$總賣張數 = 0;
-		$總買張數 = 0;
-		$總賣價 = 0;
-		$總買價 = 0;
+		if ($_POST['轉讓會員']=='null') {
+			echo "<font size='6' color='red'>新增失敗，尚未選取轉讓會員</font>";
+			$this->go_orders();
+		} else {
+    	
+	    	//新增進orders
+			$insert_id = $this -> orders_model -> add($data);
+			//動作紀錄
+			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 
-		if ($quene裡所有媒合對象 == false && $_POST['主要']!=2) {
-			for ($i=0; $i < count($order裡所有媒合對象); $i++) {
-	    		if ($order裡所有媒合對象[$i]['買賣'] == 0) {
-	    			$總賣張數 = $總賣張數 + $order裡所有媒合對象[$i]['張數'];
-	    			$總賣價 = $總賣價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
-	    		} else {
-	    			$總買張數 = $總買張數 + $order裡所有媒合對象[$i]['張數'];
-	    			$總買價 = $總買價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
-	    		}
-	    	}
-	    	$一股賣均 = $總賣價 / $總賣張數 / 1000;
-	    	$一股買均 = $總買價 / $總買張數 / 1000;
-	    	$總均 = ($一股賣均 + $一股買均)/2;
-	    	for ($i=0; $i < count($order裡所有媒合對象); $i++) { 
-	    		$arrayName = array('ID' => $order裡所有媒合對象[$i]['ID'],
-	    							'盤價' => $總均,	);
-	    		$this->orders_model->edit($arrayName);
-	    	}
+			//大姊的單直接通知查帳
+			if ($data['業務'] == 'JOY' || $data['業務'] == '卓志鴻') {
+				$this->orders_model->inform_check_money_model($data['ID'], '匯款', $data['匯款日期'], $data['客戶姓名'], null, $data['匯款金額應收帳款'], date('Y-m-d H:i:s'));
+			}
+			
+			//此單為庫存
+			if ($_POST['主要']==2) {
+				//沒有媒合編號,不用修改orders裡的最後動作時間
+			} else {
+				$this->orders_model->update_samequene_movetime($data['媒合'], $data['最後動作時間']);
+			}
+			$this->orders_model->delete_add_quene($_POST['add_quene編號']);
 
-	    	//等盤價算出來後重抓，大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
-	    	$order裡所有媒合對象_有盤價 = $this->orders_model->get_order_媒合對象($data['媒合']);
-	    	for ($i=0; $i < count($order裡所有媒合對象_有盤價); $i++) { 
-				if ($order裡所有媒合對象_有盤價[$i]['業務'] == 'JOY' || $order裡所有媒合對象_有盤價[$i]['業務'] == '卓志鴻') {
-					$pass_record_info = $this->record_info($order裡所有媒合對象_有盤價[$i]);
-					$this->orders_model->add_passrecord($pass_record_info);
+			$quene裡所有媒合對象 = $this->orders_model->get_add_quene(2, $data['媒合']);
+			$order裡所有媒合對象 = $this->orders_model->get_order_媒合對象($data['媒合']);
+
+			$總賣張數 = 0;
+			$總買張數 = 0;
+			$總賣價 = 0;
+			$總買價 = 0;
+
+			if ($quene裡所有媒合對象 == false && $_POST['主要']!=2) {
+				for ($i=0; $i < count($order裡所有媒合對象); $i++) {
+		    		if ($order裡所有媒合對象[$i]['買賣'] == 0) {
+		    			$總賣張數 = $總賣張數 + $order裡所有媒合對象[$i]['張數'];
+		    			$總賣價 = $總賣價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
+		    		} else {
+		    			$總買張數 = $總買張數 + $order裡所有媒合對象[$i]['張數'];
+		    			$總買價 = $總買價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
+		    		}
+		    	}
+		    	$一股賣均 = $總賣價 / $總賣張數 / 1000;
+		    	$一股買均 = $總買價 / $總買張數 / 1000;
+		    	$總均 = ($一股賣均 + $一股買均)/2;
+		    	for ($i=0; $i < count($order裡所有媒合對象); $i++) { 
+		    		$arrayName = array('ID' => $order裡所有媒合對象[$i]['ID'],
+		    							'盤價' => $總均,	);
+		    		$this->orders_model->edit($arrayName);
+		    	}
+
+		    	//等盤價算出來後重抓，大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
+		    	$order裡所有媒合對象_有盤價 = $this->orders_model->get_order_媒合對象($data['媒合']);
+		    	for ($i=0; $i < count($order裡所有媒合對象_有盤價); $i++) { 
+					if ($order裡所有媒合對象_有盤價[$i]['業務'] == 'JOY' || $order裡所有媒合對象_有盤價[$i]['業務'] == '卓志鴻') {
+						$pass_record_info = $this->record_info($order裡所有媒合對象_有盤價[$i]);
+						$this->orders_model->add_passrecord($pass_record_info);
+					}
 				}
 			}
-		}
 
-		$this->go_orders();
+			$this->go_orders();
+		}
 	}
 
 	public function record_info($data) {
@@ -505,6 +561,7 @@ class Orders extends CI_Controller {
 						// '公司' => $_POST['公司'],
 						'匯款日期' => $data['匯款日期'],
 						'轉讓會員' => $data['轉讓會員'],
+						'轉讓會員2' => $data['轉讓會員2'],
 						'備註' => $data['備註'],
 						'最後動作時間' => date('Y-m-d H:i:s'));
 		return $result;
@@ -542,6 +599,7 @@ class Orders extends CI_Controller {
 						'匯款戶名' => $result[0]['匯款戶名'],
 						'匯款帳號' => $result[0]['匯款帳號'],
 						'轉讓會員' => $result[0]['轉讓會員'],
+						'轉讓會員2' => $result[0]['轉讓會員2'],
 						'完稅人' => $result[0]['完稅人'],
 						'新舊' => $result[0]['新舊'],
 						'自行應付' => $result[0]['自行應付'],
@@ -864,6 +922,7 @@ class Orders extends CI_Controller {
 				'匯款戶名' => $_POST['匯款戶名'],
 				'匯款帳號' => $_POST['匯款帳號'],
 				'轉讓會員' => $_POST['轉讓會員'],
+				// '轉讓會員2' => $_POST['轉讓會員2'],
 				'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
 				'完稅人' => $_POST['完稅人'],
 				'過戶費' => $_POST['過戶費'],
@@ -894,6 +953,7 @@ class Orders extends CI_Controller {
 				'匯款戶名' => $_POST['匯款戶名'],
 				'匯款帳號' => $_POST['匯款帳號'],
 				'轉讓會員' => $_POST['轉讓會員'],
+				'轉讓會員2' => $_POST['轉讓會員2'],
 				'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
 				'完稅人' => $_POST['完稅人'],
 				'過戶費' => $_POST['過戶費'],
@@ -947,18 +1007,19 @@ class Orders extends CI_Controller {
 	                        // 21 => '匯款帳號末5碼',
 	                        18 => '匯款戶名',
 	                        19 => '轉讓會員',
-	                        20 => '完稅人',
-	                        21 => '新舊',
-	                        22 => '自行應付',
-	                        23 => '刻印',
-	                        24 => '過戶日期',
-	                        25 => '過戶費',
-	                    	26 => '媒合',
+	                        20 => '轉讓會員2',
+	                        21 => '完稅人',
+	                        22 => '新舊',
+	                        23 => '自行應付',
+	                        24 => '刻印',
+	                        25 => '過戶日期',
+	                        26 => '過戶費',
+	                    	27 => '媒合',
 	                        // 31 => '匯款日期',
-	                        27 => '通知查帳',
-	                        28 => '成交單狀態',
-	                    	29 => '二審',
-	                    	30 => '已結案',);
+	                        28 => '通知查帳',
+	                        29 => '成交單狀態',
+	                    	30 => '二審',
+	                    	31 => '已結案',);
 		} else {
 			$title = array(0 => '成交日期',
 	                        1 => 'ID',
@@ -979,11 +1040,12 @@ class Orders extends CI_Controller {
 	                        16 => '匯款帳號',
 	                        17 => '匯款戶名',
 	                        18 => '轉讓會員',
-	                        19 => '完稅人',
-	                        20 => '新舊',
-	                        21 => '自行應付',
-	                        22 => '刻印',
-	                        23 => '過戶費',);
+	                        19 => '轉讓會員2',
+	                        20 => '完稅人',
+	                        21 => '新舊',
+	                        22 => '自行應付',
+	                        23 => '刻印',
+	                        24 => '過戶費',);
 		}
 		return $title;
 	}
@@ -1012,6 +1074,7 @@ class Orders extends CI_Controller {
 						'匯款帳號' => $_POST['匯款帳號'],
 						'匯款戶名' => $_POST['匯款戶名'],
 						'轉讓會員' => $_POST['轉讓會員'],
+						'轉讓會員2' => $_POST['轉讓會員2'],
 						'完稅人' => $_POST['完稅人'],
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],
@@ -1102,6 +1165,7 @@ class Orders extends CI_Controller {
 						// '匯款帳號末5碼' => $_POST['匯款帳號末5碼'],
 						'匯款戶名' => $_POST['匯款戶名'],
 						'轉讓會員' => $_POST['轉讓會員'],
+						'轉讓會員2' => $_POST['轉讓會員2'],
 						'完稅人' => $_POST['完稅人'],
 						'新舊' => $_POST['新舊'],
 						'自行應付' => $_POST['自行應付'],
@@ -1216,6 +1280,7 @@ class Orders extends CI_Controller {
 							'過戶費' => $_POST['過戶費'],
 							'刻印' => $_POST['刻印'],
 							'轉讓會員' => $_POST['轉讓會員'],
+							'轉讓會員2' => $_POST['轉讓會員2'],
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
@@ -1281,6 +1346,7 @@ class Orders extends CI_Controller {
 	                       '匯款帳號',
 	                       '匯款戶名',
 	                       '轉讓會員',
+	                       '轉讓會員2',
 	                       '完稅人',
 	                       '新舊',
 	                       '自行應付',
@@ -1894,6 +1960,14 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function passrecord_before0701() {
+		$data = $this->orders_model->get_pass_record_before0701();
+		// print_r($data);
+		$this->load->view('templates/header');
+		$this->load->view('pages/money/passrecord_view_before0701', array('data'=>$data));
+		$this->load->view('templates/footer');
+	}
+
 	public function add_need() {
 		$data = array('需求者'=>$_POST['需求者'],
 						'股名'=>$_POST['股名'],
@@ -1969,6 +2043,7 @@ class Orders extends CI_Controller {
 			$insert_data[$i]['匯款日期'] = $data[$i]['匯款日期'];
 			$insert_data[$i]['狀態'] = '未完成';
 			$insert_data[$i]['轉讓會員'] = $data[$i]['轉讓會員'];
+			$insert_data[$i]['轉讓會員2'] = $data[$i]['轉讓會員2'];
 			$insert_data[$i]['備註'] = $data[$i]['備註'];
 			$insert_data[$i]['最後動作時間'] = date('Y-m-d H:i:s');
 			$this->orders_model->insert_passrecord_model($insert_data[$i]);

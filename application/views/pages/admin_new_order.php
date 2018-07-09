@@ -101,6 +101,14 @@
 					</tr>
 					<tr>
 						<td></td>
+						<!-- <td></td> -->
+						<td colspan="2">
+							<font color="red" size="5"><b>----------------------------------------請檢查欄位填寫是否正確----------------------------------------</b></font>
+							
+						</td>
+					</tr>
+					<tr>
+						<td></td>
 						<td></td>
 						<td colspan="3">
 							<input type="submit" name="送出">

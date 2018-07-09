@@ -28,6 +28,13 @@
         </tr>
         <tr>
             <td></td>
+            <td></td>
+            <td>
+                <input type="checkbox" onchange="count_selfpay()" name="" id="是否盤商" value="人家是盤商">此客戶姓名為盤商
+            </td>
+        </tr>
+        <tr>
+            <td></td>
             <td><label for="" class="">身分證字號</label></td>
             <td><input class="" type="text" name="身分證字號" value="" id="customer_id"></td>
         </tr>
@@ -83,7 +90,7 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">盤價</label></td>
-            <td><input readonly="" class="" type="text" name="盤價" value="" id=""></td>
+            <!-- <td><input readonly="" class="" type="text" name="盤價" value="" id=""></td> -->
             <td><p class="text-info">★系統自動運算</p></td>
         </tr>
         <tr>
@@ -138,6 +145,7 @@
             <td><label for="" class="text-danger">轉讓會員</label></td>
             <td>
                 <select id="轉讓會員" name="轉讓會員" class="form-control" required onchange="myFunction()">
+                    <option value="null">-請選擇-</option>
                     <?php
                     if ($add_quene['主要']==2) {
                         for ($j=1; $j < count($employees); $j++) {
@@ -154,6 +162,21 @@
                 </select>
             </td>
             <td><p class="text-info">★轉讓會員為此成交單與你的交易方</p></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><label for="" class="text-danger">轉讓會員2</label></td>
+            <td>
+                <select id="轉讓會員2" name="轉讓會員2" class="form-control" required onchange="myFunction()">
+                    <option value="null">-複數轉讓請選擇-</option>
+                    <?php
+                    for ($j=1; $j < count($employees); $j++) {
+                        echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                    }
+                    ?>
+                </select>
+            </td>
+            <td><p class="text-info">★轉讓會員2為此成交單與你的第二交易方</p></td>
         </tr>
         <tr>
             <td></td>
@@ -252,6 +275,10 @@
     }
 
     function accounting() {
+
+        var checkbox = document.getElementById('是否盤商');
+        var checked = checkbox.checked;
+
         var 張數 = document.getElementById("張數").value;
         var 成交價 = document.getElementById("成交價").value;
         // var 張數 = document.getElementById("張數").value;
@@ -263,8 +290,12 @@
         ' 成交價 : '+document.getElementById("成交價").value + '  客戶[買進]';
         } else {
             var 買賣方 = '賣';
-            document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value +
-        ' 成交價 : '+document.getElementById("成交價").value + '  且客戶[賣出]，需扣掉千分之三金額';
+            if (checked) {
+                //客戶為盤商,不用扣稅
+                document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + ' 成交價 : '+document.getElementById("成交價").value + '  客戶[賣出]但因為是盤商，毋需扣千分之三金額';
+            } else {
+                document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + ' 成交價 : '+document.getElementById("成交價").value + '  且客戶[賣出]，需扣掉千分之三金額';
+            }
         }
 
         if (買賣方 == '買') {
@@ -277,11 +308,21 @@
             }
         } else {
             if (張數 >= 1) {
-                document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 = '+(張數*1000*成交價)*0.997;
-                document.getElementById("驗算金額").value = (張數*1000*成交價)*0.997;
+                if (checked) {
+                    document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) = '+(張數*1000*成交價);
+                    document.getElementById("驗算金額").value = (張數*1000*成交價);
+                } else {
+                    document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 = '+(張數*1000*成交價)*0.997;
+                    document.getElementById("驗算金額").value = (張數*1000*成交價)*0.997;
+                }
             } else {
-                document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 * 0.9(零股) = '+(張數*1000*成交價)*0.997*0.9;
-                document.getElementById("驗算金額").value = (張數*1000*成交價)*0.997*0.9;
+                if (checked) {
+                    document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.9(零股) = '+(張數*1000*成交價)*0.9;
+                    document.getElementById("驗算金額").value = (張數*1000*成交價)*0.9;
+                } else {
+                    document.getElementById("money_info").innerHTML = '[公式] =>  '+張數+'(張數) * 1000 * '+成交價+'(成交價) * 0.997 * 0.9(零股) = '+(張數*1000*成交價)*0.997*0.9;
+                    document.getElementById("驗算金額").value = (張數*1000*成交價)*0.997*0.9;
+                }
             }
 
         }

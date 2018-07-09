@@ -16,7 +16,7 @@
 					</tr>
 					<?php } ?>
 					<tr>
-						<th nowrap="nowrap">媒合編號</th>
+						<th nowrap="nowrap">編號</th>
 						<th nowrap="nowrap">日期</th>
 						<th nowrap="nowrap">姓名</th>
 						<th nowrap="nowrap">買賣</th>
@@ -48,8 +48,8 @@
 					<?php if ($data) {
 					for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
-						<!-- <td class="cell"><?php echo $data[$i]['ID']; ?></td> -->
-						<td class="cell"><?php echo $data[$i]['媒合']; ?></td>
+						<td class="cell"><?php echo $data[$i]['ID']; ?></td>
+						<!-- <td class="cell"><?php echo $data[$i]['媒合']; ?></td> -->
 						<td class="cell"><?php echo $data[$i]['日期']; ?></td>
 						<td class="cell"><?php echo $data[$i]['姓名']; ?></td>
 						<!-- <td class="cell"><?php if ($data[$i]['買賣'] == 1) {

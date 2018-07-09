@@ -84,6 +84,7 @@
         <th data-tablesaw-priority="0">匯款戶名</th>
         <th data-tablesaw-priority="0">匯款帳號</th>
         <th data-tablesaw-priority="1">轉讓會員</th>
+        <th data-tablesaw-priority="1">轉讓會員2</th>
         <th data-tablesaw-priority="1">完稅人</th>
         <th data-tablesaw-priority="1">一審</th>
         <th data-tablesaw-priority="1">二審</th>
@@ -203,6 +204,7 @@
             }?>'"
             title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
           <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
+          
         </td>
         <td>
         <?php if($_SESSION['身分證字號權限']==1) {
@@ -334,6 +336,16 @@
           <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
           <?php } ?>
         </td>
+        <td>
+          <?php if($_SESSION['轉讓會員權限']==1) {
+            if ($orders[$i]['轉讓會員2'] != 'null') {
+              echo ($orders[$i]['轉讓會員2']);
+            }
+          ?>
+          <input type="hidden" id="轉讓會員2<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員2']; ?>">
+          <?php } ?>
+        </td>
+
         <td>
           <?php echo ($orders[$i]['完稅人']) ?>
           <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
