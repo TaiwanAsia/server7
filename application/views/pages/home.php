@@ -1,4 +1,4 @@
-<main id="mainSection" role="main">
+<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
  		<div class="sec-one sec-s">
 			<div class="row">
 				<div class="col-xl-6">
@@ -15,7 +15,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php if ($need) { 
+								<?php if ($need) {
 									for ($i=0; $i < count($need); $i++) { ?>
 									<tr>
 										<?php if ($need[$i]['買賣']==1) {
@@ -47,8 +47,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								
-								<?php if ($need) { 
+
+								<?php if ($need) {
 									for ($i=0; $i < count($need); $i++) { ?>
 									<tr>
 										<?php if ($need[$i]['買賣']==0) {
@@ -62,7 +62,7 @@
 									</tr>
 								<?php	}
 								} ?>
-								
+
 							</tbody>
 						</table>
 					</div>

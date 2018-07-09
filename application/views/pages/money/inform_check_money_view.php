@@ -1,4 +1,4 @@
-<main id="mainSection" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 <div>
 <form method="post" name="" action="inform_check_money" >
 <div class="offset-md-1">

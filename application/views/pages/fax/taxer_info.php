@@ -1,5 +1,5 @@
 
-	<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 		<div class="t-form-t">
      		<h1 class="h2">完稅資料</h1>
 			<form action="go_add_taxer" method="POST" class="t-form-t" name="">
