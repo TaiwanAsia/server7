@@ -1,4 +1,4 @@
-<main id="mainSection" role="main" style="flex: 1 0 auto;" >
+<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 	<div id="body">
 		<form action="add_account" method="POST" name="" style= "display:inline">
 

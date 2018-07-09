@@ -1,4 +1,4 @@
-  <main id="mainSection" role="main" style="flex: 1 0 auto;" >
+  <main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
      <h1 class="h2">成交單</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
@@ -204,7 +204,7 @@
             }?>'"
             title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
           <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
-          
+
         </td>
         <td>
         <?php if($_SESSION['身分證字號權限']==1) {
@@ -396,7 +396,7 @@
           // } else {
           //   echo "<td'>".$orders[$i]['成交單狀態']."</td>";
           // }
-          
+
         }
         ?>
         <?php

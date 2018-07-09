@@ -1,5 +1,5 @@
 
-<main id="mainSection" role="main" style="flex: 1 0 auto;" >
+<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 	<div id="body">
 		<form action="add_order_id" method="POST" name="" style= "display:inline;" >
 			<div>
@@ -104,7 +104,7 @@
 						<!-- <td></td> -->
 						<td colspan="2">
 							<font color="red" size="5"><b>----------------------------------------請檢查欄位填寫是否正確----------------------------------------</b></font>
-							
+
 						</td>
 					</tr>
 					<tr>

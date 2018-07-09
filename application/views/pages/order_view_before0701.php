@@ -1,4 +1,4 @@
-  <main id="mainSection" role="main" style="flex: 1 0 auto;" >
+<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
      <h1 class="h2">成交單</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
