@@ -189,7 +189,7 @@
                 if (window.$currEditing)
                     finishEditing($currEditing);
                 var $cell = $(this);
-                var $inp = $("<input type='text' id=editing/>");
+                var $inp = $("<input type='text' id=editing />");
                 var $after = $("<input type='text' />");
                 $inp.val($cell.text());
                 // alert($inp.val());
@@ -211,8 +211,9 @@
             //結束編輯模式
 
             function finishEditing($inp) {
-            	alert($inp.val());
+            	// alert($inp.val());
             	var data = $inp.val();
+            	alert(data);
 		        // $.ajax({
 		        //     type: "POST",
 		        //     data: {id:id},

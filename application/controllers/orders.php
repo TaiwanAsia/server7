@@ -1269,7 +1269,7 @@ class Orders extends CI_Controller {
 	//二審update
 	public function edit2_order() {
 		if ($_POST['成交單狀態'] == '審核完成') {
-			if (file_exists("upload/tax/".$_POST['ID'])&&file_exists("upload/contact/".$_POST['ID'])){
+			if (file_exists("upload/tax/".$_POST['ID'])){
 				$data = array(
 							'ID' => $_POST['ID'],
 							'客戶姓名' => $_POST['客戶姓名'],
@@ -1296,7 +1296,7 @@ class Orders extends CI_Controller {
 			} else {
 				// $url = 'index.php/orders/go_edit2?id='.$_POST['ID'];
 				// redirect($url);
-				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單或契約書上傳尚未完成!!!　　無法完成二審</b></p></h3>";
+				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單上傳尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->go_orders();
 			}
 
