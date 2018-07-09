@@ -1,4 +1,4 @@
-<main id="mainSection" role="main" style="flex: 1 0 auto;" >
+<main id="mainSection" role="main">
   <div class="t-form-h">
     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t t-form-t-2">
         <h1 class="h2">應匯帳款</h1>

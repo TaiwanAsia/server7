@@ -1,4 +1,4 @@
-	<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+	<main id="mainSection" role="main">
 		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
      		<h1 class="h2">轉讓紀錄</h1>
 		</div>
@@ -56,7 +56,7 @@
 								echo "買";
 							} elseif($data[$i]['買賣'] == 0) {
 								echo "賣";
-							} ?>	
+							} ?>
 						</td> -->
 						<?php
 						if ($data[$i]['買賣'] == 1 ) {
@@ -98,7 +98,7 @@
 					          	echo "<td class='text-primary'><b>未結案</b></td>";
 					        }
 						}
-						
+
 						?>
 
 					</tr>
@@ -119,7 +119,7 @@
 								echo "買";
 							} elseif($data[$i]['買賣'] == 0) {
 								echo "賣";
-							} ?>	
+							} ?>
 						</td> -->
 						<?php
 						if ($data[$i]['買賣'] == 1 ) {
@@ -161,7 +161,7 @@
 					          	echo "<td class='text-primary'><b>未結案</b></td>";
 					        }
 						}
-						
+
 						?>
 
 					</tr>
@@ -170,7 +170,7 @@
 					}?>
 				</tbody>
 				<?php }?>
-				
+
 			</table>
 		</div>
 		<!-- <div title="【双击可直接修改】" class="changeSort" id="{$id}">{$sort}</div> -->

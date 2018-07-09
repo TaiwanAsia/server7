@@ -22,8 +22,9 @@
     bottom: auto; }
 
 #mainSection {
-  margin-left: 128px !important;
-  padding-top: 0 !important; }
+  margin-left: 146px !important;
+  padding-top: 0 !important;
+  width: 100%; }
 
 .container-fluid {
   padding-top: 64px; }

@@ -1,5 +1,5 @@
 
-<main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
+<main id="mainSection" role="main">
    <div class="t-form-t">
       <h1>被刪記錄</h1>
      </div>
