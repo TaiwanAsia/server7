@@ -189,9 +189,10 @@
                 if (window.$currEditing)
                     finishEditing($currEditing);
                 var $cell = $(this);
-                console.log('>>> dbclick: ' + $cell.data('row') + ' ' + $cell.data('type'));
                 var $inp = $("<input type='text' id=editing />");
                 $inp.val($cell.text());
+                var original_data = $inp.val();
+                console.log('>>> dbclick: ' + $cell.data('row') + ' ' + $cell.data('type') + ' ' + original_data);
                 $cell.addClass("cell-editor").html("").append($inp);
                 $inp[0].select();
                 window.$currEditing = $inp;

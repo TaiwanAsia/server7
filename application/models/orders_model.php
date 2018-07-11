@@ -533,7 +533,7 @@ class Orders_model extends CI_Model {
 
     public function move_record($name, $time, $move, $result, $effect) {
         $query = null;
-        if ($move == '修改' || $move == 'admin修改' || $move == '修改備註') {
+        if ($move == '修改' || $move == 'admin修改' || $move == '修改備註' || $move == '修改轉讓紀錄') {
             $result = $result." ".$effect;
         }
         $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$result, );
