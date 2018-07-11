@@ -1097,6 +1097,11 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function passrecord_edit_model($data) {
+        $this->db->where('id', $data['ID']);
+        $this->db->update('pass_record', $data);
+    }
+
     public function get_pass_record_before0701() {
         if ($_SESSION['權限名稱'] == '最高權限') {
             $this->db->order_by("最後動作時間", "desc");

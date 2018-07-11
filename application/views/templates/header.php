@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
 
-
+/*
         $("td.cell").live("dblclick", function () {
             //若已有其他欄位在編輯中，強制結束
             if (window.$currEditing)
@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $inp.parent().removeClass("cell-editor").text($inp.val());
             window.$currEditing = null;
         }
-    </script>
+   */ </script>
 
  <body>
   <header id="header">

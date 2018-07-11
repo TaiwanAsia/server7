@@ -290,11 +290,13 @@
         ' 成交價 : '+document.getElementById("成交價").value + '  客戶[買進]';
         } else {
             var 買賣方 = '賣';
-            if (checked) {
-                //客戶為盤商,不用扣稅
-                document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + ' 成交價 : '+document.getElementById("成交價").value + '  客戶[賣出]但因為是盤商，毋需扣千分之三金額';
-            } else {
-                document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + ' 成交價 : '+document.getElementById("成交價").value + '  且客戶[賣出]，需扣掉千分之三金額';
+            if (買賣value == 0) {
+                if (checked) {
+                    //客戶為盤商,不用扣稅
+                    document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + ' 成交價 : '+document.getElementById("成交價").value + '  客戶[賣出]但因為是盤商，毋需扣千分之三金額';
+                } else {
+                    document.getElementById("order_info").innerHTML = '張數 : '+document.getElementById("張數").value + ' 成交價 : '+document.getElementById("成交價").value + '  且客戶[賣出]，需扣掉千分之三金額';
+                }
             }
         }
 

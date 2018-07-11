@@ -1960,6 +1960,15 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	public function passrecord_edit() {
+		$arrayName = array('ID' => $_POST['id'],
+						$_POST['type'] => $_POST['data'],);
+		$this->orders_model->passrecord_edit_model($arrayName);
+		// return json_encode('success');
+		$myJSON = json_encode('Done!');
+		print_r($myJSON);
+	}
+
 	public function passrecord_before0701() {
 		$data = $this->orders_model->get_pass_record_before0701();
 		// print_r($data);
