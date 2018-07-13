@@ -125,6 +125,25 @@
                                     <td><p class="text-info">★轉讓會員為此成交單與你的交易方</p></td>
                                 </tr>
                                 <tr>
+                                    <td></td>
+                                    <td><label for="" class="">轉讓會員2</label></td>
+                                    <td>
+                                        <select id="edit_轉讓會員2" name="轉讓會員2" class="form-control" required>
+                                            <?php if ($result[0]['轉讓會員2']=='null') { ?>
+                                                <option value="null"><?php echo '無第二轉讓會員'; ?></option>
+                                            <?php } else { ?>
+                                            <option value="<?php echo $result[0]['轉讓會員2'] ?>"><?php echo $result[0]['轉讓會員2'] ?></option>
+                                            <?php } ?>
+                                            <?php
+                                            for ($j=0; $j < count($employees); $j++) {
+                                                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </td>
+                                    <td><p class="text-info">★轉讓會員為此成交單與你的第二交易方</p></td>
+                                </tr>
+                                <tr>
                                     <td><?php echo form_error('完稅人'); ?></td>
                                     <td><label for="" class="">完稅人</label></td>
                                     <td><input class="" type="text" name="完稅人" id="" value="<?php echo $result[0]['完稅人']; ?>" required></td>

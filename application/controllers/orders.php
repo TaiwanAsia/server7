@@ -538,7 +538,6 @@ class Orders extends CI_Controller {
 			$稅金 = $data['盤價']*$data['張數']*1000*0.003;
 			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'] - $data['自行應付'])*$_SESSION['趴數'];
 		}
-
 		$result = array( 'ID' => $data['ID'],
 						'媒合' => $data['媒合'],
 						'日期' => $data['成交日期'],
@@ -971,6 +970,77 @@ class Orders extends CI_Controller {
 
 	}
 
+	//改成交單狀態(一審)
+	public function edit_order_status_before0701() {
+		if ($_POST['買賣']==0) {
+			$data = array(
+				'ID' => $_POST['ID'],
+				'客戶姓名' => $_POST['客戶姓名'],
+				'身分證字號' => $_POST['身分證字號'],
+				'聯絡地址' => $_POST['聯絡地址'],
+				'聯絡電話' => $_POST['聯絡電話'],
+				'成交日期' => $_POST['成交日期'],
+				'過戶日期' => $_POST['過戶日期'],
+				'股票' => $_POST['股票'],
+				'買賣' => $_POST['買賣'],
+				'張數' => $_POST['張數'],
+				'成交價' => $_POST['成交價'],
+				'盤價' => $_POST['盤價'],
+				'自行應付' => $_POST['自行應付'],
+				'匯款銀行' => $_POST['匯款銀行'],
+				'匯款分行' => $_POST['匯款分行'],
+				'匯款戶名' => $_POST['匯款戶名'],
+				'匯款帳號' => $_POST['匯款帳號'],
+				'轉讓會員' => $_POST['轉讓會員'],
+				// '轉讓會員2' => $_POST['轉讓會員2'],
+				'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
+				'完稅人' => $_POST['完稅人'],
+				'過戶費' => $_POST['過戶費'],
+				'刻印' => $_POST['刻印'],
+				'收送' => $_POST['收送'],
+				'成交單狀態' => $_POST['成交單狀態'],
+				'通知查帳' => '待對帳',
+				// '現金或匯款' => $_POST['現金或匯款'],
+				'匯款日期' => $_POST['匯款日期'],
+				'最後動作時間' => date('Y-m-d H:i:s'),);
+		} else {
+			$data = array(
+				'ID' => $_POST['ID'],
+				'客戶姓名' => $_POST['客戶姓名'],
+				'身分證字號' => $_POST['身分證字號'],
+				'聯絡地址' => $_POST['聯絡地址'],
+				'聯絡電話' => $_POST['聯絡電話'],
+				'成交日期' => $_POST['成交日期'],
+				'過戶日期' => $_POST['過戶日期'],
+				'股票' => $_POST['股票'],
+				'買賣' => $_POST['買賣'],
+				'張數' => $_POST['張數'],
+				'成交價' => $_POST['成交價'],
+				'盤價' => $_POST['盤價'],
+				'自行應付' => $_POST['自行應付'],
+				'匯款銀行' => $_POST['匯款銀行'],
+				'匯款分行' => $_POST['匯款分行'],
+				'匯款戶名' => $_POST['匯款戶名'],
+				'匯款帳號' => $_POST['匯款帳號'],
+				'轉讓會員' => $_POST['轉讓會員'],
+				'轉讓會員2' => $_POST['轉讓會員2'],
+				'匯款金額應收帳款' => $_POST['匯款金額應收帳款'],
+				'完稅人' => $_POST['完稅人'],
+				'過戶費' => $_POST['過戶費'],
+				'刻印' => $_POST['刻印'],
+				'收送' => $_POST['收送'],
+				'成交單狀態' => $_POST['成交單狀態'],
+				// '通知查帳' => '待對帳',
+				// '現金或匯款' => $_POST['現金或匯款'],
+				'匯款日期' => $_POST['匯款日期'],
+				'最後動作時間' => date('Y-m-d H:i:s'),);
+		}
+		$this -> orders_model -> edit($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '一審', $_POST['ID'], null);
+		$this->go_orders();
+
+	}
+
 	//一審改已匯
 	public function Buy_Edit() {
 		$original = $this->orders_model->get($_POST['id'], $_SESSION['權限名稱'], $_SESSION['NAME']);
@@ -1254,6 +1324,21 @@ class Orders extends CI_Controller {
 		return json_encode($cus_info);
 	}
 
+	//二審before0701表格
+	public function go_edit2_before0701() {
+		// echo $_GET['id'];
+		$result = $this -> orders_model -> get_before0701($_GET['id'],null,null);
+		// print_r($result);
+		$old_date_timestamp = strtotime($result[0]['成交日期']);
+		$new_date = date('Y/m/d', $old_date_timestamp);
+		$result[0]['日期'] = $new_date;
+		$employees = $this->orders_model->get_employee(null);
+		$this->load->view('templates/header');
+
+		$this->load->view('pages/order_edit/edit2_order_view_before0701',array('result' => $result,'employees' => $employees));
+		$this->load->view('templates/footer');
+	}
+
 	//二審表格
 	public function go_edit2() {
 		$result = $this -> orders_model -> get($_GET['id'],null,null);
@@ -1284,11 +1369,13 @@ class Orders extends CI_Controller {
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
-				$this -> orders_model -> edit($data);
+				$this -> orders_model -> edit_before0701($data);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
-				$origin_data = $this->orders_model->get($data['ID']);
+				$origin_data = $this->orders_model->get_before0701($data['ID']);
+				// print_r($origin_data);
 				$pass_record_info = $this -> record_info($origin_data[0]);
-				$this->orders_model->add_passrecord($pass_record_info);
+				// print_r($pass_record_info);
+				$this->orders_model->add_passrecord_before0701($pass_record_info);
 				$data2 = $this->orders_model->get($data['ID']);
 				$this->orders_model->update_samequene_movetime($data2[0]['媒合'], date('Y-m-d H:i:s'));
 
@@ -1304,7 +1391,46 @@ class Orders extends CI_Controller {
 			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
 				$this->go_orders();
 		}
+	}
 
+	//二審update
+	public function edit2_order_before0701() {
+		if ($_POST['成交單狀態'] == '審核完成') {
+			if (file_exists("upload/tax/".$_POST['ID'])){
+				$data = array(
+							'ID' => $_POST['ID'],
+							'客戶姓名' => $_POST['客戶姓名'],
+							'成交價' => $_POST['成交價'],
+							'盤價' => $_POST['盤價'],
+							'張數' => $_POST['張數'],
+							'自行應付' => $_POST['自行應付'],
+							'過戶費' => $_POST['過戶費'],
+							'刻印' => $_POST['刻印'],
+							'轉讓會員' => $_POST['轉讓會員'],
+							'轉讓會員2' => 'null',
+							'過戶日期' => $_POST['過戶日期'],
+							'二審' => 1,
+							'最後動作時間' => date('Y-m-d H:i:s'),);
+				$this -> orders_model -> edit_before0701($data);
+				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
+				$origin_data = $this->orders_model->get_before0701($data['ID']);
+				$pass_record_info = $this -> record_info($origin_data[0]);
+				$this->orders_model->add_passrecord_before0701($pass_record_info);
+				$data2 = $this->orders_model->get($data['ID']);
+				$this->orders_model->update_samequene_movetime($data2[0]['媒合'], date('Y-m-d H:i:s'));
+
+				$this->go_orders();
+			} else {
+				// $url = 'index.php/orders/go_edit2?id='.$_POST['ID'];
+				// redirect($url);
+				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單上傳尚未完成!!!　　無法完成二審</b></p></h3>";
+				$this->go_orders();
+			}
+
+		} else {
+			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
+				$this->go_orders();
+		}
 	}
 
 	public function export() {

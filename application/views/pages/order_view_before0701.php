@@ -575,7 +575,7 @@
       <h3>編輯成交單</h3>
       <span class="s-close" data-popup-close="popup-1">&times;</span>
       </div>
-      <form method="post" name="edit_order_info" action="edit_order_status" >
+      <form method="post" name="edit_order_info" action="edit_order_status_before0701" >
         <!-- 為修改成交單狀態,與edit_order不同 -->
         <div class="modal-main">
           <table>

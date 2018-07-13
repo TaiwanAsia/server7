@@ -111,8 +111,8 @@
 					<?php if ($data) {
 					for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
-						<!-- <td class="cell"><?php echo $data[$i]['ID']; ?></td> -->
-						<td class=""><?php echo $data[$i]['媒合']; ?></td>
+						<td class="cell"><?php echo $data[$i]['ID']; ?></td>
+						<!-- <td class=""><?php echo $data[$i]['媒合']; ?></td> -->
 						<td class=""><?php echo $data[$i]['日期']; ?></td>
 						<td class=""><?php echo $data[$i]['姓名']; ?></td>
 						<!-- <td class="cell"><?php if ($data[$i]['買賣'] == 1) {

@@ -87,7 +87,7 @@ class Orders_model extends CI_Model {
                     '匯款帳號'=>$row-> 匯款帳號,
                     // '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
                     '轉讓會員'=>$row-> 轉讓會員,
-                    // '轉讓會員2'=>$row-> 轉讓會員2,
+                    '轉讓會員2'=>$row-> 轉讓會員2,
                     '完稅人'=>$row-> 完稅人,
                     // '一審'=>$row-> 一審,
                     '新舊'=>$row-> 新舊,
@@ -229,11 +229,12 @@ class Orders_model extends CI_Model {
                 }
             }
         } else {
-            $query = $this->db->get_where('ORDERS_before0701', array('id' => $keyword));
+            $query = $this->db->get_where('ORDERS_before0701', array('ID' => $keyword));
         }
 
         if($query->num_rows()>0) {
             $result = $this->transformer_before0701($query);
+            // print_r($result);
             return $result;
         } else {
             return false;
@@ -1045,6 +1046,10 @@ class Orders_model extends CI_Model {
 
     public function add_passrecord($data) {
         $this->db->insert('pass_record', $data);
+    }
+
+    public function add_passrecord_before0701($data) {
+        $this->db->insert('pass_record_before0701', $data);
     }
 
     public function update_orders_movetime($id) {

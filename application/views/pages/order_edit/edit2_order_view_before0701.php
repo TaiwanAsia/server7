@@ -1,6 +1,6 @@
             <main id="mainSection" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <div>
-                    <form method="post" name="edit_order_info" action="edit2_order" >
+                    <form method="post" name="edit_order_info" action="edit2_order_before0701" >
                         <div class="offset-md-1">
                             <table>
                                 <tr>
@@ -82,10 +82,6 @@
                                     <td></td>
                                     <td><label for="" class="">轉讓會員2</label></td>
                                     <td>
-                                        <?php if ($result[0]['轉讓會員2']=='null') { ?>
-                                            <label>--無第二轉讓會員--</label>
-                                            <input type="hidden" name="轉讓會員2" value="">
-                                        <?php } else {?>
                                         <select id="edit_轉讓會員2" name="轉讓會員2" class="form-control" required>
                                             <option value="<?php echo $result[0]['轉讓會員2'] ?>"><?php echo $result[0]['轉讓會員2'] ?></option>
                                             <?php
@@ -94,7 +90,6 @@
                                             }
                                             ?>
                                         </select>
-                                        <?php } ?>
                                     </td>
                                 </tr>
                                 <tr>
