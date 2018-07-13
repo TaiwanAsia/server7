@@ -1726,14 +1726,14 @@ class Orders extends CI_Controller {
 		    		if ($inform == '未通知' || $inform == '待對帳') {
 		    			for ($j = 0; $j < count($datas); $j++) {
 		    				if ($datas[$j]['是否已對帳'] != '1') { //檢查明細是否對過
-			    				if (!$isCheckExported && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*3 && ($money/0.997) == $datas[$j]['轉出']) { //當天
+			    				if (!$isCheckExported && abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*3 && ($money/0.997) == $datas[$j]['轉出']) { //3天內轉出
 			    					//對帳完成
 			    					echo "交易日期".$datas[$j]['日期']." 轉出 ".$money." ".$orders_sell[$i]['ID'].'<br>';
 			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, date('Y-m-d'));
 			    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 			    					$isCheckExported = true;
 			    					$error_id = $datas[$j]['id'];
-			    				} else if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*7 && $money == $datas[$j]['轉出']) { //一周內重複
+			    				} else if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*3 && ($money/0.997) == $datas[$j]['轉出']) { //3天內重複
 			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, '金額重複');
 			    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 			    					$this->orders_model->add_bill_error($datas[$j]['id']);
@@ -1875,10 +1875,15 @@ class Orders extends CI_Controller {
 	//頁面進入通知查帳頁面
 	public function salesman_check_money() {
 		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME']);
+		// print_r($order[0]);
 		if ($order[0]['買賣'] == 1) {
 			$array = array('order' => $order);
 			$this->load->view('templates/header');
 			$this->load->view('pages/money/inform_check_money_view',$array);
+		} else {
+			$array = array('ID' => $order[0]['ID'], '通知查帳' => '待對帳');
+			$this->orders_model->edit($array);
+			$this->go_orders();
 		}
 		$this->load->view('templates/footer');
 	}
