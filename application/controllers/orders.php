@@ -1734,6 +1734,7 @@ class Orders extends CI_Controller {
 			    					$isCheckExported = true;
 			    					$error_id = $datas[$j]['id'];
 			    				} else if (abs(strtotime($time) - strtotime($datas[$j]['日期'])) <= 3600*24*3 && ($money/0.997) == $datas[$j]['轉出']) { //3天內重複
+			    					// echo $datas[$j]['轉出']." 金額重複 <br>";
 			    					$this->orders_model->check_money_exported($orders_sell[$i]['ID'], $money, '金額重複');
 			    					$this->orders_model->check_bill_reconciled($datas[$j]['id']);
 			    					$this->orders_model->add_bill_error($datas[$j]['id']);
@@ -1772,12 +1773,18 @@ class Orders extends CI_Controller {
 			}
 			$orders = array_values($orders);
 		}
-
+		if ($_SESSION['權限名稱'] == '業務') {
+			$add_quene = $this->orders_model->get_add_quene(1, $_SESSION['NAME']);
+		} else {
+			$add_quene = [];
+		}
+		
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
 							'all_orders' => $all_orders,
-							'employees' => $employees,);
+							'employees' => $employees,
+							'add_quene' => $add_quene,);
 		$this->show($arrayName);
 	}
 
@@ -1821,13 +1828,20 @@ class Orders extends CI_Controller {
 				}
 			}
 			$orders = array_values($orders);
-		}	
+		}
 
+		if ($_SESSION['權限名稱'] == '業務') {
+			$add_quene = $this->orders_model->get_add_quene(1, $_SESSION['NAME']);
+		} else {
+			$add_quene = [];
+		}
+		
 		$all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
 							'all_orders' => $all_orders,
-							'employees' => $employees,);
+							'employees' => $employees,
+							'add_quene' => $add_quene,);
 		$this->show($arrayName);
 	}
 

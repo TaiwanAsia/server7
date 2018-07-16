@@ -127,8 +127,12 @@ class Orders_model extends CI_Model {
                 $this->db->order_by("最後動作時間", "desc");
                 $query = $this->db->get_where('ORDERS', array('業務' => $name));
             } else {
-                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                $query = $this->db->query($sql);
+                if ($_SESSION['所有成交單權限']==1) {
+                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
+                    $query = $this->db->query($sql);
+                } else {
+                    $query = $this->db->get_where('ORDERS', array('業務' => 'JOY'));
+                }
             }
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
@@ -292,18 +296,16 @@ class Orders_model extends CI_Model {
     }
 
     public function get_inventory($keyword,$權限名稱,$name) {
-        $query = null;
         if(is_null($keyword)) {
             if($權限名稱=='最高權限') {
                 $sql = "SELECT * FROM `ORDERS` WHERE `轉讓會員`='庫存' ORDER BY `最後動作時間` DESC";
                 $query = $this->db->query($sql);
-            } elseif ($權限名稱=='業務') {
+            } else if ($權限名稱=='業務') {
                 $this->db->order_by("最後動作時間", "desc");
                 $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => '庫存'));
             } else {
-                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
                 $this->db->where('轉讓會員', '庫存');
-                $query = $this->db->query($sql);
+                $query = $this->db->get('orders');
             }
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
@@ -399,9 +401,8 @@ class Orders_model extends CI_Model {
                 $this->db->order_by("最後動作時間", "desc");
                 $query = $this->db->get_where('ORDERS', array('業務' => $name,'轉讓會員' => 'KO'));
             } else {
-                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
                 $this->db->where('轉讓會員', 'KO');
-                $query = $this->db->query($sql);
+                $query = $this->db->get('orders');
             }
         } else {
             $query = $this->db->get_where('ORDERS', array('id' => $keyword));
@@ -1062,6 +1063,10 @@ class Orders_model extends CI_Model {
         if ($_SESSION['權限名稱'] == '最高權限') {
             $this->db->order_by("最後動作時間", "desc");
             $query = $this->db->get('pass_record');
+        } elseif ($_SESSION['權限名稱'] == '行政') {
+            $this->db->where('業務', 'JOY');
+            $this->db->order_by("最後動作時間", "desc");
+            $query = $this->db->get('pass_record');
         } else {
             $this->db->where('業務', $_SESSION['NAME']);
             $this->db->order_by("最後動作時間", "desc");
@@ -1109,6 +1114,10 @@ class Orders_model extends CI_Model {
 
     public function get_pass_record_before0701() {
         if ($_SESSION['權限名稱'] == '最高權限') {
+            $this->db->order_by("最後動作時間", "desc");
+            $query = $this->db->get('pass_record_before0701');
+        } elseif ($_SESSION['權限名稱'] == '行政') {
+            $this->db->where('業務', 'JOY');
             $this->db->order_by("最後動作時間", "desc");
             $query = $this->db->get('pass_record_before0701');
         } else {

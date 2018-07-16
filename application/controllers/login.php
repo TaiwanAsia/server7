@@ -57,10 +57,12 @@ class Login extends CI_Controller {
 					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
 
 					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
+					$_SESSION['新增權限'] = $authority[0]['新增權限'];
 					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
 					$_SESSION['刪除權限'] = $authority[0]['刪除權限'];
                     $_SESSION['成交日期權限'] = $authority[0]['成交日期權限'];
                     $_SESSION['業務權限'] = $authority[0]['業務權限'];
+                    $_SESSION['所有成交單權限'] = $authority[0]['所有成交單權限'];
                     $_SESSION['客戶姓名權限'] = $authority[0]['客戶姓名權限'];
                     $_SESSION['身分證字號權限'] = $authority[0]['身分證字號權限'];
                     $_SESSION['聯絡電話權限'] = $authority[0]['聯絡電話權限'];

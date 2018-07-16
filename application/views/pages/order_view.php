@@ -9,12 +9,12 @@
         <a href="<?php echo base_url(); ?>index.php/orders/go_orders" class="btn btn-sm btn-outline-secondary">所有</a>
         <a href="<?php echo base_url(); ?>index.php/orders/go_inventory" class="btn btn-sm btn-outline-secondary">庫存</a>
         <a href="<?php echo base_url(); ?>index.php/orders/go_ko" class="btn btn-sm btn-outline-secondary">KO</a>
-        <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
-          <a href="<?php echo base_url(); ?>index.php/orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
-        <?php } else if($add_quene) { ?>
-        <a href="<?php echo base_url(); ?>index.php/orders/new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
-        <?php } ?>
-
+        <?php if ($_SESSION['新增權限'] == '1') {
+          if ($_SESSION['權限名稱'] == '最高權限') { ?>
+             <a href="<?php echo base_url(); ?>index.php/orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+          <?php } elseif ($add_quene) { ?>
+            <a href="<?php echo base_url(); ?>index.php/orders/new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+          <?php } }?>
         </div>
 
         <form action="export" method="post">
