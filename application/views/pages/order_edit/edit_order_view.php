@@ -178,6 +178,11 @@
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" id="" value="<?php echo $result[0]['過戶費']; ?>" ></td>
                                 </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><label for="" class="">備註</label></td>
+                                    <td><textarea name="備註" id=""><?php echo $result[0]['備註']; ?></textarea></td>
+                                </tr>
                                 <!-- <tr>
                                     <td><?php echo form_error('媒合'); ?></td>
                                     <td><label for="" class="">媒合</label></td>

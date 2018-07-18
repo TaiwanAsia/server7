@@ -162,9 +162,17 @@ class Orders extends CI_Controller {
 		} else {
 			$新媒合編號 = $order_max_媒合[0]['媒合']+1;
 		}
-		$arrayName = array(
+		if (isset($_GET['庫存ID'])) {
+			$order = $this->orders_model->get($_GET['庫存ID']);
+			$arrayName = array(
+							'order' => $order,
 							'新媒合編號' => $新媒合編號,
 							'employees' => $employees,);
+		} else {
+			$arrayName = array(
+							'新媒合編號' => $新媒合編號,
+							'employees' => $employees,);
+		}
 		$this->load->view('templates/header');
 		$this->load->view('pages/admin_new_order', $arrayName);
 		$this->load->view('templates/footer');
@@ -177,7 +185,7 @@ class Orders extends CI_Controller {
 		if ($買賣張數差 > 0) {
 			//沒有副賣, 主賣剩餘張數直接進庫存
 			if ($_POST['副賣張數']==null && $_POST['副買張數']==null) {
-				// echo "1:1";
+				// echo "1:0";
 				if ($_POST['主買張數']=='') {
 					$array = array('媒合編號' => '',
 								'成交日期' => $_POST['成交日期'],
@@ -188,14 +196,23 @@ class Orders extends CI_Controller {
 								'主要' => '2',);
 					$this->orders_model->insert_add_quene($array);
 				} else {
-					$array = array('媒合編號' => $_POST['媒合編號'],
-									'成交日期' => $_POST['成交日期'],
-									'股票名稱' => $_POST['股票名稱'],
-									'買賣' => '0',
-									'業務' => $_POST['客戶主賣'],
-									'張數' => $_POST['主買張數'],
-									'主要' => '1',);
-					$this->orders_model->insert_add_quene($array);
+				// echo "1:1";
+					if (isset($_POST['ID'])) {
+						$array = array(
+							'ID' => $_POST['ID'],
+							'媒合' => $_POST['媒合編號'],
+							'轉讓會員' => $_POST['客戶主買'],);
+						$this->orders_model->edit($array);
+					} else {
+						$array = array('媒合編號' => $_POST['媒合編號'],
+										'成交日期' => $_POST['成交日期'],
+										'股票名稱' => $_POST['股票名稱'],
+										'買賣' => '0',
+										'業務' => $_POST['客戶主賣'],
+										'張數' => $_POST['主買張數'],
+										'主要' => '1',);
+						$this->orders_model->insert_add_quene($array);
+					}
 					$array = array('媒合編號' => '',
 									'成交日期' => $_POST['成交日期'],
 									'股票名稱' => $_POST['股票名稱'],
@@ -215,14 +232,22 @@ class Orders extends CI_Controller {
 				}
 			} elseif($_POST['副賣張數']==null && $_POST['副買張數']!=null) {
 				// echo "1:2";
-				$array = array('媒合編號' => $_POST['媒合編號'],
-								'成交日期' => $_POST['成交日期'],
-								'股票名稱' => $_POST['股票名稱'],
-								'買賣' => '0',
-								'業務' => $_POST['客戶主賣'],
-								'張數' => $_POST['主賣張數']-$買賣張數差,
-								'主要' => '1',);
-				$this->orders_model->insert_add_quene($array);
+				if (isset($_POST['ID'])) {
+					$array = array(
+						'ID' => $_POST['ID'],
+						'媒合' => $_POST['媒合編號'],
+						'轉讓會員' => $_POST['客戶主買'],);
+					$this->orders_model->edit($array);
+				} else {
+					$array = array('媒合編號' => $_POST['媒合編號'],
+									'成交日期' => $_POST['成交日期'],
+									'股票名稱' => $_POST['股票名稱'],
+									'買賣' => '0',
+									'業務' => $_POST['客戶主賣'],
+									'張數' => $_POST['主賣張數']-$買賣張數差,
+									'主要' => '1',);
+					$this->orders_model->insert_add_quene($array);
+				}
 				$array = array('媒合編號' => '',
 								'成交日期' => $_POST['成交日期'],
 								'股票名稱' => $_POST['股票名稱'],
@@ -249,14 +274,22 @@ class Orders extends CI_Controller {
 				$this->orders_model->insert_add_quene($array);
 			} elseif($_POST['副賣張數']!=null && $_POST['副買張數']==null) {
 				// echo "2:1";
-				$array = array('媒合編號' => $_POST['媒合編號'],
-								'成交日期' => $_POST['成交日期'],
-								'股票名稱' => $_POST['股票名稱'],
-								'買賣' => '0',
-								'業務' => $_POST['客戶主賣'],
-								'張數' => $_POST['主賣張數'],
-								'主要' => '1',);
-				$this->orders_model->insert_add_quene($array);
+				if (isset($_POST['ID'])) {
+					$array = array(
+						'ID' => $_POST['ID'],
+						'媒合' => $_POST['媒合編號'],
+						'轉讓會員' => $_POST['客戶主買'],);
+					$this->orders_model->edit($array);
+				} else {
+					$array = array('媒合編號' => $_POST['媒合編號'],
+									'成交日期' => $_POST['成交日期'],
+									'股票名稱' => $_POST['股票名稱'],
+									'買賣' => '0',
+									'業務' => $_POST['客戶主賣'],
+									'張數' => $_POST['主賣張數'],
+									'主要' => '1',);
+					$this->orders_model->insert_add_quene($array);
+				}
 				$array = array('媒合編號' => $_POST['媒合編號'],
 								'成交日期' => $_POST['成交日期'],
 								'股票名稱' => $_POST['股票名稱'],
@@ -283,14 +316,22 @@ class Orders extends CI_Controller {
 				$this->orders_model->insert_add_quene($array);
 			} elseif($_POST['副賣張數']!=null && $_POST['副買張數']!=null) {
 				// echo "2:2";
-				$array = array('媒合編號' => $_POST['媒合編號'],
-								'成交日期' => $_POST['成交日期'],
-								'股票名稱' => $_POST['股票名稱'],
-								'買賣' => '0',
-								'業務' => $_POST['客戶主賣'],
-								'張數' => $_POST['主賣張數'],
-								'主要' => '1',);
-				$this->orders_model->insert_add_quene($array);
+				if (isset($_POST['ID'])) {
+					$array = array(
+						'ID' => $_POST['ID'],
+						'媒合' => $_POST['媒合編號'],
+						'轉讓會員' => $_POST['客戶主買'],);
+					$this->orders_model->edit($array);
+				} else {
+					$array = array('媒合編號' => $_POST['媒合編號'],
+									'成交日期' => $_POST['成交日期'],
+									'股票名稱' => $_POST['股票名稱'],
+									'買賣' => '0',
+									'業務' => $_POST['客戶主賣'],
+									'張數' => $_POST['主賣張數'],
+									'主要' => '1',);
+					$this->orders_model->insert_add_quene($array);
+				}
 				$array = array('媒合編號' => $_POST['媒合編號'],
 								'成交日期' => $_POST['成交日期'],
 								'股票名稱' => $_POST['股票名稱'],
@@ -299,14 +340,6 @@ class Orders extends CI_Controller {
 								'張數' => ($_POST['主買張數'] - $_POST['主賣張數'])+$_POST['副買張數'],
 								'主要' => '0',);
 				$this->orders_model->insert_add_quene($array);
-				// $array = array('媒合編號' => $_POST['媒合編號'],
-				// 				'成交日期' => $_POST['成交日期'],
-				// 				'股票名稱' => $_POST['股票名稱'],
-				// 				'買賣' => '0',
-				// 				'業務' => $_POST['客戶副賣'],
-				// 				'張數' => $_POST['副買張數'],
-				// 				'主要' => '0',);
-				// $this->orders_model->insert_add_quene($array);
 				$array = array('媒合編號' => '',
 								'成交日期' => $_POST['成交日期'],
 								'股票名稱' => $_POST['股票名稱'],
@@ -336,14 +369,22 @@ class Orders extends CI_Controller {
 
 		//買賣張數相等or主賣=主買
 		} else {
-			$array = array('媒合編號' => $_POST['媒合編號'],
+			if (isset($_POST['ID'])) {
+				$array = array(
+							'ID' => $_POST['ID'],
+							'媒合' => $_POST['媒合編號'],
+							'轉讓會員' => $_POST['客戶主買'],);
+				$this->orders_model->edit($array);
+			} else {
+				$array = array('媒合編號' => $_POST['媒合編號'],
 							'成交日期' => $_POST['成交日期'],
 							'股票名稱' => $_POST['股票名稱'],
 							'買賣' => '0',
 							'業務' => $_POST['客戶主賣'],
 							'張數' => $_POST['主賣張數'],
 							'主要' => '1',);
-			$this->orders_model->insert_add_quene($array);
+				$this->orders_model->insert_add_quene($array);
+			}
 			if ($_POST['副賣張數']>0) {
 				$array = array('媒合編號' => $_POST['媒合編號'],
 								'成交日期' => $_POST['成交日期'],
@@ -1150,6 +1191,7 @@ class Orders extends CI_Controller {
 						'自行應付' => $_POST['自行應付'],
 						'刻印' => $_POST['刻印'],
 						'過戶費' => $_POST['過戶費'],
+						'備註' => $_POST['備註'],
 						'最後動作時間' => date('Y-m-d H:i:s'),);
 		$effect = '';
 		for ($i=0; $i < count($title); $i++) {

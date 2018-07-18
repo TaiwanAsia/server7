@@ -331,7 +331,11 @@
 
         <td>
           <?php if($_SESSION['轉讓會員權限']==1) {
-            echo ($orders[$i]['轉讓會員']);
+            if ($orders[$i]['轉讓會員'] == '庫存' && $_SESSION['權限名稱'] == '最高權限') {
+              echo "<label><a href='admin_new_order?庫存ID=".$orders[$i]['ID']."'>".($orders[$i]['轉讓會員'])."</a></label>";
+            } else {
+              echo "<label>".($orders[$i]['轉讓會員'])."</label>";
+            }
           ?>
           <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
           <?php } ?>

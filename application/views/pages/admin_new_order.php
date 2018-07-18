@@ -10,6 +10,15 @@
 							<input readonly="" type="text" name="媒合編號" value="<?php echo($新媒合編號); ?>">
 						</td>
 					</tr>
+					<?php if (isset($order)) { ?>
+					<tr>
+						<td>ID</td>
+						<td>
+							<label><font color="green"><b><?php echo($order[0]['ID']); ?></b></font></label>
+							<input type="hidden" name="ID" value="<?php echo($order[0]['ID']); ?>">
+						</td>
+					</tr>
+						<?php } ?>
 					<tr>
 						<th nowrap="nowrap">日期</th>
 						<td>
@@ -19,11 +28,15 @@
 					<tr>
 						<th nowrap="nowrap">股票</th>
 						<td>
+							<?php if (isset($order)) { ?>
+							<input required="" type="text" name="股票名稱" value="<?php echo($order[0]['股票']) ?>">
+							<?php } else { ?>
 							<input required="" type="text" name="股票名稱" value="">
+							<?php } ?>
 						</td>
 					</tr>
 					<tr>
-						<th><font color='green' size="5"><b>主要</b></font></th>
+						<th bgcolor="yellow"><font color='green' size="5"><b>主要</b></font></th>
 						<th colspan="" nowrap="nowrap"><font color='blue'><b>賣</b></font></th>
 						<th nowrap="nowrap"><font color='red'><b>買</b></font></th>
 					</tr>
@@ -32,7 +45,14 @@
 						<td colspan="">
 			 				<?php for ($i=0; $i < count($employees); $i++) {
 			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
-			 					<input required="" class="" type="radio" name="客戶主賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+			 					<?php if (isset($order)) {
+			 							if ($order[0]['業務'] == $employees[$i]['NAME']) { ?>
+			 							 	<input required="" class="" type="radio" name="客戶主賣" checked="" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+			 							<?php } ?>
+									
+								<?php } else { ?>
+									<input required="" class="" type="radio" name="客戶主賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+								<?php } ?>
 			 				<?php	}
 			 				} ?>
 						</td>
@@ -52,7 +72,11 @@
 					<tr>
 						<td></td>
 						<td>
-							<input required type="text" name="主賣張數">
+							<?php if (isset($order)) { ?>
+								<input required type="text" name="主賣張數" value="<?=$order[0]['張數']?>">
+							<?php } else { ?>
+								<input required type="text" name="主賣張數">
+							<?php } ?>
 						</td>
 						<td>
 							<input type="text" name="主買張數">
@@ -64,7 +88,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th><font color='green' size="5"><b>副</b></font></th>
+						<th bgcolor="yellow"><font color='green' size="5"><b>副</b></font></th>
 						<th colspan="" nowrap="nowrap"><font color='blue'><b>賣</b></font></th>
 						<th nowrap="nowrap"><font color='red'><b>買</b></font></th>
 					</tr>
