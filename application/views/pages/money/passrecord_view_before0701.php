@@ -6,7 +6,7 @@
 
 			<table class="table" id="tblEditor">
 				<thead class="thead-light">
-					<?php if ($_SESSION['NAME'] == '小祿' || $_SESSION['NAME'] == 'Anthony') { ?>
+					<!-- <?php if ($_SESSION['NAME'] == '小祿' || $_SESSION['NAME'] == 'Anthony') { ?>
 					<tr>
 						<td class="cell">
 							<form action="turn_passrecord" method="post" id="turn_passrecord">
@@ -14,7 +14,7 @@
 							</form>
 						</td>
 					</tr>
-					<?php } ?>
+					<?php } ?> -->
 					<tr>
 						<th nowrap="nowrap">編號</th>
 						<th nowrap="nowrap">日期</th>

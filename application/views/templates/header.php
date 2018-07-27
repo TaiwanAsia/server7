@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../../../favicon.ico">
-        <title>Server7</title>
+        <title>成交單</title>
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css?123">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/tablesaw.css">
         <!-- Bootstrap core CSS -->

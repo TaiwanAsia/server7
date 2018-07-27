@@ -525,7 +525,7 @@ class Orders extends CI_Controller {
 			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增', $insert_id, null);
 
 			//大姊的單直接通知查帳
-			if ($data['業務'] == 'JOY' || $data['業務'] == '卓志鴻') {
+			if ($data['買賣'] == 1 && ($data['業務'] == 'JOY' || $data['業務'] == '卓志鴻')) {
 				$this->orders_model->inform_check_money_model($data['ID'], '匯款', $data['匯款日期'], $data['客戶姓名'], null, $data['匯款金額應收帳款'], date('Y-m-d H:i:s'));
 			}
 			
@@ -670,6 +670,7 @@ class Orders extends CI_Controller {
 	public function delete() {
 		$id = $_POST['id'];
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '刪除', $id, null);
+		//成交單、應收帳換、轉讓紀錄一併刪除
 		$this->orders_model->delete($id);
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);
@@ -2253,7 +2254,7 @@ class Orders extends CI_Controller {
 			$insert_data[$i]['轉讓會員2'] = $data[$i]['轉讓會員2'];
 			$insert_data[$i]['備註'] = $data[$i]['備註'];
 			$insert_data[$i]['最後動作時間'] = date('Y-m-d H:i:s');
-			$this->orders_model->insert_passrecord_model($insert_data[$i]);
+			$this->orders_model->add_passrecord($insert_data[$i]);
 		}
 		$this->passrecord();
 	}

@@ -512,6 +512,12 @@ class Orders_model extends CI_Model {
         $this->db->insert('deleted_orders', $i[0]);
         $this->db->where('ID', $id);
         $this->db->delete('orders');
+        //應收帳款也得刪
+        $this->db->where('成交單編號', $id);
+        $this->db->delete('check_money_record');
+        //轉讓紀錄也得刪
+        $this->db->where('ID', $id);
+        $this->db->delete('pass_record');
     }
 
     public function go_deleted_model() {
@@ -1161,9 +1167,14 @@ class Orders_model extends CI_Model {
     }
 
     public function edit_note_model($id, $note) {
+
         $this->db->where('ID', $id);
         $data = array('備註' => $note);
         $this->db->update('orders', $data);
+
+        // $this->db2->where('ID', $id);
+        // $data = array('備註' => $note);
+        // $this->db2->update('orders', $data);
     }
 
     public function add_assign_model($data) {
@@ -1208,10 +1219,6 @@ class Orders_model extends CI_Model {
         $query = $this->db->get_where('orders', array('二審'=>1));
         $result = $this->transformer($query);
         return $result;
-    }
-
-    public function insert_passrecord_model($data) {
-        $this->db->insert('pass_record', $data);
     }
 
     public function show_bank_model() {
