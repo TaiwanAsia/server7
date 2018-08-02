@@ -139,6 +139,19 @@ class Orders extends CI_Controller {
 		$this->show($arrayName);
 	}
 
+	public function new_order_choose()
+    {
+    	$add_quene = $this->orders_model->get_add_quene(1, $_SESSION['NAME']);
+		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+		$employees = $this->orders_model->get_employee(null);
+		$arrayName = array('orders' => $orders,
+							'employees' => $employees,
+							'add_quene' => $add_quene[0],);
+		$this->load->view('templates/header');
+		$this->load->view('pages/new_order_choose', $arrayName);
+		$this->load->view('templates/footer');
+	}
+
 	public function new_order()
     {
     	$add_quene = $this->orders_model->get_add_quene(1, $_SESSION['NAME']);
@@ -182,6 +195,20 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		$this->load->view('pages/admin_new_order', $arrayName);
 		$this->load->view('templates/footer');
+	}
+
+	public function add_quene_view() {
+		$quene = $this->orders_model->get_add_quene(0);
+		$arrayName = array('data' => $quene,);
+		$this->load->view('templates/header');
+		$this->load->view('pages/add_quene_view', $arrayName);
+		$this->load->view('templates/footer');
+	}
+
+	public function delete_add_quene_by_matchid() {
+		$quene = $this->orders_model->delete_add_quene_by_matchid_model($_POST['id'], $_POST['媒合編號']);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin刪除尚未key的成交單', '編號: '.$_POST['id'].'媒合: '.$_POST['媒合編號'], null);
+		redirect('index.php/orders/add_quene_view');
 	}
 
 	public function add_order_id() {

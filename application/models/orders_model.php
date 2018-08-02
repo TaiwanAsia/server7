@@ -481,6 +481,15 @@ class Orders_model extends CI_Model {
         $this->db->delete('add_quene', array('id' => $id));
     }
 
+    public function delete_add_quene_by_matchid_model($id, $媒合編號) {
+        if ($媒合編號 == 0) {
+            $this->db->delete('add_quene', array('id' => $id));
+        } else {
+            $this->db->delete('add_quene', array('媒合編號' => $媒合編號));
+        }
+        
+    }
+
     public function add($data) {
 
         $this->db->insert('orders', $data);

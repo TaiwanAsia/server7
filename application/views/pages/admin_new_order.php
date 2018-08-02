@@ -5,6 +5,11 @@
 			<div>
 				<table style="width:100%;" border="0">
 					<tr>
+						<td>
+							<button type="button" onclick="location.href='add_quene_view'">查看已新增列表</button>
+						</td>
+					</tr>
+					<tr>
 						<th nowrap="nowrap">編號</th>
 						<td>
 							<input readonly="" type="text" name="媒合編號" value="<?php echo($新媒合編號); ?>">
