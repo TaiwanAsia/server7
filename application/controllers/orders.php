@@ -146,7 +146,7 @@ class Orders extends CI_Controller {
 		$employees = $this->orders_model->get_employee(null);
 		$arrayName = array('orders' => $orders,
 							'employees' => $employees,
-							'add_quene' => $add_quene[0],);
+							'add_quene' => $add_quene,);
 		$this->load->view('templates/header');
 		$this->load->view('pages/new_order_choose', $arrayName);
 		$this->load->view('templates/footer');
@@ -154,10 +154,9 @@ class Orders extends CI_Controller {
 
 	public function new_order()
     {
-    	$add_quene = $this->orders_model->get_add_quene(1, $_SESSION['NAME']);
-		$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+    	$add_quene = $this->orders_model->get_add_quene(3, $_POST['id']);
 		$employees = $this->orders_model->get_employee(null);
-		$arrayName = array('orders' => $orders,
+		$arrayName = array(
 							'employees' => $employees,
 							'add_quene' => $add_quene[0],);
 		$this->load->view('templates/header');

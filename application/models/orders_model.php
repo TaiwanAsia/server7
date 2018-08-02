@@ -451,6 +451,9 @@ class Orders_model extends CI_Model {
         } elseif ($type == 2) {
             $this->db->where('媒合編號', $keyword);
             $query = $this->db->get('add_quene');
+        } elseif ($type == 3) {
+            $this->db->where('id', $keyword);
+            $query = $this->db->get('add_quene');
         }
 
         if($query->result()!=null){

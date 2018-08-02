@@ -13,7 +13,7 @@
           if ($_SESSION['權限名稱'] == '最高權限') { ?>
              <a href="<?php echo base_url(); ?>index.php/orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
           <?php } elseif ($add_quene) { ?>
-            <a href="<?php echo base_url(); ?>index.php/orders/new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+            <a href="<?php echo base_url(); ?>index.php/orders/new_order_choose" class="btn btn-sm btn-outline-secondary">新增成交單</a>
           <?php } }?>
         </div>
 
