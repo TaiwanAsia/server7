@@ -6,17 +6,17 @@
         <!-- <button class="btn btn-sm btn-outline-secondary" id="new_order">新增成交單</button> -->
         <!-- <button class="btn btn-sm btn-outline-secondary">所有</button> -->
         <div class="btn-group-s">
-        <a href="<?php echo base_url(); ?>index.php/orders/go_orders" class="btn btn-sm btn-outline-secondary">所有</a>
-        <a href="<?php echo base_url(); ?>index.php/orders/go_inventory" class="btn btn-sm btn-outline-secondary">庫存</a>
-        <a href="<?php echo base_url(); ?>index.php/orders/go_ko" class="btn btn-sm btn-outline-secondary">KO</a>
+        <a href="../orders/go_orders" class="btn btn-sm btn-outline-secondary">所有</a>
+        <a href="../orders/go_inventory" class="btn btn-sm btn-outline-secondary">庫存</a>
+        <a href="../orders/go_ko" class="btn btn-sm btn-outline-secondary">KO</a>
         <?php if ($_SESSION['新增權限'] == '1') {
           if ($_SESSION['權限名稱'] == '最高權限') { ?>
-             <a href="<?php echo base_url(); ?>index.php/orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+             <a href="../orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
           <?php } elseif ($add_quene) { ?>
-            <a href="<?php echo base_url(); ?>index.php/orders/new_order_choose" class="btn btn-sm btn-outline-secondary">新增成交單</a>
+            <a href="../orders/new_order_choose" class="btn btn-sm btn-outline-secondary">新增成交單</a>
           <?php } }?>
         </div>
-
+        <a href="../orders/new_order_choose" class="btn btn-sm btn-outline-secondary">直接新增成交單</a>
         <form action="export" method="post">
           <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" onchange="">
             <?php
@@ -156,7 +156,6 @@
         <td>
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
               if ($_SERVER['QUERY_STRING'] == null) {
                 echo "go_inventory?業務=".$orders[$i]['業務'];
@@ -182,7 +181,6 @@
         <td class="thd-s1">
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
               if ($_SERVER['QUERY_STRING'] == null) {
                 echo "go_inventory?客戶姓名=".$orders[$i]['客戶姓名'];
@@ -217,7 +215,6 @@
         <?php if($_SESSION['聯絡電話權限']==1) { ?>
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
               if ($_SERVER['QUERY_STRING'] == null) {
                 echo "go_inventory?聯絡電話=".$orders[$i]['聯絡電話'];
@@ -266,7 +263,6 @@
         <td>
           <a class="clickable_hint" href="javascript:location.href='
             <?php
-            //echo base_url()."index.php/orders/";
             if ($orders[$i]['轉讓會員'] == '庫存') {
               if ($_SERVER['QUERY_STRING'] == null) {
                 echo "go_inventory?股票=".$orders[$i]['股票'];
@@ -501,13 +497,13 @@
                   //業務點了通知查帳 ?>
                     <form method="get" action="salesman_check_money">
                       <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
-                      <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40"></a>
+                      <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="../static/待對帳.png" width="80" height="40"></a>
                     </form>
 
               <?php
                   } elseif ($orders[$i]['通知查帳']=='待確認') {
                   //已匯入銀行明細對帳正確，待大姊自己手動確認 ?>
-                    <a href="boss_check_money"><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40"></a>
+                    <a href="boss_check_money"><img src="../static/待確認.png" width="80" height="40"></a>
               <?php
                   } else {
                   //大姊手動確認，顯示日期 ?>
@@ -523,7 +519,7 @@
             <td style="min-width:100px;">
                 <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){
                   ?>
-                <a class="clickable_hint" href="<?=base_url('upload/contact/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
+                <a class="clickable_hint" href="<?='../../upload/contact/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
                   <div class="form-group">
@@ -537,7 +533,7 @@
             <td>
                 <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){
                   ?>
-                <a class="clickable_hint" href="<?=base_url('upload/tax/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
+                <a class="clickable_hint" href="<?='../../upload/tax/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
                   <div class="form-group">
@@ -568,7 +564,7 @@
                 <td>
                   <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
                     ?>
-                  <a class="clickable_hint" href="<?=base_url('upload/water/'.$orders[$i]['ID'])?>" target="_blank">檢視（點開檢視檔案）</a>
+                  <a class="clickable_hint" href="<?='../../upload/water/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
                   <?php  } else {?>
                   <form method="post" action="upload_water" enctype="multipart/form-data">
                     <div class="form-group">
@@ -850,7 +846,7 @@
             // var 趴數 = document.getElementById('趴數'+id).value;
             // var employee = document.getElementById('業務'+id).value;
             // alert(employee);
-            // url = "<?=base_url()?>index.php/orders/get_employee_byname";
+            url = "../orders/get_employee_byname";
             // $.ajax({
             //   url: url,
             //   type: 'post',
@@ -881,8 +877,8 @@
           //大姊一鍵將客戶為買的一審改為已匯
           function Buy_Edit(i) {
             var id = i;
-            url = "<?=base_url()?>index.php/orders/Buy_Edit";
-            go = "<?=base_url()?>index.php/orders/go_orders";
+            url = "../orders/Buy_Edit";
+            go = "../orders/go_orders";
             $.ajax({
               url: url,
               type: 'post',
@@ -938,8 +934,8 @@
             // alert('確認是否複製 [成交單]編號['+id+']')
             if (str=prompt("確認複製成交單編號["+id+"]請輸入 y或Y ","")) {
               if (str=='Y'||str=='y') {
-                url = "<?=base_url()?>index.php/orders/copy";
-                go = "<?=base_url()?>index.php/orders/go_orders";
+                url = "../orders/copy";
+                go = "../orders/go_orders";
                 $.ajax({
                   url: url,
                   type: 'post',
@@ -966,8 +962,8 @@
             // alert('是否確定刪除 [成交單]編號['+id+']。');
             if (str=prompt("確認刪除成交單編號["+id+"]請輸入 y或Y ","")) {
               if (str=='Y'||str=='y') {
-                url = "<?=base_url()?>index.php/orders/delete";
-                go = "<?=base_url()?>index.php/orders/go_orders";
+                url = "../orders/delete";
+                go = "../orders/go_orders";
                 $.ajax({
                   url: url,
                   type: 'post',

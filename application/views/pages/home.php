@@ -71,7 +71,7 @@
 		</div>
 
 		<div class="sec-two sec-s">
-			<div style="background-color:#9F1CFF;" class="row row-s-1">
+			<div style="background-color:#B87070;" class="row row-s-1">
 				<div class="col-xl-12">
 					<span><b>股票名稱</b></span>
 					<input type="text" name="">
@@ -199,6 +199,14 @@
 		 				</li>
 		 			</ul>
 		 		</div>
+
+		 		<!-- <div class="sec-content">
+		 			<h4>附件</h4>
+                	<input type="file" name="工單附件" class="f-file-s" id="exampleFormControlFile1">
+                    <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
+                    <button type="submit" id="" name="" class="">上傳</button>
+		 		</div> -->
+
 		 		<div class="sec-content">
 		 			<h4>工單內容</h4>
 		 			<div class="note-sec">
@@ -206,6 +214,8 @@
 						<button type="submit" form="assign">送出</button>
 		 			</div>
 		 		</div>
+
+
 			</form>
 	 	</div>
 </main>

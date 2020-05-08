@@ -60,5 +60,8 @@ p {
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
 	</div>
+	<div>
+		<a href="../orders/index">回首頁</a>
+	</div>
 </body>
 </html>

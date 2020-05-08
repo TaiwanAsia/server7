@@ -80,7 +80,10 @@ class Login extends CI_Controller {
                     $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
 
 					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
-					redirect('index.php/orders/go_assign');
+
+					// redirect('../index.php/orders/go_assign');
+					$newURL = "../orders/go_assign";
+					header('Location: '.$newURL);
 				} else {
 					// $this->load->view('templates/header');
 					$this->load->view('pages/login_view',array('error_message' => $error_message));

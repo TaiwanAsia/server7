@@ -557,7 +557,6 @@ class Orders_model extends CI_Model {
             $result = $result." ".$effect;
         }
         $data = array('員工'=>$name, '時間'=>$time, '動作'=>$move, '影響'=>$result, );
-        $this->db->insert('move_record', $data);
     }
 
     public function get_move_record() {
@@ -1200,6 +1199,10 @@ class Orders_model extends CI_Model {
             $this->db->insert('assigns', $result);
             // echo $data['工單對象'][$i]." ".$_POST['工單屬性']." ".$_POST['工單內容'];
         }
+    }
+
+    public function delete_assign_model($id) {
+        $this->db->delete('assigns', array('id' => $id));
     }
 
     public function get_assign() {

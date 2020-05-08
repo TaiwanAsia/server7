@@ -11,6 +11,8 @@ class Orders extends CI_Controller {
 		date_default_timezone_set('Asia/Taipei');
 		$this->load->helper(array('form', 'url', 'array'));
 		$this->load->library('form_validation');
+
+		$this->load->model('login_model');
 		$this->load->model('orders_model');
 	}
 
@@ -21,6 +23,74 @@ class Orders extends CI_Controller {
     		return True;
     	}
 	}
+
+	public function login()
+	{
+		// redirect('http://localhost/server7/index.php/orders/index');
+		// echo "index";
+		// if(isset($_SESSION['ACCOUNT'])){
+		// 	echo $_SESSION['ACCOUNT'];
+		// }
+		// echo $_SESSION['ACCOUNT'];
+		// if (isset($_SESSION['ACCOUNT'])) {
+		// 	echo $_SESSION['ACCOUNT'];
+		// 	redirect('http://localhost/server7/index.php/orders/index');
+		// } else {
+
+			if (isset($_POST['acct'])&&!is_null($_POST['acct'])) {
+				$error_message = '輸入錯誤，再試一次!';
+				$flag = $this->login_model->login($_POST['acct'], $_POST['pswd']);
+				if ($flag != false) {
+					$_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
+					$_SESSION['權限名稱'] = $flag['權限名稱'];
+					$_SESSION['NAME'] = $flag['NAME'];
+					$_SESSION['趴數'] = $flag['趴數'];
+					$_SESSION['勞保'] = $flag['勞保'];
+					$_SESSION['健保'] = $flag['健保'];
+					$_SESSION['勞退'] = $flag['勞退'];
+					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
+
+					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
+					$_SESSION['新增權限'] = $authority[0]['新增權限'];
+					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
+					$_SESSION['刪除權限'] = $authority[0]['刪除權限'];
+                    $_SESSION['成交日期權限'] = $authority[0]['成交日期權限'];
+                    $_SESSION['業務權限'] = $authority[0]['業務權限'];
+                    $_SESSION['所有成交單權限'] = $authority[0]['所有成交單權限'];
+                    $_SESSION['客戶姓名權限'] = $authority[0]['客戶姓名權限'];
+                    $_SESSION['身分證字號權限'] = $authority[0]['身分證字號權限'];
+                    $_SESSION['聯絡電話權限'] = $authority[0]['聯絡電話權限'];
+                    $_SESSION['聯絡人權限'] = $authority[0]['聯絡人權限'];
+                    $_SESSION['聯絡地址權限'] = $authority[0]['聯絡地址權限'];
+                    $_SESSION['股票資訊權限'] = $authority[0]['股票資訊權限'];
+                    $_SESSION['盤價權限'] = $authority[0]['盤價權限'];
+                    $_SESSION['匯款資訊權限'] = $authority[0]['匯款資訊權限'];
+                    $_SESSION['轉讓會員權限'] = $authority[0]['轉讓會員權限'];
+                    $_SESSION['完稅人權限'] = $authority[0]['完稅人權限'];
+                    $_SESSION['媒合權限'] = $authority[0]['媒合權限'];
+                    $_SESSION['一審權限'] = $authority[0]['一審權限'];
+                    $_SESSION['二審權限'] = $authority[0]['二審權限'];
+                    $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
+                    $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
+
+					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
+
+					$data = $this->orders_model->get_assign();
+					$this->load->view('templates/header');
+					$this->load->view('pages/assign_view', array('data'=>$data));
+					$this->load->view('templates/footer');
+				} else {
+					// $this->load->view('templates/header');
+					$this->load->view('pages/login_view',array('error_message' => $error_message));
+				}
+			} else {
+				$error_message = '尚未輸入，請輸入!';
+				// $this->load->view('templates/header');
+				$this->load->view('pages/login_view',array('error_message' => $error_message));
+			}
+		// }
+	}
+
 
 	public function show($arr_data)
     {
@@ -66,6 +136,7 @@ class Orders extends CI_Controller {
 			} else {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
 			}
+
 			if ($orders != null) {
 				foreach ($orders as $key => $value) {
 					if (isset($_GET['股票']) && $_GET['股票'] != $value['股票']) {
@@ -801,15 +872,12 @@ class Orders extends CI_Controller {
 		$dir_count = count($dir_info);
 		$next_dir_index = $dir_count + 1;
 		if ($_FILES["file"]["error"] > 0){
-			echo "Error: " . $_FILES["file"]["error"];
+			// echo "Error: " . $_FILES["file"]["error"];
+			// show_404($dir_info, TRUE);
+			$message = "請先選擇欲上傳檔案";
+			show_error($message, null, $heading = 'An Error Was Encountered');
 		} else {
-			// echo "編號: " . $id."<br>";
-			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
-			// echo mb_detect_encoding($_FILES["file"]["name"]);
 			$name = iconv("UTF-8", "BIG5", $_FILES["file"]["name"]);
-			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
-			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
-			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
 			if (file_exists("upload/document/" . $name)){
 				echo "<h2><font color='red'>檔案已經存在，請勿重覆上傳相同檔案</font></h2><br>";
 				$this->document_download_view();
@@ -824,17 +892,28 @@ class Orders extends CI_Controller {
 		}
 	}
 
+	public function upload_attachment() {
+		if ($_FILES["file"]["error"] > 0){
+			$message = "請先選擇欲上傳檔案";
+			show_error($message, null, $heading = 'An Error Was Encountered');
+		} else {
+			$tmpname = $_FILES["file"]["tmp_name"];
+			// echo $tmpname." yoyo";
+			$tmp = explode('.', $_FILES["file"]["name"]);
+			$ext = end($tmp);
+			// echo $ext."here";
+			move_uploaded_file($tmpname,"upload/attachment/".$_POST['id'].".".$ext);
+			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '工單中上傳附件', $_FILES['file']['name'], null);
+			echo "<h2><font color='red'>檔案".$_FILES["file"]["name"]."上傳成功</font></h2><br>";
+			$this->go_assign();
+		}
+	}
+
 	public function upload_contact() {
 		$id = $_POST['id'];
 		if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-			// echo "編號: " . $id."<br>";
-			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
-			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
-			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
-			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
-
 			if (file_exists("upload/contact/" . $id)){
 				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
 				$this->go_orders();
@@ -2163,8 +2242,15 @@ class Orders extends CI_Controller {
 	public function document_download() {
 		$this->load->helper('download');
 		// echo mb_detect_encoding($_POST['type']);
-		$file_big5 = iconv("UTF-8", "BIG5", $_POST['type']);
+		$file_big5 = iconv("UTF-8", "BIG5", $_POST['file']);
 		force_download('upload/document/'.$file_big5, NULL);
+		$this->document_download_view();
+	}
+
+	public function document_delete() {
+		$this->load->helper('file');
+		unlink('./upload/document/'.$_POST['file']);
+		echo "成功刪除";
 		$this->document_download_view();
 	}
 
@@ -2243,7 +2329,12 @@ class Orders extends CI_Controller {
 						'工單屬性'=>$_POST['工單屬性'],
 						'工單內容'=>$_POST['工單內容']);
 		$this->orders_model->add_assign_model($data);
-		// $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '增加工單', $_POST['note_id'], $diff);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '建立工單', null, null);
+		$this->go_assign();
+	}
+
+	public function delete_assign() {
+		$this->orders_model->delete_assign_model($_GET['id']);
 		$this->go_assign();
 	}
 

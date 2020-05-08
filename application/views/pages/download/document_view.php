@@ -30,6 +30,7 @@
 						<!-- <th nowrap="nowrap">文件編號</th> -->
 						<th nowrap="nowrap">文件名稱</th>
 						<th nowrap="nowrap">下載</th>
+						<th nowrap="nowrap"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,10 +39,17 @@
 							<td><?php echo $file_info[$i]; ?></td>
 							<td>
 								<form action="document_download" method="POST">
-									<input type="hidden" name="type" value="<?php echo $file_info[$i]; ?>">
+									<input type="hidden" name="file" value="<?php echo $file_info[$i]; ?>">
 									<button type="submit">下載</button>
 								</form>
 							</td>
+							<td>
+								<form action="document_delete" method="POST">
+									<input type="hidden" name="file" value="<?php echo $file_info[$i]; ?>">
+									<button type="submit">刪除</button>
+								</form>
+							</td>
+
 						</tr>
 					<?php } ?>
 					<!-- <tr>
