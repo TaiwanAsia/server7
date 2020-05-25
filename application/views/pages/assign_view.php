@@ -18,7 +18,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php for ($i=0; $i < count($data); $i++) { ?>
+					<?php if($data) { for ($i=0; $i < count($data); $i++) { ?>
 					<tr>
 
 						<td>
@@ -43,6 +43,9 @@
 					 			}
 					 			if (file_exists("upload/attachment/".$data[$i]['ID'].".xlsx")) {
 					 				$exist = "xlsx";
+					 			}
+					 			if (file_exists("upload/attachment/".$data[$i]['ID'].".csv")) {
+					 				$exist = "csv";
 					 			}
 					 			if ($exist) { ?>
 					 				<!-- <a class="clickable_hint" href="<?='../../upload/attachment/'.$data[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a> -->
@@ -83,7 +86,7 @@
 							<!-- <?php echo $data[$i]['建立者']; ?> -->
 						</p></td>
 					</tr>
-					<?php } ?>
+					<?php } }?>
 				</tbody>
 			</table>
 		</div>

@@ -73,6 +73,7 @@ class Orders extends CI_Controller {
                     $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
                     $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
 
+                    // echo "I did it!";
 					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
 
 					$data = $this->orders_model->get_assign();
