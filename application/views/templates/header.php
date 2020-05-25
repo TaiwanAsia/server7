@@ -34,6 +34,7 @@
         }
     </script>
 
+
  <body>
   <header id="header">
     <div class="s-pull-1">
@@ -56,22 +57,22 @@
     </form>
     <div class="container-fluid">
         <div class="row" style="flex-wrap: initial">
-            <nav class="s-sidebar bg-light">
-                <div class="s-sidebar-1" style="background-color: #FFECEC;">
-                    <ul class="nav flex-column" style="font-family:DFKai-sb; font-size: 22px;" >
+            <nav class="s-sidebar" style="background-color: #CCCCCC;">
+                <div class="s-sidebar-1">
+                    <ul class="nav flex-column" style="font-family:微軟正黑體; font-size: 22px; color: white;" >
                         <li class="nav-item">
-                            <a class="nav-link active" href="../orders/index">
+                            <a class="nav-link active" href="../orders/index" style="color: black;">
                                 首頁<span class="sr-only"></span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="../orders/go_assign">
+                            <a class="nav-link active" href="../orders/go_assign" style="color: black;">
                                 公佈欄<span class="sr-only"></span>
                             </a>
                         </li>
                         <li class="nav-item">
 
-                            <a class="nav-link active" href="../orders/go_orders">
+                            <a class="nav-link active" href="../orders/go_orders" style="color: black;">
                             <span data-feather="home"></span>
                                 成交單管理<span class="sr-only">(current)</span>
                             </a>
@@ -84,7 +85,7 @@
                         </li> -->
                         <li class="nav-item">
 
-                            <a class="nav-link" href="../orders/passrecord">
+                            <a class="nav-link" href="../orders/passrecord" style="color: black;">
                                 轉讓紀錄
                             </a>
                         </li>
@@ -95,30 +96,30 @@
                         </li> -->
                         <li class="nav-item">
                             <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
-                                <a class="nav-link" href="../orders/boss_check_money">
+                                <a class="nav-link" href="../orders/boss_check_money" style="color: black;">
                                 應收帳款
                                 </a>
                             <?php } else {?>
-                            <a class="nav-link" href="../orders/checkbill">
+                            <a class="nav-link" href="../orders/checkbill" style="color: black;">
                                 應收帳款
                             </a>
                         <?php } ?>
                         </li>
                         <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../orders/checkbillout">
+                            <a class="nav-link" href="../orders/checkbillout" style="color: black;">
                                 應匯帳款
                             </a>
                         </li>
                         <?php } ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../orders/fax_info">
+                            <a class="nav-link" href="../orders/fax_info" style="color: black;">
                                 傳真資料
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/document_download_view" >
+                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/document_download_view" style="color: black;">
                                 文件下載
                             </a>
                         </li>
@@ -138,19 +139,19 @@
                         -->
                         <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../orders/move_record">
+                            <a class="nav-link" href="../orders/move_record" style="color: black;">
                                 動作紀錄
                             </a>
                         </li>
                         <li>
-                            <a class="nav-link" href="../orders/go_deleted">
+                            <a class="nav-link" href="../orders/go_deleted" style="color: black;">
                                 被刪成交單
                             </a>
                         </li>
                         <?php } ?>
                         <?php if ($_SESSION['帳號設定權限']==1) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../login/account">
+                            <a class="nav-link" href="../login/account" style="color: black;">
                                 帳號管理
                             </a>
                         </li>

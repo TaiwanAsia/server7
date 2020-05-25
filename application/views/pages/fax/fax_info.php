@@ -1,4 +1,4 @@
-<main id="mainSection" role="main">
+<main id="mainSection" role="main" style="font-family:微軟正黑體;">
     <div class="t-form-t">
             <h1 class="h2">傳真資料</h1>
             <form action="go_dealer" method="POST" class="t-form-t" name="">

@@ -1,5 +1,5 @@
 
-<main id="mainSection" role="main">
+<main id="mainSection" role="main" style="font-family:微軟正黑體;">
 		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
 			<table>
 				<tr>

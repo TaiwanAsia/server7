@@ -16,7 +16,7 @@
           </div>
       </div>
     </div> -->
-		<div class="t-form">
+		<div class="t-form" style="font-family:微軟正黑體;">
 			<div class="t-form-h">
       <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
         <font color="red" size="5">對帳請按</font>
@@ -71,7 +71,7 @@
 			</table>
 		</div>
 	</main>
-	<div class="s-modal" data-popup="popup-2">
+	<div class="s-modal" data-popup="popup-2" style="font-family:微軟正黑體;">
         <div class="modal-content-2">
           <span class="s-close" data-popup-close="popup-2">&times;</span>
         	<form action="check_end" method="post">

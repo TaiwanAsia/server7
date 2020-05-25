@@ -1,5 +1,5 @@
 
-	<main id="mainSection" role="main">
+	<main id="mainSection" role="main" style="font-family:微軟正黑體;">
 		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
      		<h1 class="h2">公佈欄</h1>
 		</div>
@@ -7,7 +7,7 @@
 		<div class="t-form">
 			<table id="billboardTable" class="table">
 				<thead class="thead-light">
-					<tr>
+					<tr >
 						<th nowrap="nowrap">對象</th>
 						<th nowrap="nowrap">屬性</th>
 						<th nowrap="nowrap">附件</th>

@@ -1,5 +1,5 @@
   <main id="mainSection" role="main">
-    <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
+    <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t" style="font-family:微軟正黑體;">
      <h1 class="h2">成交單</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
        <div class="btn-group mr-2">
@@ -58,7 +58,7 @@
   </div>
 
 
-<div class="t-form">
+<div class="t-form" style="font-family:微軟正黑體;">
 <table id="eoTable" class="table table-md table-hover table-fixed" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
     <thead class="thead-light">
       <tr>

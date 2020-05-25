@@ -1,4 +1,4 @@
-<main id="mainSection" role="main">
+<main id="mainSection" role="main" style="font-family:微軟正黑體;">
 	<div id="body">
 		<form action="add_account" method="POST" name="" style= "display:inline">
 

@@ -1,5 +1,5 @@
 
-<main id="mainSection" role="main">
+<main id="mainSection" role="main" style="font-family:微軟正黑體;">
 		 <div class="t-form-t">
 		 	<h1>動作紀錄</h1>
 		 </div>
