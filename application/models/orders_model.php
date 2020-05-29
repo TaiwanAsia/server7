@@ -1034,11 +1034,14 @@ class Orders_model extends CI_Model {
     }
 
     public function get_need_model($keyword) {
+
         if (is_null($keyword)) {
-            $this->db->order_by("最後動作時間", "desc"); 
+            // $this->db->order_by("最後動作時間", "desc"); 
+            $this->db->order_by('委託到期日', 'DESC');
             $query = $this->db->get('need_board');
         } else {
-
+            $this->db->where('id', $keyword);
+            $query = $this->db->get('need_board');
         }
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
@@ -1048,6 +1051,7 @@ class Orders_model extends CI_Model {
                     '買賣'=>$row-> 買賣,
                     '價格'=>$row-> 價格,
                     '張數'=>$row-> 張數,
+                    '議價'=>$row-> 議價,
                     '委託到期日'=>$row-> 委託到期日,
                     '把握度'=>$row-> 把握度,
                     '進度'=>$row-> 進度,
@@ -1062,6 +1066,10 @@ class Orders_model extends CI_Model {
 
     public function add_need_model($data) {
         $this->db->insert('need_board', $data);
+    }
+
+    public function delete_need_model($id) {
+        $this->db->delete('need_board', array('id' => $id));
     }
 
     public function add_passrecord($data) {

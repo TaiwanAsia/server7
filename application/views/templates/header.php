@@ -73,7 +73,7 @@
                         <li class="nav-item">
 
                             <a class="nav-link active" href="../orders/go_orders" style="color: black;">
-                            <span data-feather="home"></span>
+                            <!-- <span data-feather="home"></span> -->
                                 成交單管理<span class="sr-only">(current)</span>
                             </a>
                         </li>

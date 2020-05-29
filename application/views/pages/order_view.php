@@ -497,13 +497,13 @@
                   //業務點了通知查帳 ?>
                     <form method="get" action="salesman_check_money">
                       <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
-                      <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="../static/待對帳.png" width="80" height="40"></a>
+                      <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="../../static/待對帳.png" width="80" height="40"></a>
                     </form>
 
               <?php
                   } elseif ($orders[$i]['通知查帳']=='待確認') {
                   //已匯入銀行明細對帳正確，待大姊自己手動確認 ?>
-                    <a href="boss_check_money"><img src="../static/待確認.png" width="80" height="40"></a>
+                    <a href="boss_check_money"><img src="../../static/待確認.png" width="80" height="40"></a>
               <?php
                   } else {
                   //大姊手動確認，顯示日期 ?>

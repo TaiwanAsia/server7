@@ -2290,15 +2290,31 @@ class Orders extends CI_Controller {
 	}
 
 	public function add_need() {
+		// echo "string"+$_POST['議價'];
+		$議價 = null;
+		if (isset($_POST['議價'])) {
+			$議價 = 1;
+		}
 		$data = array('需求者'=>$_POST['需求者'],
 						'股名'=>$_POST['股名'],
 						'買賣'=>$_POST['買賣'],
 						'價格'=>$_POST['價格'],
 						'張數'=>$_POST['張數'],
+						'議價'=>$議價,
 						'委託到期日'=>$_POST['委託到期日'],
 						'建立日期'=>date('Y-m-d'),
 						'最後動作時間'=>date('Y-m-d H:i:s'));
-		$this->orders_model->add_need_model($data);
+		$new = $this->orders_model->add_need_model($data);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增需求', $new , '');
+		$this->index();
+	}
+
+	public function delete_need() {
+		$data = $this->orders_model->get_need_model($_GET['id']);
+		// print_r($data);
+		$this->orders_model->delete_need_model($_GET['id']);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '刪除需求',
+			'需求ID:'.$_GET['id'].', 需求者:'.$data[0]['需求者'].', 股名:'.$data[0]['股名'].', 買賣:'.$data[0]['買賣'].', 價格:'.$data[0]['價格'].', 張數:'.$data[0]['張數'].', 委託到期日:'.$data[0]['委託到期日'], '' );
 		$this->index();
 	}
 

@@ -12,6 +12,8 @@
 									<th>張數</th>
 									<th>委託到期日</th>
 									<th>進度</th>
+									<th>議價</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -25,7 +27,29 @@
 											echo "<td>".$need[$i]['張數']."</td>";
 											echo "<td>".$need[$i]['委託到期日']."</td>";
 											echo "<td>".$need[$i]['進度']."</td>";
-										} ?>
+											if ($need[$i]['議價'] == 1) {
+												echo "<td>可</td>";
+											} else {
+												echo "<td>不可</td>";
+											}
+										
+										if ($_SESSION['權限名稱'] == '最高權限') { ?>
+											<td>
+												<form method="get" action="delete_need">
+													<input type="hidden" name="id" value="<?=$need[$i]['ID']?>">
+													<button type="submit" class="btn btn-danger">刪</button>
+												</form>
+											</td>
+											
+
+										<?php } elseif ($_SESSION['NAME'] == $need[$i]['需求者']) { ?>
+											<td>
+												<form method="get" action="delete_need">
+													<input type="hidden" name="id" value="<?=$need[$i]['ID']?>">
+													<button type="submit" class="btn btn-danger">刪</button>
+												</form>
+											</td>
+										<?php } } ?>
 									</tr>
 								<?php	}
 								} ?>
@@ -44,6 +68,8 @@
 									<th>張數</th>
 									<th>委託到期日</th>
 									<th>進度</th>
+									<th>議價</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -58,7 +84,29 @@
 											echo "<td>".$need[$i]['張數']."</td>";
 											echo "<td>".$need[$i]['委託到期日']."</td>";
 											echo "<td>".$need[$i]['進度']."</td>";
-										} ?>
+											if ($need[$i]['議價'] == 1) {
+												echo "<td>可</td>";
+											} else {
+												echo "<td>不可</td>";
+											}
+										
+										if ($_SESSION['權限名稱'] == '最高權限') { ?>
+											<td>
+												<form method="get" action="delete_need">
+													<input type="hidden" name="id" value="<?=$need[$i]['ID']?>">
+													<button type="submit" class="btn btn-danger">刪</button>
+												</form>
+											</td>
+											
+
+										<?php } elseif ($_SESSION['NAME'] == $need[$i]['需求者']) { ?>
+											<td>
+												<form method="get" action="delete_need">
+													<input type="hidden" name="id" value="<?=$need[$i]['ID']?>">
+													<button type="submit" class="btn btn-danger">刪</button>
+												</form>
+											</td>
+										<?php } }?>
 									</tr>
 								<?php	}
 								} ?>
@@ -93,9 +141,10 @@
 								<th>買或賣</th>
 								<th>價格</th>
 								<th>張數</th>
-								<th>客戶姓名</th>
+								<!-- <th>客戶姓名</th>
 								<th>手機</th>
-								<th>委託到期日</th>
+ -->							<th>委託到期日</th>
+ 								<th></th>
 								<!-- <th colspan="2">進度</th> -->
 							</thead>
 							<tbody>
@@ -114,18 +163,18 @@
 								</td>
 								<td>
 									<input type="text" class="input-ty1" name="價格">
-									<input type="checkbox">
+									<input type="checkbox" name="議價" value="1">
 									<label class="text-primary"><b>可議價</b></label>
 								</td>
 								<td>
 									<input type="text" name="張數">
 								</td>
-								<td>
+								<!-- <td>
 									<input type="text" name="客戶姓名">
 								</td>
 								<td>
 									<input type="text" name="手機">
-								</td>
+								</td> -->
 								<td>
 									<input type="date" name="委託到期日">
 								</td>
