@@ -109,7 +109,7 @@
     </thead>
    <tbody>
     <?php if($orders) {
-        for($i=0; $i<count($orders); $i++) { ?>
+      for($i=0; $i<count($orders); $i++) { ?>
 
 
 
@@ -351,6 +351,7 @@
           <input type="hidden" id="完稅人<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['完稅人']; ?>">
         </td>
         <?php
+        // ******* 一審權限 = 1 *******
         if ($_SESSION['一審權限']==1) {
           if ($orders[$i]['成交單狀態']!='審核完成') {
           //一審[未完]開始
@@ -368,7 +369,7 @@
           //一審[未完]結束
           } else {
             //一審[完]開始
-              if ($orders[$i]['買賣']==0) {
+            if ($orders[$i]['買賣']==0) {
               //此筆客戶為賣方, 一審[審完]改成[已匯]
               if ($_SESSION['權限名稱'] == '最高權限') {
                 echo '<td><p style="cursor: help;" class="text-primary" data-popup-open="popup-1" onclick="Edit('.$orders[$i]['ID'].')"><b>已匯</b></td>';
@@ -384,18 +385,28 @@
             }
             //一審[完]結束
           }
+
+        // ******* 一審權限 = 0 *******
         } else {
           //沒有一二審權限
-          echo "<td></td>";
-          // if ($orders[$i]['成交單狀態'] == '審核完成') {
-          //   if ($orders[$i]['買賣'] == 1 ) {
-          //     echo "<td class='text-danger'><b>審完</b></td>";
-          //   } else {
-          //     echo "<td class='text-primary'><b>審完</b></td>";
-          //   }
+          // if ($_SESSION['權限名稱'] == '業務' && $orders[$i]['成交單狀態'] == '審核完成') {
+          //   # code...
+          //   echo "<td><p class='text-primary'><b>審完</b></td";
           // } else {
-          //   echo "<td'>".$orders[$i]['成交單狀態']."</td>";
+          //   echo "<td></td>";
           // }
+          
+          if ($_SESSION['NAME'] == $orders[$i]['業務'] && $orders[$i]['成交單狀態'] == '審核完成') 
+          {
+            if ($orders[$i]['買賣'] == 1 ) {
+              echo "<td class='text-danger'><b>審完</b></td>";
+            } else {
+              echo "<td class='text-primary'><b>審完</b></td>";
+            }
+          } else {
+
+            echo "<td>".$orders[$i]['成交單狀態']."</td>";
+          }
 
         }
         ?>
@@ -441,7 +452,7 @@
           <input type="hidden" id="刻印<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['刻印']; ?>">
         </td>
 
-            <td><?php echo ($orders[$i]['過戶費']) ?></td>
+        <td><?php echo ($orders[$i]['過戶費']) ?></td>
 
 <!--         <?php if ($_SESSION['媒合權限']==1) { ?>
           <td style="min-width: 100px;">

@@ -14,7 +14,7 @@
 						<th nowrap="nowrap">勞保</th>
 						<th nowrap="nowrap">健保</th>
 						<th nowrap="nowrap">勞退</th>
-
+						<th nowrap="nowrap">隱藏</th>
 					</tr>
 					<tr>
 						<td>
@@ -54,6 +54,10 @@
 						</td>
 						<td>
 							<input type="text" name="勞退" value="<?php echo($data[0]['勞退']); ?>">
+						</td>
+						<td>
+							<input type="radio" name="隱藏" value="0">關閉<br>
+							<input type="radio" name="隱藏" value="1">開啟<br>
 						</td>
 						<td>
 							<input type="submit" name="" value="確認">

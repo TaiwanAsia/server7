@@ -118,7 +118,7 @@ class Orders_model extends CI_Model {
 
     public function get($keyword=null,$權限名稱=null,$name=null) {
         $query = null;
-        // The following code sections define the query handlers
+        // 搜尋欄 空的
         if(is_null($keyword)) {
             if($權限名稱=='最高權限') {
                 $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
@@ -134,8 +134,11 @@ class Orders_model extends CI_Model {
                     $query = $this->db->get_where('ORDERS', array('業務' => 'JOY'));
                 }
             }
+        // 搜尋欄 有值
         } else {
-            $query = $this->db->get_where('ORDERS', array('id' => $keyword));
+            $業務 = $_SESSION['NAME'];
+            $sql = "SELECT * FROM `ORDERS` WHERE `業務`= '$業務' AND (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%') ";
+            $query = $this->db->query($sql);
         }
 
         if($query->num_rows()>0) {
@@ -612,7 +615,8 @@ class Orders_model extends CI_Model {
                                 '趴數'=>$row-> 趴數,
                                 '勞保'=>$row-> 勞保,
                                 '健保'=>$row-> 健保,
-                                '勞退'=>$row-> 勞退,);
+                                '勞退'=>$row-> 勞退,
+                                '隱藏'=>$row-> 隱藏,);
             }
             return  $result;
         } else {
@@ -1199,7 +1203,6 @@ class Orders_model extends CI_Model {
     }
 
     public function add_assign_model($data) {
-
         for ($i=0; $i < count($data['工單對象']); $i++) {
             $result = array('工單對象' => $data['工單對象'][$i],
                             '工單屬性' => $_POST['工單屬性'],
@@ -1209,6 +1212,10 @@ class Orders_model extends CI_Model {
             $this->db->insert('assigns', $result);
             // echo $data['工單對象'][$i]." ".$_POST['工單屬性']." ".$_POST['工單內容'];
         }
+    }
+
+    public function add_assign_reply_model($data) {
+        $this->db->insert('assigns_reply', $data);        
     }
 
     public function delete_assign_model($id) {
@@ -1231,6 +1238,24 @@ class Orders_model extends CI_Model {
                         '工單對象'=>$row-> 工單對象,
                         '工單屬性'=>$row-> 工單屬性,
                         '工單內容'=>$row-> 工單內容,
+                        '建立者'=>$row-> 建立者,
+                        '建立時間'=>$row-> 建立時間,);
+            }
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_assigns_reply() {
+        $this->db->order_by("建立時間", "desc");
+        $query = $this->db->get('assigns_reply');
+        
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $result[] = array('ID'=>$row-> ID,
+                        'a_ID'=>$row-> a_ID,
+                        '回覆內容'=>$row-> 回覆內容,
                         '建立者'=>$row-> 建立者,
                         '建立時間'=>$row-> 建立時間,);
             }

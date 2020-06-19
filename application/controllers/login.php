@@ -134,7 +134,8 @@ class Login extends CI_Controller {
 						'趴數' => $_POST['趴數'],
 						'勞保' => $_POST['勞保'],
 						'健保' => $_POST['健保'],
-						'勞退' => $_POST['勞退'],);
+						'勞退' => $_POST['勞退'],
+						'隱藏' => $_POST['隱藏'],);
 		$id = $this->login_model->add_account($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '新增帳號', $id, null);
 		$this->account();
@@ -158,7 +159,8 @@ class Login extends CI_Controller {
 						'趴數' => $_POST['趴數'],
 						'勞保' => $_POST['勞保'],
 						'健保' => $_POST['健保'],
-						'勞退' => $_POST['勞退'],);
+						'勞退' => $_POST['勞退'],
+						'隱藏' => $_POST['隱藏'],);
 		$this->login_model->edit_account($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '編輯帳號', $_POST['id'], null);
 		$this->account();

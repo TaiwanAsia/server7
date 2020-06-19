@@ -19,7 +19,8 @@ class Login_model extends CI_Model {
                                 '趴數'=>$row-> 趴數,
                                 '勞保'=>$row-> 勞保,
                                 '健保'=>$row-> 健保,
-                                '勞退'=>$row-> 勞退,);
+                                '勞退'=>$row-> 勞退,
+                                '隱藏'=>$row-> 隱藏,);
             }
             return $result;
         }
@@ -45,7 +46,8 @@ class Login_model extends CI_Model {
                                     '趴數'=>$row-> 趴數,
                                     '勞保'=>$row-> 勞保,
                                     '健保'=>$row-> 健保,
-                                    '勞退'=>$row-> 勞退,);
+                                    '勞退'=>$row-> 勞退,
+                                    '隱藏'=>$row-> 隱藏,);
                 }
                 return  $result;
             }

@@ -198,7 +198,7 @@
 		 			<p>對象：</p>
 		 			<ul>
 		 				<?php for ($i=0; $i < count($employees); $i++) {
-		 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='吉翔看單'&&$employees[$i]['NAME']!='KO') { ?>
+		 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='吉翔看單'&&$employees[$i]['NAME']!='KO'&&$employees[$i]['隱藏']==1) { ?>
 		 					<li>
 		 						<input type="checkbox" name="工單對象[]" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 		 					</li>

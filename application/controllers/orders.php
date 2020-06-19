@@ -76,10 +76,11 @@ class Orders extends CI_Controller {
                     // echo "I did it!";
 					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
 
-					$data = $this->orders_model->get_assign();
-					$this->load->view('templates/header');
-					$this->load->view('pages/assign_view', array('data'=>$data));
-					$this->load->view('templates/footer');
+					// $data = $this->orders_model->get_assign();
+					// $this->load->view('templates/header');
+					// $this->load->view('pages/assign_view', array('data'=>$data));
+					// $this->load->view('templates/footer');
+					$this->go_assign();
 				} else {
 					// $this->load->view('templates/header');
 					$this->load->view('pages/login_view',array('error_message' => $error_message));
@@ -136,6 +137,7 @@ class Orders extends CI_Controller {
 				$orders = $this->orders_model->get_byDate($_SESSION['權限名稱'],$_SESSION['NAME'],$_GET['業務'],$_GET['date1'],$_GET['date2']);
 			} else {
 				$orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
+				// print_r($orders);
 			}
 
 			if ($orders != null) {
@@ -154,6 +156,7 @@ class Orders extends CI_Controller {
 					}
 				}
 				$orders = array_values($orders);
+				
 			}
 			
 
@@ -206,8 +209,10 @@ class Orders extends CI_Controller {
 	public function search() {
 		$orders = $this->orders_model->get($_GET['keyword'],$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$employees = $this->orders_model->get_employee(null);
+		$add_quene = $this->orders_model->get_add_quene(1, $_SESSION['NAME']);
 		$arrayName = array('orders' => $orders,
-							'employees' => $employees,);
+							'employees' => $employees,
+							'add_quene' => $add_quene,);
 		$this->show($arrayName);
 	}
 
@@ -2334,7 +2339,13 @@ class Orders extends CI_Controller {
 	}
 
 	public function go_assign() {
-		$data = $this->orders_model->get_assign();
+		$data = [];
+		$data[0] = $this->orders_model->get_assign();
+		$data[1] = $this->orders_model->get_assigns_reply();
+		// for ($i=0; $i < count($data); $i++) { 
+		// 	print_r($data[$i]);
+		// 	echo "<br>";
+		// }
 		$this->load->view('templates/header');
 		$this->load->view('pages/assign_view', array('data'=>$data));
 		$this->load->view('templates/footer');
@@ -2352,6 +2363,15 @@ class Orders extends CI_Controller {
 
 	public function delete_assign() {
 		$this->orders_model->delete_assign_model($_GET['id']);
+		$this->go_assign();
+	}
+
+	public function assign_reply() {
+		$data = array('a_ID'=>$_POST['id'],
+						'回覆內容'=>$_POST['回覆內容'],
+						'建立者'=>$_SESSION['NAME']);
+		// print_r($data);
+		$this->orders_model->add_assign_reply_model($data);
 		$this->go_assign();
 	}
 
