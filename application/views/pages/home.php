@@ -19,7 +19,7 @@
 							<tbody>
 								<?php if ($need) {
 									for ($i=0; $i < count($need); $i++) { ?>
-									<tr>
+									<tr class="need_data">
 										<?php if ($need[$i]['買賣']==1) {
 											echo "<td>".$need[$i]['需求者']."</td>";
 											echo "<td>".$need[$i]['股名']."</td>";
@@ -135,6 +135,7 @@
 				<div class="col-xl-12">
 					<form action="add_need" method="post" id="need">
 						<table id="table1" class="table table-md table-hover table-responsive">
+							<tr>
 							<thead class="thead-light">
 								<th>需求者</th>
 								<th>股名</th>
@@ -143,10 +144,9 @@
 								<th>張數</th>
 								<!-- <th>客戶姓名</th>
 								<th>手機</th>
- -->							<th>委託到期日</th>
- 								<th></th>
-								<!-- <th colspan="2">進度</th> -->
-							</thead>
+								<th>委託到期日</th>
+								<th colspan="2">進度</th>
+ -->						</thead>
 							<tbody>
 								<td>
 									<p><?php echo $_SESSION['NAME']; ?></p>
@@ -157,9 +157,9 @@
 								</td>
 								<td>
 									<input type="radio" name="買賣" value="1">
-	                <label class="text-danger"><b>買</b></label>
-	                <input type="radio" name="買賣" value="0">
-	                <label class="text-primary"><b>賣</b></label>
+					                <label class="text-danger"><b>買</b></label>
+					                <input type="radio" name="買賣" value="0">
+					                <label class="text-primary"><b>賣</b></label>
 								</td>
 								<td>
 									<input type="text" class="input-ty1" name="價格">
@@ -174,18 +174,50 @@
 								</td>
 								<td>
 									<input type="text" name="手機">
-								</td> -->
+								</td>
 								<td>
 									<input type="date" name="委託到期日">
 								</td>
-								<!-- <td>
+								<td>
 									<input type="text" name="進度">
+								</td>
+								<td>
+									<button type="submit" form="need">送出</button>
 								</td> -->
+							</tbody>
+							</tr>
+							<tr>
+								<thead class="thead-light">
+								<th>客戶姓名</th>
+								<th>手機</th>
+								<th>委託到期日</th>
+								<th>進度(文字敘述)</th>
+								<th>把握度(1~10)</th>
+
+							</thead>
+							<tbody>
+								<td>
+									<input type="text" name="客戶姓名">
+								</td>
+								<td>
+									<input type="text" name="手機">
+								</td>
+								<td>
+									<input type="date" name="委託到期日">
+								</td>
+								<td>
+									<input type="text" name="把握度">
+								</td>
+								<td>
+									<input type="text" name="進度">
+								</td>
 								<td>
 									<button type="submit" form="need">送出</button>
 								</td>
 							</tbody>
+							</tr>
 						</table>
+						
 					</form>
 				</div>
 		 	</div>
@@ -268,3 +300,9 @@
 			</form>
 	 	</div>
 </main>
+
+<style type="text/css">
+	.need_data:hover {
+		background-color: yellow;
+	}
+</style>

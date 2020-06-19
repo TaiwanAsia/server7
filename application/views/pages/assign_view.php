@@ -56,7 +56,9 @@
 					 			}
 					 			if ($exist) { ?>
 					 				<!-- <a class="clickable_hint" href="<?='../../upload/attachment/'.$data[0][$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a> -->
-					 				<a href="<?php echo "../../upload/attachment/".$data[0][$i]['ID'].".".$exist ?>" download="<?php echo $data[0][$i]['ID'].".".$exist ?>" >點選下載</a>
+					 				<a href="<?php echo "../../upload/attachment/".$data[0][$i]['ID'].".".$exist ?>" download="<?php echo $data[0][$i]['ID'].".".$exist ?>" >下載夾帶檔案
+					 					<img src="../../static/icon_attachment2.jpg" width="40" height="40">
+					 				</a>
 					 			<?php } else { ?>
 			                	<form method="post" action="upload_attachment" enctype="multipart/form-data">
 				                  	<div class="form-group">

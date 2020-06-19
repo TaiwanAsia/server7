@@ -1057,6 +1057,8 @@ class Orders_model extends CI_Model {
                     '張數'=>$row-> 張數,
                     '議價'=>$row-> 議價,
                     '委託到期日'=>$row-> 委託到期日,
+                    '客戶姓名'=>$row-> 客戶姓名,
+                    '手機'=>$row-> 手機,
                     '把握度'=>$row-> 把握度,
                     '進度'=>$row-> 進度,
                     '建立日期'=>$row-> 建立日期,
@@ -1072,7 +1074,12 @@ class Orders_model extends CI_Model {
         $this->db->insert('need_board', $data);
     }
 
+    public function backup_need_model($data) {
+        $this->db->insert('deleted_need_board', $data);
+    }
+
     public function delete_need_model($id) {
+
         $this->db->delete('need_board', array('id' => $id));
     }
 

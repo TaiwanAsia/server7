@@ -32,6 +32,7 @@
         function gettoday() {
             document.getElementById("date").valueAsDate = new Date();
         }
+
     </script>
 
 
