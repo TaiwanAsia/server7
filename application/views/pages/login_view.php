@@ -107,6 +107,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		color: #6495ED;
 		text-align: center;
 		}
+
+		#s1 {
+			/*border:2px red solid;*/
+			color: white;
+			font-size:20px;
+			background-color:#d95b54;
+			padding:10px;
+			position: absolute;
+			top: 480px;
+			right: 530px;
+		}
+
 	</style>
 
 	<body>
@@ -116,7 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<!-- <img src="<?php echo base_url();?>assets/images/aquaLogo.png" style="width: 300px;"> -->
 			</div>
 			<?php
-		if (isset($error_message)) {
+		if (isset($_SESSION['name']) && isset($error_message)) {
 			echo "<div class='message'>";
 			echo $error_message;
 			echo "</div>";
@@ -129,6 +141,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			echo "</div>";
 		}
 		?>
+			
+			<a href="/enter_point.php">
+				<span id="s1">
+					回首頁
+				</span>
+			</a>
 			<div id="login">
 				<h2>登入</h2>
 				<hr/>
