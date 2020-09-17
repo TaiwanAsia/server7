@@ -4,7 +4,7 @@
 
 			<div>
 				<table style="width:100%" border="1">
-					<tr>
+					<tr bgcolor="#e4bc7c">
 						<th nowrap="nowrap">名稱</th>
 						<th nowrap="nowrap">帳號</th>
 						<th nowrap="nowrap">密碼</th>
@@ -50,6 +50,7 @@
 						<td>
 							<input type="submit" name="" value="確認">
 						</td>
+						<input type="hidden" name="隱藏" value="1">
 					</tr>
 				</table>
 			</div>

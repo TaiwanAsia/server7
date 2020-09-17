@@ -136,8 +136,9 @@ class Orders_model extends CI_Model {
             }
         // 搜尋欄 有值
         } else {
+            // echo "string".$_SESSION['NAME'];
             $業務 = $_SESSION['NAME'];
-            $sql = "SELECT * FROM `ORDERS` WHERE `業務`= '$業務' AND (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%') ";
+            $sql = "SELECT * FROM `ORDERS` WHERE `業務`= '$業務' AND (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%' or `ID` like '%$keyword%') ";
             $query = $this->db->query($sql);
         }
 
@@ -145,6 +146,7 @@ class Orders_model extends CI_Model {
             $result = $this->transformer($query);
             return $result;
         } else {
+            // echo "none";
             return false;
         }
     }

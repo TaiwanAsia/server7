@@ -19,8 +19,8 @@
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
-						<th nowrap="nowrap">編號</th>
-						<th nowrap="nowrap">名稱</th>
+						<!-- <th nowrap="nowrap">編號</th> -->
+						<th nowrap="nowrap"></th>
 						<th nowrap="nowrap">帳號</th>
 						<th nowrap="nowrap">密碼</th>
 						<th nowrap="nowrap">權限</th>
@@ -38,7 +38,7 @@
 				if (isset($data)) {
 					for ($i=0; $i<count($data); $i++) {
 						echo "<tr>";
-						echo "<td>".$data[$i]['ID']."</td>";
+						// echo "<td>".$data[$i]['ID']."</td>";
 						echo "<td>".$data[$i]['NAME']."</td>";
 						echo "<td>".$data[$i]['ACCOUNT']."</td>";
 						echo '<td nowrap="nowrap">'.$data[$i]['PASSWORD']."</td>";

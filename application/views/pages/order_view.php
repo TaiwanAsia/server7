@@ -12,8 +12,6 @@
         <?php if ($_SESSION['新增權限'] == '1') {
           if ($_SESSION['權限名稱'] == '最高權限') { ?>
              <a href="../orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
-          <?php } elseif ($add_quene) { ?>
-            <a href="../orders/new_order_choose" class="btn btn-sm btn-outline-secondary">新增成交單</a>
           <?php } }?>
         </div>
         <a href="../orders/new_order_choose" class="btn btn-sm btn-outline-secondary">直接新增成交單</a>
@@ -93,7 +91,7 @@
         <th data-tablesaw-priority="0">自行應付</th>
         <th data-tablesaw-priority="0">刻印</th>
         <th data-tablesaw-priority="0">過戶費</th>
-        <!-- <th data-tablesaw-priority="0">媒合</th> -->
+        <th data-tablesaw-priority="0">媒合</th>
         <th data-tablesaw-priority="1">收付款</th>
         <th data-tablesaw-priority="0">過戶日期</th>
         <th data-tablesaw-priority="1">通知查帳</th>
@@ -401,7 +399,7 @@
             if ($orders[$i]['買賣'] == 1 ) {
               echo "<td class='text-danger'><b>審完</b></td>";
             } else {
-              echo "<td class='text-primary'><b>審完</b></td>";
+              echo "<td class='text-primary'><b>已匯</b></td>";
             }
           } else {
 
@@ -454,7 +452,7 @@
 
         <td><?php echo ($orders[$i]['過戶費']) ?></td>
 
-<!--         <?php if ($_SESSION['媒合權限']==1) { ?>
+        <?php if ($_SESSION['媒合權限']==1) { ?>
           <td style="min-width: 100px;">
             <?php if($orders[$i]['媒合']==0){ ?>
               <form method="post" action="match">
@@ -483,7 +481,7 @@
               } else {
                 echo "<td><u>".$orders[$i]['媒合']."</u></td>";
               }
-             }?> -->
+             }?>
 
             <td><?php echo ($orders[$i]['匯款日期']) ?></td>
 
@@ -505,11 +503,17 @@
 
               <?php
                   } elseif ($orders[$i]['通知查帳']=='待對帳') {
-                  //業務點了通知查帳 ?>
+                  //業務點了通知查帳 
+                      if ($orders[$i]['買賣'] == 1) {
+                        # code...
+                      
+                    ?>
                     <form method="get" action="salesman_check_money">
                       <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
                       <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="../../static/待對帳.png" width="80" height="40"></a>
                     </form>
+                    <?php } else {}
+                      ?>
 
               <?php
                   } elseif ($orders[$i]['通知查帳']=='待確認') {

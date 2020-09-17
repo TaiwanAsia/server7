@@ -2,9 +2,9 @@
 		<div id="body">
 		<form action="edit_account" method="POST" name="" style= "display:inline">
 
-			<div>
-				<table style="width:100%" border="1">
-					<tr>
+			<div style="position: absolute; top: 100px; padding-right: 30px ">
+				<table style="">
+					<tr bgcolor="#e4bc7c">
 						<th nowrap="nowrap">編號</th>
 						<th nowrap="nowrap">名稱</th>
 						<th nowrap="nowrap">帳號</th>
@@ -59,10 +59,14 @@
 							<input type="radio" name="隱藏" value="0">關閉<br>
 							<input type="radio" name="隱藏" value="1">開啟<br>
 						</td>
+					</tr>
+					<tr>
 						<td>
 							<input type="submit" name="" value="確認">
 						</td>
 					</tr>
+						
+					
 				</table>
 			</div>
 		</form>

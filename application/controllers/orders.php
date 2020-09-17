@@ -1506,6 +1506,8 @@ class Orders extends CI_Controller {
 
 	//二審表格
 	public function go_edit2() {
+		// $this->go_orders();
+		// echo "qqq".$_GET['id'];
 		$result = $this -> orders_model -> get($_GET['id'],null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
@@ -1534,13 +1536,12 @@ class Orders extends CI_Controller {
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
-				$this -> orders_model -> edit_before0701($data);
+				$this -> orders_model -> edit($data);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
-				$origin_data = $this->orders_model->get_before0701($data['ID']);
-				// print_r($origin_data);
+				$origin_data = $this->orders_model->get($data['ID']);
+				/** record_info 是算盤價 稅收等等的function */
 				$pass_record_info = $this -> record_info($origin_data[0]);
-				// print_r($pass_record_info);
-				$this->orders_model->add_passrecord_before0701($pass_record_info);
+				$this->orders_model->add_passrecord($pass_record_info);
 				$data2 = $this->orders_model->get($data['ID']);
 				$this->orders_model->update_samequene_movetime($data2[0]['媒合'], date('Y-m-d H:i:s'));
 

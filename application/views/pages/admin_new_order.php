@@ -2,10 +2,11 @@
 <main id="mainSection" role="main" class="col-md-9 col-lg-10 pt-3 px-4">
 	<div id="body">
 		<form action="add_order_id" method="POST" name="" style= "display:inline;" >
-			<div>
-				<table style="width:100%;" border="0">
+			<div style="top: 10px">
+				<table style="width:100%; " border="0">
 					<tr>
-						<td>
+						<!-- <td></td> -->
+						<td colspan="2">
 							<button type="button" onclick="location.href='add_quene_view'">查看已新增列表</button>
 						</td>
 					</tr>
@@ -40,17 +41,20 @@
 							<?php } ?>
 						</td>
 					</tr>
+				</table>
+				<table>
 					<tr>
 						<th bgcolor="yellow"><font color='green' size="5"><b>主要</b></font></th>
-						<th colspan="" nowrap="nowrap"><font color='blue'><b>賣</b></font></th>
+						<th nowrap="nowrap"><font color='blue'><b>賣</b></font></th>
 						<th nowrap="nowrap"><font color='red'><b>買</b></font></th>
 					</tr>
 					<tr>
 						<td></td>
 						<td colspan="">
-			 				<?php for ($i=0; $i < count($employees); $i++) {
-			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
-			 					<?php if (isset($order)) {
+			 				<?php for ($i=0; $i < count($employees); $i++) { ?>
+			 					<!-- <td> -->
+			 					<?php 
+			 						if (isset($order)) {
 			 							if ($order[0]['業務'] == $employees[$i]['NAME']) { ?>
 			 							 	<input required="" class="" type="radio" name="客戶主賣" checked="" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 			 							<?php } ?>
@@ -58,14 +62,19 @@
 								<?php } else { ?>
 									<input required="" class="" type="radio" name="客戶主賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
 								<?php } ?>
-			 				<?php	}
-			 				} ?>
+
+								<!-- </td> -->
+			 					
+			 					
+			 				<?php } ?>
 						</td>
+
+
 						<td colspan="">
 			 				<?php for ($i=0; $i < count($employees); $i++) {
-			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
+			 					// if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
 			 					<input class="" type="radio" name="客戶主買" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
-			 				<?php	}
+			 				<?php	//}
 			 				} ?>
 						</td>
 					</tr>
@@ -101,16 +110,16 @@
 						<td></td>
 						<td>
 			 				<?php for ($i=0; $i < count($employees); $i++) {
-			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
+			 					// if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
 			 					<input class="" type="radio" name="客戶副賣" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
-			 				<?php	}
+			 				<?php	//}
 			 				} ?>
 						</td>
 						<td>
 			 				<?php for ($i=0; $i < count($employees); $i++) {
-			 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
+			 					// if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='KO') { ?>
 			 					<input class="" type="radio" name="客戶副買" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
-			 				<?php	}
+			 				<?php	//}
 			 				} ?>
 						</td>
 					</tr>
