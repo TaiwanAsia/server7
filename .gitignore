@@ -6,3 +6,4 @@ upload/contact/93
 upload/
 vendor/
 .idea/
+application/config/database.php
