@@ -24,74 +24,74 @@ class Orders extends CI_Controller {
     	}
 	}
 
-	public function login()
-	{
-		// redirect('http://localhost/server7/index.php/orders/index');
-		// echo "index";
-		// if(isset($_SESSION['ACCOUNT'])){
-		// 	echo $_SESSION['ACCOUNT'];
-		// }
-		// echo $_SESSION['ACCOUNT'];
-		// if (isset($_SESSION['ACCOUNT'])) {
-		// 	echo $_SESSION['ACCOUNT'];
-		// 	redirect('http://localhost/server7/index.php/orders/index');
-		// } else {
-
-			if (isset($_POST['acct'])&&!is_null($_POST['acct'])) {
-				$error_message = '輸入錯誤，再試一次!';
-				$flag = $this->login_model->login($_POST['acct'], $_POST['pswd']);
-				if ($flag != false) {
-					$_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
-					$_SESSION['權限名稱'] = $flag['權限名稱'];
-					$_SESSION['NAME'] = $flag['NAME'];
-					$_SESSION['趴數'] = $flag['趴數'];
-					$_SESSION['勞保'] = $flag['勞保'];
-					$_SESSION['健保'] = $flag['健保'];
-					$_SESSION['勞退'] = $flag['勞退'];
-					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
-
-					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
-					$_SESSION['新增權限'] = $authority[0]['新增權限'];
-					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
-					$_SESSION['刪除權限'] = $authority[0]['刪除權限'];
-                    $_SESSION['成交日期權限'] = $authority[0]['成交日期權限'];
-                    $_SESSION['業務權限'] = $authority[0]['業務權限'];
-                    $_SESSION['所有成交單權限'] = $authority[0]['所有成交單權限'];
-                    $_SESSION['客戶姓名權限'] = $authority[0]['客戶姓名權限'];
-                    $_SESSION['身分證字號權限'] = $authority[0]['身分證字號權限'];
-                    $_SESSION['聯絡電話權限'] = $authority[0]['聯絡電話權限'];
-                    $_SESSION['聯絡人權限'] = $authority[0]['聯絡人權限'];
-                    $_SESSION['聯絡地址權限'] = $authority[0]['聯絡地址權限'];
-                    $_SESSION['股票資訊權限'] = $authority[0]['股票資訊權限'];
-                    $_SESSION['盤價權限'] = $authority[0]['盤價權限'];
-                    $_SESSION['匯款資訊權限'] = $authority[0]['匯款資訊權限'];
-                    $_SESSION['轉讓會員權限'] = $authority[0]['轉讓會員權限'];
-                    $_SESSION['完稅人權限'] = $authority[0]['完稅人權限'];
-                    $_SESSION['媒合權限'] = $authority[0]['媒合權限'];
-                    $_SESSION['一審權限'] = $authority[0]['一審權限'];
-                    $_SESSION['二審權限'] = $authority[0]['二審權限'];
-                    $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
-                    $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
-
-                    // echo "I did it!";
-					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
-
-					// $data = $this->orders_model->get_assign();
-					// $this->load->view('templates/header');
-					// $this->load->view('pages/assign_view', array('data'=>$data));
-					// $this->load->view('templates/footer');
-					$this->go_assign();
-				} else {
-					// $this->load->view('templates/header');
-					$this->load->view('pages/login_view',array('error_message' => $error_message));
-				}
-			} else {
-				$error_message = '尚未輸入，請輸入!';
-				// $this->load->view('templates/header');
-				$this->load->view('pages/login_view',array('error_message' => $error_message));
-			}
-		// }
-	}
+//	public function login()
+//	{
+//		// redirect('http://localhost/server7/index.php/orders/index');
+//		// echo "index";
+//		// if(isset($_SESSION['ACCOUNT'])){
+//		// 	echo $_SESSION['ACCOUNT'];
+//		// }
+//		// echo $_SESSION['ACCOUNT'];
+//		// if (isset($_SESSION['ACCOUNT'])) {
+//		// 	echo $_SESSION['ACCOUNT'];
+//		// 	redirect('http://localhost/server7/index.php/orders/index');
+//		// } else {
+//
+//			if (isset($_POST['acct'])&&!is_null($_POST['acct'])) {
+//				$error_message = '輸入錯誤，再試一次!';
+//				$flag = $this->login_model->login($_POST['acct'], $_POST['pswd']);
+//				if ($flag != false) {
+//					$_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
+//					$_SESSION['權限名稱'] = $flag['權限名稱'];
+//					$_SESSION['NAME'] = $flag['NAME'];
+//					$_SESSION['趴數'] = $flag['趴數'];
+//					$_SESSION['勞保'] = $flag['勞保'];
+//					$_SESSION['健保'] = $flag['健保'];
+//					$_SESSION['勞退'] = $flag['勞退'];
+//					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
+//
+//					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
+//					$_SESSION['新增權限'] = $authority[0]['新增權限'];
+//					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
+//					$_SESSION['刪除權限'] = $authority[0]['刪除權限'];
+//                    $_SESSION['成交日期權限'] = $authority[0]['成交日期權限'];
+//                    $_SESSION['業務權限'] = $authority[0]['業務權限'];
+//                    $_SESSION['所有成交單權限'] = $authority[0]['所有成交單權限'];
+//                    $_SESSION['客戶姓名權限'] = $authority[0]['客戶姓名權限'];
+//                    $_SESSION['身分證字號權限'] = $authority[0]['身分證字號權限'];
+//                    $_SESSION['聯絡電話權限'] = $authority[0]['聯絡電話權限'];
+//                    $_SESSION['聯絡人權限'] = $authority[0]['聯絡人權限'];
+//                    $_SESSION['聯絡地址權限'] = $authority[0]['聯絡地址權限'];
+//                    $_SESSION['股票資訊權限'] = $authority[0]['股票資訊權限'];
+//                    $_SESSION['盤價權限'] = $authority[0]['盤價權限'];
+//                    $_SESSION['匯款資訊權限'] = $authority[0]['匯款資訊權限'];
+//                    $_SESSION['轉讓會員權限'] = $authority[0]['轉讓會員權限'];
+//                    $_SESSION['完稅人權限'] = $authority[0]['完稅人權限'];
+//                    $_SESSION['媒合權限'] = $authority[0]['媒合權限'];
+//                    $_SESSION['一審權限'] = $authority[0]['一審權限'];
+//                    $_SESSION['二審權限'] = $authority[0]['二審權限'];
+//                    $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
+//                    $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
+//
+//                    // echo "I did it!";
+//					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
+//
+//					// $data = $this->orders_model->get_assign();
+//					// $this->load->view('templates/header');
+//					// $this->load->view('pages/assign_view', array('data'=>$data));
+//					// $this->load->view('templates/footer');
+//					$this->go_assign();
+//				} else {
+//					// $this->load->view('templates/header');
+//					$this->load->view('pages/login_view',array('error_message' => $error_message));
+//				}
+//			} else {
+//				$error_message = '尚未輸入，請輸入!';
+//				// $this->load->view('templates/header');
+//				$this->load->view('pages/login_view',array('error_message' => $error_message));
+//			}
+//		// }
+//	}
 
 
 	public function show($arr_data)
@@ -1536,7 +1536,7 @@ class Orders extends CI_Controller {
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
-				$this -> orders_model -> edit($data);
+				$this -> orders_model -> edit($data);// push test
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
 				$origin_data = $this->orders_model->get($data['ID']);
 				/** record_info 是算盤價 稅收等等的function */
@@ -2227,28 +2227,20 @@ class Orders extends CI_Controller {
 	}
 
 	public function document_download_view() {
-		// if ($dh = opendir("upload/document")) {
-	 //        while (($file = readdir($dh)) !== false) {
-	 //            echo $file;
-	 //            echo "<br />";
-	 //        }
-		// }
 		$dir_info = scandir('upload/document');
-		// print_r($dir_info);
-		$file_info = array();
-		for ($i=2; $i < count($dir_info); $i++) {
-			array_push($file_info, iconv("BIG5", "UTF-8", $dir_info[$i]));
-		}
-		// print_r($file_info);
-		// echo "</br>".iconv("BIG5", "UTF-8", $dir_info[6])."可以秀中文阿";
+		foreach ($dir_info as $k => $v){
+		    if ($v === '.' || $v === '..'){
+		        unset($dir_info[$k]);
+            }
+        }
+        $dir_info = array_values($dir_info);
 		$this->load->view('templates/header');
-		$this->load->view('pages/download/document_view', array('file_info' => $file_info));
+		$this->load->view('pages/download/document_view', array('file_info' => $dir_info));
 		$this->load->view('templates/footer');
 	}
 
 	public function document_download() {
 		$this->load->helper('download');
-		// echo mb_detect_encoding($_POST['type']);
 		$file_big5 = iconv("UTF-8", "BIG5", $_POST['file']);
 		force_download('upload/document/'.$file_big5, NULL);
 		$this->document_download_view();
