@@ -1536,7 +1536,7 @@ class Orders extends CI_Controller {
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
-				$this -> orders_model -> edit($data);
+				$this -> orders_model -> edit($data);// push test
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
 				$origin_data = $this->orders_model->get($data['ID']);
 				/** record_info 是算盤價 稅收等等的function */
