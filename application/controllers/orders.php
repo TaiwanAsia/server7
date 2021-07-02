@@ -1506,8 +1506,6 @@ class Orders extends CI_Controller {
 
 	//二審表格
 	public function go_edit2() {
-		// $this->go_orders();
-		// echo "qqq".$_GET['id'];
 		$result = $this -> orders_model -> get($_GET['id'],null,null);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
