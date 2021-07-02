@@ -117,36 +117,34 @@ class Orders_model extends CI_Model {
     }
 
     public function get($keyword=null,$權限名稱=null,$name=null) {
-        $query = null;
-        // 搜尋欄 空的
-        if(is_null($keyword)) {
-            if($權限名稱=='最高權限') {
-                $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                $query = $this->db->query($sql);
-            } elseif ($權限名稱=='業務') {
-                $this->db->order_by("最後動作時間", "desc");
-                $query = $this->db->get_where('ORDERS', array('業務' => $name));
-            } else {
-                if ($_SESSION['所有成交單權限']==1) {
-                    $sql = "SELECT * FROM `ORDERS` ORDER BY `最後動作時間` DESC";
-                    $query = $this->db->query($sql);
-                } else {
-                    $query = $this->db->get_where('ORDERS', array('業務' => 'JOY'));
-                }
-            }
-        // 搜尋欄 有值
-        } else {
-            // echo "string".$_SESSION['NAME'];
-            $業務 = $_SESSION['NAME'];
-            $sql = "SELECT * FROM `ORDERS` WHERE `業務`= '$業務' AND (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%' or `ID` like '%$keyword%') ";
-            $query = $this->db->query($sql);
+        if (empty($權限名稱)){
+            $權限名稱 = $_SESSION['權限名稱'];
         }
+        $where = '';
+        $order = ' ORDER BY `最後動作時間` DESC ';
+        if (!empty($keyword)) {
+            $where .= " (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%' or `ID` like '%$keyword%') ";
+        }
+        if ($權限名稱 == '最高權限' || $_SESSION['所有成交單權限']==1){
+            if (empty($keyword)){
+                $sql = "SELECT * FROM `ORDERS`".$order;
+            } else {
+                $sql = "SELECT * FROM `ORDERS` WHERE".$where.$order;
+            }
+        } elseif ($權限名稱 == '業務'){
+            $where .= " AND `業務` = '".$name."' ";
+            $sql = "SELECT * FROM `ORDERS` WHERE".$where.$order;
+        } elseif ($_SESSION['NAME'] == 'JOY'){
+            $where .= " AND `業務` = 'JOY' ";
+            $sql = "SELECT * FROM `ORDERS` WHERE".$where.$order;
+        }
+
+        $query = $this->db->query($sql);
 
         if($query->num_rows()>0) {
             $result = $this->transformer($query);
             return $result;
         } else {
-            // echo "none";
             return false;
         }
     }
