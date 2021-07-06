@@ -18,7 +18,7 @@ class Orders extends CI_Controller {
 
 	public function session_check() {
 		if (!isset($_SESSION['ACCOUNT'])) {
-    		redirect('index.php/login/index');
+    		redirect('login/index');
     	} else {
     		return True;
     	}
@@ -130,7 +130,7 @@ class Orders extends CI_Controller {
     	// is clicked.
 		if (!isset($_SESSION['ACCOUNT'])) {
 			// If not logged in, redirect to 'login/index'
-			redirect('index.php/login/index');
+			redirect('login/index');
 		} else {
 			// Handles queries on orders between 'date1' and 'date2'
 			if (isset($_GET['date1']) && isset($_GET['date2']) && isset($_GET['業務'])) {
@@ -176,7 +176,7 @@ class Orders extends CI_Controller {
     	// is clicked.
 		if (!isset($_SESSION['ACCOUNT'])) {
 			// If not logged in, redirect to 'login/index'
-			redirect('index.php/login/index');
+			redirect('login/index');
 		} else {
 			// Handles queries on orders between 'date1' and 'date2'
 			if (isset($_GET['date1']) && isset($_GET['date2']) && isset($_GET['業務'])) {
@@ -284,7 +284,7 @@ class Orders extends CI_Controller {
 	public function delete_add_quene_by_matchid() {
 		$quene = $this->orders_model->delete_add_quene_by_matchid_model($_POST['id'], $_POST['媒合編號']);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), 'admin刪除尚未key的成交單', '編號: '.$_POST['id'].'媒合: '.$_POST['媒合編號'], null);
-		redirect('index.php/orders/add_quene_view');
+		redirect('orders/add_quene_view');
 	}
 
 	public function add_order_id() {

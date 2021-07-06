@@ -9,17 +9,17 @@
         <meta name="author" content="">
         <link rel="icon" href="../../../../favicon.ico">
         <title>成交單</title>
-        <link rel="stylesheet" href="../../assets/css/style.css">
-        <link rel="stylesheet" href="../../assets/css/tablesaw.css">
+        <link rel="stylesheet" href="/server7/assets/css/style.css">
+        <link rel="stylesheet" href="/server7assets/css/tablesaw.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/cwtexkai.css">
    
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <script src="../../assets/js/jquery-min.js"></script>
-        <script src="../../assets/js/action.js"></script>
-        <script src="../../assets/js/tablesaw.jquery.js"></script>
-        <script src="../../assets/js/tablesaw-init.js"></script>
+        <script src="/server7assets/js/jquery-min.js"></script>
+        <script src="/server7assets/js/action.js"></script>
+        <script src="/server7assets/js/tablesaw.jquery.js"></script>
+        <script src="/server7assets/js/tablesaw-init.js"></script>
    
         <!-- Icons -->
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
