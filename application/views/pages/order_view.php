@@ -534,7 +534,7 @@
             <td style="min-width:100px;">
                 <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){
                   ?>
-                <a class="clickable_hint" href="<?='../../upload/contact/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
+                <a class="clickable_hint" href="<?='/server7/upload/contact/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
                   <div class="form-group">
@@ -548,7 +548,7 @@
             <td>
                 <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){
                   ?>
-                <a class="clickable_hint" href="<?='../../upload/tax/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
+                <a class="clickable_hint" href="<?='upload/tax/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
                   <div class="form-group">
