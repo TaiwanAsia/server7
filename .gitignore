@@ -1,7 +1,7 @@
 # Add any directories, files, or patterns you don't want to be tracked by version control
 
 node_modules/*
-# upload/
+upload/
 vendor/
 .idea/
 application/config/database.php
