@@ -82,7 +82,7 @@ class Login extends CI_Controller {
 					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
 
 					// redirect('../index.php/orders/go_assign');
-					$newURL = "../orders/go_assign";
+					$newURL = "orders/go_assign";
 					header('Location: '.$newURL);
 				} else {
 					// $this->load->view('templates/header');
