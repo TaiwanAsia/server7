@@ -174,7 +174,7 @@ class Login extends CI_Controller {
 		unset($_SESSION['NAME']);
 		unset($_SESSION['趴數']);
 		session_destroy();
-		redirect('login/index');
+		redirect('login');
 	}
 
 }
