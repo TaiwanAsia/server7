@@ -120,7 +120,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/document_download_view" style="color: black;">
+                            <a class="nav-link" href="../orders/document_download_view" style="color: black;">
                                 文件下載
                             </a>
                         </li>
