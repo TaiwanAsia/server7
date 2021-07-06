@@ -885,12 +885,12 @@ class Orders extends CI_Controller {
 		} else {
 			$name = iconv("UTF-8", "BIG5", $_FILES["file"]["name"]);
 			if (file_exists("upload/document/" . $name)){
-				echo "<h2><font color='red'>檔案已經存在，請勿重覆上傳相同檔案</font></h2><br>";
+				echo "<h2><font color='red'>檔案已經存在，請勿重覆上傳相同檔案。</font></h2><br>";
 				$this->document_download_view();
 			} else {
 				$target_path = "upload/document/";
 				$target_path .= $_FILES['file']['name']; //上傳檔案名稱
-				move_uploaded_file($_FILES['file']['tmp_name'],iconv("UTF-8", "big5", $target_path ));
+				move_uploaded_file($_FILES['file']['tmp_name'], $target_path);
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳文件', $_FILES['file']['name'], null);
 				echo "<h2><font color='red'>檔案".$_FILES["file"]["name"]."上傳成功</font></h2><br>";
 				$this->document_download_view();
@@ -2239,8 +2239,7 @@ class Orders extends CI_Controller {
 
 	public function document_download() {
 		$this->load->helper('download');
-		$file_big5 = iconv("UTF-8", "BIG5", $_POST['file']);
-		force_download('upload/document/'.$file_big5, NULL);
+		force_download('upload/document/'.$_POST['file'], NULL);
 		$this->document_download_view();
 	}
 
