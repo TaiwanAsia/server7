@@ -1,18 +1,9 @@
 
 <main id="mainSection" role="main" style="font-family:微軟正黑體;">
-   <div class="t-form-t">
-      <h1>被刪記錄</h1>
-     </div>
-  <div class="t-form-h">
     <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
-<!--                         <h1 class="h2">刪除成交單</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-
-            </div>
-        </div> -->
+        <h1 class="h2">已刪成交單</h1>
     </div>
-
+  <div class="t-form-h">
 
           <div class="t-form">
             <table id="receivTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>

@@ -1,7 +1,7 @@
 
 <main id="mainSection" role="main" style="font-family:微軟正黑體;">
-		 <div class="t-form-t">
-		 	<h1>動作紀錄</h1>
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
+		 	<h1 class="h2">動作紀錄</h1>
 		 </div>
 		 <div class="t-form">
 			<table class="table">

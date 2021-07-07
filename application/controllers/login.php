@@ -154,13 +154,15 @@ class Login extends CI_Controller {
 		$data = array('ID' => $_POST['id'],
 						'NAME' => $_POST['name'],
 						'ACCOUNT' => $_POST['account'],
-						'PASSWORD' => $_POST['password'],
 						'權限名稱' => $_POST['權限名稱'],
 						'趴數' => $_POST['趴數'],
 						'勞保' => $_POST['勞保'],
 						'健保' => $_POST['健保'],
 						'勞退' => $_POST['勞退'],
 						'隱藏' => $_POST['隱藏'],);
+		if (!empty($_POST['password'])){
+            $data['PASSWORD'] = $_POST['password'];
+        }
 		$this->login_model->edit_account($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '編輯帳號', $_POST['id'], null);
 		$this->account();
