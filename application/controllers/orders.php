@@ -786,6 +786,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+	// 非最高權限的 應收帳款
 	public function checkbill() {
 		if (isset($_GET['股票'])) {
 			$orders = $this->orders_model->get_checkbill('in','股票',$_GET['股票']);
@@ -832,6 +833,7 @@ class Orders extends CI_Controller {
 	// 	$this->index();
 	// }
 
+    // 應匯帳款
 	public function checkbillout() {
 		if (isset($_GET['股票'])) {
 			$orders = $this->orders_model->get_checkbill('out','股票',$_GET['股票']);
@@ -861,15 +863,15 @@ class Orders extends CI_Controller {
 		$first_dateofdata = $bank_data[count($bank_data)-1]['日期'];
 		$last_dateofdata = $bank_data[0]['日期'];
 
-		$arrayName = array('orders' => $orders,
+		$return = array('orders' => $orders,
 							'employees' => $employees,
 							'total_info' => $total_info,
 							'first_dateofdata' => $first_dateofdata,
 							'last_dateofdata' => $last_dateofdata,);
 
 		$this->load->view('templates/header');
-		$this->load->view('templates/transferable_header');
-		$this->load->view('pages/transferable_view', $arrayName);
+		$this->load->view('templates/transferable_header',array('total_info' => $total_info, 'first_dateofdata' => $first_dateofdata, 'last_dateofdata' => $last_dateofdata,));
+		$this->load->view('pages/transferable_view', $return);
 		$this->load->view('templates/footer');
 	}
 
@@ -2337,10 +2339,6 @@ class Orders extends CI_Controller {
 		$data = [];
 		$data[0] = $this->orders_model->get_assign();
 		$data[1] = $this->orders_model->get_assigns_reply();
-		// for ($i=0; $i < count($data); $i++) { 
-		// 	print_r($data[$i]);
-		// 	echo "<br>";
-		// }
 		$this->load->view('templates/header');
 		$this->load->view('pages/assign_view', array('data'=>$data));
 		$this->load->view('templates/footer');

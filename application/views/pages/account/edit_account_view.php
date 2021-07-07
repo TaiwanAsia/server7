@@ -28,7 +28,7 @@
 							<input type="text" name="account" value="<?php echo($data[0]['ACCOUNT']); ?>">
 						</td>
 						<td>
-							<input type="text" name="password" value="<?php echo($data[0]['PASSWORD']); ?>">
+							<input type="text" name="password" value="">
 						</td>
 						<td>
 							<select name="權限名稱">
@@ -56,8 +56,8 @@
 							<input type="text" name="勞退" value="<?php echo($data[0]['勞退']); ?>">
 						</td>
 						<td>
-							<input type="radio" name="隱藏" value="0">關閉<br>
-							<input type="radio" name="隱藏" value="1">開啟<br>
+							<input type="radio" name="隱藏" value="0" <?php echo $data[0]['隱藏']==0 ? 'checked' : '' ?>>關閉<br>
+							<input type="radio" name="隱藏" value="1" <?php echo $data[0]['隱藏']==1 ? 'checked' : '' ?>>開啟<br>
 						</td>
 					</tr>
 					<tr>

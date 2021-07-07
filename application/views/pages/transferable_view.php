@@ -1,33 +1,28 @@
-        <div class="t-form-t">
-          <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
-              <div class="total-zone">
-                <span>
-                  <?php if ($_SESSION['權限名稱'] == '最高權限') {
-                    echo "目前範圍 <font color='red' size='4'>".$first_dateofdata."~".$last_dateofdata."</font";
-                  } ?>
-                </span>
-                <span>
-                    <?php if ($_SESSION['權限名稱']=='最高權限') {
-                      echo "總應匯: ".$total_info['total_transferable'];
-                      } ?>
-                </span>
-                <span>
-                    <?php if ($_SESSION['權限名稱']=='最高權限') {
-                      echo "總已匯:".$total_info['total_transfered'];
-                      } ?>
-                </span>
-                <span>
-                    <?php if ($_SESSION['權限名稱']=='最高權限') {
-                      echo "總尚餘:".$total_info['total_left'];
-                      } ?>
-                </span>
-              </div>
+<!--        <div class="t-form-t" style="top: 150px">-->
+<!--              <div class="total-zone">-->
+<!--                  --><?php //if ($_SESSION['權限名稱']=='最高權限') { ?>
+<!--                <span>-->
+<!--                    --><?php //echo "目前範圍 <font color='red' size='4'>".$first_dateofdata."~".$last_dateofdata."</font";?>
+<!--                </span>-->
+<!--                <span>-->
+<!--                    --><?php //echo "總應匯: ".$total_info['total_transferable'];?>
+<!--                </span>-->
+<!--                <span>-->
+<!--                    --><?php //echo "總已匯:".$total_info['total_transfered'];?>
+<!--                </span>-->
+<!--                <span>-->
+<!--                    --><?php //echo "總尚餘:".$total_info['total_left'];?>
+<!--                </span>-->
+<!--                  --><?php //} ?>
+<!--              </div>-->
+<!--        </div>-->
 
-              <!-- <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"> -->
-          <?php } ?>
-
-        </div>
           <div class="t-form">
+              <?php if ($_SESSION['權限名稱']=='最高權限') {
+//                    var_export($first_dateofdata);
+                  echo "<span style='margin-left: 10px;color: #990000;size:25px;'>".$first_dateofdata."~".$last_dateofdata."</span>";
+                  echo "<p>總應匯: ".$total_info['total_transferable']."　總已匯: ".$total_info['total_transfered']."　總尚餘:".$total_info['total_left']."</p>";
+              } ?>
             <table id="receivTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
               <thead class="thead-light">
                 <tr>

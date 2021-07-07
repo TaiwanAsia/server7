@@ -1,18 +1,21 @@
 
 <main id="mainSection" role="main" style="font-family:微軟正黑體;">
-		<div class="t-form-t">
-			<h1>帳號管理</h1>
-			<form action="go_add_account" method="POST" class="t-form-t" name="">
-				<input type="submit" name="" value="新增">
-			</form>
-			<ul>
-				<li style="display:inline;">
-					<a href="account"><font size="4">帳號編輯</font></a>
-				</li>
-				<li style="display:inline;">
-					<a href="authority"><font size="4">權限編輯</font></a>
-				</li>
-			</ul>
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t t-form-t">
+            <h1 class="h2">帳號管理</h1>
+            <div style="position: relative;top: 8px;left: 30px;z-index: -100;">
+                <form action="go_add_account" method="POST">
+                    <input type="submit" name="" value="新增">
+                </form>
+            </div>
+            <!-- 未完成 -->
+<!--			<ul>-->
+<!--				<li style="display:inline;">-->
+<!--					<a href="account"><font size="4">帳號編輯</font></a>-->
+<!--				</li>-->
+<!--				<li style="display:inline;">-->
+<!--					<a href="authority"><font size="4">權限編輯</font></a>-->
+<!--				</li>-->
+<!--			</ul>-->
 		</div>
 
 		<div class="t-form">
@@ -22,7 +25,7 @@
 						<!-- <th nowrap="nowrap">編號</th> -->
 						<th nowrap="nowrap"></th>
 						<th nowrap="nowrap">帳號</th>
-						<th nowrap="nowrap">密碼</th>
+<!--						<th nowrap="nowrap">密碼</th>-->
 						<th nowrap="nowrap">權限</th>
 						<th nowrap="nowrap">趴數</th>
 						<th nowrap="nowrap">勞保</th>
@@ -41,7 +44,7 @@
 						// echo "<td>".$data[$i]['ID']."</td>";
 						echo "<td>".$data[$i]['NAME']."</td>";
 						echo "<td>".$data[$i]['ACCOUNT']."</td>";
-						echo '<td nowrap="nowrap">'.$data[$i]['PASSWORD']."</td>";
+//						echo '<td nowrap="nowrap">'.$data[$i]['PASSWORD']."</td>";
 						echo "<td>".$data[$i]['權限名稱']."</td>";
 						echo "<td>".$data[$i]['趴數']."</td>";
 						echo "<td>".$data[$i]['勞保']."</td>";

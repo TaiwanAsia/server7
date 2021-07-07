@@ -146,7 +146,7 @@
                         </li>
                         <li>
                             <a class="nav-link" href="../orders/go_deleted" style="color: black;">
-                                被刪成交單
+                                已刪成交單
                             </a>
                         </li>
                         <?php } ?>
