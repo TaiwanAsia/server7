@@ -64,7 +64,11 @@ a {
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
 <!--		<p>--><?php //echo $message; ?><!--</p>-->
-        <a href="../orders/index">點此回首頁</a>
+        <?php if (isset($_SESSION['NAME'])){
+            echo '<a href="../orders/">點此回首頁</a>';
+        } else {
+            echo '<a href="../server7/login">點此回首頁</a>';
+        }?>
 	</div>
 </body>
 </html>
