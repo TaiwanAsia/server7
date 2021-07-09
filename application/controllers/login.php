@@ -81,7 +81,6 @@ class Login extends CI_Controller {
 
 					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
 
-					// redirect('../index.php/orders/go_assign');
 					$newURL = "orders/go_assign";
 					header('Location: '.$newURL);
 				} else {
@@ -170,13 +169,20 @@ class Login extends CI_Controller {
 
 	public function logout()
 	{
-		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登出', null, null);
-		unset($_SESSION['ACCOUNT']);
-		unset($_SESSION['權限名稱']);
-		unset($_SESSION['NAME']);
-		unset($_SESSION['趴數']);
-		session_destroy();
-		redirect('login');
+	    if (isset($_SESSION['NAME'])) {
+            $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登出', null, null);
+            unset($_SESSION['ACCOUNT']);
+            unset($_SESSION['權限名稱']);
+            unset($_SESSION['NAME']);
+            unset($_SESSION['趴數']);
+            session_destroy();
+            header("refresh:2;url=http://ta.server/server7/login");
+            echo "正在加載，請稍等...三秒後自動跳轉至登入頁...";
+        } else {
+            header("refresh:2;url=http://ta.server/server7/login");
+            echo "正在加載，請稍等...三秒後自動跳轉至登入頁...";
+        }
+
 	}
 
 }

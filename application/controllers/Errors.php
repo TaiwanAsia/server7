@@ -21,8 +21,8 @@ class Errors extends CI_Controller {
 	public function page_missing()
 	{
 	    $array = array(
-	      'heading' => '無此頁面',
-          'message' => '請確認查詢資料'
+	        'heading' => '查無此頁面',
+            'message' => '請確認查詢資料',
         );
 		$this->load->view('errors/html/error_404', $array);
 	}
