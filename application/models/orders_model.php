@@ -66,7 +66,7 @@ class Orders_model extends CI_Model {
         if (empty($權限名稱)){
             $權限名稱 = $_SESSION['權限名稱'];
         }
-        $where = '';
+        $where = ' 1=1';
         $order = ' ORDER BY `最後動作時間` DESC ';
         if (!empty($keyword)) {
             $where .= " (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%' or `ID` like '%$keyword%') ";
