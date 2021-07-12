@@ -69,7 +69,7 @@ class Orders_model extends CI_Model {
         $where = ' 1=1';
         $order = ' ORDER BY `最後動作時間` DESC ';
         if (!empty($keyword)) {
-            $where .= " (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%' or `ID` like '%$keyword%') ";
+            $where .= " AND (`股票` like '%$keyword%' or `客戶姓名` like '%$keyword%' or `聯絡電話` like '%$keyword%' or `ID` like '%$keyword%') ";
         }
         if ($權限名稱 == '最高權限' || $_SESSION['所有成交單權限']==1){
             if (empty($keyword)){
