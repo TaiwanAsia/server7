@@ -532,29 +532,37 @@
                 } ?>
             </td>
             <td style="min-width:100px;">
-                <?php if (file_exists("upload/contact/" . $orders[$i]['ID'])){
-                  ?>
-                <a class="clickable_hint" href="<?='/server7/upload/contact/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
+                <?php if (!empty($orders[$i]['contact'])){ ?>
+<!--                <a class="clickable_hint" href="--><?//='/server7/upload/contact/'.$orders[$i]['ID']?><!--" target="_blank">檢視（點開檢視檔案）</a>-->
+                    <form action="document_download" method="POST">
+                        <input type="hidden" name="filename" value="<?php echo $orders[$i]['contact']; ?>">
+                        <input type="hidden" name="type" value="contact">
+                        <button type="submit">下載</button>
+                    </form>
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
                   <div class="form-group">
                       <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
-                      <button type="submit" id="" name="" class="">上傳</button>
+                      <button type="submit">上傳</button>
                   </div>
                 </form>
                 <?php } ?>
             </td>
             <td>
-                <?php if (file_exists("upload/tax/" . $orders[$i]['ID'])){
-                  ?>
-                <a class="clickable_hint" href="<?='upload/tax/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
+                <?php if (!empty($orders[$i]['tax'])){ ?>
+<!--                <a class="clickable_hint" href="--><?//='upload/tax/'.$orders[$i]['ID']?><!--" target="_blank">檢視（點開檢視檔案）</a>-->
+                    <form action="document_download" method="POST">
+                        <input type="hidden" name="filename" value="<?php echo $orders[$i]['tax']; ?>">
+                        <input type="hidden" name="type" value="tax">
+                        <button type="submit">下載</button>
+                    </form>
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
                   <div class="form-group">
                       <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
-                      <button type="submit" id="" name="" class="">上傳</button>
+                      <button type="submit">上傳</button>
                   </div>
                 </form>
                 <?php } ?>
@@ -577,15 +585,19 @@
             <?php  }
             } else { ?>
                 <td>
-                  <?php if (file_exists("upload/water/" . $orders[$i]['ID'])){
-                    ?>
-                  <a class="clickable_hint" href="<?='../../upload/water/'.$orders[$i]['ID']?>" target="_blank">檢視（點開檢視檔案）</a>
+                    <?php if (!empty($orders[$i]['water'])){ ?>
+<!--                  <a class="clickable_hint" href="--><?//='../../upload/water/'.$orders[$i]['ID']?><!--" target="_blank">檢視（點開檢視檔案）</a>-->
+                      <form action="document_download" method="POST">
+                          <input type="hidden" name="filename" value="<?php echo $orders[$i]['water']; ?>">
+                          <input type="hidden" name="type" value="water">
+                          <button type="submit">下載</button>
+                      </form>
                   <?php  } else {?>
                   <form method="post" action="upload_water" enctype="multipart/form-data">
                     <div class="form-group">
                         <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
                         <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
-                        <button type="submit" id="" name="" class="">上傳</button>
+                        <button type="submit">上傳</button>
                     </div>
                   </form>
                   <?php } ?>
