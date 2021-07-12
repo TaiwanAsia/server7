@@ -24,76 +24,6 @@ class Orders extends CI_Controller {
     	}
 	}
 
-//	public function login()
-//	{
-//		// redirect('http://localhost/server7/index.php/orders/index');
-//		// echo "index";
-//		// if(isset($_SESSION['ACCOUNT'])){
-//		// 	echo $_SESSION['ACCOUNT'];
-//		// }
-//		// echo $_SESSION['ACCOUNT'];
-//		// if (isset($_SESSION['ACCOUNT'])) {
-//		// 	echo $_SESSION['ACCOUNT'];
-//		// 	redirect('http://localhost/server7/index.php/orders/index');
-//		// } else {
-//
-//			if (isset($_POST['acct'])&&!is_null($_POST['acct'])) {
-//				$error_message = '輸入錯誤，再試一次!';
-//				$flag = $this->login_model->login($_POST['acct'], $_POST['pswd']);
-//				if ($flag != false) {
-//					$_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
-//					$_SESSION['權限名稱'] = $flag['權限名稱'];
-//					$_SESSION['NAME'] = $flag['NAME'];
-//					$_SESSION['趴數'] = $flag['趴數'];
-//					$_SESSION['勞保'] = $flag['勞保'];
-//					$_SESSION['健保'] = $flag['健保'];
-//					$_SESSION['勞退'] = $flag['勞退'];
-//					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
-//
-//					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
-//					$_SESSION['新增權限'] = $authority[0]['新增權限'];
-//					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
-//					$_SESSION['刪除權限'] = $authority[0]['刪除權限'];
-//                    $_SESSION['成交日期權限'] = $authority[0]['成交日期權限'];
-//                    $_SESSION['業務權限'] = $authority[0]['業務權限'];
-//                    $_SESSION['所有成交單權限'] = $authority[0]['所有成交單權限'];
-//                    $_SESSION['客戶姓名權限'] = $authority[0]['客戶姓名權限'];
-//                    $_SESSION['身分證字號權限'] = $authority[0]['身分證字號權限'];
-//                    $_SESSION['聯絡電話權限'] = $authority[0]['聯絡電話權限'];
-//                    $_SESSION['聯絡人權限'] = $authority[0]['聯絡人權限'];
-//                    $_SESSION['聯絡地址權限'] = $authority[0]['聯絡地址權限'];
-//                    $_SESSION['股票資訊權限'] = $authority[0]['股票資訊權限'];
-//                    $_SESSION['盤價權限'] = $authority[0]['盤價權限'];
-//                    $_SESSION['匯款資訊權限'] = $authority[0]['匯款資訊權限'];
-//                    $_SESSION['轉讓會員權限'] = $authority[0]['轉讓會員權限'];
-//                    $_SESSION['完稅人權限'] = $authority[0]['完稅人權限'];
-//                    $_SESSION['媒合權限'] = $authority[0]['媒合權限'];
-//                    $_SESSION['一審權限'] = $authority[0]['一審權限'];
-//                    $_SESSION['二審權限'] = $authority[0]['二審權限'];
-//                    $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
-//                    $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
-//
-//                    // echo "I did it!";
-//					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
-//
-//					// $data = $this->orders_model->get_assign();
-//					// $this->load->view('templates/header');
-//					// $this->load->view('pages/assign_view', array('data'=>$data));
-//					// $this->load->view('templates/footer');
-//					$this->go_assign();
-//				} else {
-//					// $this->load->view('templates/header');
-//					$this->load->view('pages/login_view',array('error_message' => $error_message));
-//				}
-//			} else {
-//				$error_message = '尚未輸入，請輸入!';
-//				// $this->load->view('templates/header');
-//				$this->load->view('pages/login_view',array('error_message' => $error_message));
-//			}
-//		// }
-//	}
-
-
 	public function show($arr_data)
     {
     	$boo = $this->session_check();
@@ -919,69 +849,49 @@ class Orders extends CI_Controller {
 
 	public function upload_contact() {
 		$id = $_POST['id'];
+		$filename = $id.".jpg";
 		if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-			if (file_exists("upload/contact/" . $id)){
-				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
-				$this->go_orders();
-			} else {
-				echo "<h2><font color='red'><b>成交單編號:".$id."契約已上傳成功。</b></font></h2>";
-				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$id);
-				$data = $this->orders_model->get($_POST['id']);
-				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
-				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
-				$this->go_orders();
-			}
+            $this->orders_model->edit_fields($id, array('contact'=>$filename));
+            move_uploaded_file($_FILES["file"]["tmp_name"],"upload/contact/".$filename);
+            $data = $this->orders_model->get($id);
+            $this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
+            $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
+//            echo "<h2><font color='red'><b>成交單編號:".$id."契約已上傳成功。</b></font></h2>";
+            $this->go_orders();
 		}
 	}
 
 	public function upload_tax() {
 		$id = $_POST['id'];
-		if ($_FILES["file"]["error"] > 0){
+        $filename = $id.".jpg";
+        if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-			// echo "編號: " . $id."<br>";
-			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
-			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
-			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
-			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
-			if (file_exists("upload/tax/" . $id)){
-				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
-				$this->go_orders();
-			} else {
-				echo "<h2><font color='red'><b>成交單編號:".$id."稅單已上傳成功。</b></font></h2>";
-				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$id);
-				$data = $this->orders_model->get($_POST['id']);
-				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
-				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
-				$this->go_orders();
-			}
+            $this->orders_model->edit_fields($id, array('tax'=>$filename));
+            move_uploaded_file($_FILES["file"]["tmp_name"],"upload/tax/".$filename);
+            $data = $this->orders_model->get($id);
+            $this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
+            $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
+//            echo "<h2><font color='red'><b>成交單編號:".$id."稅單上傳成功。</b></font></h2>";
+            $this->go_orders();
 		}
 	}
 
 	public function upload_water() {
 		$id = $_POST['id'];
-		if ($_FILES["file"]["error"] > 0){
+        $filename = $id.".jpg";
+        if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-			// echo "編號: " . $id."<br>";
-			// echo "檔案名稱: " . $_FILES["file"]["name"]."<br/>";
-			// echo "檔案類型: " . $_FILES["file"]["type"]."<br/>";
-			// echo "檔案大小: " . ($_FILES["file"]["size"] / 1024)." Kb<br />";
-			// echo "暫存名稱: " . $_FILES["file"]["tmp_name"];
-			if (file_exists("upload/water/" . $id)){
-				echo "檔案已經存在，請勿重覆上傳相同檔案<br>";
-				$this->go_orders();
-			} else {
-				echo "<h2><font color='red'><b>成交單編號:".$id."水單已上傳成功。</b></font></h2>";
-				move_uploaded_file($_FILES["file"]["tmp_name"],"upload/water/".$id);
-				$data = $this->orders_model->get($_POST['id']);
-				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
-				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水', $id, null);
-				$this->orders_model->finish_order($id);
-				$this->go_orders();
-			}
+            $this->orders_model->edit_fields($id, array('water'=>$filename));
+            move_uploaded_file($_FILES["file"]["tmp_name"],"upload/water/".$filename);
+            $data = $this->orders_model->get($id);
+            $this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
+            $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水單', $id, null);
+//            echo "<h2><font color='red'><b>成交單編號:".$id."水單上傳成功。</b></font></h2>";
+            $this->go_orders();
 		}
 	}
 
@@ -2241,8 +2151,13 @@ class Orders extends CI_Controller {
 
 	public function document_download() {
 		$this->load->helper('download');
-		force_download('upload/document/'.$_POST['file'], NULL);
-		$this->document_download_view();
+		$type = $_POST['type'];
+		$filename = $_POST['filename'];
+		if ($type == 'document'){
+            force_download('upload/document/'.$_POST['file'], NULL);
+        } else {
+            force_download('upload/'.$type.'/'.$filename, NULL);
+        }
 	}
 
 	public function document_delete() {

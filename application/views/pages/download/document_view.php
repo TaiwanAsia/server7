@@ -40,6 +40,7 @@
 							<td>
 								<form action="document_download" method="POST">
 									<input type="hidden" name="file" value="<?php echo $file_info[$i]; ?>">
+                                    <input type="hidden" name="type" value="document">
 									<button type="submit">下載</button>
 								</form>
 							</td>

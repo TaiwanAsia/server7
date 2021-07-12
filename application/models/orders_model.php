@@ -47,63 +47,9 @@ class Orders_model extends CI_Model {
                     '二審'=>$row-> 二審,
                     '備註'=>$row-> 備註,
                     '開發者'=>$row-> 開發者,
-                    // '契約'=>$row-> 契約,
-                    // '稅單'=>$row-> 稅單,
-                    '已結案'=>$row-> 已結案,
-                    '最後動作時間'=>$row-> 最後動作時間,
-                                        );
-            }
-            return $result;
-        } else {
-             return false;
-        }
-    }
-
-    public function transformer_before0701($query) {
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                    $result[] = array('ID'=>$row-> ID,
-                    '媒合'=>$row-> 媒合,
-                    '成交日期'=>$row-> 成交日期,
-                    '業務'=>$row-> 業務,
-                    '客戶姓名'=>$row-> 客戶姓名,
-                    '身分證字號'=>$row-> 身分證字號,
-                    '聯絡電話'=>$row-> 聯絡電話,
-                    '聯絡人'=>$row-> 聯絡人,
-                    '聯絡地址'=>$row-> 聯絡地址,
-                    '買賣'=>$row-> 買賣,
-                    '股票'=>$row-> 股票,
-                    '張數'=>$row-> 張數,
-                    '成交價'=>$row-> 成交價,
-                    '盤價'=>$row-> 盤價,
-                    '匯款金額應收帳款'=>$row-> 匯款金額應收帳款,
-                    '已匯金額已收金額'=>$row-> 已匯金額已收金額,
-                    // '待查帳金額'=>$row-> 待查帳金額,
-                    // '轉出日期轉入日期'=>$row-> 轉出日期轉入日期,
-                    // '匯款人'=>$row-> 匯款人,
-                    '匯款銀行'=>$row-> 匯款銀行,
-                    '匯款分行'=>$row-> 匯款分行,
-                    '匯款戶名'=>$row-> 匯款戶名,
-                    '匯款帳號'=>$row-> 匯款帳號,
-                    // '匯款帳號末5碼'=>$row-> 匯款帳號末5碼,
-                    '轉讓會員'=>$row-> 轉讓會員,
-                    '轉讓會員2'=>$row-> 轉讓會員2,
-                    '完稅人'=>$row-> 完稅人,
-                    // '一審'=>$row-> 一審,
-                    '新舊'=>$row-> 新舊,
-                    '自行應付'=>$row-> 自行應付,
-                    '刻印'=>$row-> 刻印,
-                    '收送'=>$row-> 收送,
-                    '過戶日期'=>$row-> 過戶日期,
-                    '過戶費'=>$row-> 過戶費,
-                    // '收付款'=>$row-> 收付款,
-                    // '現金或匯款'=>$row-> 現金或匯款,
-                    '匯款日期'=>$row-> 匯款日期,
-                    '通知查帳'=>$row-> 通知查帳,
-                    '成交單狀態'=>$row-> 成交單狀態,
-                    '二審'=>$row-> 二審,
-                    '備註'=>$row-> 備註,
-                    '開發者'=>$row-> 開發者,
+                    'contact'=>$row-> contact,
+                    'tax'=>$row-> tax,
+                    'water'=>$row-> water,
                     // '契約'=>$row-> 契約,
                     // '稅單'=>$row-> 稅單,
                     '已結案'=>$row-> 已結案,
@@ -431,8 +377,21 @@ class Orders_model extends CI_Model {
         }
     }
 
+    /**
+     * 編輯訂單
+     * @param $data
+     */
     public function edit($data) {
         $this->db->where('id', $data['ID']);
+        $this->db->update('orders', $data);
+    }
+
+    /**
+     * @param $id
+     * @param $data array array('count'=>$count, '最後動作時間'=>$update)
+     */
+    public function edit_fields($id, $data){
+        $this->db->where('id', $id);
         $this->db->update('orders', $data);
     }
 
