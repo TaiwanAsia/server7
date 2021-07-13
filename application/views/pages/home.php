@@ -288,6 +288,30 @@
                     <button type="submit" id="" name="" class="">上傳</button>
 		 		</div> -->
 
+                <div class="sec-content">
+                    <h4>等級</h4>
+                    <ul>
+                        <li>
+                            <label>
+                                <input type="radio" name="等級" value="normal">
+                                一般
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="等級" value="important">
+                                重要
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="等級" value="urgent">
+                                重要且緊急
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+
 		 		<div class="sec-content">
 		 			<h4>工單內容</h4>
 		 			<div class="note-sec">

@@ -805,6 +805,33 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
+    public function upload_view(){
+        $image_url = './uploadstest/20.jpg';
+        $this->load->view('pages/upload_form',array('error' => '','image_url'=>$image_url));
+    }
+
+    public function upload_work($workid="file"){
+        $config['upload_path'] = './uploads_work/';
+        $config['allowed_types'] = 'gif|jpg|png|xls|xlsx|csv|pdf|doc|docx';
+        $config['file_name'] = $workid;
+
+        $this->load->library('upload',$config);
+
+        if (!file_exists('./uploads_work')) {
+            mkdir('./uploads_work', 0777, true);
+        }
+
+        if ( ! $this->upload->do_upload())
+        {
+            $res = array('error' => $this->upload->display_errors());
+        }
+        else
+        {
+            $res = array('upload_data' => $this->upload->data());
+        }
+        return $res;
+    }
+
 	public function upload_document() {
 		$dir_info = scandir('upload/document');
 		$dir_count = count($dir_info);
@@ -831,21 +858,15 @@ class Orders extends CI_Controller {
 	}
 
 	public function upload_attachment() {
-		if ($_FILES["file"]["error"] > 0){
-			$message = "請先選擇欲上傳檔案";
-			show_error($message, null, $heading = 'An Error Was Encountered');
-		} else {
-			$tmpname = $_FILES["file"]["tmp_name"];
-			$tmp = explode('.', $_FILES["file"]["name"]);
-			$ext = end($tmp);
-            if (!file_exists('upload/attachment')) {
-                mkdir('upload/attachment', 0777, true);
-            }
-			move_uploaded_file($tmpname,"upload/attachment/".$_POST['id'].".".$ext);
-			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '工單中上傳附件', $_FILES['file']['name'], null);
-			echo "<h2><font color='red'>檔案".$_FILES["file"]["name"]."上傳成功</font></h2><br>";
-			$this->go_assign();
-		}
+        $id = $_POST['id'];
+        $res = $this->upload_work($id);
+        if (empty($res['error'])){
+            $msg = "上傳成功";
+            $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '工單中上傳附件', $id.".".$ext, null);
+        } else {
+            $msg = $res['error'];
+        }
+        $this->go_assign($msg);
 	}
 
 	public function upload_contact() {
@@ -2251,20 +2272,21 @@ class Orders extends CI_Controller {
 		$this->go_orders();
 	}
 
-	public function go_assign() {
-		$data = [];
+	public function go_assign($msg="") {
+		$data = array();
 		$data[0] = $this->orders_model->get_assign();
 		$data[1] = $this->orders_model->get_assigns_reply();
 		$this->load->view('templates/header');
-		$this->load->view('pages/assign_view', array('data'=>$data));
+		$this->load->view('pages/assign_view', array('data'=>$data,'msg'=>$msg));
 		$this->load->view('templates/footer');
 	}
 
 	public function add_assign() {
 		$工單對象 = $_POST['工單對象'];
 		$data = array('工單對象'=>$工單對象,
-						'工單屬性'=>$_POST['工單屬性'],
-						'工單內容'=>$_POST['工單內容']);
+            '工單屬性'=>$_POST['工單屬性'],
+            '工單內容'=>$_POST['工單內容'],
+            '等級'=>$_POST['等級'],);
 		$this->orders_model->add_assign_model($data);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '建立工單', null, null);
 		$this->go_assign();
