@@ -836,10 +836,11 @@ class Orders extends CI_Controller {
 			show_error($message, null, $heading = 'An Error Was Encountered');
 		} else {
 			$tmpname = $_FILES["file"]["tmp_name"];
-			// echo $tmpname." yoyo";
 			$tmp = explode('.', $_FILES["file"]["name"]);
 			$ext = end($tmp);
-			// echo $ext."here";
+            if (!file_exists('upload/attachment')) {
+                mkdir('upload/attachment', 0777, true);
+            }
 			move_uploaded_file($tmpname,"upload/attachment/".$_POST['id'].".".$ext);
 			$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '工單中上傳附件', $_FILES['file']['name'], null);
 			echo "<h2><font color='red'>檔案".$_FILES["file"]["name"]."上傳成功</font></h2><br>";
