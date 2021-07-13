@@ -73,7 +73,7 @@
                                     $exist = ".pdf";
                                 }
 					 			if ($exist) { ?>
-                                <a href="<?php echo base_url('uploads_work/'.$data[0][$i]['ID'].$exist);?>" target="_blank">附件</a>
+                                <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads_work/'.$data[0][$i]['ID'].$exist;?>" target="_blank">附件</a>
 					 			<?php } else { ?>
                                     <form action="upload_attachment" enctype="multipart/form-data" method="post">
                                         <input type="file" name="userfile" size="20" />
