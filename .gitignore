@@ -2,7 +2,10 @@
 
 node_modules/*
 upload/
+uploads_work/
 vendor/
 .idea/
 application/config/database.php
 *.rar
+application/views/pages/upload_success.php
+application/views/pages/upload_form.php

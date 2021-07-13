@@ -1201,11 +1201,26 @@ class Orders_model extends CI_Model {
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $result[] = array('ID'=>$row-> ID,
-                        '工單對象'=>$row-> 工單對象,
-                        '工單屬性'=>$row-> 工單屬性,
-                        '工單內容'=>$row-> 工單內容,
-                        '建立者'=>$row-> 建立者,
-                        '建立時間'=>$row-> 建立時間,);
+                    '工單對象'=>$row-> 工單對象,
+                    '工單屬性'=>$row-> 工單屬性,
+                    '工單內容'=>$row-> 工單內容,
+                    '等級'   =>$row-> 等級,
+                    '建立者'  =>$row-> 建立者,
+                    '建立時間'=>$row-> 建立時間,);
+            }
+
+            foreach ($result as $key=>$value){
+                switch ($value['等級']){
+                    case 'normal':
+                        $result[$key]['等級'] = '一般';
+                        break;
+                    case 'important':
+                        $result[$key]['等級'] = '重要';
+                        break;
+                    case 'urgent':
+                        $result[$key]['等級'] = '重要且緊急';
+                        break;
+                }
             }
             return $result;
         } else {
