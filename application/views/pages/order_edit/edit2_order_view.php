@@ -3,6 +3,7 @@
                     <form method="post" name="edit_order_info" action="edit2_order" >
                         <div class="offset-md-1">
                             <table>
+                                <?php $edit2check = 1; ?>
                                 <tr>
                                     <td class="text-danger"><b>☝二審前必須先過戶喔。</b></td>
                                 </tr>
@@ -106,11 +107,12 @@
                                     <td></td>
                                     <td><label for="" class="">契約</label></td>
                                     <td style="min-width:100px;">
-                                        <?php if (file_exists("upload/contact/" . $result[0]['ID'])){
-                                          ?>
-                                        <a href="<?=base_url('upload/contact/'.$result[0]['ID'])?>" target="_blank">檢視</a>
-                                        <?php } else {
-                                        echo "<label class='text-danger'>尚未上傳契約</label>";
+                                        <?php if (!empty($result[0]['contact'])){ ?>
+                                        <a href="<?=base_url('uploads/contact/'.$result[0]['contact'])?>" target="_blank">檢視</a>
+                                        <?php
+                                        } else {
+                                            $edit2check = 0;
+                                            echo "<label class='text-danger'>尚未上傳契約</label>";
                                         } ?>
                                     </td>
                                 </tr>
@@ -118,16 +120,18 @@
                                     <td></td>
                                     <td><label for="" class="">稅單</label></td>
                                     <td>
-                                        <?php if (file_exists("upload/tax/" . $result[0]['ID'])){
-                                          ?>
-                                        <a href="<?=base_url('upload/tax/'.$result[0]['ID'])?>" target="_blank">檢視</a>
-                                        <?php } else {
-                                        echo "<label class='text-danger'>尚未上傳稅單</label>";
+                                        <?php if (!empty($result[0]['tax'])){ ?>
+                                        <a href="<?=base_url('uploads/tax/'.$result[0]['tax'])?>" target="_blank">檢視</a>
+                                        <?php
+                                        } else {
+                                            $edit2check = 0;
+                                            echo "<label class='text-danger'>尚未上傳稅單</label>";
                                         } ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
+                                        <input type="hidden" name="二審確認" value="<?php echo $edit2check; ?>">
                                         <input type="hidden" name="成交單狀態" value="<?php echo $result[0]['成交單狀態'] ?>">
                                     </td>
                                 </tr>

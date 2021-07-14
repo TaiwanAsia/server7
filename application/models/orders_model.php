@@ -378,7 +378,7 @@ class Orders_model extends CI_Model {
     }
 
     /**
-     * 編輯訂單
+     * 編輯訂單: 更新所有欄位
      * @param $data
      */
     public function edit($data) {
@@ -387,17 +387,13 @@ class Orders_model extends CI_Model {
     }
 
     /**
+     * 編輯訂單: 更新傳入欄位
      * @param $id
      * @param $data array array('count'=>$count, '最後動作時間'=>$update)
      */
     public function edit_fields($id, $data){
         $this->db->where('id', $id);
         $this->db->update('orders', $data);
-    }
-
-    public function edit_before0701($data) {
-        $this->db->where('id', $data['ID']);
-        $this->db->update('orders_before0701', $data);
     }
 
     public function insert_add_quene($data) {
@@ -514,7 +510,6 @@ class Orders_model extends CI_Model {
     }
 
     public function move_record($name, $time, $move, $result, $effect) {
-        // echo "string";
         $query = null;
         if ($move == '修改' || $move == 'admin修改' || $move == '修改備註' || $move == '修改轉讓紀錄') {
             $result = $result." ".$effect;

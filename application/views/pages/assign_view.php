@@ -45,35 +45,35 @@
 							<div>
 					 			<?php
 					 			$exist = false;
-					 			if (file_exists("uploads_work/".$data[0][$i]['ID'].".jpg")) {
+					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".jpg")) {
 					 				$exist = ".jpg";
 					 			}
-                                if (file_exists("uploads_work/".$data[0][$i]['ID'].".jpeg")) {
+                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".jpeg")) {
                                     $exist = ".jpeg";
                                 }
-					 			if (file_exists("uploads_work/".$data[0][$i]['ID'].".png")) {
+					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".png")) {
 					 				$exist = ".png";
 					 			}
-					 			if (file_exists("uploads_work/".$data[0][$i]['ID'].".xls")) {
+					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".xls")) {
 					 				$exist = ".xls";
 					 			}
-					 			if (file_exists("uploads_work/".$data[0][$i]['ID'].".xlsx")) {
+					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".xlsx")) {
 					 				$exist = ".xlsx";
 					 			}
-					 			if (file_exists("uploads_work/".$data[0][$i]['ID'].".csv")) {
+					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".csv")) {
 					 				$exist = ".csv";
 					 			}
-                                if (file_exists("uploads_work/".$data[0][$i]['ID'].".doc")) {
+                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".doc")) {
                                     $exist = ".doc";
                                 }
-                                if (file_exists("uploads_work/".$data[0][$i]['ID'].".docx")) {
+                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".docx")) {
                                     $exist = ".docx";
                                 }
-                                if (file_exists("uploads_work/".$data[0][$i]['ID'].".pdf")) {
+                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".pdf")) {
                                     $exist = ".pdf";
                                 }
 					 			if ($exist) { ?>
-                                <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads_work/'.$data[0][$i]['ID'].$exist;?>" target="_blank">附件</a>
+                                <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads/work/'.$data[0][$i]['ID'].$exist;?>" target="_blank">附件</a>
 					 			<?php } else { ?>
                                     <form action="upload_attachment" enctype="multipart/form-data" method="post">
                                         <input type="file" name="userfile" size="20" />

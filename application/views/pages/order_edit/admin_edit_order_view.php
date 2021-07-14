@@ -248,17 +248,17 @@
                                     <td><input class="" type="date" name="匯款日期" value="<?php echo $result[0]['匯款日期'] ?>" id="date" ></td>
                                     <td><input type="hidden" id="" value="<?php echo $result[0]['匯款日期'] ?>"></td>
                                 </tr> -->
-                                <tr>
-                                    <td></td>
-                                    <td><label for="" class="">通知查帳</label></td>
-                                    <td><input class="" type="text" name="通知查帳" id="通知查帳日期" value="<?php echo $result[0]['通知查帳']; ?>" ></td>
-                                    <td><button type="button" onclick="gettoday()">今天</button></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><label for="" class="">成交單狀態</label></td>
-                                    <td><input class="" type="text" name="成交單狀態" id="" value="<?php echo $result[0]['成交單狀態']; ?>" ></td>
-                                </tr>
+<!--                                <tr>-->
+<!--                                    <td></td>-->
+<!--                                    <td><label for="" class="">通知查帳</label></td>-->
+<!--                                    <td><input class="" type="text" name="通知查帳" id="通知查帳日期" value="--><?php //echo $result[0]['通知查帳']; ?><!--" ></td>-->
+<!--                                    <td><button type="button" onclick="gettoday()">今天</button></td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td></td>-->
+<!--                                    <td><label for="" class="">成交單狀態</label></td>-->
+<!--                                    <td><input class="" type="text" name="成交單狀態" id="" value="--><?php //echo $result[0]['成交單狀態']; ?><!--" ></td>-->
+<!--                                </tr>-->
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">二審</label></td>

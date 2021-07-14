@@ -112,7 +112,7 @@
 
 
 
-    <tr <?php if ($orders[$i]['媒合'] != 0 ) { ?>class=""<?php }?>>
+    <tr <?php if ($orders[$i]['媒合'] != 0 ) { ?>class="" <?php } if ($orders[$i]['已結案']==0 && $orders[$i]['二審']==1){echo 'style="background-color: paleturquoise"';}?>>
         <td>
               <?php if ($_SESSION['刪除權限']==1) { ?>
                 <button onclick="Delete(<?php echo $orders[$i]['ID']; ?>)">刪除</button>
@@ -608,10 +608,19 @@
               <?php
                 if($orders[$i]['已結案']==1){
                   echo "<label class='text-info'>"."已結</label>";
-                } else {
-                  echo "<label class='text-danger'>"."未結</label>";
-                }
-              ?>
+                } elseif ($orders[$i]['已結案']==0 && $orders[$i]['二審']==1) {?>
+                    <form method="post" action="edit_order_fields">
+                        <div class="form-group">
+                            <input type="hidden" name="id" value="<?=$orders[$i]['ID']?>">
+                            <input type="hidden" name="action" value="結案">
+                            <input type="hidden" name="fields" value="已結案">
+                            <input type="hidden" name="value" value="1">
+                            <button type="submit">結案</button>
+                        </div>
+                      </form>
+              <?php } else {
+                    echo "<label class='text-danger'>"."未結</label>";
+                }?>
 
               <?php
               //秦不知道成交單狀態要放哪，先放這。
