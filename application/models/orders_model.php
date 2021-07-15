@@ -95,6 +95,22 @@ class Orders_model extends CI_Model {
         }
     }
 
+    public function get_export($employee, $sDate, $eDate){
+        if ($employee == '所有業務'){
+            $employee_condition = " 1=1 ";
+        } else {
+            $employee_condition = "`業務`='".$employee."'";
+        }
+        $sql = "SELECT * FROM `orders` WHERE ".$employee_condition." AND `成交日期` BETWEEN '".$sDate."' AND '".$eDate."'";
+        $query = $this->db->query($sql);
+        if($query->num_rows()>0) {
+            $result = $this->transformer($query);
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     public function get_order_媒合對象($媒合編號) {
         $query = $this->db->get_where('ORDERS', array('媒合' => $媒合編號));
         if($query->num_rows()>0) {
