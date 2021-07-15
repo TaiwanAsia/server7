@@ -22,29 +22,26 @@
             if ($_SESSION['權限名稱']=='最高權限') {
               for ($j=0; $j < count($employees); $j++) {
                 if ($employees[$j]['權限名稱'] == '業務') {
-                  echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                    if ($employees[$j]['NAME'] == $_GET['業務']){
+                        echo "<option value=".$employees[$j]['NAME']." selected='selected'>".$employees[$j]['NAME']."</option>";
+                    } else {
+                        echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                    }
                 }
               }
             } else {
-              echo "<option value=".$_SESSION['NAME'].">".$_SESSION['NAME']."</option>";
+              echo "<option value=".$_SESSION['NAME']." selected='selected'>".$_SESSION['NAME']."</option>";
             }
 
             ?>
           </select>
 
-          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="" onchange="">
-          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="" onchange="">
-          <label id="dateselectorinfo"><?PHP if (isset($_GET['業務'])&&isset($_GET['date1'])&&isset($_GET['date2'])) {
-            echo $_GET['業務']."：".$_GET['date1']."~".$_GET['date2'];
-            echo '<input type="hidden" name="selected_業務" id="" value="'.$_GET['業務'].'">';
-            echo '<input type="hidden" name="selected_datePicker_1" id="" value="'.$_GET['date1'].'">';
-            echo '<input type="hidden" name="selected_datePicker_2" id="" value="'.$_GET['date2'].'">';
-          } elseif(isset($_GET['業務']) && !isset($_GET['date2'])) {
-            echo $_GET['業務'];
-            echo '<input type="hidden" name="selected_業務" id="" value="'.$_GET['業務'].'">';
-          }  ?></label>
-          <button name="" type="button" class="btn btn-sm btn-outline-secondary" onclick="selectByRange2()">篩選</button>
-          <button name="Export" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
+          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="<?=$_GET['date1']?>" onchange="">
+          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="<?=$_GET['date2']?>" onchange="">
+
+          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="selectByRange()">篩選</button>
+          <button name="Export" value="1" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
+            <button type="button" onclick="document.getElementById('datePicker_2').value = ''">清除</button>
         </form>
         <!-- <button class="btn btn-primary">匯出</button> -->
       </div>
@@ -456,7 +453,7 @@
           <td style="min-width: 100px;">
             <?php if($orders[$i]['媒合']==0){ ?>
               <form method="post" action="match">
-                <select id="inputState" name="欲媒合對方ID" class="form-control">
+                <select name="欲媒合對方ID" class="form-control">
                     <option selected value="0">尚無</option>
                     <?php
                     for ($j=0; $j < count($all_orders); $j++) {
@@ -467,7 +464,7 @@
                     ?>
                 </select>
                 <input type="hidden" name="欲媒合自身ID" value="<?php echo $orders[$i]['ID']?>">
-                <button type="submit" id="" name="" class="">確認</button>
+                <button type="submit">確認</button>
               </form>
             <?php } else {
               echo "<u>".$orders[$i]['媒合']."</u>";
@@ -542,7 +539,7 @@
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
                   <div class="form-group">
-                      <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
+                      <input type="file" name="file" class="f-file-s">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit">上傳</button>
                   </div>
@@ -560,7 +557,7 @@
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
                   <div class="form-group">
-                      <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
+                      <input type="file" name="file" class="f-file-s">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit">上傳</button>
                   </div>
@@ -573,7 +570,7 @@
                 if ($orders[$i]['已結案'] == 0) {
                   ?>
                  <td>
-                   <form action="admin_order_end" method="post" id="admin_end">
+                   <form action="admin_order_end" method="post">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit" form="admin_end">結案</button>
                    </form>
@@ -595,7 +592,7 @@
                   <?php  } else {?>
                   <form method="post" action="upload_water" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input type="file" name="file" class="f-file-s" id="exampleFormControlFile1">
+                        <input type="file" name="file" class="f-file-s">
                         <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                         <button type="submit">上傳</button>
                     </div>
@@ -843,21 +840,23 @@
 
         <script>
 
-          // function selectByRange() {
-          //   // alert($("#datePicker_2").val());
-          //   if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
-          //     document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
-          //   }
-          //   document.getElementById("dateselectorinfo").innerHTML = $("#datePicker_1").val()+'~'+$("#datePicker_2").val();
-          // }
+          function selectByRange() {
+              var today = new Date();
+              var dd = String(today.getDate()).padStart(2, '0');
+              var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+              var yyyy = today.getFullYear();
+              today = yyyy + '-' + mm + '-' + dd;
 
-          function selectByRange2() {
-            if ($("#datePicker_1").val() && $("#datePicker_2").val() && $("#業務").val()) {
-              document.location.href = "go_orders?業務=" + $("#業務").val() + "&date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
-            } else if ($("#datePicker_1").val() && $("#datePicker_2").val() && !$("#業務").val()) {
-              document.location.href = "date1=" + $("#datePicker_1").val() + "&date2=" + $("#datePicker_2").val();
+              var sDate = $("#datePicker_1").val() ? $("#datePicker_1").val() : '1970-01-01';
+              var eDate = $("#datePicker_2").val() ? $("#datePicker_2").val() : today;
+              var employee = $("#業務").val()
+
+            if (sDate && eDate && employee) {
+              document.location.href = "go_orders?業務=" + employee + "&date1=" + sDate + "&date2=" + eDate;
+            } else if (sDate && eDate && !employee) {
+              document.location.href = "date1=" + sDate + "&date2=" + eDate;
             } else {
-              document.location.href = "go_orders?業務=" + $("#業務").val();
+              document.location.href = "go_orders?業務=" + employee;
             }
             // document.getElementById("dateselectorinfo").innerHTML = $("#業務").val()+':'+$("#datePicker_1").val()+'~'+$("#datePicker_2").val();
           }
