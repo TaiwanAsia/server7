@@ -176,10 +176,10 @@ class Login extends CI_Controller {
             unset($_SESSION['NAME']);
             unset($_SESSION['趴數']);
             session_destroy();
-            header("refresh:2;url=http://ta.server/server7/login");
+            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login");
             echo "正在加載，請稍等...三秒後自動跳轉至登入頁...";
         } else {
-            header("refresh:2;url=http://ta.server/server7/login");
+            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login");
             echo "正在加載，請稍等...三秒後自動跳轉至登入頁...";
         }
 
