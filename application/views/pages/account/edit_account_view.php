@@ -1,8 +1,9 @@
 <main id="mainSection" role="main">
 		<div id="body">
-		<form action="edit_account" method="POST" name="" style= "display:inline">
+		<form action="edit_employee" method="POST" name="" style= "display:inline">
 
 			<div style="position: absolute; top: 100px; padding-right: 30px ">
+                <input type="hidden" id="errorMsg" value="<?=$msg?>">
 				<table style="">
 					<tr bgcolor="#e4bc7c">
 						<th nowrap="nowrap">編號</th>
@@ -28,7 +29,7 @@
 							<input type="text" name="account" value="<?php echo($data[0]['ACCOUNT']); ?>">
 						</td>
 						<td>
-							<input type="text" name="password" value="">
+							<input type="password" name="password" value="">
 						</td>
 						<td>
 							<select name="權限名稱">
@@ -73,3 +74,13 @@
 
 	</div>
 </main>
+
+<script>
+    $(document).ready(function() {
+        var msg = $('#errorMsg').val();
+        if (msg){
+            alert(msg)
+        }
+    })
+
+</script>
