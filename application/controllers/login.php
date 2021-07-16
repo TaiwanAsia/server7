@@ -18,30 +18,12 @@ class Login extends CI_Controller {
 		$this->load->model('orders_model');
     }
 
-    // public function index()
-    // {
-	// 	$this->load->view('templates/header');
-	// 	$this->load->view('pages/home');
-	// 	$this->load->view('templates/footer');
-	// }
-
 	public function index() {
 		$this->login();
 	}
 
-
 	public function login()
 	{
-		// redirect('http://localhost/server7/index.php/orders/index');
-		// echo "index";
-		// if(isset($_SESSION['ACCOUNT'])){
-		// 	echo $_SESSION['ACCOUNT'];
-		// }
-		// echo $_SESSION['ACCOUNT'];
-		// if (isset($_SESSION['ACCOUNT'])) {
-		// 	echo $_SESSION['ACCOUNT'];
-		// 	redirect('http://localhost/server7/index.php/orders/index');
-		// } else {
 
 			if (isset($_POST['acct'])&&!is_null($_POST['acct'])) {
 				$error_message = '輸入錯誤，再試一次!';
@@ -55,7 +37,6 @@ class Login extends CI_Controller {
 					$_SESSION['健保'] = $flag['健保'];
 					$_SESSION['勞退'] = $flag['勞退'];
 					$authority = $this->login_model->get_authority($_SESSION['權限名稱']);
-
 					$_SESSION['帳號設定權限'] = $authority[0]['帳號設定權限'];
 					$_SESSION['新增權限'] = $authority[0]['新增權限'];
 					$_SESSION['編輯權限'] = $authority[0]['編輯權限'];
@@ -79,7 +60,20 @@ class Login extends CI_Controller {
                     $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
                     $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
 
-					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入', null, null);
+                    if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+                        $cip = $_SERVER["HTTP_CLIENT_IP"];
+                    }
+                    elseif(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
+                        $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+                    }
+                    elseif(!empty($_SERVER["REMOTE_ADDR"])){
+                        $cip = $_SERVER["REMOTE_ADDR"];
+                    }
+                    else{
+                        $cip = "無法取得IP位址！";
+                    }
+
+					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入 '.$cip, null, null);
 
 					$newURL = "orders/go_assign";
 					header('Location: '.$newURL);
