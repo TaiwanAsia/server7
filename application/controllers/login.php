@@ -73,7 +73,7 @@ class Login extends CI_Controller {
                         $cip = "無法取得IP位址！";
                     }
 
-					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入 '.$cip, null, null);
+					$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入 ', $cip, null);
 
 					$newURL = "orders/go_assign";
 					header('Location: '.$newURL);
@@ -171,10 +171,10 @@ class Login extends CI_Controller {
             unset($_SESSION['趴數']);
             session_destroy();
             header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login");
-            echo "正在加載，請稍等...三秒後自動跳轉至登入頁...";
+            echo "<div style='display: flex; flex-direction: row; height: 500px; justify-content: center; align-items: center';><h3 style='letter-spacing:1.5px;'>請稍等...三秒後自動跳轉至登入頁...</h3>";
         } else {
             header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login");
-            echo "正在加載，請稍等...三秒後自動跳轉至登入頁...";
+            echo "<h3>請稍等...三秒後自動跳轉至登入頁...</h3></div>";
         }
 
 	}
