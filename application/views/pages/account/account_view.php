@@ -3,7 +3,7 @@
         <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t t-form-t">
             <h1 class="h2">帳號管理</h1>
             <div style="position: relative;top: 8px;left: 30px;z-index: -100;">
-                <form action="go_add_account" method="POST">
+                <form action="go_add_employee" method="POST">
                     <input type="submit" name="" value="新增">
                 </form>
             </div>
@@ -56,18 +56,15 @@
 							echo "<td>關閉</td>";	
 						}
 						echo '<td>
-							<form action="delete_account" method="POST" name="" style= "display:inline">
-							<input type="hidden" name="account_id" value="'.$data[$i]['ID'].'">
-							<input type="submit" name="" value="刪除">
+							<form action="go_edit_employee" method="GET" style= "display:inline">
+							<input type="hidden" name="employee_id" value="'.$data[$i]['ID'].'">
+							<input type="submit" value="編輯">
 							</form>
-							</td>';
-						echo '<td>
-							<form action="go_edit_account" method="POST" name="" style= "display:inline">
-							<input type="hidden" name="account_id" value="'.$data[$i]['ID'].'">
-							<input type="submit" name="" value="編輯">
-							</form>
-							</td>';
-						echo "</tr>";
+							</td>';?>
+                        <td>
+                            <a href="delete_employee?id=<?=$data[$i]['ID']?>&name=<?=$data[$i]['NAME']?>" onclick="return confirm('確定刪除嗎?');">刪除</a>
+                        </td>
+						<?php echo "</tr>";
 					}
 				}
 				?>

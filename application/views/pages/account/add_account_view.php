@@ -1,8 +1,9 @@
 <main id="mainSection" role="main" style="font-family:微軟正黑體;">
 	<div id="body">
-		<form action="add_account" method="POST" name="" style= "display:inline">
+		<form action="add_employee" method="POST" name="" style= "display:inline">
 
 			<div>
+                <input type="hidden" id="errorMsg" value="<?=$msg?>">
 				<table style="width:100%" border="1">
 					<tr bgcolor="#e4bc7c">
 						<th nowrap="nowrap">名稱</th>
@@ -16,13 +17,13 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="text" name="name" value="">
+							<input type="text" name="name" value="<?php echo set_value('name[]'); ?>">
 						</td>
 						<td>
-							<input type="text" name="account" value="">
+							<input type="text" name="account" value="<?php echo set_value('account[]'); ?>">
 						</td>
 						<td>
-							<input type="text" name="password" value="">
+							<input type="password" name="password" value="">
 						</td>
 						<td>
 							<select name="權限名稱">
@@ -36,16 +37,16 @@
 							</select>
 						</td>
 						<td>
-							<input type="text" name="趴數" value="">
+							<input type="text" name="趴數" value="<?php echo set_value('趴數[]'); ?>">
 						</td>
 						<td>
-							<input type="text" name="勞保" value="">
+							<input type="text" name="勞保" value="<?php echo set_value('勞保[]'); ?>">
 						</td>
 						<td>
-							<input type="text" name="健保" value="">
+							<input type="text" name="健保" value="<?php echo set_value('健保[]'); ?>">
 						</td>
 						<td>
-							<input type="text" name="勞退" value="">
+							<input type="text" name="勞退" value="<?php echo set_value('勞退[]'); ?>">
 						</td>
 						<td>
 							<input type="submit" name="" value="確認">
@@ -58,3 +59,13 @@
 
 	</div>
 </main>
+
+<script>
+    $(document).ready(function() {
+        var msg = $('#errorMsg').val();
+        if (msg){
+            alert(msg)
+        }
+    })
+
+</script>

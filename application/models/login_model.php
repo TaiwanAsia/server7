@@ -4,7 +4,7 @@ class Login_model extends CI_Model {
 
     public function login($acc, $pswd) {
         $acc = $acc;
-        $pswd = $pswd;
+        $pswd = md5(substr(md5($pswd.SECRETBABE), 0, 16));
         $sql = "SELECT * FROM `EMPLOYEE` WHERE `ACCOUNT` = '$acc' AND `PASSWORD` = '$pswd'";
         $query = $this->db->query($sql);
 
@@ -75,27 +75,28 @@ class Login_model extends CI_Model {
         }
 
         //刪除帳號
-        function delete_account($delete_account){
-            $this->db->delete('EMPLOYEE', array('ID' => $delete_account));
+        function delete_employee($id){
+            $this->db->delete('EMPLOYEE', array('ID' => $id));
         }
 
         //增加帳號
         function add_account($data){
-            $this->db->insert('EMPLOYEE',$data);
-            $id = $this->db->insert_id();
-            return $id;
+            $data['PASSWORD'] = md5(substr(md5($data['PASSWORD'].SECRETBABE), 0, 16));
+            $data['趴數'] = empty($data['趴數']) ? '0' : $data['趴數'];
+
+            if ($res = $this->db->insert('EMPLOYEE',$data)){
+                return $this->db->insert_id();
+            } else {
+                return false;
+            }
         }
 
         //編輯帳號
         function edit_account($data) {
+            $data['趴數'] = empty($data['趴數']) ? '0' : $data['趴數'];
             $this->db->where('ID', $data['ID']);
             $this->db->update('EMPLOYEE', $data);
         }
-
-    // public function login_move_record($name,$table,$action){
-    //     $move = array('EMPLOYEE_NAME' => $name, 'MOVE_TABLE' => $table, 'ACTION' => $action, 'ACTION_TIME' => date("Y/m/d H:i:s"));
-    //     $this->db->insert('move_record',$move);
-    // }
 
         //依照權限名稱抓權限
         public function get_authority($data) {
@@ -127,7 +128,6 @@ class Login_model extends CI_Model {
                                 '通知查帳權限'=>$row-> 通知查帳權限,
                                 '剩下資訊權限'=>$row-> 剩下資訊權限,);
                 }
-                // print_r($result);
                 return  $result;
             } else {
                 return flase;
