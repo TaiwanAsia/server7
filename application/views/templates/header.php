@@ -57,7 +57,7 @@
     <form method="get" name="search" action="search" id="search">
     </form>
     <div class="container-fluid">
-        <div class="row" style="flex-wrap: initial">
+        <div class="row" style="flex-wrap: initial; margin: 0">
             <nav class="s-sidebar" style="background-color: #CCCCCC;">
                 <div class="s-sidebar-1">
                     <ul class="nav flex-column" style="font-family:微軟正黑體; font-size: 22px; color: white;" >
@@ -68,7 +68,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="../orders/go_assign" style="color: black;">
-                                公佈欄<span class="sr-only"></span>
+                                新增工單<span class="sr-only"></span>
                             </a>
                         </li>
                         <li class="nav-item">

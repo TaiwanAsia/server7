@@ -1192,7 +1192,10 @@ class Orders_model extends CI_Model {
     }
 
     public function add_assign_reply_model($data) {
-        $this->db->insert('assigns_reply', $data);        
+        $res = $this->db->insert('assigns', $data);
+        if (!$res){
+            var_export($this->db->error());
+        }
     }
 
     public function delete_assign_model($id) {
@@ -1201,12 +1204,16 @@ class Orders_model extends CI_Model {
 
     public function get_assign() {
         if ($_SESSION['權限名稱'] == '最高權限') {
+            $this->db->where('parent_id =', '0');
+            $this->db->order_by("建立時間", "desc");
             $this->db->order_by("建立時間", "desc");
             $query = $this->db->get('assigns');
         } else {
+            $this->db->where('parent_id =', '0');
             $this->db->where('工單對象', $_SESSION['NAME']);
             $this->db->or_where('建立者', $_SESSION['NAME']); 
-            $this->db->order_by("建立時間", "desc"); 
+            $this->db->order_by("建立時間", "desc");
+            $this->db->order_by("建立時間", "desc");
             $query = $this->db->get('assigns');
         }
         if ($query->num_rows() > 0) {
@@ -1216,6 +1223,7 @@ class Orders_model extends CI_Model {
                     '工單屬性'=>$row-> 工單屬性,
                     '工單內容'=>$row-> 工單內容,
                     '等級'   =>$row-> 等級,
+                    'pid' => $row-> parent_id,
                     '建立者'  =>$row-> 建立者,
                     '建立時間'=>$row-> 建立時間,);
             }
@@ -1240,14 +1248,15 @@ class Orders_model extends CI_Model {
     }
 
     public function get_assigns_reply() {
+        $this->db->where('parent_id !=', '0');
         $this->db->order_by("建立時間", "desc");
-        $query = $this->db->get('assigns_reply');
+        $query = $this->db->get('assigns');
         
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                 $result[] = array('ID'=>$row-> ID,
-                        'a_ID'=>$row-> a_ID,
-                        '回覆內容'=>$row-> 回覆內容,
+                        'pid'=>$row-> parent_id,
+                        '工單內容'=>$row-> 工單內容,
                         '建立者'=>$row-> 建立者,
                         '建立時間'=>$row-> 建立時間,);
             }

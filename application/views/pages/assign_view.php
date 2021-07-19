@@ -1,149 +1,98 @@
 
 	<main id="mainSection" role="main" style="font-family:微軟正黑體;">
-		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
-     		<h1 class="h2">公佈欄</h1>
-            <?php
-            if (!empty($msg)){
-                echo "<h3 style='color: #FF0000'>".$msg."</h3><br>";
-            }
-            ?>
-     		<!-- <?php 
-			for ($j=0; $j < count($reply); $i++) { ?>
-				<p>
-					<?php echo $reply[$j]['回覆內容']; ?>
-					<?php echo $reply[$j]['建立者']; ?>
-				</p>
-			<?php } ?> -->
-		</div>
+        <h1 class="h2" style="margin: 10px;">工單</h1>
+        <div class="sec-three sec-s">
+            <form action="add_assign" method="post" id="assign">
+                <div class="sec-content">
+<!--                    <h4></h4>-->
 
-		<div class="t-form">
-			<table id="billboardTable" class="table">
-				<thead class="thead-light">
-					<tr >
-						<th nowrap="nowrap">對象</th>
-						<th nowrap="nowrap">屬性</th>
-						<th nowrap="nowrap" style="width: 100px">附件</th>
-                        <th nowrap="nowrap">等級</th>
-						<th nowrap="nowrap">建立者</th>
-						<th nowrap="nowrap">建立時間</th>
-						<th colspan="3"></th>
+                    <h4>對象</h4>
+                    <ul>
+                        <?php for ($i=0; $i < count($employees); $i++) {
+                            if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='吉翔看單'&&$employees[$i]['NAME']!='KO'&&$employees[$i]['隱藏']==1) { ?>
+                                <li>
+                                    <input type="checkbox" name="工單對象[]" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
+                                </li>
+                            <?php	}
+                        } ?>
+                    </ul>
+                </div>
 
-					</tr>
-				</thead>
-				<tbody>
-					<?php if($data[0]) { for ($i=0; $i < count($data[0]); $i++) { ?>
-					<tr>
+                <div class="sec-content">
+                    <h4>工單屬性</h4>
+                    <ul>
+                        <li>
+                            <label>
+                                <input type="radio" name="工單屬性" value="職務代理">
+                                職務代理
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="工單屬性" value="掛單">
+                                掛單
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="工單屬性" value="網頁修改">
+                                網頁修改
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="工單屬性" value="行政庶務">
+                                行政庶務
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="工單屬性" value="收送過戶">
+                                收送過戶
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="工單屬性" value="公告事項">
+                                公告事項
+                            </label>
+                        </li>
+                    </ul>
+                </div>
 
-						<td>
-							<!-- <?php echo $data[0][$i]['ID']; ?> -->
-							<?php echo '給 <b>'.$data[0][$i]['工單對象'].'</b>'; ?>
-						</td>
-						<td>
-							<?php echo $data[0][$i]['工單屬性']; ?>
-						</td>
-						<td>
-							<div>
-					 			<?php
-					 			$exist = false;
-					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".jpg")) {
-					 				$exist = ".jpg";
-					 			}
-                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".jpeg")) {
-                                    $exist = ".jpeg";
-                                }
-					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".png")) {
-					 				$exist = ".png";
-					 			}
-					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".xls")) {
-					 				$exist = ".xls";
-					 			}
-					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".xlsx")) {
-					 				$exist = ".xlsx";
-					 			}
-					 			if (file_exists("uploads/work/".$data[0][$i]['ID'].".csv")) {
-					 				$exist = ".csv";
-					 			}
-                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".doc")) {
-                                    $exist = ".doc";
-                                }
-                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".docx")) {
-                                    $exist = ".docx";
-                                }
-                                if (file_exists("uploads/work/".$data[0][$i]['ID'].".pdf")) {
-                                    $exist = ".pdf";
-                                }
-					 			if ($exist) { ?>
-                                <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads/work/'.$data[0][$i]['ID'].$exist;?>" target="_blank">附件</a>
-					 			<?php } else { ?>
-                                    <form action="upload_attachment" enctype="multipart/form-data" method="post">
-                                        <input type="file" name="userfile" size="20" />
-                                        <input type="hidden" name="id" value="<?php echo $data[0][$i]['ID']?>">
-                                        <input type="submit" value="上傳" />
-                                    </form>
-				            	<?php } ?>
-					 		</div>
-						</td>
-                        <td>
-                            <?php echo '<b>'.$data[0][$i]['等級'].'</b>'; ?>
-                        </td>
-						<td>
-							<?php echo '從 <b>'.$data[0][$i]['建立者'].'</b>'; ?>
-						</td>
-						<td>
-							<?php echo $data[0][$i]['建立時間']; ?>
-						</td>
-						<!-- <td class="bb-btn">
-							<span class="btn-pl"></span>
-						</td> -->
-						<td>
-							<form method="get" action="delete_assign">
-								<input type="hidden" name="id" value="<?=$data[0][$i]['ID']?>">
-								<button type="submit" class="">刪除</button>
-							</form>
-							
-						</td>
-					</tr>
-					<tr class="ex-t-row">
-						<td colspan="5">
-							<p style="color: #CC0000">
-							<!-- <?php echo $data[0][$i]['工單屬性']; ?> -->
-							<?php echo '從　<b>'.$data[0][$i]['建立者'].'</b>　'.$data[0][$i]['建立時間'].'　　　　　　<b>'.$data[0][$i]['工單內容'].'</b>'; ?>
-							</p>
-						</td>
-						<td class="bb-btn">
-							<span class="btn-pl"></span>
-						</td>
-					</tr>
+                <div class="sec-content">
+                    <h4>等級</h4>
+                    <ul>
+                        <li>
+                            <label>
+                                <input type="radio" name="等級" value="normal">
+                                一般
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="等級" value="important">
+                                重要
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="radio" name="等級" value="urgent">
+                                重要且緊急
+                            </label>
+                        </li>
+                    </ul>
+                </div>
 
-					<tr class="ex-t-row">
+                <h4>工單內容</h4>
+                <div>
+                    <textarea cols="120" rows="5" name="工單內容"></textarea>
+                    <button type="submit" form="assign">送出</button>
+                </div>
 
-						<td colspan="4">
-							<p style="color: #CC0000">
-							<?php				
-							for ($j=0; $j < count($data[1]); $j++) { 
-								if ($data[0][$i]['ID'] == $data[1][$j]['a_ID']) {
-								echo '<p style="color: black;"><br>'.'從　<b>'.$data[1][$j]['建立者'].'</b>　'.$data[1][$j]['建立時間'].'　　　　　　<b>'.$data[1][$j]['回覆內容'].'</b><br>';
-								}
-							}
-							?>
-							</p>
-						</td>
-						<td height="150"  colspan="2">
-							<form method="post" action="assign_reply">
-								<input type="hidden" name="id" value="<?=$data[0][$i]['ID']?>">
-								<textarea name="回覆內容" placeholder="回覆..." class="billtd" rows="8" cols="40"></textarea>
-								
-								<button type="submit">送出</button>
-							</form>
-							
-						</td>
-					</tr>
 
-					<?php } }?>
-					
-				</tbody>
-			</table>
-		</div>
+            </form>
+        </div>
 	</main>
 
 
