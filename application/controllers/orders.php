@@ -2016,8 +2016,9 @@ class Orders extends CI_Controller {
             '工單內容'=>$_POST['工單內容'],
             '等級'=>$_POST['等級'],);
         $data['工單內容'] = str_replace(" ", "<br/>",$data['工單內容']);
-		$this->orders_model->add_assign_model($data);
-		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '建立工單', null, null);
+		$id = $this->orders_model->add_assign_model($data);
+        $str = implode(", ", $id);
+        $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '建立工單', $str, null);
 		$this->index();
 	}
 
@@ -2033,7 +2034,8 @@ class Orders extends CI_Controller {
             '工單內容'=>$_POST['回覆內容'],
             '等級'   =>'',
             '建立者'  =>$_SESSION['NAME']);
-		$this->orders_model->add_assign_reply_model($data);
+		$id = $this->orders_model->add_assign_reply_model($data);
+        $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '回覆工單', $id, null);
 		$this->index();
 	}
 

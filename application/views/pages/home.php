@@ -244,8 +244,7 @@
                 <tr>
 
                     <td>
-                        <!-- <?php echo $assigns[$i]['ID']; ?> -->
-                        <?php echo '給 <b>'.$assigns[$i]['工單對象'].'</b>'; ?>
+                        <?php echo '給 <b>'.$assigns[$i]['工單對象'].'</b> ('.$assigns[$i]['ID'].')'; ?>
                     </td>
                     <td>
                         <?php echo $assigns[$i]['工單屬性']; ?>

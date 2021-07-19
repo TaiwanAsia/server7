@@ -1180,6 +1180,7 @@ class Orders_model extends CI_Model {
     }
 
     public function add_assign_model($data) {
+        $id = [];
         for ($i=0; $i < count($data['工單對象']); $i++) {
             $result = array('工單對象' => $data['工單對象'][$i],
                             '工單屬性' => $_POST['工單屬性'],
@@ -1187,14 +1188,17 @@ class Orders_model extends CI_Model {
                             '建立者' => $_SESSION['NAME'],
                             '建立時間' => date('Y-m-d H:i:s'));
             $this->db->insert('assigns', $result);
-            // echo $data['工單對象'][$i]." ".$_POST['工單屬性']." ".$_POST['工單內容'];
+            $id[] = $this->db->insert_id();
         }
+        return $id;
     }
 
     public function add_assign_reply_model($data) {
         $res = $this->db->insert('assigns', $data);
         if (!$res){
             var_export($this->db->error());
+        } else {
+            return $this->db->insert_id();
         }
     }
 
