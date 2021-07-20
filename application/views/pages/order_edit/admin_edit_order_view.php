@@ -218,47 +218,7 @@
                                     <td><label for="" class="">過戶費</label></td>
                                     <td><input class="" type="text" name="過戶費" id="" value="<?php echo $result[0]['過戶費']; ?>" ></td>
                                 </tr>
-                                
-                                <tr>
-                                    <td></td>
-                                    <td><label for="" class="">媒合</label></td>
-                                    <td><input class="" type="text" name="媒合" id="" value="<?php echo $result[0]['媒合']; ?>" ></td>
-                                    <!-- <input type="hidden" name="媒合" value="<?php echo $result[0]['媒合']; ?>"> -->
-                                </tr>
-                                <!-- <tr>
-                                    <td></td>
-                                    <td><label for="" class="">媒合</label></td>
-                                    <td>
-                                        <select id="inputState" name="媒合" class="form-control">
-                                            <option selected value="0">尚無媒合</option>
-                                            <?php
-                                            for ($i=0; $i < count($all_orders); $i++) {
-                                                if ($result[0]['股票'] == $all_orders[$i]['股票'] && $result[0]['買賣'] != $all_orders[$i]['買賣']) {
-                                                    echo "<option>".$all_orders[$i]['ID']."</option>";
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </td>
-                                    <td><p class="text-info">★請確認所選無誤</p></td>
-                                </tr> -->
-                                <!-- <tr>
-                                    <td></td>
-                                    <td><label for="" class="">匯款日期</label></td>
-                                    <td><input class="" type="date" name="匯款日期" value="<?php echo $result[0]['匯款日期'] ?>" id="date" ></td>
-                                    <td><input type="hidden" id="" value="<?php echo $result[0]['匯款日期'] ?>"></td>
-                                </tr> -->
-<!--                                <tr>-->
-<!--                                    <td></td>-->
-<!--                                    <td><label for="" class="">通知查帳</label></td>-->
-<!--                                    <td><input class="" type="text" name="通知查帳" id="通知查帳日期" value="--><?php //echo $result[0]['通知查帳']; ?><!--" ></td>-->
-<!--                                    <td><button type="button" onclick="gettoday()">今天</button></td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td></td>-->
-<!--                                    <td><label for="" class="">成交單狀態</label></td>-->
-<!--                                    <td><input class="" type="text" name="成交單狀態" id="" value="--><?php //echo $result[0]['成交單狀態']; ?><!--" ></td>-->
-<!--                                </tr>-->
+
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">二審</label></td>

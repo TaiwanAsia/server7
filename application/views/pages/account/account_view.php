@@ -51,7 +51,7 @@
 						echo "<td>".$data[$i]['健保']."</td>";
 						echo "<td>".$data[$i]['勞退']."</td>";
 						if ($data[$i]['隱藏'] == 1) {
-							echo "<td>開啟</td>";						
+							echo "<td style='color: #FF0000'><b>開啟</b></td>";
 						} else {
 							echo "<td>關閉</td>";	
 						}
