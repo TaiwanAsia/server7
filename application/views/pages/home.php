@@ -223,106 +223,141 @@
 		 	</div>
 		</div>
 
-		<div class="sec-three sec-s">
-			<form action="add_assign" method="post" id="assign">
-				<div class="sec-content">
-		 			<h4>工單</h4>
-		 			<p>對象：</p>
-		 			<ul>
-		 				<?php for ($i=0; $i < count($employees); $i++) {
-		 					if ($employees[$i]['NAME']!='盤商'&&$employees[$i]['NAME']!='庫存'&&$employees[$i]['NAME']!='吉翔看單'&&$employees[$i]['NAME']!='KO'&&$employees[$i]['隱藏']==1) { ?>
-		 					<li>
-		 						<input type="checkbox" name="工單對象[]" value="<?php echo $employees[$i]['NAME'] ?>"><?php echo $employees[$i]['NAME'] ?>
-		 					</li>
-		 				<?php	}
-		 				} ?>
-		 			</ul>
-		 		</div>
-
-		 		<div class="sec-content">
-		 			<h4>工單屬性</h4>
-		 			<ul>
-		 				<li>
-		 					<label>
-		 						<input type="radio" name="工單屬性" value="職務代理">
-		 						職務代理
-							</label>
-		 				</li>
-		 				<li>
-		 					<label>
-		 						<input type="radio" name="工單屬性" value="掛單">
-		 						掛單
-							</label>
-		 				</li>
-		 				<li>
-		 					<label>
-		 						<input type="radio" name="工單屬性" value="網頁修改">
-		 						網頁修改
-							</label>
-		 				</li>
-		 				<li>
-		 					<label>
-		 						<input type="radio" name="工單屬性" value="行政庶務">
-		 						行政庶務
-							</label>
-		 				</li>
-		 				<li>
-		 					<label>
-		 						<input type="radio" name="工單屬性" value="收送過戶">
-		 						收送過戶
-							</label>
-						</li>
-						<li>
-							<label>
-		 						<input type="radio" name="工單屬性" value="公告事項">
-		 						公告事項
-							</label>
-		 				</li>
-		 			</ul>
-		 		</div>
-
-		 		<!-- <div class="sec-content">
-		 			<h4>附件</h4>
-                	<input type="file" name="工單附件" class="f-file-s" id="exampleFormControlFile1">
-                    <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
-                    <button type="submit" id="" name="" class="">上傳</button>
-		 		</div> -->
-
-                <div class="sec-content">
-                    <h4>等級</h4>
-                    <ul>
-                        <li>
-                            <label>
-                                <input type="radio" name="等級" value="normal">
-                                一般
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="radio" name="等級" value="important">
-                                重要
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input type="radio" name="等級" value="urgent">
-                                重要且緊急
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-
-		 		<div class="sec-content">
-		 			<h4>工單內容</h4>
-		 			<div class="note-sec">
-						<textarea cols="120" rows="5" name="工單內容"></textarea>
-						<button type="submit" form="assign">送出</button>
-		 			</div>
-		 		</div>
 
 
-			</form>
-	 	</div>
+    <div class="t-form">
+        <table id="billboardTable" class="table">
+            <thead class="thead-light">
+            <tr >
+                <th nowrap="nowrap">對象</th>
+                <th nowrap="nowrap">屬性</th>
+                <th nowrap="nowrap" style="width: 100px">附件</th>
+                <th nowrap="nowrap">等級</th>
+                <th nowrap="nowrap">建立者</th>
+                <th nowrap="nowrap">建立時間</th>
+                <th colspan="3"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($assigns) { for ($i=0; $i < count($assigns); $i++) { ?>
+                <tr>
+
+                    <td>
+                        <?php echo '給 <b>'.$assigns[$i]['工單對象'].'</b> ('.$assigns[$i]['ID'].')'; ?>
+                    </td>
+                    <td>
+                        <?php echo $assigns[$i]['工單屬性']; ?>
+                    </td>
+                    <td>
+                        <div>
+                            <?php
+                            $exist = false;
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".jpg")) {
+                                $exist = ".jpg";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".jpeg")) {
+                                $exist = ".jpeg";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".png")) {
+                                $exist = ".png";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".xls")) {
+                                $exist = ".xls";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".xlsx")) {
+                                $exist = ".xlsx";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".csv")) {
+                                $exist = ".csv";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".doc")) {
+                                $exist = ".doc";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".docx")) {
+                                $exist = ".docx";
+                            }
+                            if (file_exists("uploads/work/".$assigns[$i]['ID'].".pdf")) {
+                                $exist = ".pdf";
+                            }
+                            if ($exist) { ?>
+                                <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads/work/'.$assigns[$i]['ID'].$exist;?>" target="_blank">附件</a>
+                            <?php } else { ?>
+                                <form action="upload_attachment" enctype="multipart/form-data" method="post">
+                                    <input type="file" name="userfile" size="20" />
+                                    <input type="hidden" name="id" value="<?php echo $assigns[$i]['ID']?>">
+                                    <input type="submit" value="上傳" />
+                                </form>
+                            <?php } ?>
+                        </div>
+                    </td>
+                    <td>
+                        <?php echo '<b>'.$assigns[$i]['等級'].'</b>'; ?>
+                    </td>
+                    <td>
+                        <?php echo '<b>'.$assigns[$i]['建立者'].'</b>'; ?>
+                    </td>
+                    <td>
+                        <?php echo $assigns[$i]['建立時間']; ?>
+                    </td>
+                    <td>
+                        <form method="get" action="delete_assign">
+                            <input type="hidden" name="id" value="<?=$assigns[$i]['ID']?>">
+                            <button type="submit" class="">刪除</button>
+                        </form>
+
+                    </td>
+                </tr>
+                <tr class="ex-t-row">
+                    <td colspan="7">
+                        <div style="display: flex;flex-direction: row">
+                            <form method="post" action="assign_reply" id="assign">
+                                <div id="new-reply" style="display: flex; flex-direction: column;">
+                                    <input type="hidden" name="pid" value="<?=$assigns[$i]['ID']?>">
+                                    <input type="hidden" name="toid" value="<?=$assigns[$i]['工單對象']?>">
+                                    <textarea name="回覆內容" placeholder="回覆..." cols="80" rows="5"></textarea>
+                                    <button type="submit" style="align-self: flex-start">送出</button>
+                                </div>
+                            </form>
+                            <div style="margin-left: 255px;">
+                                <div style="word-break: break-all; background-color: honeydew; border-radius: 12px; padding: 5px; margin-bottom: 5px;">
+                                    <?php echo nl2br($assigns[$i]['工單內容'])?>
+                                </div>
+                                <?php foreach ($reply as $k => $v){
+                                    if ($v['pid'] == $assigns[$i]['ID']){?>
+                                    <div style="word-break: break-all; background-color: beige; border-radius: 12px; padding: 5px; margin-bottom: 5px;">
+                                        <?php echo nl2br($v['工單內容'])?>
+                                    </div>
+                                <?php } }?>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+
+                <tr class="ex-t-row">
+
+                    <td colspan="4">
+                        <div style="flex-direction: row">
+                            <?php
+                                for ($j=0; $j < count($assigns); $j++) {
+                                    if ($assigns[$i]['ID'] == $assigns[$j]['a_ID']) {
+                                        echo '<p style="color: black;"><br>'.'從　<b>'.$assigns[$j]['建立者'].'</b>　'.$assigns[$j]['建立時間'].'　　　　　　<b>'.$assigns[$j]['回覆內容'].'</b><br>';
+                                    }
+                                }
+                            ?>
+                        </div>
+                    </td>
+                </tr>
+
+
+            <?php } }?>
+
+            </tbody>
+        </table>
+    </div>
+
 </main>
 
 <style type="text/css">

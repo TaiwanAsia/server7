@@ -44,13 +44,18 @@ class Orders extends CI_Controller {
     	}
     }
 
-    public function index() {
+    public function index($mgs="") {
     	$employees = $this->orders_model->get_employee(null);
     	$need = $this->orders_model->get_need_model(null);
-    	$arrayName = array('need' => $need,
-							'employees' => $employees,);
+        $assigns = $this->orders_model->get_assign();
+        $reply = $this->orders_model->get_assigns_reply();
+
+    	$result = array('need' => $need,
+            'employees' => $employees,
+            'assigns'=>$assigns,
+            'reply'=>$reply);
 		$this->load->view('templates/header');
-		$this->load->view('pages/home', $arrayName);
+		$this->load->view('pages/home', $result);
 		$this->load->view('templates/footer');
     }
 
@@ -865,7 +870,7 @@ class Orders extends CI_Controller {
         } else {
             $msg = $res['error'];
         }
-        $this->go_assign($msg);
+        $this->index($msg);
 	}
 
 	public function upload_contact() {
@@ -1999,37 +2004,39 @@ class Orders extends CI_Controller {
 	}
 
 	public function go_assign($msg="") {
-		$data = array();
-		$data[0] = $this->orders_model->get_assign();
-		$data[1] = $this->orders_model->get_assigns_reply();
+        $employees = $this->orders_model->get_employee(null);
 		$this->load->view('templates/header');
-		$this->load->view('pages/assign_view', array('data'=>$data,'msg'=>$msg));
+		$this->load->view('pages/assign_view', array('employees'=>$employees,'msg'=>$msg));
 		$this->load->view('templates/footer');
 	}
 
 	public function add_assign() {
-		$工單對象 = $_POST['工單對象'];
-		$data = array('工單對象'=>$工單對象,
+		$data = array('工單對象'=>$_POST['工單對象'],
             '工單屬性'=>$_POST['工單屬性'],
             '工單內容'=>$_POST['工單內容'],
             '等級'=>$_POST['等級'],);
-		$this->orders_model->add_assign_model($data);
-		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '建立工單', null, null);
-		$this->go_assign();
+        $data['工單內容'] = str_replace(" ", "<br/>",$data['工單內容']);
+		$id = $this->orders_model->add_assign_model($data);
+        $str = implode(", ", $id);
+        $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '建立工單', $str, null);
+		$this->index();
 	}
 
 	public function delete_assign() {
 		$this->orders_model->delete_assign_model($_GET['id']);
-		$this->go_assign();
+		$this->index();
 	}
 
 	public function assign_reply() {
-		$data = array('a_ID'=>$_POST['id'],
-						'回覆內容'=>$_POST['回覆內容'],
-						'建立者'=>$_SESSION['NAME']);
-		// print_r($data);
-		$this->orders_model->add_assign_reply_model($data);
-		$this->go_assign();
+		$data = array('parent_id'=>$_POST['pid'],
+            '工單對象'=>$_POST['toid'],
+            '工單屬性'=>'',
+            '工單內容'=>$_POST['回覆內容'],
+            '等級'   =>'',
+            '建立者'  =>$_SESSION['NAME']);
+		$id = $this->orders_model->add_assign_reply_model($data);
+        $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '回覆工單', $id, null);
+		$this->index();
 	}
 
 	public function turn_passrecord() {
