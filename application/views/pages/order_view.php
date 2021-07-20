@@ -3,52 +3,40 @@
      <h1 class="h2">成交單</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
        <div class="btn-group mr-2">
-        <!-- <button class="btn btn-sm btn-outline-secondary" id="new_order">新增成交單</button> -->
-        <!-- <button class="btn btn-sm btn-outline-secondary">所有</button> -->
-        <div class="btn-group-s">
-        <a href="../orders/go_orders" class="btn btn-sm btn-outline-secondary">所有</a>
-        <a href="../orders/go_inventory" class="btn btn-sm btn-outline-secondary">庫存</a>
-        <a href="../orders/go_ko" class="btn btn-sm btn-outline-secondary">KO</a>
-        <?php if ($_SESSION['新增權限'] == '1') {
-          if ($_SESSION['權限名稱'] == '最高權限') { ?>
-             <a href="../orders/admin_new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
-          <?php } }?>
+        <div class="btn-group-s" style="margin-right: 50px; align-self: center;">
+            <a href="../orders/go_orders" class="btn btn-sm btn-outline-secondary">所有</a>
+            <a href="../orders/go_inventory" class="btn btn-sm btn-outline-secondary">庫存</a>
+            <a href="../orders/go_ko" class="btn btn-sm btn-outline-secondary">KO</a>
+            <a href="../orders/new_order" class="btn btn-sm btn-outline-secondary">新增成交單</a>
         </div>
-        <a href="../orders/new_order_choose" class="btn btn-sm btn-outline-secondary">直接新增成交單</a>
-        <form action="export" method="post">
-          <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" onchange="">
-            <?php
-            echo "<option value=所有業務>所有業務</option>";
-            if ($_SESSION['權限名稱']=='最高權限') {
-              for ($j=0; $j < count($employees); $j++) {
-                if ($employees[$j]['權限名稱'] == '業務') {
-                    if ($employees[$j]['NAME'] == $_GET['業務']){
-                        echo "<option value=".$employees[$j]['NAME']." selected='selected'>".$employees[$j]['NAME']."</option>";
+
+        <div class="btn-group-s" style="align-self: center;">
+            <form action="export" method="post">
+                <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" onchange="">
+                    <?php
+                    echo "<option value=所有業務>所有業務</option>";
+                    if ($_SESSION['權限名稱']=='最高權限') {
+                        for ($j=0; $j < count($employees); $j++) {
+                            if ($employees[$j]['權限名稱'] == '業務') {
+                                if ($employees[$j]['NAME'] == $_GET['業務']){
+                                    echo "<option value=".$employees[$j]['NAME']." selected='selected'>".$employees[$j]['NAME']."</option>";
+                                } else {
+                                    echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                                }
+                            }
+                        }
                     } else {
-                        echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
-                    }
-                }
-              }
-            } else {
-              echo "<option value=".$_SESSION['NAME']." selected='selected'>".$_SESSION['NAME']."</option>";
-            }
-
-            ?>
-          </select>
-
-          <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="<?=$_GET['date1']?>" onchange="">
-          <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="<?=$_GET['date2']?>" onchange="">
-
-          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="selectByRange()">篩選</button>
-          <button name="Export" value="1" type="submit" class="btn btn-sm btn-outline-secondary">匯出</button>
-            <button type="button" onclick="document.getElementById('datePicker_2').value = ''">清除</button>
-        </form>
-        <!-- <button class="btn btn-primary">匯出</button> -->
+                        echo "<option value=".$_SESSION['NAME']." selected='selected'>".$_SESSION['NAME']."</option>";
+                    } ?>
+                </select>
+                <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="date1" type="date" value="<?=$_GET['date1']?>" onchange="">
+                <input id="datePicker_2" class="btn btn-sm btn-outline-secondary" name="date2" type="date" value="<?=$_GET['date2']?>" onchange="">
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="selectByRange()">篩選</button>
+                <button name="Export" class="btn btn-sm btn-outline-secondary" value="1" type="submit">匯出</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('datePicker_2').value = ''">清除</button>
+            </form>
+        </div>
       </div>
-      <!-- <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-        <span data-feather="calendar"></span>
-        This week
-      </button>-->
     </div>
   </div>
 

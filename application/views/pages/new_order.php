@@ -1,30 +1,24 @@
  <main id="mainSection" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-  <div>
+  <div style="margin: 40px 0px 50px 30px;">
    <form method="post" name="new_order_info" action="add_order" >
-    <div class="offset-md-1">
-        <?php //print_r($add_quene); ?>
-        <?php //echo "<br>";print_r($媒合對象) ?>
-        <input type="hidden" name="add_quene編號" value="<?php echo($add_quene['id']) ?>">
+    <div class="">
      <table>
         <tr>
             <td class="text-danger"><p><b>☝紅色為必填欄位　　</b></p></td>
             <td><label for="" class="text-danger">成交日期</label></td>
-            <td><input class="" type="date" id="成交日期" name="成交日期" value="<?php echo($add_quene['成交日期']) ?>" id="date" required></td>
+            <td><input class="" type="date" id="成交日期" name="成交日期" id="date" required></td>
             <td><button type="button" onclick="gettoday()">今天</button></td>
         </tr>
         <tr>
-            <td>
-                <input type="hidden" name="媒合" value="<?php echo($add_quene['媒合編號']) ?>">
-                <input type="hidden" name="主要" value="<?php echo($add_quene['主要']) ?>">
-            </td>
+            <td></td>
             <td><label for="" class="">業務</label></td>
             <td><input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id=""></td>
-        </td>
+        </tr>
         <tr>
             <td><p id="createResult"></p></td>
             <td><label for="" class="text-danger">客戶姓名</label></td>
             <td><input class="" type="text" name="客戶姓名" value="" id="customer_name" required></td>
-            <td><button type="button" id="import_customer">匯入</button></td>
+<!--            <td><button type="button" id="import_customer">匯入</button></td>-->
         </tr>
         <tr>
             <td></td>
@@ -57,28 +51,23 @@
             <td></td>
             <td><label for="" class="text-danger">買賣</label></td>
             <td>
-                <input type="radio" name="買賣" value="1" checked readonly="">
+                <input type="radio" name="買賣" value="1" checked>
                 <label class="text-danger"><b>買</b></label>
-                <input type="radio" name="買賣" value="0" readonly="" <?php if($add_quene['買賣']==0) {echo "checked";} ?>>
+                <input type="radio" name="買賣" value="0">
                 <label class="text-primary"><b>賣</b></label>
             </td>
         </tr>
         <tr>
             <td></td>
             <td><label for="" class="text-danger">股票</label></td>
-            <td><input readonly="" class="" type="text" name="股票" value="<?php echo($add_quene['股票名稱']) ?>" id="股票" required></td>
-            <td><p class="text-danger"><b>***名稱必須與本公司網站的該公司名稱一樣***</b></p></td>
-            <td><a href="http://www.kcc668.com/">本公司網站</a></td>
+            <td><input class="" type="text" name="股票" id="股票" required></td>
+            <td><span class="text-danger"><b>***名稱必須與本公司網站的該公司名稱一樣***</b></span> >> <a href="http://www.kcc668.com/">點此進入本公司網站</a></td>
+            <td></td>
         </tr>
         <tr>
             <td></td>
             <td><label for="" class="text-danger">張數</label></td>
-            <td><input readonly="" class="" type="text" name="張數" value="<?php echo($add_quene['張數']) ?>" id="張數" required></td>
-            <!-- <?php if($add_quene['買賣']==0) { ?>
-                <td><input class="" type="text" name="張數" value="<?php echo($add_quene['賣張數']) ?>" id="張數" required></td>
-            <?php } else { ?>
-                <td><input class="" type="text" name="張數" value="" id="張數" required></td>
-            <?php } ?> -->
+            <td><input class="" type="text" name="張數" id="張數" required></td>
             <td><p class="text-info">★低於1000股 / 張，請再新增零股部分成交單</p></td>
         </tr>
         <tr>
@@ -118,7 +107,7 @@
             <td></td>
             <td><label for="" class="text-danger">匯款日期</label></td>
             <td><input class="" type="date" id="匯款日期" name="匯款日期" value="" id=""></td>
-            <td><button type="button" onclick="getdealdate()">同成交日期</button></td>
+<!--            <td><button type="button" onclick="getdealdate()">同成交日期</button></td>-->
         </tr>
         <tr>
             <td></td>
@@ -147,16 +136,8 @@
                 <select id="轉讓會員" name="轉讓會員" class="form-control" required onchange="myFunction()">
                     <option value="null">-請選擇-</option>
                     <?php
-                    if ($add_quene['主要']==2) {
-                        for ($j=1; $j < count($employees); $j++) {
-                            if ($employees[$j]['NAME'] == '庫存') {
-                                echo "<option value=".$employees[$j]['NAME']." selected>".$employees[$j]['NAME']."</option>";
-                            }
-                        }
-                    } else {
-                        for ($j=1; $j < count($employees); $j++) {
-                            echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
-                        }
+                    foreach ($employees as $k => $v){
+                        echo "<option value=".$v['NAME'].">".$v['NAME']."</option>";
                     }
                     ?>
                 </select>
@@ -170,8 +151,8 @@
                 <select id="轉讓會員2" name="轉讓會員2" class="form-control" required onchange="myFunction()">
                     <option value="null">-複數轉讓請選擇-</option>
                     <?php
-                    for ($j=1; $j < count($employees); $j++) {
-                        echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+                    foreach ($employees as $k => $v){
+                        echo "<option value=".$v['NAME'].">".$v['NAME']."</option>";
                     }
                     ?>
                 </select>
@@ -200,8 +181,8 @@
         </tr>
         <tr>
             <td></td>
-            <td><label for="" class="">自行應付</label></td>
-            <td><input class="" readonly="" type="text" name="自行應付" value="" id="自行應付"></td>
+            <td><label>自行應付</label></td>
+            <td><input type="text" name="自行應付" value="" id="自行應付"></td>
             <td><p class="text-danger"><b>★由業務全額支付</b></p></td>
         </tr>
         <tr>
@@ -236,18 +217,15 @@
             <td></td>
             <td><label for="noteField">備註</label></td>
             <td colspan="2">
-                <?php if ($add_quene['主要']==1) { ?>
                 <textarea rows="4" cols="70" name="備註" id="noteField">主要</textarea>
-                <?php } else { ?>
-                <textarea rows="4" cols="70" name="備註" id="noteField"></textarea>
-                <?php } ?>
+                <textarea rows="4" cols="70" name="備註" ></textarea>
             </td>
         </tr>
         <tr></tr>
         <tr>
             <td></td>
-            <td></td>
             <td><button type="submit">送出</button></td>
+            <td></td>
         </tr>
        </table>
      </div>

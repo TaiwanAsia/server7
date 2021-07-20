@@ -56,7 +56,7 @@
  </header>
     <form method="get" name="search" action="search" id="search">
     </form>
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding-left: 0;padding-right: 0">
         <div class="row" style="flex-wrap: initial; margin: 0">
             <nav class="s-sidebar" style="background-color: #CCCCCC;">
                 <div class="s-sidebar-1">

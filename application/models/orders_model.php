@@ -567,7 +567,10 @@ class Orders_model extends CI_Model {
         $this->db->update('orders', $data2);
     }
 
-    public function get_employee($keyword=null) {
+    public function get_employee($keyword=null, $hidden=true) {
+        if ($hidden){
+            $this->db->where('隱藏', 0);
+        }
         if (is_null($keyword)) {
             $query = $this->db->get('EMPLOYEE');
         } else {
@@ -575,6 +578,7 @@ class Orders_model extends CI_Model {
             $this->db->or_where('權限名稱', $keyword);
             $query = $this->db->get('EMPLOYEE');
         }
+
         if($query->result()!=null){
             foreach ($query->result() as $row) {
                 $result[] = array('ID'=>$row-> ID,

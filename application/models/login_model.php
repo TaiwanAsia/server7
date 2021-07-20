@@ -5,7 +5,7 @@ class Login_model extends CI_Model {
     public function login($acc, $pswd) {
         $acc = $acc;
         $pswd = md5(substr(md5($pswd.SECRETBABE), 0, 16));
-        $sql = "SELECT * FROM `EMPLOYEE` WHERE `ACCOUNT` = '$acc' AND `PASSWORD` = '$pswd'";
+        $sql = "SELECT * FROM `EMPLOYEE` WHERE `ACCOUNT` = '$acc' AND `PASSWORD` = '$pswd' AND `隱藏` = 0";
         $query = $this->db->query($sql);
 
         if ($query->num_rows() == 1) {
