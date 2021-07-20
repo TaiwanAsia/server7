@@ -952,9 +952,9 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/header');
 		if ($_SESSION['權限名稱']=='最高權限') {
             $all_orders = $this->orders_model->get(null,$_SESSION['權限名稱'],$_SESSION['NAME']);
-            $this->load->view('pages/order_edit/admin_edit_order_view',array('result' => $result,'employees' => $employees,'all_orders' => $all_orders,));
+            $this->load->view('pages/order_edit/admin_edit_order_view',array('result' => $result[0],'employees' => $employees,'all_orders' => $all_orders,));
 		} else {
-			$this->load->view('pages/order_edit/edit_order_view',array('result' => $result,'employees' => $employees,));
+			$this->load->view('pages/order_edit/edit_order_view',array('result' => $result[0],'employees' => $employees,));
 		}
 		$this->load->view('templates/footer');
 	}
