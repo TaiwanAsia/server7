@@ -183,7 +183,7 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('name', '用戶名', 'required');
         $this->form_validation->set_rules('account', '帳號', 'required');
         $this->form_validation->set_rules('權限名稱', '權限名稱', 'required');
-        $this->form_validation->set_rules('趴數', '趴數', 'required|greater_than[0]', array('greater_than'=>'趴數需大於0'));
+        $this->form_validation->set_rules('趴數', '趴數', 'required|greater_than_equal_to[0]', array('greater_than'=>'趴數不可為負數'));
 
         if ($this->form_validation->run() == FALSE){
             $msg = validation_errors();
