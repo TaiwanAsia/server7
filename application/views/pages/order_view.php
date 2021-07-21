@@ -104,7 +104,7 @@
               <?php } ?>
           </td>
         <td>
-          <?php if ($_SESSION['編輯權限']==1) { ?>
+          <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
           <form method="GET" action="go_edit">
             <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
             <button type="submit">修改</button>

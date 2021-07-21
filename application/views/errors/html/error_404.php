@@ -65,9 +65,11 @@ a {
 		<h1><?php echo $heading; ?></h1>
 <!--		<p>--><?php //echo $message; ?><!--</p>-->
         <?php if (isset($_SESSION['NAME'])){
-            echo '<a href="../orders/">點此回首頁</a>';
+            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/orders/index");
+            echo "<div style='display: flex; flex-direction: row; height: 500px; justify-content: center; align-items: center';><h3 style='letter-spacing:1.5px;'>無此頁面...三秒後自動跳轉至首頁...</h3>";
         } else {
-            echo '<a href="../server7/login">點此回首頁</a>';
+            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/orders/index");
+            echo "<div style='display: flex; flex-direction: row; height: 500px; justify-content: center; align-items: center';><h3 style='letter-spacing:1.5px;'>無此頁面...三秒後自動跳轉至首頁...</h3>";
         }?>
 	</div>
 </body>

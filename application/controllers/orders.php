@@ -899,11 +899,15 @@ class Orders extends CI_Controller {
 
 	//修改成交單資料
 	public function go_edit() {
-		$result = $this -> orders_model -> get($_GET['id'],null,$_SESSION['NAME']);
-		$employees = $this->orders_model->get_employee(null);
-		$this->load->view('templates/header');
-		$this->load->view('pages/order_edit/edit_order_view',array('result' => $result[0],'employees' => $employees,));
-		$this->load->view('templates/footer');
+	    if ($_SESSION['權限名稱'] != '最高權限'){
+            $this->go_orders();
+        } else {
+            $result = $this->orders_model->get($_GET['id'], null, $_SESSION['NAME']);
+            $employees = $this->orders_model->get_employee(null);
+            $this->load->view('templates/header');
+            $this->load->view('pages/order_edit/edit_order_view', array('result' => $result[0], 'employees' => $employees,));
+            $this->load->view('templates/footer');
+        }
 	}
 
     /**
