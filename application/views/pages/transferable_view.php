@@ -189,10 +189,10 @@
                             </form>
                     <?php
                         } elseif ($orders[$i]['通知查帳']=='待對帳') { ?>
-                            <img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40">
+                            <img src="<?php echo base_url(); ?>uploads/static/待對帳.png" width="80" height="40">
                     <?php
                         } elseif ($orders[$i]['通知查帳']=='待確認') { ?>
-                            <p>sss</p><img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40">
+                            <p>sss</p><img src="<?php echo base_url(); ?>uploads/static/待確認.png" width="80" height="40">
                     <?php
                         } else { ?>
                             <label><b><?php echo $orders[$i]['通知查帳']; ?></b></label>
