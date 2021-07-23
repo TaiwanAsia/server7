@@ -311,7 +311,7 @@
                 <tr class="ex-t-row">
                     <td colspan="7">
                         <div style="display: flex;flex-direction: row">
-                            <form method="post" action="assign_reply" id="assign">
+                            <form method="post" action="assign_reply">
                                 <div id="new-reply" style="display: flex; flex-direction: column;">
                                     <input type="hidden" name="pid" value="<?=$assigns[$i]['ID']?>">
                                     <input type="hidden" name="toid" value="<?=$assigns[$i]['工單對象']?>">
@@ -319,36 +319,36 @@
                                     <button type="submit" style="align-self: flex-start">送出</button>
                                 </div>
                             </form>
-                            <div id="replies" style="margin-left: 70px; display: flex; flex-direction: row;">
+                            <div id="replies" style="margin-left: 70px; display: flex; flex-direction: row; white-space: normal;">
                                 <div>
-                                    <div style="word-break: break-all; background-color: honeydew; border-radius: 12px; padding: 5px; margin-bottom: 5px;">
+                                    <div class="dynamic-height" id="<?='content'.$assigns[$i]['ID']?>" style="word-break: break-all; background-color: honeydew; border-radius: 12px; padding: 5px; margin-bottom: 5px; width: 700px;">
                                         <?php echo nl2br($assigns[$i]['工單內容'])?>
                                     </div>
                                     <?php foreach ($reply as $k => $v){
                                         if ($v['pid'] == $assigns[$i]['ID']){?>
-                                            <div style="word-break: break-all; background-color: beige; border-radius: 12px; padding: 5px; margin-bottom: 5px; word-wrap: break-word">
+                                            <div class="dynamic-height" id="<?='content'.$v['ID']?>" style="word-break: break-all; background-color: beige; border-radius: 12px; padding: 5px; margin-bottom: 5px; width: 700px;">
                                                 <?php echo nl2br($v['工單內容'])?>
                                             </div>
                                         <?php } }?>
                                 </div>
                                 <div>
-                                    <div style="padding: 5px; margin-bottom: 5px;">
+                                    <div id="<?='author'.$assigns[$i]['ID']?>" style="padding: 5px; margin-bottom: 5px;">
                                         <?php echo nl2br($assigns[$i]['建立者'])?>
                                     </div>
                                     <?php foreach ($reply as $k => $v){
                                         if ($v['pid'] == $assigns[$i]['ID']){?>
-                                            <div style="padding: 5px; margin-bottom: 5px;">
+                                            <div id="<?='author'.$v['ID']?>" style="padding: 5px; margin-bottom: 5px;">
                                                 <?php echo nl2br($v['建立者'])?>
                                             </div>
                                         <?php } }?>
                                 </div>
                                 <div>
-                                    <div style="padding: 5px; margin-bottom: 5px; margin-left: 25px;">
+                                    <div id="<?='created'.$assigns[$i]['ID']?>" style="padding: 5px; margin-bottom: 5px; margin-left: 25px;">
                                         <?php echo nl2br($assigns[$i]['建立時間'])?>
                                     </div>
                                     <?php foreach ($reply as $k => $v){
                                         if ($v['pid'] == $assigns[$i]['ID']){?>
-                                            <div style="padding: 5px; margin-bottom: 5px; margin-left: 25px;">
+                                            <div id="<?='created'.$v['ID']?>" style="padding: 5px; margin-bottom: 5px; margin-left: 25px;">
                                                 <?php echo nl2br($v['建立時間'])?>
                                             </div>
                                         <?php } }?>
@@ -373,3 +373,18 @@
 		background-color: yellow;
 	}
 </style>
+
+<script type="text/javascript">
+    /*
+    [建立者]、[建立時間]對齊[工單內容]的高度
+     */
+    jQuery(document).ready(function($){ //wait for the document to load
+        $('.dynamic-height').each(function(){ //loop through each element with the .dynamic-height class
+            var ids  = this.id;
+            var nums = ids.substring(7);
+            var h = $(this).height();
+            $("#author"+nums).height(h);
+            $("#created"+nums).height(h);
+        });
+    });
+</script>
