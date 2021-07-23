@@ -319,34 +319,42 @@
                                     <button type="submit" style="align-self: flex-start">送出</button>
                                 </div>
                             </form>
-                            <div style="margin-left: 255px;">
-                                <div style="word-break: break-all; background-color: honeydew; border-radius: 12px; padding: 5px; margin-bottom: 5px;">
-                                    <?php echo nl2br($assigns[$i]['工單內容'])?>
-                                </div>
-                                <?php foreach ($reply as $k => $v){
-                                    if ($v['pid'] == $assigns[$i]['ID']){?>
-                                    <div style="word-break: break-all; background-color: beige; border-radius: 12px; padding: 5px; margin-bottom: 5px;">
-                                        <?php echo nl2br($v['工單內容'])?>
+                            <div id="replies" style="margin-left: 70px; display: flex; flex-direction: row;">
+                                <div>
+                                    <div style="word-break: break-all; background-color: honeydew; border-radius: 12px; padding: 5px; margin-bottom: 5px;">
+                                        <?php echo nl2br($assigns[$i]['工單內容'])?>
                                     </div>
-                                <?php } }?>
+                                    <?php foreach ($reply as $k => $v){
+                                        if ($v['pid'] == $assigns[$i]['ID']){?>
+                                            <div style="word-break: break-all; background-color: beige; border-radius: 12px; padding: 5px; margin-bottom: 5px; word-wrap: break-word">
+                                                <?php echo nl2br($v['工單內容'])?>
+                                            </div>
+                                        <?php } }?>
+                                </div>
+                                <div>
+                                    <div style="padding: 5px; margin-bottom: 5px;">
+                                        <?php echo nl2br($assigns[$i]['建立者'])?>
+                                    </div>
+                                    <?php foreach ($reply as $k => $v){
+                                        if ($v['pid'] == $assigns[$i]['ID']){?>
+                                            <div style="padding: 5px; margin-bottom: 5px;">
+                                                <?php echo nl2br($v['建立者'])?>
+                                            </div>
+                                        <?php } }?>
+                                </div>
+                                <div>
+                                    <div style="padding: 5px; margin-bottom: 5px; margin-left: 25px;">
+                                        <?php echo nl2br($assigns[$i]['建立時間'])?>
+                                    </div>
+                                    <?php foreach ($reply as $k => $v){
+                                        if ($v['pid'] == $assigns[$i]['ID']){?>
+                                            <div style="padding: 5px; margin-bottom: 5px; margin-left: 25px;">
+                                                <?php echo nl2br($v['建立時間'])?>
+                                            </div>
+                                        <?php } }?>
+                                </div>
                             </div>
 
-                        </div>
-                    </td>
-
-                </tr>
-
-                <tr class="ex-t-row">
-
-                    <td colspan="4">
-                        <div style="flex-direction: row">
-                            <?php
-                                for ($j=0; $j < count($assigns); $j++) {
-                                    if ($assigns[$i]['ID'] == $assigns[$j]['a_ID']) {
-                                        echo '<p style="color: black;"><br>'.'從　<b>'.$assigns[$j]['建立者'].'</b>　'.$assigns[$j]['建立時間'].'　　　　　　<b>'.$assigns[$j]['回覆內容'].'</b><br>';
-                                    }
-                                }
-                            ?>
                         </div>
                     </td>
                 </tr>

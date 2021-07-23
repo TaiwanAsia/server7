@@ -217,7 +217,7 @@
             <td></td>
             <td><label for="noteField">備註</label></td>
             <td colspan="2">
-                <textarea rows="4" cols="70" name="備註" id="noteField">主要</textarea>
+                <textarea rows="4" cols="70" name="備註" id="noteField"></textarea>
                 <textarea rows="4" cols="70" name="備註" ></textarea>
             </td>
         </tr>

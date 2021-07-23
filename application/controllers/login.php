@@ -94,6 +94,12 @@ class Login extends CI_Controller {
     //進入帳號設定
 	public function account() {
 		$data = $this->login_model->show_account(null);//撈資料
+        foreach ($data as $k => $v){
+            if (in_array($v['NAME'],array('庫存','盤商','KO'))){
+                unset($data[$k]);
+            }
+        }
+        $data = array_values($data);
 		$this->load->view('templates/header');
 		$this->load->view('pages/account/account_view', array('data' => $data,));
 	}
