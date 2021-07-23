@@ -55,9 +55,9 @@
               <?php
               echo "<td>";
               if ($data[$i]['查帳狀態']=='待對帳') { ?>
-                <img src="<?php echo base_url(); ?>static/待對帳.png" width="80" height="40">
+                <img src="<?php echo base_url(); ?>uploads/static/待對帳.png" width="80" height="40">
               <?php } elseif ($data[$i]['查帳狀態']=='待確認') { ?>
-                <img src="<?php echo base_url(); ?>static/待確認.png" width="80" height="40">
+                <img src="<?php echo base_url(); ?>uploads/static/待確認.png" width="80" height="40">
               <?php }
               echo "</td>"; ?>
   						<td>

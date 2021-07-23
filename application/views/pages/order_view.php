@@ -495,7 +495,7 @@
                     ?>
                     <form method="get" action="salesman_check_money">
                       <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
-                      <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="../../static/待對帳.png" width="80" height="40"></a>
+                      <a href="salesman_check_money?ID=<?php echo $orders[$i]['ID']; ?>"><img src="/server7/uploads/static/待對帳.png" width="80" height="40"></a>
                     </form>
                     <?php } else {}
                       ?>
