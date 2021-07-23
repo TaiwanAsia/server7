@@ -483,7 +483,7 @@
                   //業務尚未點通知查帳 ?>
                     <form method="get" action="salesman_check_money">
                       <input type="hidden" name="ID" value="<?php echo $orders[$i]['ID']; ?>">
-                      <button type="submit">未通知</button>
+                      <button type="submit" class="btn btn-info">未通知</button>
                     </form>
 
               <?php
@@ -522,7 +522,7 @@
                     <form action="document_download" method="POST">
                         <input type="hidden" name="filename" value="<?php echo $orders[$i]['contact']; ?>">
                         <input type="hidden" name="type" value="contact">
-                        <button type="submit">下載</button>
+                        <button type="submit" class="btn btn-link">下載</button>
                     </form>
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
@@ -540,7 +540,7 @@
                     <form action="document_download" method="POST">
                         <input type="hidden" name="filename" value="<?php echo $orders[$i]['tax']; ?>">
                         <input type="hidden" name="type" value="tax">
-                        <button type="submit">下載</button>
+                        <button type="submit" class="btn btn-link">下載</button>
                     </form>
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
@@ -575,7 +575,7 @@
                       <form action="document_download" method="POST">
                           <input type="hidden" name="filename" value="<?php echo $orders[$i]['water']; ?>">
                           <input type="hidden" name="type" value="water">
-                          <button type="submit">下載</button>
+                          <button type="submit" class="btn btn-link">下載</button>
                       </form>
                   <?php  } else {?>
                   <form method="post" action="upload_water" enctype="multipart/form-data">
