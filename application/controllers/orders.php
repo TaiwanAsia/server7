@@ -8,6 +8,22 @@ class Orders extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+
+        $newURL = "../login/logout";
+        if(isset($_SESSION['expiretime'])) {
+            if($_SESSION['expiretime'] < time()){
+                header('Location: '.$newURL);
+                $_SESSION['expiretime'] = time() + 3600; // 給予時間戳
+            } else {
+                $_SESSION['expiretime'] = time() + 3600; // 刷新時間戳
+            }
+        }
+        if (!isset($_SESSION['NAME'])){
+            $newURL = "../login/index";
+            header('Location: '.$newURL);
+            $_SESSION['expiretime'] = time() + 3600; // 給予時間戳
+        }
+
 		date_default_timezone_set('Asia/Taipei');
 		$this->load->helper(array('form', 'url', 'array'));
 		$this->load->library('form_validation');
@@ -1898,14 +1914,6 @@ class Orders extends CI_Controller {
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改轉讓紀錄', $arrayName['ID'], '將'.$_POST['type'].'改為=>'.$arrayName[$_POST['type']]);
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);
-	}
-
-	public function passrecord_before0701() {
-		$data = $this->orders_model->get_pass_record_before0701();
-		// print_r($data);
-		$this->load->view('templates/header');
-		$this->load->view('pages/money/passrecord_view_before0701', array('data'=>$data));
-		$this->load->view('templates/footer');
 	}
 
 	public function add_need() {

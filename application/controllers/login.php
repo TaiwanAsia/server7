@@ -9,6 +9,19 @@ class Login extends CI_Controller {
     {
         parent::__construct();
 
+        $newURL = "../login/index";
+        if(isset($_SESSION['expiretime'])) {
+            if($_SESSION['expiretime'] < time()){
+                header('Location: '.$newURL);
+                $_SESSION['expiretime'] = time() + 3600; // 給予時間戳
+            } else {
+                $_SESSION['expiretime'] = time() + 3600; // 刷新時間戳
+            }
+        } else {
+            header('Location: '.$newURL);
+            $_SESSION['expiretime'] = time() + 3600; // 給予時間戳
+        }
+
         date_default_timezone_set('Asia/Taipei');
         $this->load->helper('url');
 		$this->load->helper('form');
@@ -24,11 +37,6 @@ class Login extends CI_Controller {
 
 	public function login()
 	{
-	    if (!empty($_SESSION['ACCOUNT'])){
-            $newURL = "../orders/go_assign";
-            header('Location: '.$newURL);
-            die;
-        }
 
         if (isset($_POST['acct'])&&!is_null($_POST['acct'])) {
             $error_message = '輸入錯誤，再試一次!';
@@ -65,6 +73,8 @@ class Login extends CI_Controller {
                 $_SESSION['通知查帳權限'] = $authority[0]['通知查帳權限'];
                 $_SESSION['剩下資訊權限'] = $authority[0]['剩下資訊權限'];
 
+                $_SESSION['expiretime'] = time() + 3600;
+
                 if(!empty($_SERVER["HTTP_CLIENT_IP"])){
                     $cip = $_SERVER["HTTP_CLIENT_IP"];
                 }
@@ -80,7 +90,7 @@ class Login extends CI_Controller {
 
                 $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入 ', $cip, null);
 
-                $newURL = "orders/go_assign";
+                $newURL = "../orders/go_assign";
                 header('Location: '.$newURL);
             } else {
                 $this->load->view('pages/login_view',array('error_message' => $error_message));
@@ -209,11 +219,12 @@ class Login extends CI_Controller {
             unset($_SESSION['權限名稱']);
             unset($_SESSION['NAME']);
             unset($_SESSION['趴數']);
+            unset($_SESSION['expiretime']);
             session_destroy();
-            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login");
+            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login/");
             echo "<div style='display: flex; flex-direction: row; height: 500px; justify-content: center; align-items: center';><h3 style='letter-spacing:1.5px;'>請稍等...三秒後自動跳轉至登入頁...</h3>";
         } else {
-            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login");
+            header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/login/");
             echo "<h3>請稍等...三秒後自動跳轉至登入頁...</h3></div>";
         }
 
