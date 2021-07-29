@@ -52,14 +52,14 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."orders/checkbillout?業務=".$orders[$i]['業務'];
+                        echo "../orders/checkbillout?業務=".$orders[$i]['業務'];
                         ?>'"
                         title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>                      
                     </td>
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."orders/checkbillout?客戶姓名=".$orders[$i]['客戶姓名'];
+                        echo "../orders/checkbillout?客戶姓名=".$orders[$i]['客戶姓名'];
                         ?>'"
                         title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
@@ -67,7 +67,7 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."orders/checkbillout?股票=".$orders[$i]['股票'];
+                        echo "../orders/checkbillout?股票=".$orders[$i]['股票'];
                         ?>'"
                         title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
@@ -79,7 +79,7 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."orders/checkbillout?聯絡電話=".$orders[$i]['聯絡電話'];
+                        echo "../orders/checkbillout?聯絡電話=".$orders[$i]['聯絡電話'];
                         ?>'"
                         title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
                       <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
@@ -104,7 +104,7 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."orders/checkbillout?股票=".$orders[$i]['股票'];
+                        echo "../orders/checkbillout?股票=".$orders[$i]['股票'];
                         ?>'"
                         title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
                       <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
