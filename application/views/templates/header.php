@@ -44,7 +44,7 @@
                 <input form="search" id="inputsearch" type="text" placeholder="Ex : 2018050001" aria-label="Search" name="keyword">
                 <div style="display:flex; flex-direction: row; width: 300px; justify-content: space-evenly; margin-right: 15px;">
                     <span style="color: wheat; font-size: large; align-self: flex-end"><?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱']; ?></span>
-                    <input class="btn btn-sm btn-outline-secondary" style="font-size: x-large;" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>login/logout'" value="Sign out"></input>
+                    <input class="btn btn-sm btn-outline-secondary" style="font-size: x-large;" type ="button" onclick="javascript:location.href='../login/logout'" value="Sign out"></input>
                 </div>
 
             </nav>
