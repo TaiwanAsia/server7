@@ -36,27 +36,23 @@
     </script>
 
 
- <body>
-  <header id="header">
-    <div class="s-pull-1">
-    <span><?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱'];
-    // echo '帳號設定權限: '.$_SESSION['帳號設定權限'];
-     ?></span>
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
-          <input form="search" class="form-control form-control-dark w-100" type="text" placeholder="Ex : 2018050001" aria-label="Search" name="keyword">
-          
-        <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link" href="../login/logout">Sign out</a>
-            </li>
-        </ul>
-    </nav>
-  </div>
- </header>
-    <form method="get" name="search" action="search" id="search">
-    </form>
-    <div class="container-fluid" style="padding-left: 0;padding-right: 0">
+ <body style="display: flex; flex-direction: column;">
+    <div id="header" style="position: fixed;">
+            <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0" style="height: 75px;">
+
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Server 7 後台</a>
+                <input form="search" id="inputsearch" type="text" placeholder="Ex : 2018050001" aria-label="Search" name="keyword">
+                <div style="display:flex; flex-direction: row; width: 300px; justify-content: space-evenly; margin-right: 15px;">
+                    <span style="color: wheat; font-size: large; align-self: flex-end"><?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱']; ?></span>
+                    <input class="btn btn-sm btn-outline-secondary" style="font-size: x-large;" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>login/logout'" value="Sign out"></input>
+                </div>
+
+            </nav>
+    </div>
+
+    <form method="get" name="search" action="search" id="search"></form>
+
+    <div class="container-fluid" style="padding-left: 0;padding-right: 0; margin-top: 75px;">
         <div class="row" style="flex-wrap: initial; margin: 0">
             <nav class="s-sidebar" style="background-color: #CCCCCC;">
                 <div class="s-sidebar-1">
@@ -72,29 +68,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-
                             <a class="nav-link active" href="../orders/go_orders" style="color: black;">
-                            <!-- <span data-feather="home"></span> -->
                                 成交單管理<span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link active" href="<?php echo base_url(); ?>index.php/orders/go_orders_before0701">
-                            <span data-feather="home"></span>
-                                七月前成交單<span class="sr-only">(current)</span>
-                            </a>
-                        </li> -->
                         <li class="nav-item">
-
                             <a class="nav-link" href="../orders/passrecord" style="color: black;">
                                 轉讓紀錄
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="<?php echo base_url(); ?>index.php/orders/passrecord_before0701">
-                                七月前轉讓紀錄
-                            </a>
-                        </li> -->
                         <li class="nav-item">
                             <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
                                 <a class="nav-link" href="../orders/boss_check_money" style="color: black;">
@@ -124,20 +106,6 @@
                                 文件下載
                             </a>
                         </li>
-
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            成交單管理
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            服務工單
-                            </a>
-                        </li>
-                        -->
                         <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
                         <li class="nav-item">
                             <a class="nav-link" href="../orders/move_record" style="color: black;">

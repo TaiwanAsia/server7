@@ -1,8 +1,8 @@
-<main id="mainSection" role="main">
-		<div id="body">
-		<form action="edit_employee" method="POST" name="" style= "display:inline">
+<!--<main id="mainSection" role="main">-->
+    <div id="body">
+		<form action="edit_employee" method="POST" name="" style= "">
 
-			<div style="position: absolute; top: 100px; padding-right: 30px ">
+			<div style="">
                 <input type="hidden" id="errorMsg" value="<?=$msg?>">
 				<table style="">
 					<tr bgcolor="#e4bc7c">
@@ -71,9 +71,8 @@
 				</table>
 			</div>
 		</form>
-
-	</div>
-</main>
+    </div>
+<!--</main>-->
 
 <script>
     $(document).ready(function() {
