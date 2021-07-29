@@ -8,7 +8,7 @@
 <!--            <input type="submit" name="" value="完稅資料" class="btn btn-sm btn-outline-secondary">-->
 <!--        </form>-->
     </div>
-    <div class="t-form">
+    <div class="t-form" style="display: flex; justify-content: center;">
         <table id="faxTable">
             <form method="post" name="fax_info" action="fax_exported">
                 <tr>
@@ -25,7 +25,7 @@
                 </tr>
 
                 <tr>
-                    <td>成交交易明細</td>
+                    <td style="border-style: double; text-align: center;"><b>成交交易明細</b></td>
                 </tr>
 
                 <tr>
@@ -95,6 +95,15 @@
         </table>
     </div>
 </main>
+
+<style>
+    tr{
+        height: 45px;
+    }
+    td{
+        width: 120px;
+    }
+</style>
 
 <script type="text/javascript">
 
