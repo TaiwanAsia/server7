@@ -1,25 +1,6 @@
-<!--        <div class="t-form-t" style="top: 150px">-->
-<!--              <div class="total-zone">-->
-<!--                  --><?php //if ($_SESSION['權限名稱']=='最高權限') { ?>
-<!--                <span>-->
-<!--                    --><?php //echo "目前範圍 <font color='red' size='4'>".$first_dateofdata."~".$last_dateofdata."</font";?>
-<!--                </span>-->
-<!--                <span>-->
-<!--                    --><?php //echo "總應匯: ".$total_info['total_transferable'];?>
-<!--                </span>-->
-<!--                <span>-->
-<!--                    --><?php //echo "總已匯:".$total_info['total_transfered'];?>
-<!--                </span>-->
-<!--                <span>-->
-<!--                    --><?php //echo "總尚餘:".$total_info['total_left'];?>
-<!--                </span>-->
-<!--                  --><?php //} ?>
-<!--              </div>-->
-<!--        </div>-->
 
           <div class="t-form">
               <?php if ($_SESSION['權限名稱']=='最高權限') {
-//                    var_export($first_dateofdata);
                   echo "<span style='margin-left: 10px;color: #990000;size:25px;'>".$first_dateofdata."~".$last_dateofdata."</span>";
                   echo "<p>總應匯: ".$total_info['total_transferable']."　總已匯: ".$total_info['total_transfered']."　總尚餘:".$total_info['total_left']."</p>";
               } ?>
@@ -58,7 +39,7 @@
                   <th></th>
                 </tr>
               </thead>
-            <tbody>
+            <tbody style="width: inherit;">
                 <?php if($orders) {
                     for($i=0; $i<count($orders); $i++) { ?>
                 <tr>
@@ -71,14 +52,14 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."index.php/orders/checkbillout?業務=".$orders[$i]['業務'];
+                        echo base_url()."orders/checkbillout?業務=".$orders[$i]['業務'];
                         ?>'"
                         title="<?php echo ($orders[$i]['業務']) ?>"><?php echo ($orders[$i]['業務']) ?></a>                      
                     </td>
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."index.php/orders/checkbillout?客戶姓名=".$orders[$i]['客戶姓名'];
+                        echo base_url()."orders/checkbillout?客戶姓名=".$orders[$i]['客戶姓名'];
                         ?>'"
                         title="<?php echo ($orders[$i]['客戶姓名']) ?>"><?php echo ($orders[$i]['客戶姓名']) ?></a>
                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['客戶姓名']; ?>">
@@ -86,7 +67,7 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."index.php/orders/checkbillout?股票=".$orders[$i]['股票'];
+                        echo base_url()."orders/checkbillout?股票=".$orders[$i]['股票'];
                         ?>'"
                         title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
                       <input type="hidden" id="name<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
@@ -98,7 +79,7 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."index.php/orders/checkbillout?聯絡電話=".$orders[$i]['聯絡電話'];
+                        echo base_url()."orders/checkbillout?聯絡電話=".$orders[$i]['聯絡電話'];
                         ?>'"
                         title="<?php echo ($orders[$i]['聯絡電話']) ?>"><?php echo ($orders[$i]['聯絡電話']) ?></a>
                       <input type="hidden" id="phone<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['聯絡電話']; ?>">
@@ -123,7 +104,7 @@
                     <td>
                       <a class="clickable_hint" href="javascript:location.href='
                         <?php
-                        echo base_url()."index.php/orders/checkbillout?股票=".$orders[$i]['股票'];
+                        echo base_url()."orders/checkbillout?股票=".$orders[$i]['股票'];
                         ?>'"
                         title="<?php echo ($orders[$i]['股票']) ?>"><?php echo ($orders[$i]['股票']) ?></a>
                       <input type="hidden" id="company<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['股票']; ?>">
