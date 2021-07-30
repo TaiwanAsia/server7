@@ -90,8 +90,8 @@ class Login extends CI_Controller {
 
                 $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '登入 ', $cip, null);
 
-                $newURL = "../orders/index";
-                header('Location: '.$newURL);
+                header("refresh:2;url=//".$_SERVER['HTTP_HOST']."/server7/orders/index");
+
             } else {
                 $this->load->view('pages/login_view',array('error_message' => $error_message));
             }
