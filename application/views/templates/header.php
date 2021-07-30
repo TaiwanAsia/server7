@@ -15,6 +15,8 @@
    
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- font-awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <script src="/server7/assets/js/jquery-min.js"></script>
         <script src="/server7/assets/js/action.js"></script>
@@ -44,7 +46,13 @@
                 <input form="search" id="inputsearch" type="text" placeholder="Ex : 2018050001" aria-label="Search" name="keyword">
                 <div style="display:flex; flex-direction: row; width: 300px; justify-content: space-evenly; margin-right: 15px;">
                     <span style="color: wheat; font-size: large; align-self: flex-end"><?php if(isset($_SESSION['NAME'])) echo $_SESSION['NAME'].$_SESSION['權限名稱']; ?></span>
-                    <input class="btn btn-sm btn-outline-secondary" style="font-size: x-large;" type ="button" onclick="javascript:location.href='../login/logout'" value="Sign out"></input>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary" style="font-size: x-large;" onclick="javascript:location.href='../login/logout'">
+                            Sign out
+                            <i class="fa fa-sign-out" style="font-size:30px; color:#e9eff2;"></i>
+                        </button>
+                    </div>
+
                 </div>
 
             </nav>
