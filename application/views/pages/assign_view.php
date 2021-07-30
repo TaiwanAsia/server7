@@ -1,11 +1,12 @@
 
 	<main id="mainSection" role="main" style="font-family:微軟正黑體;">
-        <h1 class="h2" style="margin: 10px;">工單</h1>
-        <div class="sec-three sec-s">
-            <form action="add_assign" method="post" id="assign">
-                <div class="sec-content">
-<!--                    <h4></h4>-->
+        <div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t" style="font-family:微軟正黑體;">
+            <h1 class="h2">工單</h1>
+        </div>
+        <form action="add_assign" method="post" id="assign">
+            <div class="sec-three sec-s" style="display:flex; flex-direction: column; align-items:center; margin-top: 90px;">
 
+                <div class="sec-content">
                     <h4>對象</h4>
                     <ul>
                         <?php for ($i=0; $i < count($employees); $i++) {
@@ -84,17 +85,29 @@
                     </ul>
                 </div>
 
-                <h4>工單內容</h4>
-                <div>
-                    <textarea cols="120" rows="5" name="工單內容"></textarea>
-                    <button type="submit" form="assign">送出</button>
+                <div class="sec-content">
+                    <h4>工單內容</h4>
+                    <textarea cols="120" rows="5" name="工單內容" style="width: 740px; height: 240px;"></textarea>
                 </div>
 
+                <button type="submit" style="padding: 6px;" form="assign">送出</button>
 
-            </form>
-        </div>
+            </div>
+        </form>
 	</main>
 
 
 </body>
+
+<style>
+    h4{
+        font-weight: bolder;
+        margin-bottom: 20px;
+    }
+    input[type=checkbox], input[type=radio]{
+        transform: scale(2);
+        margin: 6px 10px;
+    }
+</style>
+
 </html>

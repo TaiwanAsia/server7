@@ -101,16 +101,25 @@
     margin: 5px auto; }
 
 .sec-content {
-  padding: 12px; }
-  .sec-content:nth-child(odd) {
-    background-color: #eee; }
-  .sec-content ul {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none; }
-    .sec-content ul li {
-      display: inline-block;
-      padding: 0 12px 12px 6px; }
+  padding: 12px;
+  width: 40vw;
+}
+
+.sec-content:nth-child(odd) {
+  background-color: #eee;
+}
+
+.sec-content ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-bottom: 0;
+}
+
+.sec-content ul li {
+  display: inline-block;
+  padding: 0 12px 12px 6px;
+}
 
 input {
   border: 1px solid #eee; }
