@@ -108,7 +108,7 @@
                                     <td><label for="" class="">契約</label></td>
                                     <td style="min-width:100px;">
                                         <?php if (!empty($result[0]['contact'])){ ?>
-                                        <a href="<?=base_url('uploads/contact/'.$result[0]['contact'])?>" target="_blank">檢視</a>
+                                        <a href="../uploads/contact/<?=$result[0]['contact']?>" target="_blank">檢視</a>
                                         <?php
                                         } else {
                                             $edit2check = 0;
@@ -121,7 +121,7 @@
                                     <td><label for="" class="">稅單</label></td>
                                     <td>
                                         <?php if (!empty($result[0]['tax'])){ ?>
-                                        <a href="<?=base_url('uploads/tax/'.$result[0]['tax'])?>" target="_blank">檢視</a>
+                                        <a href="../uploads/tax/<?=$result[0]['tax']?>" target="_blank">檢視</a>
                                         <?php
                                         } else {
                                             $edit2check = 0;

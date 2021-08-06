@@ -53,7 +53,7 @@
                                     <label>匯款帳號</label>
                                     <label>匯款戶名</label>
                                     <label style="height: 64px;">轉讓會員</label>
-                                    <label style="height: 64px;">轉讓會員2</label>
+<!--                                    <label style="height: 64px;">轉讓會員2</label>-->
                                     <label>完稅人</label>
                                     <label>新舊</label>
                                     <label>自行應付</label>
@@ -76,19 +76,19 @@
                                         ?>
                                     </select>
                                     <span style="color: #FF0000">★轉讓會員為此成交單與你的交易方</span>
-                                    <select id="edit_轉讓會員2" name="轉讓會員2" required>
-                                        <?php if ($result['轉讓會員2']=='null') { ?>
-                                            <option value="null"><?php echo '無第二轉讓會員'; ?></option>
-                                        <?php } else { ?>
-                                            <option value="<?php echo $result['轉讓會員2'] ?>"><?php echo $result['轉讓會員2'] ?></option>
-                                        <?php } ?>
-                                        <?php
-                                        for ($j=0; $j < count($employees); $j++) {
-                                            echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                    <span style="color: #FF0000">★轉讓會員為此成交單與你的第二交易方</span>
+<!--                                    <select id="edit_轉讓會員2" name="轉讓會員2" required>-->
+<!--                                        --><?php //if ($result['轉讓會員2']=='null') { ?>
+<!--                                            <option value="null">--><?php //echo '無第二轉讓會員'; ?><!--</option>-->
+<!--                                        --><?php //} else { ?>
+<!--                                            <option value="--><?php //echo $result['轉讓會員2'] ?><!--">--><?php //echo $result['轉讓會員2'] ?><!--</option>-->
+<!--                                        --><?php //} ?>
+<!--                                        --><?php
+//                                        for ($j=0; $j < count($employees); $j++) {
+//                                            echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+//                                        }
+//                                        ?>
+<!--                                    </select>-->
+<!--                                    <span style="color: #FF0000">★轉讓會員為此成交單與你的第二交易方</span>-->
                                     <input type="text" name="完稅人" id="" value="<?php echo $result['完稅人']; ?>" required>
                                     <select name="新舊" id="new1" equired>
                                         <?php if ($result['新舊']==1) { ?>

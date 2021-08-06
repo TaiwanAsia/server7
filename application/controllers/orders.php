@@ -845,12 +845,11 @@ class Orders extends CI_Controller {
 		if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-            $this->orders_model->edit_fields($id, array('contact'=>$filename));
+            $this->orders_model->edit_fields($id, array('contact'=>$filename, '最後動作時間'=>date('Y-m-d H:i:s')));
             move_uploaded_file($_FILES["file"]["tmp_name"],"uploads/contact/".$filename);
             $data = $this->orders_model->get($id);
             $this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
             $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳契約', $id, null);
-//            echo "<h2><font color='red'><b>成交單編號:".$id."契約已上傳成功。</b></font></h2>";
             $this->go_orders();
 		}
 	}
@@ -861,12 +860,11 @@ class Orders extends CI_Controller {
         if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-            $this->orders_model->edit_fields($id, array('tax'=>$filename));
+            $this->orders_model->edit_fields($id, array('tax'=>$filename, '最後動作時間'=>date('Y-m-d H:i:s')));
             move_uploaded_file($_FILES["file"]["tmp_name"],"uploads/tax/".$filename);
             $data = $this->orders_model->get($id);
             $this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
             $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
-//            echo "<h2><font color='red'><b>成交單編號:".$id."稅單上傳成功。</b></font></h2>";
             $this->go_orders();
 		}
 	}
@@ -877,12 +875,11 @@ class Orders extends CI_Controller {
         if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
-            $this->orders_model->edit_fields($id, array('water'=>$filename));
+            $this->orders_model->edit_fields($id, array('water'=>$filename, '最後動作時間'=>date('Y-m-d H:i:s')));
             move_uploaded_file($_FILES["file"]["tmp_name"],"uploads/water/".$filename);
             $data = $this->orders_model->get($id);
             $this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
             $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳水單', $id, null);
-//            echo "<h2><font color='red'><b>成交單編號:".$id."水單上傳成功。</b></font></h2>";
             $this->go_orders();
 		}
 	}
@@ -1215,7 +1212,8 @@ class Orders extends CI_Controller {
 	//二審表格
 	public function go_edit2() {
 	    $orderid = $_GET['id'];
-		$result = $this -> orders_model -> get($orderid,null,null);
+	    $name = $_SESSION['NAME'];
+		$result = $this -> orders_model -> get($orderid,null,$name);
 		$old_date_timestamp = strtotime($result[0]['成交日期']);
 		$new_date = date('Y/m/d', $old_date_timestamp);
 		$result[0]['日期'] = $new_date;

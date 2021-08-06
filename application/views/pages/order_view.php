@@ -47,7 +47,6 @@
       <tr>
         <th data-tablesaw-priority="persist"></th>
         <th data-tablesaw-priority="persist"></th>
-        <th data-tablesaw-priority="0">編號</th>
         <th data-tablesaw-priority="0">ID</th>
         <th data-tablesaw-priority="1" scope="col">成交日期</th>
         <th data-tablesaw-priority="1">業務</th>
@@ -124,10 +123,6 @@
           </form>
           <?php } ?>
         </td> -->
-        <td>
-          <?php echo ($orders[$i]['媒合']) ?>
-          <input type="hidden" id="媒合<?php echo $orders[$i]['ID']; ?>" name="媒合" value="<?php echo $orders[$i]['媒合']; ?>">
-        </td>
         <td>
           <label id="mousemove<?php echo ($orders[$i]['ID']) ?>" onmouseout="changefont_back(<?php echo ($orders[$i]['ID']) ?>)" onmousemove="changefont(<?php echo ($orders[$i]['ID']) ?>)" onclick="showbonus(<?php echo ($orders[$i]['ID']) ?>)" style="cursor: pointer;"><?php echo ($orders[$i]['ID']) ?></label>
         </td>
