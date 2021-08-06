@@ -8,6 +8,9 @@
             <td><label for="" class="text-danger">成交日期</label></td>
             <td><input class="" type="date" id="成交日期" name="成交日期" id="date" required></td>
             <td><button type="button" onclick="gettoday()">今天</button></td>
+            <?php if ($_SESSION['NAME'] == '小祿'){ ?>
+            <td><button type="button" onclick="loadtestdata()">測試資料</button></td>
+            <?php } ?>
         </tr>
         <tr>
             <td></td>
@@ -106,7 +109,7 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">匯款日期</label></td>
-            <td><input class="" type="date" id="匯款日期" name="匯款日期" value="" id=""></td>
+            <td><input class="" type="date" id="匯款日期" name="匯款日期"></td>
 <!--            <td><button type="button" onclick="getdealdate()">同成交日期</button></td>-->
         </tr>
         <tr>
@@ -144,21 +147,21 @@
             </td>
             <td><p class="text-info">★轉讓會員為此成交單與你的交易方</p></td>
         </tr>
-        <tr>
-            <td></td>
-            <td><label for="" class="text-danger">轉讓會員2</label></td>
-            <td>
-                <select id="轉讓會員2" name="轉讓會員2" class="form-control" required onchange="myFunction()">
-                    <option value="null">-複數轉讓請選擇-</option>
-                    <?php
-                    foreach ($employees as $k => $v){
-                        echo "<option value=".$v['NAME'].">".$v['NAME']."</option>";
-                    }
-                    ?>
-                </select>
-            </td>
-            <td><p class="text-info">★轉讓會員2為此成交單與你的第二交易方</p></td>
-        </tr>
+<!--        <tr>-->
+<!--            <td></td>-->
+<!--            <td><label for="" class="text-danger">轉讓會員2</label></td>-->
+<!--            <td>-->
+<!--                <select id="轉讓會員2" name="轉讓會員2" class="form-control" required onchange="myFunction()">-->
+<!--                    <option value="null">-複數轉讓請選擇-</option>-->
+<!--                    --><?php
+//                    foreach ($employees as $k => $v){
+//                        echo "<option value=".$v['NAME'].">".$v['NAME']."</option>";
+//                    }
+//                    ?>
+<!--                </select>-->
+<!--            </td>-->
+<!--            <td><p class="text-info">★轉讓會員2為此成交單與你的第二交易方</p></td>-->
+<!--        </tr>-->
         <tr>
             <td></td>
             <td><label for="" class="text-danger">完稅人</label></td>
@@ -204,7 +207,7 @@
         <tr>
             <td></td>
             <td><label for="" class="text-danger">過戶日期</label></td>
-            <td><input class="" type="date" id="過戶日期" name="過戶日期" value="" id="" required></td>
+            <td><input class="" type="date" id="過戶日期" name="過戶日期" required></td>
             <td><labe>預設為匯款日期後第3天</labe></td>
         </tr>
         <tr>
@@ -218,7 +221,6 @@
             <td><label for="noteField">備註</label></td>
             <td colspan="2">
                 <textarea rows="4" cols="70" name="備註" id="noteField"></textarea>
-                <textarea rows="4" cols="70" name="備註" ></textarea>
             </td>
         </tr>
         <tr></tr>
@@ -240,6 +242,19 @@
 
     function gettoday() {
         document.getElementById("成交日期").valueAsDate = new Date();
+    }
+
+    function loadtestdata() {
+        var today = new Date();
+        document.getElementById("成交日期").valueAsDate = today;
+        document.getElementById("customer_name").value = '測試王';
+        document.getElementById("customer_tel").value = '0912345678';
+        document.getElementById("customer_man").value = '測試王';
+        document.getElementById("customer_address").value = '台北區台北街27巷5號3樓';
+        document.getElementById("股票").value = '台積G';
+        document.getElementById("張數").value = '3';
+        document.getElementById("成交價").value = '100';
+        document.getElementById("轉讓會員").value = 'qito';
     }
 
     function myFunction() {
