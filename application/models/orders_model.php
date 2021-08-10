@@ -1189,6 +1189,7 @@ class Orders_model extends CI_Model {
             $result = array('工單對象' => $data['工單對象'][$i],
                             '工單屬性' => $_POST['工單屬性'],
                             '工單內容' => $_POST['工單內容'],
+                            '等級' => $data['等級'],
                             '建立者' => $_SESSION['NAME'],
                             '建立時間' => date('Y-m-d H:i:s'));
             $this->db->insert('assigns', $result);
