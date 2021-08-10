@@ -888,6 +888,7 @@ class Orders_model extends CI_Model {
         }
     }
 
+    // 通知查帳 -> 產生 應收/應匯 資料
     public function inform_check_money_model($id, $way, $date, $name, $last5, $待查帳金額, $move_time) {
         $query = $this->db->get_where('ORDERS', array('ID' => $id));
         $result = $this->transformer($query);
@@ -895,8 +896,6 @@ class Orders_model extends CI_Model {
             $data = array('id'=>null, '成交單編號'=>$id, '股票'=>$result[0]['股票'], '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>$last5, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
         } else {
             //現金
-            // $sql = "INSERT INTO `check_money_record`(`id`, `成交單編號`, `支付方式`, `支付人`, `匯款帳號末5碼`, `轉出日期轉入日期`, `待查帳金額`, `已匯金額已收金額`, `通知日期`, `查帳日期`, `最後動作時間`) VALUES (,'".$id."','".$way."','".$name.",null,".$date."','".$待查帳金額.",0,".$move_time."',,'".$move_time."')";
-            // $this->db->query($sql);
             $data = array('id'=>NULL, '成交單編號'=>$id, '股票'=>$result[0]['股票'], '轉出日期轉入日期'=>$date, '支付方式'=>$way, '支付人'=>$name, '匯款帳號末5碼'=>null, '待查帳金額'=>$待查帳金額, '通知日期'=>$move_time, '最後動作時間'=>$move_time);
         }
         $this->db->insert('check_money_record', $data);
@@ -908,6 +907,8 @@ class Orders_model extends CI_Model {
         $order = $this->get($成交單編號, $_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
         $總匯款金額 = $order[0]['已匯金額已收金額'] + $money;
         if ($總匯款金額 == $order[0]['匯款金額應收帳款']) {
+//            echo 'here';
+//            exit;
             //一次匯款完
             if ($order[0]['業務'] == 'JOY') {
                 //大姊確認金額就結案了,不用上傳水單
@@ -915,7 +916,8 @@ class Orders_model extends CI_Model {
             } else {
                 $data = array('已匯金額已收金額'=>$總匯款金額, '通知查帳'=>$date, '最後動作時間'=>$move_time);
             }
-
+            $this->db->where('ID', $成交單編號);
+            $this->db->update('pass_record', array('狀態'=>'已結'));
         } else {
             //還沒匯完
             $data = $this->get_check_record($成交單編號, null);
@@ -1061,10 +1063,6 @@ class Orders_model extends CI_Model {
         $this->db->insert('pass_record', $data);
     }
 
-    public function add_passrecord_before0701($data) {
-        $this->db->insert('pass_record_before0701', $data);
-    }
-
     public function update_orders_movetime($id) {
         $this->db->where('ID', $id);
         $this->db->update('最後動作時間', date("Y-m-d H:i:s"));
@@ -1098,8 +1096,10 @@ class Orders_model extends CI_Model {
                     '盤價'=>$row-> 盤價,
                     '價差'=>$row-> 價差,
                     '稅金'=>$row-> 稅金,
+                    '刻印'=>$row-> 刻印,
                     '過戶費'=>$row-> 過戶費,
                     '金額'=>$row-> 金額,
+                    '差額'=>$row-> 差額,
                     '自得比率'=>$row-> 自得比率,
                     '自行應付'=>$row-> 自行應付,
                     '扣款利息'=>$row-> 扣款利息,

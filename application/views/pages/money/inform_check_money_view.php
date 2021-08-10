@@ -8,7 +8,7 @@
                         <td><label><b>成交單編號</b></label></td>
                         <td><H3 for="" class="text-danger"><?php echo $order[0]['ID']; ?></H3></td>
                         <td><input class="" type="hidden" name="ID" id="" value="<?php echo $order[0]['ID']; ?>"></td>
-                        <td><input type="hidden" name="媒合" value="<?php echo $order[0]['媒合']; ?>"></td>
+<!--                        <td><input type="hidden" name="媒合" value="--><?php //echo $order[0]['媒合']; ?><!--"></td>-->
                     </tr>
                     <tr>
                         <td></td>

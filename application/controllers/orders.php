@@ -106,7 +106,8 @@ class Orders extends CI_Controller {
 			$arrayName = array('orders' => $orders,
 								'all_orders' => $all_orders,
 								'employees' => $employees,
-								'add_quene' => $add_quene,);
+								'add_quene' => $add_quene,
+                                'msg' => $msg);
 			$this->show($arrayName);
 		}
 	}
@@ -540,59 +541,16 @@ class Orders extends CI_Controller {
 				$this->orders_model->inform_check_money_model($data['ID'], '匯款', $data['匯款日期'], $data['客戶姓名'], null, $data['匯款金額應收帳款'], date('Y-m-d H:i:s'));
 			}
 
-//			$quene裡所有媒合對象 = $this->orders_model->get_add_quene(2, $data['媒合']);
-//			$order裡所有媒合對象 = $this->orders_model->get_order_媒合對象($data['媒合']);
-//
-//			$總賣張數 = 0;
-//			$總買張數 = 0;
-//			$總賣價 = 0;
-//			$總買價 = 0;
-//
-//			if ($quene裡所有媒合對象 == false && $_POST['主要']!=2) {
-//				for ($i=0; $i < count($order裡所有媒合對象); $i++) {
-//		    		if ($order裡所有媒合對象[$i]['買賣'] == 0) {
-//		    			$總賣張數 = $總賣張數 + $order裡所有媒合對象[$i]['張數'];
-//		    			$總賣價 = $總賣價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
-//		    		} else {
-//		    			$總買張數 = $總買張數 + $order裡所有媒合對象[$i]['張數'];
-//		    			$總買價 = $總買價 + $order裡所有媒合對象[$i]['張數']*1000*$order裡所有媒合對象[$i]['成交價'];
-//		    		}
-//		    	}
-//		    	$一股賣均 = $總賣價 / $總賣張數 / 1000;
-//		    	$一股買均 = $總買價 / $總買張數 / 1000;
-//		    	$總均 = ($一股賣均 + $一股買均)/2;
-//		    	for ($i=0; $i < count($order裡所有媒合對象); $i++) {
-//		    		$arrayName = array('ID' => $order裡所有媒合對象[$i]['ID'],
-//		    							'盤價' => $總均,	);
-//		    		$this->orders_model->edit($arrayName);
-//		    	}
-//
-//		    	//等盤價算出來後重抓，大姊的單因為直接一二審完，所以新增完直接進轉讓紀錄
-//		    	$order裡所有媒合對象_有盤價 = $this->orders_model->get_order_媒合對象($data['媒合']);
-//		    	for ($i=0; $i < count($order裡所有媒合對象_有盤價); $i++) {
-//					if ($order裡所有媒合對象_有盤價[$i]['業務'] == 'JOY' || $order裡所有媒合對象_有盤價[$i]['業務'] == '卓志鴻') {
-//						$pass_record_info = $this->record_info($order裡所有媒合對象_有盤價[$i]);
-//						$this->orders_model->add_passrecord($pass_record_info);
-//					}
-//				}
-//			}
-
 			$this->go_orders();
 		}
 	}
 
 	public function record_info($data) {
-		if ($data['買賣'] == 1) {
-			//客戶買方 成>盤
-			$價差 = $data['成交價'] - $data['盤價'];
-			$稅金 = $data['成交價']*$data['張數']*1000*0.003;
-			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'] - $data['自行應付'])*$_SESSION['趴數'];
-		} else {
-			//客戶賣方 盤>成
-			$價差 = $data['盤價'] - $data['成交價'];
-			$稅金 = $data['盤價']*$data['張數']*1000*0.003;
-			$個人實得 = ($價差*$data['張數']*1000 - $稅金 - $data['過戶費'] - $data['自行應付'])*$_SESSION['趴數'];
-		}
+        $稅金 = $data['盤價']*$data['張數']*1000*0.003;
+        $差額 = abs($data['成交價'] - $data['盤價'])*$data['張數']*1000 - $稅金 - $data['過戶費'] - $data['刻印']; // 無論買賣，取絕對值
+        $個人實得 = $差額*$_SESSION['趴數'] - $data['自行應付'];
+        $公司 = $差額 - $個人實得;
+
 		$result = array( 'ID' => $data['ID'],
 						'媒合' => $data['媒合'],
 						'日期' => $data['成交日期'],
@@ -603,16 +561,16 @@ class Orders extends CI_Controller {
 						'張數' => $data['張數'],
 						'成交價' => $data['成交價'],
 						'盤價' => $data['盤價'],
-						'價差' => $價差,
+						'價差' => abs($data['成交價'] - $data['盤價']),
 						'稅金' => $稅金,
+                        '刻印' => $data['刻印'],
 						'過戶費' => $data['過戶費'],
 						'金額' => $data['匯款金額應收帳款'],
+						'差額' => $差額,
 						'自得比率' => $_SESSION['趴數'],
 						'自行應付' => $data['自行應付'],
-						// '扣款利息' => $_POST['扣款利息'],
 						'個人實得' => $個人實得,
-						// '營業支出' => $_POST['營業支出'],
-						// '公司' => $_POST['公司'],
+						 '公司' => $公司,
 						'匯款日期' => $data['匯款日期'],
 						'轉讓會員' => $data['轉讓會員'],
 						'轉讓會員2' => $data['轉讓會員2'],
@@ -887,7 +845,7 @@ class Orders extends CI_Controller {
 	public function admin_order_end() {
 		$this->orders_model->finish_order($_POST['id']);
 		$data = $this->orders_model->get($_POST['id']);
-		$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
+//		$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '結案', $_POST['id'], null);
 		$this->go_orders();
 	}
@@ -1209,7 +1167,7 @@ class Orders extends CI_Controller {
 		return json_encode($cus_info);
 	}
 
-	//二審表格
+	//二審頁面
 	public function go_edit2() {
 	    $orderid = $_GET['id'];
 	    $name = $_SESSION['NAME'];
@@ -1223,7 +1181,7 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	//二審update
+	//二審送出
 	public function edit2_order() {
 		if ($_POST['成交單狀態'] == '審核完成') {
 			if ($_POST['二審確認'] == 1){
@@ -1237,28 +1195,24 @@ class Orders extends CI_Controller {
 							'過戶費' => $_POST['過戶費'],
 							'刻印' => $_POST['刻印'],
 							'轉讓會員' => $_POST['轉讓會員'],
-							'轉讓會員2' => $_POST['轉讓會員2'],
+//							'轉讓會員2' => $_POST['轉讓會員2'],
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
 				$this -> orders_model -> edit($data);// push test
 				$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '二審', $_POST['ID'], null);
-				$origin_data = $this->orders_model->get($data['ID']);
+				$origin_data = $this->orders_model->get($data['ID'], $_SESSION['權限名稱'], $_SESSION['NAME']);
 				/** record_info 是算盤價 稅收等等的function */
 				$pass_record_info = $this -> record_info($origin_data[0]);
 				$this->orders_model->add_passrecord($pass_record_info);
-				$data2 = $this->orders_model->get($data['ID']);
-				$this->orders_model->update_samequene_movetime($data2[0]['媒合'], date('Y-m-d H:i:s'));
 
 				$this->go_orders();
 			} else {
-				echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."稅單上傳尚未完成!!!　　無法完成二審</b></p></h3>";
-				$this->go_orders();
+				$this->go_orders('稅單、契約未上傳');
 			}
 
 		} else {
-			echo "<h3><p class='text-danger'><b>編號".$_POST['ID']."一審尚未完成!!!　　無法完成二審</b></p></h3>";
-				$this->go_orders();
+				$this->go_orders('一審未完成');
 		}
 	}
 
@@ -1686,7 +1640,6 @@ class Orders extends CI_Controller {
 	//頁面進入通知查帳頁面
 	public function salesman_check_money() {
 		$order = $this->orders_model->get($_GET['ID'],$_SESSION['權限名稱'], $_SESSION['NAME']);
-		// print_r($order[0]);
 		if ($order[0]['買賣'] == 1) {
 			$array = array('order' => $order);
 			$this->load->view('templates/header');
@@ -1699,11 +1652,10 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	//更改通知查帳
+	//更改通知查帳 => 此時才產生 應收/應匯 資料
 	public function inform_check_money() {
 		$this->orders_model->inform_check_money_model($_POST['ID'], $_POST['支付方式'], $_POST['轉出日期轉入日期'], $_POST['支付人'], $_POST['匯款帳號末5碼'], $_POST['待查帳金額'], date('Y-m-d H:i:s'));
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '通知查帳', $_POST['ID'], null);
-		$this->orders_model->update_samequene_movetime($_POST['媒合'], date('Y-m-d H:i:s'));
 		$this->checkbill();
 	}
 
@@ -1717,12 +1669,10 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	//大姊確認帳款
+	//大姊最終確認帳款
 	public function check_end() {
 		$this->orders_model->check_end_model($_POST['id'], $_POST['成交單編號'], $_POST['money'], $_POST['確認日期'], date('Y-m-d H:i:s'));
 		$this->boss_check_money();
-		$data = $this->orders_model->get($_POST['id']);
-				$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
 	}
 
 	//查看匯款紀錄
@@ -1899,7 +1849,6 @@ class Orders extends CI_Controller {
 
 	public function passrecord() {
 		$data = $this->orders_model->get_pass_record();
-		// print_r($data);
 		$this->load->view('templates/header');
 		$this->load->view('pages/money/passrecord_view', array('data'=>$data));
 		$this->load->view('templates/footer');
@@ -1999,6 +1948,7 @@ class Orders extends CI_Controller {
 		$this->index();
 	}
 
+	// 自動補齊對帳
 	public function turn_passrecord() {
 		$data = $this->orders_model->turn_passrecord_model();
 		for ($i=0; $i < count($data); $i++) {
