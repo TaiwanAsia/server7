@@ -42,6 +42,7 @@
 
 
 <div class="t-form" style="font-family:微軟正黑體;">
+    <input type="hidden" id="errorMsg" value="<?=$msg?>">
 <table id="eoTable" class="table table-md table-hover table-fixed" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
     <thead class="thead-light">
       <tr>
@@ -66,7 +67,7 @@
         <th data-tablesaw-priority="0">匯款戶名</th>
         <th data-tablesaw-priority="0">匯款帳號</th>
         <th data-tablesaw-priority="1">轉讓會員</th>
-        <th data-tablesaw-priority="1">轉讓會員2</th>
+<!--        <th data-tablesaw-priority="1">轉讓會員2</th>-->
         <th data-tablesaw-priority="1">完稅人</th>
         <th data-tablesaw-priority="1">一審</th>
         <th data-tablesaw-priority="1">二審</th>
@@ -314,15 +315,15 @@
           <input type="hidden" id="轉讓會員<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員']; ?>">
           <?php } ?>
         </td>
-        <td>
-          <?php if($_SESSION['轉讓會員權限']==1) {
-            if ($orders[$i]['轉讓會員2'] != 'null') {
-              echo ($orders[$i]['轉讓會員2']);
-            }
-          ?>
-          <input type="hidden" id="轉讓會員2<?php echo $orders[$i]['ID']; ?>" name="" value="<?php echo $orders[$i]['轉讓會員2']; ?>">
-          <?php } ?>
-        </td>
+<!--        <td>-->
+<!--          --><?php //if($_SESSION['轉讓會員權限']==1) {
+//            if ($orders[$i]['轉讓會員2'] != 'null') {
+//              echo ($orders[$i]['轉讓會員2']);
+//            }
+//          ?>
+<!--          <input type="hidden" id="轉讓會員2--><?php //echo $orders[$i]['ID']; ?><!--" name="" value="--><?php //echo $orders[$i]['轉讓會員2']; ?><!--">-->
+<!--          --><?php //} ?>
+<!--        </td>-->
 
         <td>
           <?php echo ($orders[$i]['完稅人']) ?>
@@ -1054,6 +1055,13 @@
               document.getElementById('edit_過戶日期').value = result;
             });
           });
+
+          $(document).ready(function() {
+              var msg = $('#errorMsg').val();
+              if (msg){
+                  alert(msg)
+              }
+          })
 
           feather.replace()
 

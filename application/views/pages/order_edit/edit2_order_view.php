@@ -14,7 +14,7 @@
                                         <input type="hidden" name="ID" value="<?php echo $result[0]['ID'] ?>">
                                     </td>
                                     <td><h3><label for="" class="text-success"><?php echo $result[0]['ID'] ?></label></h3></td>
-                                </td>
+                                </tr>
                                 <tr>
                                     <td><?php echo form_error('客戶姓名'); ?></td>
                                     <td><label for="" class="">客戶姓名</label></td>
@@ -79,25 +79,25 @@
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><label for="" class="">轉讓會員2</label></td>
-                                    <td>
-                                        <?php if ($result[0]['轉讓會員2']=='null') { ?>
-                                            <label>--無第二轉讓會員--</label>
-                                            <input type="hidden" name="轉讓會員2" value="">
-                                        <?php } else {?>
-                                        <select id="edit_轉讓會員2" name="轉讓會員2" class="form-control" required>
-                                            <option value="<?php echo $result[0]['轉讓會員2'] ?>"><?php echo $result[0]['轉讓會員2'] ?></option>
-                                            <?php
-                                            for ($j=0; $j < count($employees); $j++) {
-                                                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
-                                            }
-                                            ?>
-                                        </select>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
+<!--                                <tr>-->
+<!--                                    <td></td>-->
+<!--                                    <td><label for="" class="">轉讓會員2</label></td>-->
+<!--                                    <td>-->
+<!--                                        --><?php //if ($result[0]['轉讓會員2']=='null') { ?>
+<!--                                            <label>--無第二轉讓會員--</label>-->
+<!--                                            <input type="hidden" name="轉讓會員2" value="">-->
+<!--                                        --><?php //} else {?>
+<!--                                        <select id="edit_轉讓會員2" name="轉讓會員2" class="form-control" required>-->
+<!--                                            <option value="--><?php //echo $result[0]['轉讓會員2'] ?><!--">--><?php //echo $result[0]['轉讓會員2'] ?><!--</option>-->
+<!--                                            --><?php
+//                                            for ($j=0; $j < count($employees); $j++) {
+//                                                echo "<option value=".$employees[$j]['NAME'].">".$employees[$j]['NAME']."</option>";
+//                                            }
+//                                            ?>
+<!--                                        </select>-->
+<!--                                        --><?php //} ?>
+<!--                                    </td>-->
+<!--                                </tr>-->
                                 <tr>
                                     <td></td>
                                     <td><label for="" class="">過戶日期</label></td>

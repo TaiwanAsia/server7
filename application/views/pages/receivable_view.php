@@ -54,6 +54,9 @@
           <!-- <input class="btn btn--s1 btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳"> -->
       <?php } ?>
     </div>
+      <?php if ($_SESSION['NAME'] == '小祿'){
+          echo "<span><b>此處資料來源為orders表，而非check_money_record表！！！！！！！！！！！</b></span>";
+      } ?>
       <table id="receivTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
         <thead class="thead-light">
           <tr>
