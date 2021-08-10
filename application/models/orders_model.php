@@ -907,8 +907,6 @@ class Orders_model extends CI_Model {
         $order = $this->get($成交單編號, $_SESSION['權限名稱'], $_SESSION['NAME'],null,null,null);
         $總匯款金額 = $order[0]['已匯金額已收金額'] + $money;
         if ($總匯款金額 == $order[0]['匯款金額應收帳款']) {
-//            echo 'here';
-//            exit;
             //一次匯款完
             if ($order[0]['業務'] == 'JOY') {
                 //大姊確認金額就結案了,不用上傳水單
@@ -916,8 +914,7 @@ class Orders_model extends CI_Model {
             } else {
                 $data = array('已匯金額已收金額'=>$總匯款金額, '通知查帳'=>$date, '最後動作時間'=>$move_time);
             }
-            $this->db->where('ID', $成交單編號);
-            $this->db->update('pass_record', array('狀態'=>'已結'));
+
         } else {
             //還沒匯完
             $data = $this->get_check_record($成交單編號, null);
@@ -935,6 +932,11 @@ class Orders_model extends CI_Model {
         $record = array('待查帳金額'=>0, '查帳日期'=>$date, '已匯金額已收金額'=>$money, '查帳狀態'=>'已確認', '最後動作時間'=>$move_time);
         $this->db->where('id', $id);
         $this->db->update('check_money_record', $record);
+    }
+
+    public function finish_pass_record($成交單編號){
+        $this->db->where('ID', $成交單編號);
+        $this->db->update('pass_record', array('狀態'=>'已結案'));
     }
 
     public function get_check_record($成交單編號, $type) {
@@ -974,9 +976,9 @@ class Orders_model extends CI_Model {
 
     public function finish_order($id) {
         $sql = "UPDATE `orders` SET `已結案`= 1 WHERE `ID` = ".$id;
-        $query = $this->db->query($sql);
+        $this->db->query($sql);
         $sql = "UPDATE `pass_record` SET `狀態`= '已結案' WHERE `ID` = ".$id;
-        $query = $this->db->query($sql);
+        $this->db->query($sql);
     }
 
     public function add_dealer_model($data) {

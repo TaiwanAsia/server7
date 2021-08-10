@@ -72,7 +72,7 @@
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="匯款日期"'; ?>><?php echo $v['匯款日期']; ?></td>
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="轉讓會員"'; ?>><?php echo $v['轉讓會員']; ?></td>
 						<?php
-						if ($v['狀態'] == '已結') {
+						if ($v['狀態'] == '已結案') {
 							if ($v['買賣'] == 1 ) {
 					          	echo "<td class='text-danger'><b>已結</b></td>";
 					        } else {
