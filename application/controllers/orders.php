@@ -850,13 +850,13 @@ class Orders extends CI_Controller {
 		$this->go_orders();
 	}
 
+	//大姊最終確認 應匯帳款
 	public function transferable_order_end() {
 		$arrayName = array('ID' => $_POST['id'],
 							'通知查帳' => date('Y-m-d'),);
 		$this->orders_model->edit($arrayName);
-		$data = $this->orders_model->get($_POST['id']);
-		$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
-		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '確定轉出', $_POST['id'], null);
+        $this->orders_model->finish_pass_record($_POST['id']);
+        $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '確定轉出', $_POST['id'], null);
 		$this->checkbillout();
 	}
 
@@ -1669,9 +1669,10 @@ class Orders extends CI_Controller {
 		$this->load->view('templates/footer');
 	}
 
-	//大姊最終確認帳款
+	//大姊最終確認 應收帳款
 	public function check_end() {
 		$this->orders_model->check_end_model($_POST['id'], $_POST['成交單編號'], $_POST['money'], $_POST['確認日期'], date('Y-m-d H:i:s'));
+        $this->orders_model->finish_pass_record($_POST['成交單編號']);
 		$this->boss_check_money();
 	}
 
