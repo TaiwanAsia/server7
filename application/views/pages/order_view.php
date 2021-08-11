@@ -41,7 +41,13 @@
   </div>
 
 
-<div class="t-form" style="font-family:微軟正黑體;">
+<div class="t-form" style="font-family:微軟正黑體; padding-top: 90px;">
+    <div class="div" style="border-style: double; width: 700px; margin-left: 500px; padding: 10px;">
+        <span><b>[業務]</b>步驟 <u>新增</u>成交單-><u>上傳</u>契約、稅單等-><u>二審</u>(產生轉讓紀錄)-><u>通知</u>查帳(產生應收/應付)</span>
+        </br>
+        <span><b>[大姊]</b>步驟 <u>一審</u>-><u>確認</u>應收/應付(轉讓紀錄同時結案)->成交單<u>結案</u></span>
+    </div>
+
     <input type="hidden" id="errorMsg" value="<?=$msg?>">
 <table id="eoTable" class="table table-md table-hover table-fixed" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
     <thead class="thead-light">

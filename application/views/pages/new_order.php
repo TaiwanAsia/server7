@@ -247,6 +247,8 @@
     function loadtestdata() {
         var today = new Date();
         document.getElementById("成交日期").valueAsDate = today;
+        document.getElementById("匯款日期").valueAsDate = today;
+        document.getElementById("過戶日期").valueAsDate = today;
         document.getElementById("customer_name").value = '測試王';
         document.getElementById("customer_tel").value = '0912345678';
         document.getElementById("customer_man").value = '測試王';
@@ -254,6 +256,7 @@
         document.getElementById("股票").value = '台積G';
         document.getElementById("張數").value = '3';
         document.getElementById("成交價").value = '100';
+        document.getElementById("填寫金額").value = 3*100*1000;
         document.getElementById("轉讓會員").value = 'qito';
     }
 
