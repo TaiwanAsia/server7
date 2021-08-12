@@ -112,41 +112,6 @@ class Orders extends CI_Controller {
 		}
 	}
 
-	public function go_orders_before0701() {
-		// The following code define the actions when a 'clickable' table element
-    	// is clicked.
-		if (!isset($_SESSION['ACCOUNT'])) {
-			// If not logged in, redirect to 'login/index'
-			redirect('login/index');
-		} else {
-			// Handles queries on orders between 'date1' and 'date2'
-			if (isset($_GET['date1']) && isset($_GET['date2']) && isset($_GET['業務'])) {
-				$orders = $this->orders_model->get_byDate_before0701($_SESSION['權限名稱'],$_SESSION['NAME'],$_GET['業務'],$_GET['date1'],$_GET['date2']);
-			// Handles 'click' on 股票
-			} else if (isset($_GET['股票'])) {
-				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'股票',$_GET['股票']);
-			// Handles 'click' on 業務
-			} else if (isset($_GET['業務'])) {
-				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'業務',$_GET['業務']);
-			// Handles 'click' on 客戶姓名
-			} else if (isset($_GET['客戶姓名'])) {
-				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'客戶姓名',$_GET['客戶姓名']);
-			// Handles 'click' on 連絡電話
-			} else if (isset($_GET['聯絡電話'])) {
-				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],'聯絡電話',$_GET['聯絡電話']);
-			// Default handlers for unhandled actions
-			} else {
-				$orders = $this->orders_model->get_before0701(null,$_SESSION['權限名稱'],$_SESSION['NAME'],null,null);
-			}
-			$all_orders = $orders;
-			$employees = $this->orders_model->get_employee(null);
-			$arrayName = array('orders' => $orders,
-								'all_orders' => $all_orders,
-								'employees' => $employees,);
-			$this->show_before0701($arrayName);
-		}
-	}
-
 	public function search() {
 		$orders = $this->orders_model->get($_GET['keyword'],$_SESSION['權限名稱'],$_SESSION['NAME']);
 		$employees = $this->orders_model->get_employee(null);
@@ -1849,9 +1814,14 @@ class Orders extends CI_Controller {
 	}
 
 	public function passrecord() {
-		$data = $this->orders_model->get_pass_record();
-		$this->load->view('templates/header');
-		$this->load->view('pages/money/passrecord_view', array('data'=>$data));
+	    $employee = empty($_GET['employee']) ? '' : $_GET['employee'];
+        $month = empty($_GET['month']) ? '' : $_GET['month'];
+		$data = $this->orders_model->get_pass_record($employee, $month);
+        $employees = $this->orders_model->get_employee(null);
+        $search_condition = array('employee'=>$employee, 'month'=>$month);
+        $this->load->view('templates/header');
+		$this->load->view('pages/money/passrecord_view', array('data'=>$data, 'employees'=>$employees,
+            'search_condition'=>$search_condition));
 		$this->load->view('templates/footer');
 	}
 
@@ -1863,6 +1833,51 @@ class Orders extends CI_Controller {
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);
 	}
+
+	public function passrecord_export() {
+        $employee = $_POST['employee'];
+        $month = $_POST['month'];
+        $data = $this->orders_model->get_pass_record($employee, $month ,'export');
+
+        if ($data){
+
+            $title = array('ID','日期','姓名','買賣','業務','標的名稱',
+                '張數', '成交價', '盤價', '價差', '稅金','過戶費','刻印','金額','差額','自得比率','自行應付',
+                '個人實得','公司','匯款日期', '狀態', '轉讓會員', '備註','最後動作時間');
+
+            // 引入函式庫
+            require_once APPPATH."third_party\PHPExcel.php";
+
+            //建立EXCEL暫存檔並將資料重新寫入
+            $objPHPExcel = new PHPExcel();
+            $objPHPExcel->setActiveSheetIndex(0);
+            $sheet = $objPHPExcel->getActiveSheet();
+
+            //填入標頭行
+            foreach ($title as $k => $v) {
+                $sheet->setCellValueByColumnAndRow($k,1, $title[$k]);
+            }
+
+            //填入符合條件之成交單資料
+            foreach ($data as $k => $v) {
+                $col = 0;
+                foreach ($v as $key => $value) {
+                    if ($key == '買賣'){
+                        $value = $value == 1 ? '買' : '賣';
+                    }
+                    $sheet->setCellValueByColumnAndRow($col,$k+2,$value);
+                    $col++;
+                }
+            }
+
+            $PHPExcelWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');//匯出成xls檔
+
+            //下載EXCEL檔
+            header("Content-type: application/force-download");
+            header("Content-Disposition: attachment; filename=\"" . time() . ".xls\"");
+            $PHPExcelWriter->save('php://output');
+        }
+    }
 
 	public function add_need() {
 		// echo "string"+$_POST['議價'];
