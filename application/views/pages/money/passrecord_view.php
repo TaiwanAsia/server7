@@ -1,6 +1,31 @@
 	<main id="mainSection" role="main" style="font-family:微軟正黑體;">
 		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
      		<h1 class="h2">轉讓紀錄</h1>
+            <div class="btn-group-s" style="align-self: center;">
+                <form action="passrecord_export" method="post">
+                    <select id="業務" name="業務" class="btn btn-sm btn-outline-secondary" onchange="">
+                        <?php
+                        if ($_SESSION['權限名稱']=='最高權限') {
+                            echo "<option value=''>所有業務</option>";
+                            foreach ($employees as $k => $v) {
+                                if ($v['NAME'] == $search_condition['employee']){
+                                    echo "<option value=".$v['NAME']." selected='selected'>".$v['NAME']."</option>";
+                                } else {
+                                    echo "<option value=".$v['NAME'].">".$v['NAME']."</option>";
+                                }
+                            }
+                        } else {
+                            echo "<option value=".$_SESSION['NAME']." selected='selected'>".$_SESSION['NAME']."</option>";
+                        } ?>
+                    </select>
+                    <input type="hidden" name="employee" value="<?=$search_condition['employee']?>">
+                    <input type="hidden" name="month" value="<?=$search_condition['month']?>">
+                    <input id="datePicker_1" class="btn btn-sm btn-outline-secondary" name="month" type="month" value="<?=$search_condition['month']?>" onchange="">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="selectByRange()">篩選</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('datePicker_2').value = ''">清除</button>
+                    <button name="Export" class="btn btn-sm btn-outline-secondary" value="1" type="submit" style="margin-left: 50px;">匯出</button>
+                </form>
+            </div>
 		</div>
 		<div class="t-form">
 
@@ -103,6 +128,12 @@
     </style>
 
  <script type="text/javascript">
+
+     function selectByRange() {
+         var month = $("#datePicker_1").val()
+         var employee = $("#業務").val()
+         document.location.href = "passrecord?employee=" + employee + "&month=" + month;
+     }
 
         jQuery(function($){
 

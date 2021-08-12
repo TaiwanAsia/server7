@@ -1071,19 +1071,23 @@ class Orders_model extends CI_Model {
     }
     
 
-    public function get_pass_record() {
+    public function get_pass_record($employee, $month, $type='search') {
         if ($_SESSION['權限名稱'] == '最高權限') {
-            $this->db->order_by("最後動作時間", "desc");
-            $query = $this->db->get('pass_record');
+            if (!empty($employee)){
+                $this->db->where('業務', $employee);
+            }
         } elseif ($_SESSION['權限名稱'] == '行政') {
             $this->db->where('業務', 'JOY');
-            $this->db->order_by("最後動作時間", "desc");
-            $query = $this->db->get('pass_record');
         } else {
             $this->db->where('業務', $_SESSION['NAME']);
-            $this->db->order_by("最後動作時間", "desc");
-            $query = $this->db->get('pass_record');
         }
+
+        if (!empty($month)){
+            $this->db->like('日期', $month);
+        }
+        $this->db->order_by("最後動作時間", "desc");
+        $query = $this->db->get('pass_record');
+
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {
                     $result[] = array('ID'=>$row-> ID,
@@ -1115,6 +1119,14 @@ class Orders_model extends CI_Model {
                     '備註'=>$row-> 備註,
                     '最後動作時間'=>$row-> 最後動作時間);
             }
+            if ($type == 'export'){
+                foreach ($result as $k => $v)
+                    foreach ($v as $kk => $vv){
+                        if ($kk == '媒合' || $kk == '營業支出' || $kk == '轉讓會員2' || $kk == '扣款利息'){
+                            unset($result[$k][$kk]);
+                        }
+                    }
+                }
             return $result;
         } else {
             return false;
