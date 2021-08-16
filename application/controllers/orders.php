@@ -1838,6 +1838,7 @@ class Orders extends CI_Controller {
         $employee = $_POST['employee'];
         $month = $_POST['month'];
         $data = $this->orders_model->get_pass_record($employee, $month ,'export');
+        $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '匯出轉讓紀錄', $employee.', '.$month);
 
         if ($data){
 
@@ -1874,7 +1875,7 @@ class Orders extends CI_Controller {
 
             //下載EXCEL檔
             header("Content-type: application/force-download");
-            header("Content-Disposition: attachment; filename=\"" . time() . ".xls\"");
+            header("Content-Disposition: attachment; filename=\"" . $employee.$month . ".xls\"");
             $PHPExcelWriter->save('php://output');
         }
     }
