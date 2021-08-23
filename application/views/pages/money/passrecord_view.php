@@ -125,6 +125,9 @@
         th{
             text-align: center;
         }
+        th, td, form {
+            white-space: nowrap;
+        }
     </style>
 
  <script type="text/javascript">

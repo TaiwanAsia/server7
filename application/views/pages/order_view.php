@@ -826,6 +826,10 @@
             /*color: RebeccaPurple;*/
             text-decoration:underline;
           }
+
+          th, td, form {
+            white-space: nowrap;
+          }
         </style>
 
         <script>

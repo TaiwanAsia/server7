@@ -1,26 +1,16 @@
 
 <main id="mainSection" role="main" style="font-family:微軟正黑體;">
 		<div class="d-flex flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom t-form-t">
-			<table>
-				<tr>
-					<h1 class="h2">文件下載</h1>
-				</tr>
-				<tr>
-					<td>
-						<input type ="button" onclick="history.back()" value="回到上一頁" class="btn btn-sm btn-outline-secondary">
-
-					</td>
-
-					<td>
-						<form method="post" action="upload_document" enctype="multipart/form-data" id="upload">
-			              	<div class="form-group">
-				                <input type="file" name="file" class="" id="exampleFormControlFile1">
-				                <button type="submit" id="" name="" class="" form="upload">上傳</button>
-			              	</div>
-			            </form>
-					</td>
-				</tr>
-			</table>
+            <h1 class="h2">文件下載</h1>
+<!--					<td>-->
+<!--						<input type ="button" onclick="history.back()" value="回到上一頁" class="btn btn-sm btn-outline-secondary">-->
+<!--					</td>-->
+            <form method="post" action="upload_document" enctype="multipart/form-data" id="upload">
+                <div style="width: max-content;">
+                    <input type="file" name="file" class="" id="exampleFormControlFile1">
+                    <button type="submit" id="" name="" class="" form="upload">上傳</button>
+                </div>
+            </form>
 		</div>
 
 		<div class="t-form">
