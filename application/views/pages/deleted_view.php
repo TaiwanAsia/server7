@@ -6,7 +6,7 @@
   <div class="t-form-h">
 
           <div class="t-form">
-            <table id="receivTable" class="table table-md table-hover table-responsive" data-tablesaw-mode="columntoggle" data-tablesaw-minimap>
+            <table id="receivTable" class="table table-md table-hover table-responsive">
               <thead class="thead-light">
                 <tr>
                 <th data-tablesaw-priority="1">編號</th>
@@ -215,6 +215,11 @@
       </div>
     </div>
   </body>
+<style>
+    th, td, form {
+        white-space: nowrap;
+    }
+</style>
     <script type="text/javascript">
 
     </script>

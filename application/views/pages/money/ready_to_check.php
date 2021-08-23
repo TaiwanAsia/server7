@@ -16,25 +16,21 @@
           </div>
       </div>
     </div> -->
-		<div class="t-form" style="font-family:微軟正黑體;">
-			<div class="t-form-h">
-      <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
-        <font color="red" size="5">對帳請按</font>
-        <input class="btn btn-sm btn-outline-secondary" type ="button" onclick="javascript:location.href='<?php echo base_url(); ?>index.php/orders/reconcile'" value="對帳">
-      <?php } ?>
-    </div>
-			<table  id="eoTable" class="table table-md table-hover table-responsive" >
-				<tr>
-          <th nowrap="nowrap">成交單編號</th>
-          <th nowrap="nowrap">股票</th>
-          <th nowrap="nowrap">支付方式</th>
-          <th nowrap="nowrap">支付人</th>
-          <th nowrap="nowrap">匯款帳號末5碼</th>
-          <th nowrap="nowrap">轉入日期</th>
-          <th nowrap="nowrap">已收金額</th>
-          <th nowrap="nowrap">查帳狀態</th>
-					<th nowrap="nowrap"></th>
-				</tr>
+    <div class="t-form" style="font-family:微軟正黑體;">
+        <table  id="eoTable" class="table table-md table-hover table-responsive" >
+            <thead class="thead-light">
+                <tr>
+                    <th nowrap="nowrap">成交單編號</th>
+                    <th nowrap="nowrap">股票</th>
+                    <th nowrap="nowrap">支付方式</th>
+                    <th nowrap="nowrap">支付人</th>
+                    <th nowrap="nowrap">匯款帳號末5碼</th>
+                    <th nowrap="nowrap">轉入日期</th>
+                    <th nowrap="nowrap">已收金額</th>
+                    <th nowrap="nowrap">查帳狀態</th>
+                    <th nowrap="nowrap"></th>
+                </tr>
+            </thead>
 
 				<?php
 				if ($data) {

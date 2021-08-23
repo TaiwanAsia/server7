@@ -1,6 +1,6 @@
 <main id="mainSection" role="main">
  		<div class="sec-one sec-s">
-			<div class="row">
+			<div style="display: flex; margin-left: -12px;">
 				<div class="col-xl-6">
 					<div class="note-sec">
 						<table class="note-table">
@@ -250,7 +250,7 @@
                         <?php echo $assigns[$i]['工單屬性']; ?>
                     </td>
                     <td>
-                        <div>
+                        <div style="width: 200px;">
                             <?php
                             $exist = false;
                             if (file_exists("uploads/work/".$assigns[$i]['ID'].".jpg")) {
@@ -283,8 +283,11 @@
                             if ($exist) { ?>
                                 <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads/work/'.$assigns[$i]['ID'].$exist;?>" target="_blank">附件</a>
                             <?php } else { ?>
-                                <form action="upload_attachment" enctype="multipart/form-data" method="post">
-                                    <input type="file" name="userfile" size="20" />
+                                <form action="upload_attachment" enctype="multipart/form-data" method="post" name="fileinp" style="display: flex; justify-content: space-around; flex-direction: row; align-items: flex-start;">
+                                    <label for="fileinp" class="button" style="cursor:pointer;">
+                                        <span id="text" style="font-style: oblique;" class="shape-ex1">選擇文件</span>
+                                    </label>
+                                    <input type="file" id="fileinp" name="userfile" style="display: none" onchange="changed" />
                                     <input type="hidden" name="id" value="<?php echo $assigns[$i]['ID']?>">
                                     <input type="submit" value="上傳" />
                                 </form>
@@ -315,18 +318,18 @@
                                 <div id="new-reply" style="display: flex; flex-direction: column;">
                                     <input type="hidden" name="pid" value="<?=$assigns[$i]['ID']?>">
                                     <input type="hidden" name="toid" value="<?=$assigns[$i]['工單對象']?>">
-                                    <textarea name="回覆內容" placeholder="回覆..." cols="80" rows="5"></textarea>
+                                    <textarea name="回覆內容" placeholder="回覆..." cols="60" rows="5"></textarea>
                                     <button type="submit" style="align-self: flex-start">送出</button>
                                 </div>
                             </form>
                             <div id="replies" style="margin-left: 70px; display: flex; flex-direction: row; white-space: normal;">
                                 <div>
-                                    <div class="dynamic-height" id="<?='content'.$assigns[$i]['ID']?>" style="word-break: break-all; background-color: honeydew; border-radius: 12px; padding: 5px; margin-bottom: 5px; width: 700px;">
+                                    <div class="dynamic-height" id="<?='content'.$assigns[$i]['ID']?>" style="background-color: honeydew;">
                                         <?php echo nl2br($assigns[$i]['工單內容'])?>
                                     </div>
                                     <?php foreach ($reply as $k => $v){
                                         if ($v['pid'] == $assigns[$i]['ID']){?>
-                                            <div class="dynamic-height" id="<?='content'.$v['ID']?>" style="word-break: break-all; background-color: beige; border-radius: 12px; padding: 5px; margin-bottom: 5px; width: 700px;">
+                                            <div class="dynamic-height" id="<?='content'.$v['ID']?>" style="background-color: beige">
                                                 <?php echo nl2br($v['工單內容'])?>
                                             </div>
                                         <?php } }?>
@@ -372,9 +375,49 @@
 	.need_data:hover {
 		background-color: yellow;
 	}
+
+    #fileinp{
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+    }
+    .shape-ex1{
+        font-size: 18px;
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+    }
+    .shape-ex1:after{
+        content: '';
+        width: 0%;
+        height: 1px;
+        background-color: #000;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transition: all .3s linear;
+    }
+    .shape-ex1:hover::after{
+        width: 100%;
+    }
+
+    .dynamic-height {
+        word-break: break-all;
+        border-radius: 12px;
+        padding: 5px;
+        margin-bottom: 5px;
+        width: 700px;
+    }
+
 </style>
 
 <script type="text/javascript">
+
+    $("#fileinp").change(function () {
+        $("#text").html($("#fileinp").val());
+    })
+
     /*
     [建立者]、[建立時間]對齊[工單內容]的高度
      */
