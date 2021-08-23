@@ -22,7 +22,8 @@
 #mainSection {
   margin-left: 142px !important;
   padding-top: 0 !important;
-  width: 100%; }
+  width: calc(100% - 142px);
+}
 
 .container-fluid {
 

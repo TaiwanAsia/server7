@@ -524,11 +524,11 @@
                     <form action="document_download" method="POST">
                         <input type="hidden" name="filename" value="<?php echo $orders[$i]['contact']; ?>">
                         <input type="hidden" name="type" value="contact">
-                        <button type="submit" class="btn btn-link">下載</button>
+                        <button type="submit" class="btn btn-link">契約</button>
                     </form>
                 <?php } else {?>
                 <form method="post" action="upload_contact" enctype="multipart/form-data">
-                  <div class="form-group">
+                  <div class="uploads">
                       <input type="file" name="file" class="f-file-s">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit">上傳</button>
@@ -542,11 +542,11 @@
                     <form action="document_download" method="POST">
                         <input type="hidden" name="filename" value="<?php echo $orders[$i]['tax']; ?>">
                         <input type="hidden" name="type" value="tax">
-                        <button type="submit" class="btn btn-link">下載</button>
+                        <button type="submit" class="btn btn-link">稅單</button>
                     </form>
                 <?php  } else {?>
                 <form method="post" action="upload_tax" enctype="multipart/form-data">
-                  <div class="form-group">
+                    <div class="uploads">
                       <input type="file" name="file" class="f-file-s">
                       <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                       <button type="submit">上傳</button>
@@ -577,11 +577,11 @@
                       <form action="document_download" method="POST">
                           <input type="hidden" name="filename" value="<?php echo $orders[$i]['water']; ?>">
                           <input type="hidden" name="type" value="water">
-                          <button type="submit" class="btn btn-link">下載</button>
+                          <button type="submit" class="btn btn-link">水單</button>
                       </form>
                   <?php  } else {?>
                   <form method="post" action="upload_water" enctype="multipart/form-data">
-                    <div class="form-group">
+                      <div class="uploads">
                         <input type="file" name="file" class="f-file-s">
                         <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                         <button type="submit">上傳</button>
@@ -829,6 +829,14 @@
 
           th, td, form {
             white-space: nowrap;
+          }
+
+          .uploads {
+              width: 280px;
+          }
+
+          .f-file-s {
+              width: 75%;
           }
         </style>
 

@@ -62,7 +62,7 @@
 
     <div class="container-fluid" style="padding-left: 0;padding-right: 0; margin-top: 75px;">
         <div class="row" style="flex-wrap: initial; margin: 0">
-            <nav class="s-sidebar" style="background-color: #CCCCCC;">
+            <nav class="s-sidebar" style="background-color: #CCCCCC; border: black; background-color: #CCCCCC; border-right-style: double; z-index: 1001;">
                 <div class="s-sidebar-1">
                     <ul class="nav flex-column" style="font-family:微軟正黑體; font-size: 22px; color: white;" >
                         <li class="nav-item">
