@@ -79,7 +79,7 @@
 				          	echo "<td class='text-primary'><b>賣</b></td>";
 				        }
 						?>
-						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="業務"'; ?>><?php echo $v['業務']; ?></td>
+						<td <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="業務"'; ?>><?php echo $v['業務']; ?></td>
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="標的名稱"'; ?>><?php echo $v['標的名稱']; ?></td>
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="張數"'; ?>><?php echo $v['張數']; ?></td>
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="成交價"'; ?>><?php echo $v['成交價']; ?></td>
@@ -95,7 +95,7 @@
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="個人實得"'; ?>><?php echo $v['個人實得']; ?></td>
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="公司"'; ?>><?php echo $v['公司']; ?></td>
 						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="匯款日期"'; ?>><?php echo $v['匯款日期']; ?></td>
-						<td class="cell" <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="轉讓會員"'; ?>><?php echo $v['轉讓會員']; ?></td>
+						<td <?php echo 'data-row="'.$v['ID'].'"'. 'data-type="轉讓會員"'; ?>><?php echo $v['轉讓會員']; ?></td>
 						<?php
 						if ($v['狀態'] == '已結案') {
 							if ($v['買賣'] == 1 ) {
@@ -118,6 +118,8 @@
 				
 			</table>
 		</div>
+
+        <input type="hidden" id="tmp" value="">
 		<!-- <div title="【双击可直接修改】" class="changeSort" id="{$id}">{$sort}</div> -->
 	</main>
 
@@ -130,13 +132,13 @@
         }
     </style>
 
- <script type="text/javascript">
+    <script type="text/javascript">
 
-     function selectByRange() {
-         var month = $("#datePicker_1").val()
-         var employee = $("#業務").val()
-         document.location.href = "passrecord?employee=" + employee + "&month=" + month;
-     }
+         function selectByRange() {
+             var month = $("#datePicker_1").val()
+             var employee = $("#業務").val()
+             document.location.href = "passrecord?employee=" + employee + "&month=" + month;
+         }
 
         jQuery(function($){
 
@@ -149,7 +151,8 @@
                 var $inp = $("<input type='text' id=editing />");
                 $inp.val($cell.text());
                 var original_data = $inp.val();
-                console.log('>>> dbclick: ' + $cell.data('row') + ' ' + $cell.data('type') + ' ' + original_data);
+                $("#tmp").data("original_data", original_data);
+                // console.log('>>> dbclick: ' + $cell.data('row') + ' ' + $cell.data('type') + ' ' + original_data);
                 $cell.addClass("cell-editor").html("").append($inp);
                 $inp[0].select();
                 window.$currEditing = $inp;
@@ -157,34 +160,40 @@
                 //點選其他格子，強制結束目前的編輯欄
                 if (window.$currEditing
                     //排除點選目前編輯欄位的情況
-                    && $currEditing.parent()[0] != this)
-                    finishEditing($currEditing);
+                    && $currEditing.parent()[0] != this) {
+                    var original_data = $("#tmp").data("original_data");
+                    finishEditing($currEditing, original_data);
+                }
             });
             //加上按Enter/Tab切回原來Text的事件
             $("table").on("keydown", "input", function (e) {
                 if (e.which == 13 || e.which == 9) {
-                    finishEditing($(this));
+                    var original_data = $("#tmp").data("original_data");
+                    finishEditing($(this), original_data);
                 }
             });
             //結束編輯模式
 
-            function finishEditing($inp) {
+            function finishEditing($inp, original_data) {
             	// alert($inp.val());
             	var data = $inp.val();
             	var $cell = $inp.parent();
-            	console.log('>>> dbclick: ' + $cell.data('row') + ' ' + $cell.data('type') + ' ' + data);
-		        $.ajax({
-		            type: "POST",
-		            data: {id:$cell.data('row'), type:$cell.data('type'), data:data},
-		            url: "<?=base_url()?>index.php/orders/passrecord_edit",
-		            dataType: "json",
-		            success: function(data) {
-		                // alert(data);
-		            },
-		            error: function(jqXHR,data) {
-		                alert("發生錯誤: " + jqXHR.status);
-		            }
-		        })
+            	// console.log('>>> dbclick: ' + $cell.data('row') + ' ' + $cell.data('type') + ' ' + data);
+                if (data != original_data){
+                    $.ajax({
+                        type: "POST",
+                        data: {id:$cell.data('row'), type:$cell.data('type'), data:data, original_data:original_data},
+                        url: "../orders/passrecord_edit",
+                        dataType: "json",
+                        success: function(data) {
+                            // alert(data);
+                        },
+                        error: function(jqXHR,data) {
+                            alert("發生錯誤: " + jqXHR.status);
+                        }
+                    })
+                }
+
                 $inp.parent().removeClass("cell-editor").text($inp.val());
                 window.$currEditing = null;
 

@@ -1827,9 +1827,10 @@ class Orders extends CI_Controller {
 
 	public function passrecord_edit() {
 		$arrayName = array('ID' => $_POST['id'],
-						$_POST['type'] => $_POST['data'],);
+            $_POST['type'] => $_POST['data'],
+            );
 		$this->orders_model->passrecord_edit_model($arrayName);
-		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改轉讓紀錄', $arrayName['ID'], '將'.$_POST['type'].'改為=>'.$arrayName[$_POST['type']]);
+		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '修改轉讓紀錄', $arrayName['ID'], $_POST['type'].': '.$_POST['original_data'].'=>'.$arrayName[$_POST['type']]);
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);
 	}
