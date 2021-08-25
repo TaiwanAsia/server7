@@ -768,6 +768,9 @@ class Orders extends CI_Controller {
 		if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
+            if (!file_exists('./uploads/contact')) {
+                mkdir('./uploads/contact', 0777, true);
+            }
             $this->orders_model->edit_fields($id, array('contact'=>$filename, '最後動作時間'=>date('Y-m-d H:i:s')));
             move_uploaded_file($_FILES["file"]["tmp_name"],"uploads/contact/".$filename);
             $data = $this->orders_model->get($id);
@@ -783,6 +786,9 @@ class Orders extends CI_Controller {
         if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
+            if (!file_exists('./uploads/tax')) {
+                mkdir('./uploads/tax', 0777, true);
+            }
             $this->orders_model->edit_fields($id, array('tax'=>$filename, '最後動作時間'=>date('Y-m-d H:i:s')));
             move_uploaded_file($_FILES["file"]["tmp_name"],"uploads/tax/".$filename);
             $data = $this->orders_model->get($id);
@@ -798,6 +804,9 @@ class Orders extends CI_Controller {
         if ($_FILES["file"]["error"] > 0){
 			echo "Error: " . $_FILES["file"]["error"];
 		} else {
+            if (!file_exists('./uploads/water')) {
+                mkdir('./uploads/water', 0777, true);
+            }
             $this->orders_model->edit_fields($id, array('water'=>$filename, '最後動作時間'=>date('Y-m-d H:i:s')));
             move_uploaded_file($_FILES["file"]["tmp_name"],"uploads/water/".$filename);
             $data = $this->orders_model->get($id);
@@ -806,6 +815,37 @@ class Orders extends CI_Controller {
             $this->go_orders();
 		}
 	}
+
+    public function upload_idpic() {
+        $id = $_POST['id'];
+        $filenames = '';
+        $time = time();
+
+        if (!file_exists('./uploads/id_pic')) {
+            mkdir('./uploads/id_pic', 0777, true);
+        }
+        if (!file_exists('./uploads/id_pic/'.$id)) {
+            mkdir('./uploads/id_pic/'.$id, 0777, true);
+        }
+
+        foreach ($_FILES['file']['error'] as $key => $value) {
+            if ($value > 0) {
+                echo $_FILES['file']['name'][$key] . " 上傳失敗。 Error code: " . $value;
+            }
+        }
+        foreach ($_FILES['file']['tmp_name'] as $key => $value){
+            $filename = $time.$key.'.jpg';
+            $filenames = $filenames.$filename.',';
+            move_uploaded_file($value, "uploads/id_pic/".$id."/" . $filename);
+        }
+
+        // save filename as combined-string to db
+        $this->orders_model->edit_fields($id, array('id_pic'=>$filenames, '最後動作時間'=>date('Y-m-d H:i:s')));
+
+        $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳身分證', $id, null);
+
+        $this->go_orders();
+    }
 
 	public function admin_order_end() {
 		$this->orders_model->finish_order($_POST['id']);

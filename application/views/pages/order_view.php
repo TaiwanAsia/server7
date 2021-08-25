@@ -89,7 +89,8 @@
         <th data-tablesaw-priority="1">上傳契約-要記得選擇檔案</th>
         <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
         <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
-          <th data-tablesaw-priority="1">上傳水</th>
+<!--          <th data-tablesaw-priority="1">上傳水</th>-->
+          <th data-tablesaw-priority="1">上傳身分證</th>
         <?php } ?>
         <th data-tablesaw-priority="1">是否結案</th>
         <th data-tablesaw-priority="persist"></th>
@@ -569,27 +570,26 @@
                 <td>
 
                 </td>
-            <?php  }
-            } else { ?>
+              <?php  }
+              } else { ?>
                 <td>
-                    <?php if (!empty($orders[$i]['water'])){ ?>
-<!--                  <a class="clickable_hint" href="--><?//='../../upload/water/'.$orders[$i]['ID']?><!--" target="_blank">檢視（點開檢視檔案）</a>-->
-                      <form action="document_download" method="POST">
-                          <input type="hidden" name="filename" value="<?php echo $orders[$i]['water']; ?>">
-                          <input type="hidden" name="type" value="water">
-                          <button type="submit" class="btn btn-link">水單</button>
-                      </form>
-                  <?php  } else {?>
-                  <form method="post" action="upload_water" enctype="multipart/form-data">
+                    <?php if (!empty($orders[$i]['id_pic'])){
+                        $pics = explode(',', rtrim($orders[$i]['id_pic'], ','));
+                        foreach ($pics as $k => $v){ ?>
+                            <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads/id_pic/'.$orders[$i]['ID'].'/'.$v;?>" target="_blank">附件</a>
+                        <?php } ?>
+                    <?php  } else { ?>
+                  <form method="post" action="upload_idpic" enctype="multipart/form-data">
                       <div class="uploads">
-                        <input type="file" name="file" class="f-file-s">
+                        <input type="file" name="file[]" class="f-file-s" multiple>
                         <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
                         <button type="submit">上傳</button>
                     </div>
                   </form>
                   <?php } ?>
                 </td>
-            <?php }} ?>
+              <?php }
+            } ?>
 
             <td>
               <?php
