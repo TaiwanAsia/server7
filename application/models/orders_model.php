@@ -50,6 +50,7 @@ class Orders_model extends CI_Model {
                     'contact'=>$row-> contact,
                     'tax'=>$row-> tax,
                     'water'=>$row-> water,
+                    'id_pic'=>$row-> id_pic,
                     // '契約'=>$row-> 契約,
                     // '稅單'=>$row-> 稅單,
                     '已結案'=>$row-> 已結案,
