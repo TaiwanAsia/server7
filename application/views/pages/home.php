@@ -234,7 +234,7 @@
                 <th nowrap="nowrap" style="width: 100px">附件</th>
                 <th nowrap="nowrap">等級</th>
                 <th nowrap="nowrap">建立者</th>
-                <th nowrap="nowrap">建立時間</th>
+<!--                <th nowrap="nowrap">建立時間</th>-->
                 <th colspan="3"></th>
 
             </tr>
@@ -300,9 +300,9 @@
                     <td>
                         <?php echo '<b>'.$assigns[$i]['建立者'].'</b>'; ?>
                     </td>
-                    <td>
-                        <?php echo $assigns[$i]['建立時間']; ?>
-                    </td>
+<!--                    <td>-->
+<!--                        --><?php //echo $assigns[$i]['建立時間']; ?>
+<!--                    </td>-->
                     <td>
                         <form method="get" action="delete_assign">
                             <input type="hidden" name="id" value="<?=$assigns[$i]['ID']?>">
