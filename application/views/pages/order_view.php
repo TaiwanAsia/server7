@@ -88,10 +88,7 @@
         <th data-tablesaw-priority="1">通知查帳</th>
         <th data-tablesaw-priority="1">上傳契約-要記得選擇檔案</th>
         <th data-tablesaw-priority="1">上傳稅單-要記得選擇檔案</th>
-        <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
-<!--          <th data-tablesaw-priority="1">上傳水</th>-->
-          <th data-tablesaw-priority="1">上傳身分證</th>
-        <?php } ?>
+        <th data-tablesaw-priority="1">上傳身分證</th>
         <th data-tablesaw-priority="1">是否結案</th>
         <th data-tablesaw-priority="persist"></th>
 
@@ -555,53 +552,30 @@
                 </form>
                 <?php } ?>
             </td>
-
-            <?php if ($_SESSION['權限名稱'] == '最高權限') {
-              if ($orders[$i]['業務'] == 'JOY') {
-                if ($orders[$i]['已結案'] == 0) {
-                  ?>
-                 <td>
-                   <form action="admin_order_end" method="post">
-                      <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
-                      <button type="submit" form="admin_end">結案</button>
-                   </form>
-                 </td>
-              <?php } else { ?>
-                <td>
-
-                </td>
-              <?php  }
-              } else { ?>
-                <td>
-                    <?php if (!empty($orders[$i]['id_pic'])){
-                        $pics = explode(',', rtrim($orders[$i]['id_pic'], ','));
-                        foreach ($pics as $k => $v){ ?>
-                            <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads/id_pic/'.$orders[$i]['ID'].'/'.$v;?>" target="_blank">附件</a>
-                        <?php } ?>
-                    <?php  } else { ?>
-                  <form method="post" action="upload_idpic" enctype="multipart/form-data">
-                      <div class="uploads">
-                        <input type="file" name="file[]" class="f-file-s" multiple>
-                        <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
-                        <button type="submit">上傳</button>
-                    </div>
-                  </form>
-                  <?php } ?>
-                </td>
-              <?php }
-            } ?>
-
+            <td>
+                <?php if (!empty($orders[$i]['id_pic'])){
+                    $pics = explode(',', rtrim($orders[$i]['id_pic'], ','));
+                    foreach ($pics as $k => $v){ ?>
+                        <a href="<?php echo 'http'.'://'.$_SERVER['HTTP_HOST'].'/server7/uploads/id_pic/'.$orders[$i]['ID'].'/'.$v;?>" target="_blank">附件</a>
+                    <?php } ?>
+                <?php  } else { ?>
+              <form method="post" action="upload_idpic" enctype="multipart/form-data">
+                  <div class="uploads">
+                    <input type="file" name="file[]" class="f-file-s" multiple>
+                    <input type="hidden" name="id" value="<?php echo $orders[$i]['ID']?>">
+                    <button type="submit">上傳</button>
+                </div>
+              </form>
+              <?php } ?>
+            </td>
             <td>
               <?php
                 if($orders[$i]['已結案']==1){
                   echo "<label class='text-info'>"."已結</label>";
                 } elseif ($orders[$i]['已結案']==0 && $orders[$i]['二審']==1) {?>
-                    <form method="post" action="edit_order_fields">
+                    <form method="post" action="admin_finish_order">
                         <div class="form-group">
                             <input type="hidden" name="id" value="<?=$orders[$i]['ID']?>">
-                            <input type="hidden" name="action" value="結案">
-                            <input type="hidden" name="fields" value="已結案">
-                            <input type="hidden" name="value" value="1">
                             <button type="submit">結案</button>
                         </div>
                       </form>

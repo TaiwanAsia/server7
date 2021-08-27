@@ -794,7 +794,7 @@ class Orders extends CI_Controller {
             $data = $this->orders_model->get($id);
             $this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
             $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '上傳稅單', $id, null);
-            $this->go_orders();
+            $this->admin_finish_order($id);
 		}
 	}
 
@@ -847,10 +847,9 @@ class Orders extends CI_Controller {
         $this->go_orders();
     }
 
-	public function admin_order_end() {
-		$this->orders_model->finish_order($_POST['id']);
-		$data = $this->orders_model->get($_POST['id']);
-//		$this->orders_model->update_samequene_movetime($data[0]['媒合'], date('Y-m-d H:i:s'));
+	public function admin_finish_order($id = '') {
+	    $orderID = empty($id) ? $_POST['id'] : $id;
+		$this->orders_model->finish_order($orderID);
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '結案', $_POST['id'], null);
 		$this->go_orders();
 	}
