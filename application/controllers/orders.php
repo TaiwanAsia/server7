@@ -596,7 +596,7 @@ class Orders extends CI_Controller {
 	public function delete() {
 		$id = $_POST['id'];
 		$this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '刪除', $id, null);
-		//成交單、應收帳換、轉讓紀錄一併刪除
+		//成交單、應收帳款、轉讓紀錄一併刪除
 		$this->orders_model->delete($id);
 		$myJSON = json_encode('Done!');
 		print_r($myJSON);

@@ -74,16 +74,16 @@ class Orders_model extends CI_Model {
         }
         if ($權限名稱 == '最高權限' || $_SESSION['所有成交單權限']==1){
             if (empty($keyword)){
-                $sql = "SELECT * FROM `ORDERS`".$order;
+                $sql = "SELECT * FROM `ORDERS`"." WHERE `deleted_at` IS NULL ".$order;
             } else {
-                $sql = "SELECT * FROM `ORDERS` WHERE".$where.$order;
+                $sql = "SELECT * FROM `ORDERS` WHERE".$where." AND `deleted_at` IS NULL ".$order;
             }
         } elseif ($權限名稱 == '業務'){
             $where .= " AND `業務` = '".$name."' ";
-            $sql = "SELECT * FROM `ORDERS` WHERE".$where.$order;
+            $sql = "SELECT * FROM `ORDERS` WHERE".$where." AND `deleted_at` IS NULL ".$order;
         } elseif ($_SESSION['NAME'] == 'JOY'){
             $where .= " AND `業務` = 'JOY' ";
-            $sql = "SELECT * FROM `ORDERS` WHERE".$where.$order;
+            $sql = "SELECT * FROM `ORDERS` WHERE".$where." AND `deleted_at` IS NULL ".$order;
         }
 
         $query = $this->db->query($sql);
@@ -497,8 +497,9 @@ class Orders_model extends CI_Model {
         $query = $this->db->get_where('orders', array('ID' => $id));
         $i = $this->transformer($query);
         $this->db->insert('deleted_orders', $i[0]);
+
         $this->db->where('ID', $id);
-        $this->db->delete('orders');
+        $this->db->update('orders', array('deleted_at' => date('Y-m-d H:i:s')));
         //應收帳款也得刪
         $this->db->where('成交單編號', $id);
         $this->db->delete('check_money_record');
