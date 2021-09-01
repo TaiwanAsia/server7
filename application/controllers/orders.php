@@ -1981,7 +1981,7 @@ class Orders extends CI_Controller {
             '工單屬性'=>$_POST['工單屬性'],
             '工單內容'=>$_POST['工單內容'],
             '等級'=>$_POST['等級'],);
-        $data['工單內容'] = str_replace(" ", "<br/>",$data['工單內容']);
+        $data['工單內容'] = str_replace(" ", "<br/>",addslashes($data['工單內容']));
 		$id = $this->orders_model->add_assign_model($data);
         $str = implode(", ", $id);
         $this->orders_model->move_record($_SESSION['NAME'], date('Y-m-d H:i:s'), '建立工單', $str, null);
