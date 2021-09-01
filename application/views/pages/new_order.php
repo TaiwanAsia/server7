@@ -15,7 +15,20 @@
         <tr>
             <td></td>
             <td><label for="" class="">業務</label></td>
-            <td><input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id=""></td>
+            <td>
+                <?php if ($_SESSION['權限名稱'] == '最高權限') { ?>
+                <select name="業務" class="form-control" required onchange="myFunction()">
+                    <option value="null">-請選擇-</option>
+                    <?php
+                    foreach ($employees as $k => $v){
+                        echo "<option value=".$v['NAME'].">".$v['NAME']."</option>";
+                    }
+                    ?>
+                </select>
+                <?php } else { ?>
+                    <input readonly type="text" name="業務" value="<?php echo $_SESSION['NAME'] ?>" id="">
+                <?php } ?>
+            </td>
         </tr>
         <tr>
             <td><p id="createResult"></p></td>
