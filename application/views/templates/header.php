@@ -126,14 +126,15 @@
                             </a>
                         </li>
                         <?php } ?>
-                        <?php if ($_SESSION['帳號設定權限']==1) { ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="../login/account" style="color: black;">
-                                帳號管理
+                            <?php if ($_SESSION['權限名稱'] == '最高權限'){ ?>
+                                <a class="nav-link" href="../login/account" style="color: black;">
+                            <?php } else { ?>
+                                <a class="nav-link" href="../login/go_edit_employee?employee_id=<?=$_SESSION['ID']?>" style="color: black;">
+                            <?php } ?>
+                                帳號資訊
                             </a>
                         </li>
-                        <?php  }
-                        ?>
 
 
                     </ul>

@@ -30,7 +30,7 @@
 				if (isset($data)) {
 					for ($i=0; $i<count($data); $i++) {
 						echo "<tr>";
-						echo "<td>".$data[$i]['NAME']."</td>";
+						echo "<td><b>".$data[$i]['NAME']."</b></td>";
 						echo "<td>".$data[$i]['ACCOUNT']."</td>";
 						echo "<td>".$data[$i]['權限名稱']."</td>";
 						echo "<td>".$data[$i]['趴數']."</td>";

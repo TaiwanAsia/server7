@@ -42,6 +42,7 @@ class Login extends CI_Controller {
             $error_message = '輸入錯誤，再試一次!';
             $flag = $this->login_model->login($_POST['acct'], $_POST['pswd']);
             if ($flag==True) {
+                $_SESSION['ID'] = $flag['ID'];
                 $_SESSION['ACCOUNT'] = $flag['ACCOUNT'];
                 $_SESSION['權限名稱'] = $flag['權限名稱'];
                 $_SESSION['NAME'] = $flag['NAME'];
