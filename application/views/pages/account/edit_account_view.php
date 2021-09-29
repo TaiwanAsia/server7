@@ -5,13 +5,17 @@
                 <div class="form-content" style="margin-bottom: 5px;">
                     <span>名稱</span>
                     <span>帳號</span>
-                    <span>密碼</span>
-                    <span>權限</span>
+                    <span>新密碼</span>
+                    <?php if ($_SESSION['權限名稱'] == '最高權限'){ ?>
+                        <span>權限</span>
+                    <?php } ?>
                     <span>趴數</span>
                     <span>勞保</span>
                     <span>健保</span>
                     <span>勞退</span>
+                    <?php if ($_SESSION['權限名稱'] == '最高權限'){ ?>
                     <span>是否隱藏</span>
+                    <?php } ?>
                 </div>
                 <div class="form-content">
                     <input type="hidden" id="errorMsg" value="<?=$msg?>">
@@ -19,6 +23,7 @@
                     <input type="text" name="name" value="<?php echo($data[0]['NAME']); ?>">
                     <input type="text" name="account" value="<?php echo($data[0]['ACCOUNT']); ?>">
                     <input type="password" name="password" value="">
+                    <?php if ($_SESSION['權限名稱'] == '最高權限'){ ?>
                     <select name="權限名稱" style="width: 160px;">
                         <option value="<?php echo($data[0]['權限名稱']); ?>" selected>
                             <?php echo($data[0]['權限名稱']); ?>
@@ -35,6 +40,15 @@
                     <input type="text" name="健保" value="<?php echo($data[0]['健保']); ?>">
                     <input type="text" name="勞退" value="<?php echo($data[0]['勞退']); ?>">
                     <input type="text" name="隱藏" value="<?php echo($data[0]['隱藏']); ?>">
+                    <?php } else { ?>
+                        <input type="hidden" name="權限名稱" value="<?php echo($data[0]['權限名稱']); ?>">
+                        <input type="text" name="趴數" value="<?php echo($data[0]['趴數']); ?>" readonly="readonly" style="cursor: not-allowed; background-color: #DCDCDC">
+                        <input type="text" name="勞保" value="<?php echo($data[0]['勞保']); ?>" readonly="readonly" style="cursor: not-allowed; background-color: #DCDCDC">
+                        <input type="text" name="健保" value="<?php echo($data[0]['健保']); ?>" readonly="readonly" style="cursor: not-allowed; background-color: #DCDCDC">
+                        <input type="text" name="勞退" value="<?php echo($data[0]['勞退']); ?>" readonly="readonly" style="cursor: not-allowed; background-color: #DCDCDC">
+                        <input type="hidden" name="隱藏" value="<?php echo($data[0]['隱藏']); ?>">
+
+                    <?php } ?>
 
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: fit-content;align-self: center; margin-top: 50px;">確認</button>
