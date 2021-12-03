@@ -743,8 +743,8 @@
             <tr>
               <td><label>成交單狀態</label></td>
               <td>
-                <input type="radio" name="成交單狀態" value="審核完成" checked><label class="text-primary">審核完成</label>
-                <input type="radio" name="成交單狀態" value="審核中"><label class="text-success">審核中</label>
+                <input type="radio" id="審核完成" name="成交單狀態" value="審核完成" checked><label for="審核完成" class="text-primary">審核完成</label>
+                <input type="radio" id="審核中" name="成交單狀態" value="審核中"><label for="審核中" class="text-success">審核中</label>
               </td>
             </tr>
             <!-- <tr>
