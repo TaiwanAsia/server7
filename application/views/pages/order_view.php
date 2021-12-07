@@ -108,12 +108,10 @@
               <?php } ?>
           </td>
         <td>
-          <?php if ($_SESSION['權限名稱']=='最高權限') { ?>
           <form method="GET" action="go_edit">
             <input type="hidden" name="id" value="<?php echo ($orders[$i]['ID']) ?>">
             <button type="submit">修改</button>
           </form>
-          <?php } ?>
         </td>
         <!-- <td>
           <?php if ($_SESSION['刪除權限']==1) { ?>
@@ -572,7 +570,8 @@
               <?php
                 if($orders[$i]['已結案']==1){
                   echo "<label class='text-info'>"."已結</label>";
-                } elseif ($orders[$i]['已結案']==0 && $orders[$i]['二審']==1) {?>
+                } else {
+                    if ($_SESSION['權限名稱'] == '最高權限'){?>
                     <form method="post" action="admin_finish_order">
                         <div class="form-group">
                             <input type="hidden" name="id" value="<?=$orders[$i]['ID']?>">
@@ -580,7 +579,8 @@
                         </div>
                       </form>
               <?php } else {
-                    echo "<label class='text-danger'>"."未結</label>";
+                        echo "<label class='text-danger'>"."未結</label>";
+                    }
                 }?>
 
               <?php

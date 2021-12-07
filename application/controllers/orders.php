@@ -874,15 +874,11 @@ class Orders extends CI_Controller {
 
 	//修改成交單資料
 	public function go_edit() {
-	    if ($_SESSION['權限名稱'] != '最高權限'){
-            $this->go_orders();
-        } else {
-            $result = $this->orders_model->get($_GET['id'], null, $_SESSION['NAME']);
-            $employees = $this->orders_model->get_employee(null);
-            $this->load->view('templates/header');
-            $this->load->view('pages/order_edit/edit_order_view', array('result' => $result[0], 'employees' => $employees,));
-            $this->load->view('templates/footer');
-        }
+        $result = $this->orders_model->get($_GET['id'], null, $_SESSION['NAME']);
+        $employees = $this->orders_model->get_employee(null);
+        $this->load->view('templates/header');
+        $this->load->view('pages/order_edit/edit_order_view', array('result' => $result[0], 'employees' => $employees,));
+        $this->load->view('templates/footer');
 	}
 
     /**
@@ -1188,7 +1184,7 @@ class Orders extends CI_Controller {
 	//二審送出
 	public function edit2_order() {
 		if ($_POST['成交單狀態'] == '審核完成') {
-			if ($_POST['二審確認'] == 1){
+//			if ($_POST['二審確認'] == 1){
 				$data = array(
 							'ID' => $_POST['ID'],
 							'客戶姓名' => $_POST['客戶姓名'],
@@ -1199,7 +1195,6 @@ class Orders extends CI_Controller {
 							'過戶費' => $_POST['過戶費'],
 							'刻印' => $_POST['刻印'],
 							'轉讓會員' => $_POST['轉讓會員'],
-//							'轉讓會員2' => $_POST['轉讓會員2'],
 							'過戶日期' => $_POST['過戶日期'],
 							'二審' => 1,
 							'最後動作時間' => date('Y-m-d H:i:s'),);
@@ -1211,9 +1206,9 @@ class Orders extends CI_Controller {
 				$this->orders_model->add_passrecord($pass_record_info);
 
 				$this->go_orders();
-			} else {
-				$this->go_orders('稅單、契約未上傳');
-			}
+//			} else {
+//				$this->go_orders('稅單、契約未上傳');
+//			}
 
 		} else {
 				$this->go_orders('一審未完成');
