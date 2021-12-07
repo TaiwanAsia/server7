@@ -3,7 +3,7 @@
                     <form method="post" name="edit_order_info" action="edit2_order" >
                         <div class="offset-md-1">
                             <table>
-                                <?php $edit2check = 1; ?>
+<!--                                --><?php //$edit2check = 1; ?>
                                 <tr>
                                     <td class="text-danger"><b>☝二審前必須先過戶喔。</b></td>
                                 </tr>
@@ -111,7 +111,7 @@
                                         <a href="../uploads/contact/<?=$result[0]['contact']?>" target="_blank">檢視</a>
                                         <?php
                                         } else {
-                                            $edit2check = 0;
+//                                            $edit2check = 0;
                                             echo "<label class='text-danger'>尚未上傳契約</label>";
                                         } ?>
                                     </td>
@@ -124,14 +124,14 @@
                                         <a href="../uploads/tax/<?=$result[0]['tax']?>" target="_blank">檢視</a>
                                         <?php
                                         } else {
-                                            $edit2check = 0;
+//                                            $edit2check = 0;
                                             echo "<label class='text-danger'>尚未上傳稅單</label>";
                                         } ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <input type="hidden" name="二審確認" value="<?php echo $edit2check; ?>">
+<!--                                        <input type="hidden" name="二審確認" value="--><?php //echo $edit2check; ?><!--">-->
                                         <input type="hidden" name="成交單狀態" value="<?php echo $result[0]['成交單狀態'] ?>">
                                     </td>
                                 </tr>
