@@ -492,9 +492,12 @@ class Orders extends CI_Controller {
 
 
 		if ($_POST['轉讓會員']=='null') {
-			echo "<font size='6' color='red'>新增失敗，尚未選取轉讓會員</font>";
-			$this->go_orders();
-		} else {
+            header('Location: '.'new_order?code=2');
+
+        } elseif ($_POST['業務']=='null') {
+            header('Location: '.'new_order?code=1');
+
+        } else {
     	
 	    	//新增進orders
 			$insert_id = $this -> orders_model -> add($data);
@@ -506,7 +509,7 @@ class Orders extends CI_Controller {
 				$this->orders_model->inform_check_money_model($data['ID'], '匯款', $data['匯款日期'], $data['客戶姓名'], null, $data['匯款金額應收帳款'], date('Y-m-d H:i:s'));
 			}
 
-			$this->go_orders();
+            header('Location: '.'go_orders');
 		}
 	}
 

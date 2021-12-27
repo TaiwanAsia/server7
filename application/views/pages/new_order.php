@@ -1,7 +1,7 @@
  <main id="mainSection" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
   <div style="margin: 40px 0px 50px 30px;">
    <form method="post" name="new_order_info" action="add_order" >
-    <div class="">
+    <div style="display: flex;">
      <table>
         <tr>
             <td class="text-danger"><p><b>☝紅色為必填欄位　　</b></p></td>
@@ -243,6 +243,15 @@
             <td></td>
         </tr>
        </table>
+
+        <div id="msg">
+            <?php if (isset($_GET['code']) && $_GET['code'] == 1) {
+                echo "<span style='font-size: xx-large; background: red; color: white; font-weight: 600;'>新增失敗，尚未選取業務。</span>";
+            } elseif (isset($_GET['code']) && $_GET['code'] == 2) {
+                echo "<span style='font-size: xx-large; background: red; color: white; font-weight: 600;'>新增失敗，尚未選取轉讓會員。</span>";
+            }?>
+        </div>
+
      </div>
    </form>
  </div>
